@@ -1,6 +1,10 @@
 package entity;
 import java.net.URLDecoder;
-
+/**
+ * This class represents the Consts in the system
+ * @author Shany Klein & Ofri Kokush
+ *
+ */
 public final class Consts {
 	private Consts() {
 		throw new AssertionError();

@@ -53,10 +53,7 @@ public boolean equals(Object obj) {
 
 @Override
 public String toString() {
-	//TODO
-	Transaction t = new Transaction(trans);
-	Item i = new Item(item);
-	return "Item: " + i.getCatalogNumber() + ", " + i.getItemName() + " | Transaction" + t.;
+	return "Item: " + item + " | Transaction" + trans;
 }
 
 

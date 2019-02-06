@@ -13,7 +13,7 @@ public class MainClass extends Application{
 		
 	}
 	public void start(Stage primaryStage) {
-		ViewLogic.initUI();
+	//	ViewLogic.initUI();
 	}
 
 }

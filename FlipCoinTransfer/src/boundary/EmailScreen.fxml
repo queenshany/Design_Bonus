@@ -2,6 +2,9 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -10,31 +13,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="336.0" prefWidth="509.0" style="-fx-background-color: #eaf0f9;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.MainUserScreenController">
-   <left>
-      <VBox fx:id="menu" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-         <children>
-            <ImageView fx:id="products" fitHeight="57.0" fitWidth="99.0" onMouseClicked="#productsScreen" pickOnBounds="true" smooth="false">
-               <image>
-                  <Image url="@../rsc/productsPic.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="transactions" fitHeight="57.0" fitWidth="99.0" onMouseClicked="#transactionsScreen" pickOnBounds="true" smooth="false">
-               <image>
-                  <Image url="@../rsc/transactionsPic.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="wallets" fitHeight="57.0" fitWidth="99.0" onMouseClicked="#walletsScreen" pickOnBounds="true" smooth="false">
-               <image>
-                  <Image url="@../rsc/walletsPic.png" />
-               </image>
-            </ImageView>
-         </children>
-      </VBox>
-   </left>
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="336.0" prefWidth="509.0" style="-fx-background-color: #eaf0f9;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.EmailScreenController">
    <top>
-      <HBox fx:id="topBorder" prefHeight="69.0" prefWidth="489.0" spacing="5.0" BorderPane.alignment="TOP_CENTER">
+      <HBox fx:id="topBorder" alignment="TOP_CENTER" prefHeight="69.0" prefWidth="489.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
             <ImageView fx:id="logo" fitHeight="38.0" fitWidth="251.0" pickOnBounds="true" smooth="false">
                <image>
@@ -118,4 +99,78 @@
          </children>
       </VBox>
    </bottom>
+   <left>
+      <VBox fx:id="menu" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="products" fitHeight="57.0" fitWidth="99.0" onMouseClicked="#productsScreen" pickOnBounds="true" smooth="false" visible="false">
+               <image>
+                  <Image url="@../rsc/productsPic.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="transactions" fitHeight="57.0" fitWidth="99.0" onMouseClicked="#transactionsScreen" pickOnBounds="true" smooth="false" visible="false">
+               <image>
+                  <Image url="@../rsc/transactionsPic.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="wallets" fitHeight="57.0" fitWidth="99.0" onMouseClicked="#walletsScreen" pickOnBounds="true" smooth="false" visible="false">
+               <image>
+                  <Image url="@../rsc/walletsPic.png" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
+   </left>
+   <right>
+      <VBox prefHeight="203.0" prefWidth="389.0" spacing="10.0" BorderPane.alignment="TOP_LEFT">
+         <children>
+            <ImageView fx:id="arrow1" fitHeight="50.0" fitWidth="63.0" onDragEntered="#show1" pickOnBounds="true" smooth="false">
+               <image>
+                  <Image url="@../rsc/firstArrow.png" />
+               </image>
+               <VBox.margin>
+                  <Insets left="-120.0" />
+               </VBox.margin>
+            </ImageView>
+            <ImageView fx:id="arrow2" fitHeight="50.0" fitWidth="63.0" onDragEntered="#show2" pickOnBounds="true" smooth="false">
+               <image>
+                  <Image url="@../rsc/secondArrow.png" />
+               </image>
+               <VBox.margin>
+                  <Insets left="-120.0" top="-2.0" />
+               </VBox.margin>
+            </ImageView>
+            <ImageView fx:id="arrow3" fitHeight="50.0" fitWidth="63.0" onDragEntered="#show3" pickOnBounds="true" smooth="false">
+               <image>
+                  <Image url="@../rsc/thirdArrow.png" />
+               </image>
+               <VBox.margin>
+                  <Insets left="-120.0" top="-4.0" />
+               </VBox.margin>
+            </ImageView>
+         </children>
+         <BorderPane.margin>
+            <Insets left="-250.0" />
+         </BorderPane.margin>
+      </VBox>
+   </right>
+   <center>
+      <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <TableView fx:id="inbox" blendMode="MULTIPLY" prefHeight="193.0" prefWidth="75.0">
+              <columns>
+                <TableColumn prefWidth="75.0" text="Inbox" />
+              </columns>
+            </TableView>
+            <VBox prefHeight="200.0" prefWidth="235.0">
+               <children>
+                  <TextField fx:id="dateArea" blendMode="MULTIPLY" />
+                  <TextArea fx:id="textArea" blendMode="MULTIPLY" prefHeight="168.0" prefWidth="234.0" />
+               </children>
+            </VBox>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="30.0" right="-60.0" />
+         </BorderPane.margin>
+      </HBox>
+   </center>
 </BorderPane>

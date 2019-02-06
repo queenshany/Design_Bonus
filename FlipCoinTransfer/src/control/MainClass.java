@@ -1,5 +1,6 @@
 package control;
 
+import boundary.ViewLogic;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -13,7 +14,7 @@ public class MainClass extends Application{
 		
 	}
 	public void start(Stage primaryStage) {
-		//ViewLogic.initUI();
+		ViewLogic.initUI();
 	}
 
 }

@@ -6,8 +6,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 
-import Controller.SysData;
-import Controller.Validation;
+
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -23,7 +22,7 @@ import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import utils.E_UserType;
+
 /**
  * Class ViewLogic ~ manages the windows in the system
  * 
@@ -35,29 +34,13 @@ public class ViewLogic {
 	protected static final Rectangle2D FULL_SCREEN = Screen.getPrimary().getBounds();
 	protected static final Rectangle2D VISIBLE_SCREEN = Screen.getPrimary().getVisualBounds();
 
-	protected static SysData sysData;
 	protected static String currentUserID;
-	protected static E_UserType currentUserType;
-
-	protected static AdminPlayerController adminPlayerController;
-	protected static AdminCoachController adminCoachController;
-	protected static AdminCustomerController adminCustomerController;
-	protected static AdminReceptionistController adminReceptionistController;
-	protected static AdminStadiumController adminStadiumController;
-	protected static AdminTrophyController adminTrophyController;
-	protected static AdminTeamController adminTeamController;
-	protected static AdminMatchController adminMatchController;
-
-	protected static RecepMainController recepMainController;
-	protected static CoachMainController coachMainController;
-	protected static CustomerMainController customerMainController;
 
 	// ------------------------------ Methods ------------------------------
 	/**
 	 * this method starts the windows in the system
 	 */
 	public static void initUI() {
-		sysData = SysData.getInstance();
 		newLoginWindow();
 	}
 
@@ -94,7 +77,7 @@ public class ViewLogic {
 					else
 						scene = new Scene(root, prefWidth, prefHeight);
 
-					Image image = new Image("resources/icon-soccer-ball.png");
+					Image image = new Image("rsc/flipcoinLogo.png");
 					stage.getIcons().setAll(image);
 					
 					stage.setScene(scene);
@@ -135,9 +118,9 @@ public class ViewLogic {
 		newWindow(ViewLogic.class.getResource("Login.fxml"),
 				stage,
 				null, null, null, null, null, null,
-				false,
-				"DAVID",
-				false);
+				true,
+				"Welcome to FlipCoin Transfer",
+				true);
 	}
 
 	// ------------------------------ Admin ------------------------------
@@ -566,31 +549,24 @@ public class ViewLogic {
 	/**
 	 * Open Admin Team Details Window
 	 */
-	protected static void newAdminTeamDetailsWindow() {
-
-		Stage stage = new Stage();
-		
-		stage.setMaximized(true);
-		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+//	protected static void newAdminTeamDetailsWindow() {
+//
+//		Stage stage = new Stage();
+//		
+//		stage.setMaximized(true);
+//		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			
-			@Override
-			public void handle(WindowEvent event) {
-				adminTeamController.setPlayersTable();
-				adminTeamController.setTeamTable();
-				adminTeamController.setSuperPlayersTable();
-				stage.close();
-				
-			}
-		});
-
-		newWindow(ViewLogic.class.getResource("AdminTeamDetails.fxml"),
-				stage,
-				null,null, null, null, null, null,
-				true,
-				"Team Details",
-				true);
-
-	}
+//			@Override
+//			public void handle(WindowEvent event) {
+//				adminTeamController.setPlayersTable();
+//				adminTeamController.setTeamTable();
+//				adminTeamController.setSuperPlayersTable();
+//				stage.close();
+//				
+//			}
+//		});
+		
+	
 	//==================================================================================
 	// ------------------------------ Coach ------------------------------
 	/**
@@ -728,7 +704,7 @@ public class ViewLogic {
  * @return true if system is serialized
  */
 	private static boolean saveOnExit() {
-		Sound.playLogoutSound();
+//		Sound.playLogoutSound();
 		Alert alert = new Alert(AlertType.WARNING);
 
 		ButtonType buttonTypeYes;
@@ -748,37 +724,38 @@ public class ViewLogic {
 		alert.setTitle("Save Changes");
 
 		Optional<ButtonType> answer = alert.showAndWait();
-
-		//ButtonType answer = alert.getResult();
-		if (answer.get().getButtonData() == ButtonData.CANCEL_CLOSE) {
-			return false;
-		}
-		else if (answer.get().getButtonData() == ButtonData.YES) {
-			//Serialize
-			try {
-				if (ViewLogic.sysData.serialize()) {
-				
-					Validation.info("Data Serialized Successfully!", "DataBase.ser is saved in the project's folder.");
-					
-					System.out.println("Serialized ViewLogic");
-				}
-				else {
-				
-					Validation.alert("Data Was Not Serialized!");
-					System.out.println("Not Serialized");
-				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			//System.out.println("Serialized ViewLogic");
-		}
-		else {
-			
-			Validation.alert("Data Was Not Serialized!");
-			
-			System.out.println("Not Serialized");
-		}
+//
+//		//ButtonType answer = alert.getResult();
+//		if (answer.get().getButtonData() == ButtonData.CANCEL_CLOSE) {
+//			return false;
+//		}
+//		else if (answer.get().getButtonData() == ButtonData.YES) {
+//			//Serialize
+//			try {
+//				if (ViewLogic.sysData.serialize()) {
+//				
+//					Validation.info("Data Serialized Successfully!", "DataBase.ser is saved in the project's folder.");
+//					
+//					System.out.println("Serialized ViewLogic");
+//				}
+//				else {
+//				
+//					Validation.alert("Data Was Not Serialized!");
+//					System.out.println("Not Serialized");
+//				}
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			//System.out.println("Serialized ViewLogic");
+//		}
+//		else {
+//			
+//			Validation.alert("Data Was Not Serialized!");
+//			
+//			System.out.println("Not Serialized");
+//		}
 		return true;
-	}
+//	}
 }
+	}

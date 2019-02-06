@@ -124,7 +124,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User Public Address: " + publicAddress + " | Signature: " + signature + " | Username: " + username
-				+ " | Password: " + password + " | Phone: " + phone + " | Email: " + email + " | isEmployee: " + isEmployee;
+				+ " | Phone: " + phone + " | Email: " + email + " | isEmployee: " + isEmployee;
 	}
 
 }

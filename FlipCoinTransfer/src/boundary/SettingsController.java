@@ -1,21 +1,18 @@
 package boundary;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class UserWalletController {
+public class SettingsController {
 
     @FXML
     private BorderPane borderPane;
@@ -69,40 +66,34 @@ public class UserWalletController {
     private ImageView homeIcon;
 
     @FXML
-    private TabPane tabPane;
+    private HBox HBox4;
 
     @FXML
-    private Tab yourWallet;
+    private Label phone;
 
     @FXML
-    private AnchorPane walletPane;
+    private ComboBox<?> combo;
 
     @FXML
-    private TableView<?> walletTable;
+    private TextField phoneText;
 
     @FXML
-    private TableColumn<?, ?> c1;
+    private Label phoneLable;
 
     @FXML
-    private TableColumn<?, ?> c2;
+    private HBox Hbox5;
 
     @FXML
-    private Button expandButton;
+    private Label email;
 
     @FXML
-    private Tab newWallet;
+    private TextField emailText;
 
     @FXML
-    private AnchorPane newPane;
+    private Label emailLable;
 
     @FXML
-    private Button space;
-
-    @FXML
-    private Button knots;
-
-    @FXML
-    private Label pleaseChoose;
+    private Button saveButton;
 
     @FXML
     void logOut(MouseEvent event) {
@@ -131,6 +122,11 @@ public class UserWalletController {
 
     @FXML
     void transactionsScreen(MouseEvent event) {
+
+    }
+
+    @FXML
+    void updateField(ActionEvent event) {
 
     }
 

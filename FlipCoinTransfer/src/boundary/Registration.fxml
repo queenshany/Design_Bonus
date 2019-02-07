@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
@@ -86,7 +87,11 @@
             <HBox fx:id="HBox4" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
                   <Label fx:id="phone" text="Phone      " />
-                  <TextField fx:id="phoneText" />
+                  <ComboBox fx:id="combo" blendMode="MULTIPLY" prefHeight="25.0" prefWidth="43.0" />
+                  <TextField fx:id="phoneText" prefHeight="25.0" prefWidth="99.0">
+                     <HBox.margin>
+                        <Insets left="-10.0" />
+                     </HBox.margin></TextField>
                   <Label fx:id="phoneLable" text="Value is invalid" visible="false">
                      <font>
                         <Font name="System Bold" size="12.0" />

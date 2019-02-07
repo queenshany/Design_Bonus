@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="263.0" prefWidth="416.0" style="-fx-background-color: #eaf0f9;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="263.0" prefWidth="416.0" style="-fx-background-color: #eaf0f9;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.LoginController">
    <top>
       <VBox fx:id="top" alignment="CENTER" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -19,7 +19,7 @@
          <children>
             <ImageView fx:id="logo" fitHeight="22.0" fitWidth="245.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../rsc/transferLogo.png" />
+                  <Image url="@../rsc/miningLogo.png" />
                </image>
                <VBox.margin>
                   <Insets bottom="-5.0" />

@@ -1,8 +1,165 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
-	<!-- TODO Add Nodes -->
-</AnchorPane>
-
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: #eaf0f9;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.RegistrationController">
+   <top>
+      <VBox fx:id="topBorder" alignment="CENTER" prefHeight="63.0" prefWidth="416.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="registerTitle" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../FlipCoinTransfer/src/rsc/registerTitle.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="clickHere" onMouseClicked="#openCompanyField" text="Business company? Click here!" textFill="#2f9691">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="-5.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </BorderPane.margin>
+      </VBox>
+   </top>
+   <center>
+      <VBox fx:id="centerBorder" prefHeight="261.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox fx:id="HBox1" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Label fx:id="username" text="Full Name" />
+                  <TextField fx:id="usernameText">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </TextField>
+                  <Label fx:id="usernameLable" text="Username already exists" visible="false">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox fx:id="HBox2" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Label fx:id="password" text="Password " />
+                  <PasswordField fx:id="passwordText" />
+                  <Label fx:id="passwordLable" prefHeight="17.0" prefWidth="144.0" text="A minimum 6 characters" visible="false">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets top="-20.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox fx:id="HBox3" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Label fx:id="verify" text="Verify       " />
+                  <PasswordField fx:id="verifyText" />
+                  <Label fx:id="verifyLable" text="Please try again" visible="false">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets top="-20.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox fx:id="Hbox51" prefHeight="76.0" prefWidth="380.0" spacing="10.0">
+               <children>
+                  <Label fx:id="email1" text="Email        " />
+                  <TextField fx:id="emailText1" />
+                  <Label fx:id="emailLable1" text="Value is invalid" visible="false">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets top="-20.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox fx:id="HBox11" prefHeight="100.0" prefWidth="200.0" spacing="10.0" visible="false">
+               <children>
+                  <Label fx:id="username1" prefHeight="20.0" prefWidth="145.0" text="Contact's Name       " />
+                  <TextField fx:id="usernameText1" prefHeight="25.0" prefWidth="182.0">
+                     <HBox.margin>
+                        <Insets left="-5.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Label fx:id="usernameLable1" text="Username already exists" visible="false">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <HBox fx:id="HBox4" prefHeight="100.0" prefWidth="200.0" spacing="10.0" visible="false">
+               <children>
+                  <Label fx:id="phone" text="Contact's Phone      " />
+                  <ComboBox fx:id="combo" blendMode="MULTIPLY" prefHeight="25.0" prefWidth="43.0" />
+                  <TextField fx:id="phoneText" prefHeight="25.0" prefWidth="99.0">
+                     <HBox.margin>
+                        <Insets left="-10.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Label fx:id="phoneLable" text="Value is invalid" visible="false">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets top="-20.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox fx:id="Hbox5" prefHeight="76.0" prefWidth="380.0" spacing="10.0" visible="false">
+               <children>
+                  <Label fx:id="email" text="Contact's Email        " />
+                  <TextField fx:id="emailText" />
+                  <Label fx:id="emailLable" text="Value is invalid" visible="false">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets top="-20.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </BorderPane.margin>
+      </VBox>
+   </center>
+   <bottom>
+      <Label fx:id="registerLable" onMouseClicked="#newAccount" prefHeight="42.0" prefWidth="400.0" style="-fx-background-color: #6fa5f7;" text="                    Register" textAlignment="CENTER" textFill="#2f9691" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="System Bold" size="26.0" />
+         </font>
+      </Label>
+   </bottom>
+</BorderPane>

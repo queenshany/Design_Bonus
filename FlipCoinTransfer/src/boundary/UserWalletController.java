@@ -1,10 +1,16 @@
 package boundary;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -61,6 +67,42 @@ public class UserWalletController {
 
     @FXML
     private ImageView homeIcon;
+
+    @FXML
+    private TabPane tabPane;
+
+    @FXML
+    private Tab yourWallet;
+
+    @FXML
+    private AnchorPane walletPane;
+
+    @FXML
+    private TableView<?> walletTable;
+
+    @FXML
+    private TableColumn<?, ?> c1;
+
+    @FXML
+    private TableColumn<?, ?> c2;
+
+    @FXML
+    private Button expandButton;
+
+    @FXML
+    private Tab newWallet;
+
+    @FXML
+    private AnchorPane newPane;
+
+    @FXML
+    private Button space;
+
+    @FXML
+    private Button knots;
+
+    @FXML
+    private Label pleaseChoose;
 
     @FXML
     void logOut(MouseEvent event) {

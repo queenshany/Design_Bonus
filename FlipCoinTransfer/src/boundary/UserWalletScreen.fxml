@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="336.0" prefWidth="509.0" style="-fx-background-color: #eaf0f9;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bo">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="336.0" prefWidth="509.0" style="-fx-background-color: #eaf0f9;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.UserWalletController">
    <left>
       <VBox fx:id="menu" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
@@ -102,52 +102,60 @@
             </ImageView>
             <HBox fx:id="hbox" prefHeight="100.0" prefWidth="200.0" spacing="200.0">
                <children>
-                  <Label fx:id="networkStatus" text="Normal">
-                     <HBox.margin>
-                        <Insets left="5.0" top="15.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="9.0" />
-                     </font>
-                  </Label>
-                  <ImageView fx:id="homeIcon" fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" smooth="false">
-                     <image>
-                        <Image url="@../rsc/homeIcon.png" />
-                     </image>
-                     <HBox.margin>
-                        <Insets top="5.0" />
-                     </HBox.margin>
-                  </ImageView>
+                  <VBox prefHeight="25.0" prefWidth="46.0">
+                     <children>
+                        <Label fx:id="networkStatus" text="Normal">
+                           <font>
+                              <Font size="9.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="2.0" top="13.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="31.0" prefWidth="29.0">
+                     <children>
+                        <ImageView fx:id="homeIcon" fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" smooth="false">
+                           <image>
+                              <Image url="@../rsc/homeIcon.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </ImageView>
+                     </children>
+                  </VBox>
                </children>
             </HBox>
          </children>
       </VBox>
    </bottom>
    <center>
-      <TabPane blendMode="MULTIPLY" prefHeight="200.0" prefWidth="180.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane fx:id="tabPane" blendMode="MULTIPLY" prefHeight="200.0" prefWidth="180.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
-          <Tab text="Your wallets">
+          <Tab fx:id="yourWallet" text="Your wallets">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="180.0">
+              <AnchorPane fx:id="walletPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="180.0">
                      <children>
-                        <TableView prefHeight="142.0" prefWidth="363.0">
+                        <TableView fx:id="walletTable" prefHeight="142.0" prefWidth="363.0">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="C1" />
-                            <TableColumn prefWidth="75.0" text="C2" />
+                            <TableColumn fx:id="c1" prefWidth="75.0" text="C1" />
+                            <TableColumn fx:id="c2" prefWidth="75.0" text="C2" />
                           </columns>
                         </TableView>
-                        <Button layoutX="292.0" layoutY="145.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="71.0" text="Expand" />
+                        <Button fx:id="expandButton" layoutX="292.0" layoutY="145.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="71.0" text="Expand" />
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="Add new wallet">
+          <Tab fx:id="newWallet" text="Add new wallet">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane fx:id="newPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Button layoutX="227.0" layoutY="76.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="119.0" text="Bitcoin Space" />
-                        <Button layoutX="60.0" layoutY="75.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="119.0" text="Bitcoin Knots" />
-                        <Label layoutX="129.0" layoutY="26.0" text="Please choose a wallet">
+                        <Button fx:id="space" layoutX="227.0" layoutY="76.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="119.0" text="Bitcoin Space" />
+                        <Button fx:id="knots" layoutX="60.0" layoutY="75.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="119.0" text="Bitcoin Knots" />
+                        <Label fx:id="pleaseChoose" layoutX="129.0" layoutY="26.0" text="Please choose a wallet">
                            <font>
                               <Font name="System Italic" size="14.0" />
                            </font>

@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="336.0" prefWidth="509.0" style="-fx-background-color: #eaf0f9;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.SettingsController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="336.0" prefWidth="509.0" style="-fx-background-color: #eaf0f9;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.SreachPageController">
    <left>
       <VBox fx:id="menu" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
@@ -123,53 +123,15 @@
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER" prefHeight="57.0" prefWidth="409.0">
-               <children>
-                  <Label text="You can update your details">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-               </children>
                <VBox.margin>
-                  <Insets left="-10.0" />
+                  <Insets left="-95.0" top="-50.0" />
                </VBox.margin>
-            </HBox>
-            <HBox fx:id="HBox4" alignment="CENTER" prefHeight="43.0" prefWidth="381.0" spacing="5.0">
                <children>
-                  <Label fx:id="phone" text="Phone      " />
-                  <ComboBox fx:id="combo" blendMode="MULTIPLY" prefHeight="25.0" prefWidth="43.0" />
-                  <TextField fx:id="phoneText" prefHeight="25.0" prefWidth="99.0">
-                     <HBox.margin>
-                        <Insets left="-10.0" />
-                     </HBox.margin>
-                  </TextField>
-                  <Label fx:id="phoneLable" text="Value is invalid" visible="false">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
-               </children>
-               <padding>
-                  <Insets left="90.0" />
-               </padding>
-            </HBox>
-            <HBox fx:id="Hbox5" alignment="CENTER" prefHeight="76.0" prefWidth="380.0" spacing="5.0">
-               <children>
-                  <Label fx:id="email" text="Email        " />
-                  <TextField fx:id="emailText" />
-                  <Label fx:id="emailLable" text="Value is invalid" visible="false">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
-               </children>
-               <VBox.margin>
-                  <Insets left="90.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="37.0" prefWidth="409.0">
-               <children>
-                  <Button fx:id="saveButton" mnemonicParsing="false" onAction="#updateField" text="Save" />
+                  <TextField fx:id="keywords" blendMode="MULTIPLY" prefHeight="25.0" prefWidth="110.0" promptText="Keywords" />
+                  <TextField fx:id="from" blendMode="MULTIPLY" prefHeight="25.0" prefWidth="71.0" promptText="From Price" />
+                  <TextField fx:id="until" blendMode="MULTIPLY" prefHeight="25.0" prefWidth="68.0" promptText="Until Price" />
+                  <ComboBox fx:id="category" blendMode="MULTIPLY" prefWidth="150.0" promptText="Category" />
+                  <Button fx:id="searchButton" blendMode="MULTIPLY" mnemonicParsing="false" onAction="#searchProduct" text="Search" />
                </children>
             </HBox>
          </children>

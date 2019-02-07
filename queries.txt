@@ -24,21 +24,30 @@ group by creationDate, status
 HAVING creationDate=[]
 ORDER BY creationDate
 
+
+
 ********************** CALC PROBABILITY QUERY **********************
 
-SELECT SUM(C) * 100/ SUM(P) AS transPercent
-FROM (SELECT creationDate, status, COUNT(*) as C, (Select COUNT(*) FROM tblTransConfirm WHERE creationDate = TC.creationDate) as P
-FROM tblTransConfirm TC 
-group by  creationDate,status
+SELECT SUM(E)*100 / SUM(T) AS transPercent
+FROM(
+	SELECT creationDate, status, COUNT(*) as E,
+		(SELECT COUNT(*)
+		FROM tblTransConfirm
+		WHERE TC.creationDate = creationDate) as T
+	FROM tblTransConfirm TC 
+	GROUP BY  creationDate,status
 
-UNION ALL
+	UNION ALL
 
-SELECT creationDate, status, COUNT(*) as C, (Select COUNT(*) FROM tblTransPay WHERE creationDate = TP.creationDate) as P
-From tblTransPay TP
-group by creationDate, status)  AS C
+	SELECT creationDate, status, COUNT(*) as E,
+		(SELECT COUNT(*)
+		FROM tblTransPay
+		WHERE TP.creationDate = creationDate) as T
+	From tblTransPay TP
+	GROUP BY creationDate, status
+	)
 GROUP BY creationDate, status
-HAVING creationDate=[] AND status="DONE"
-ORDER BY creationDate;
+HAVING creationDate=[] AND status="Executed"
 
 
 ********************** PENDING STATUS TRANS **********************
@@ -69,3 +78,4 @@ FROM tblTransConfirm)
 
 ORDER BY creationDate
 
+********************** PAIR QUERY **********************

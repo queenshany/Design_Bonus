@@ -7,12 +7,21 @@ package entity;
 public class ItemInTransaction {
 	private int item;
 	private int trans;
+	private int quantity;
 
+	//---------------------------- Constructors ----------------------------
 	public ItemInTransaction(int item, int trans) {
 		this.item = item;
 		this.trans = trans;
 	}
 
+	public ItemInTransaction(int item, int trans, int quantity) {
+		this.item = item;
+		this.trans = trans;
+		this.quantity = quantity;
+	}
+
+	//---------------------------- Getters & Setters ----------------------------
 	public int getItem() {
 		return item;
 	}
@@ -26,6 +35,15 @@ public class ItemInTransaction {
 		this.trans = trans;
 	}
 
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	//---------------------------- Hash & Equals ----------------------------
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -51,6 +69,7 @@ public class ItemInTransaction {
 		return true;
 	}
 
+	//---------------------------- toString ----------------------------
 	@Override
 	public String toString() {
 		return "Item: " + item + " | Transaction" + trans;

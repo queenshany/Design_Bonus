@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="336.0" prefWidth="509.0" style="-fx-background-color: #eaf0f9;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.MainEmployeeScreenController">
+   <top>
+      <HBox fx:id="topBorder" prefHeight="73.0" prefWidth="489.0" spacing="70.0" BorderPane.alignment="TOP_CENTER">
+         <children>
+            <ImageView fx:id="logo" fitHeight="38.0" fitWidth="251.0" pickOnBounds="true" smooth="false">
+               <image>
+                  <Image url="@../rsc/transferLogo.png" />
+               </image>
+            </ImageView>
+            <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="networkStatus" prefHeight="11.0" prefWidth="35.0" text="Normal">
+                     <HBox.margin>
+                        <Insets left="5.0" right="-20.0" top="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="9.0" />
+                     </font>
+                  </Label>
+                  <ImageView fx:id="logoutIcon" fitHeight="12.0" fitWidth="14.0" onMouseClicked="#logOut" pickOnBounds="true" smooth="false">
+                     <image>
+                        <Image url="@../rsc/logoutIcon.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="20.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+               </children>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" />
+         </BorderPane.margin>
+      </HBox>
+   </top>
+   <bottom>
+      <VBox fx:id="bottom" alignment="CENTER" prefHeight="44.0" prefWidth="509.0" spacing="5.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="line" fitHeight="6.0" fitWidth="509.0" pickOnBounds="true" smooth="false">
+               <image>
+                  <Image url="@../rsc/line.png" />
+               </image>
+               <VBox.margin>
+                  <Insets bottom="-3.0" top="5.0" />
+               </VBox.margin>
+            </ImageView>
+            <HBox fx:id="hbox" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="200.0">
+               <children>
+                  <ImageView fx:id="homeIcon" fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" smooth="false">
+                     <image>
+                        <Image url="@../rsc/homeIcon.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </ImageView>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </bottom>
+   <left>
+      <AnchorPane prefHeight="232.0" prefWidth="150.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="createRec" fitHeight="40.0" fitWidth="97.0" layoutX="-3.0" layoutY="1.0" onMouseClicked="#newRecommendation" pickOnBounds="true" smooth="false">
+               <image>
+                  <Image url="@../rsc/createRecPic.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="viewRec" fitHeight="40.0" fitWidth="97.0" layoutX="-3.0" layoutY="41.0" onMouseClicked="#allRecommendations" pickOnBounds="true" smooth="false">
+               <image>
+                  <Image url="@../rsc/viewRecPic.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="transRpt" fitHeight="40.0" fitWidth="97.0" layoutX="-3.0" layoutY="81.0" onMouseClicked="#generateTransReport" pickOnBounds="true" smooth="false">
+               <image>
+                  <Image url="@../rsc/transReportPic.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="usersRpt" fitHeight="37.0" fitWidth="97.0" layoutX="-4.0" layoutY="120.0" onMouseClicked="#generateUsersReport" pickOnBounds="true" smooth="false">
+               <image>
+                  <Image url="@../rsc/usersReportPic.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="categories" fitHeight="40.0" fitWidth="97.0" layoutX="-4.0" layoutY="160.0" onMouseClicked="#manageCategories" pickOnBounds="true" smooth="false">
+               <image>
+                  <Image url="@../rsc/categoriesPic.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="parameters" fitHeight="40.0" fitWidth="97.0" layoutX="-3.0" layoutY="200.0" onMouseClicked="#manageParameters" pickOnBounds="true" smooth="false">
+               <image>
+                  <Image url="@../rsc/parametersPic.png" />
+               </image>
+            </ImageView>
+         </children>
+         <BorderPane.margin>
+            <Insets top="-35.0" />
+         </BorderPane.margin>
+      </AnchorPane>
+   </left>
+</BorderPane>

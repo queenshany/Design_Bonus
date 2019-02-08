@@ -112,6 +112,9 @@ public class TransactionsController {
     private Label errorMassage;
 
     @FXML
+    private Button recButton;
+
+    @FXML
     void NewPayTransaction(ActionEvent event) {
 
     }
@@ -163,6 +166,11 @@ public class TransactionsController {
 
     @FXML
     void transactionsScreen(MouseEvent event) {
+
+    }
+
+    @FXML
+    void viewRecommendations(ActionEvent event) {
 
     }
 

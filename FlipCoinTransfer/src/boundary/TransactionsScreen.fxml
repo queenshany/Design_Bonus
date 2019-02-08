@@ -144,15 +144,20 @@
                                 </columns>
                               </TableView>
                               <Label fx:id="lable" layoutX="8.0" layoutY="142.0" text="You have to pay" />
-                              <Label fx:id="price" layoutX="98.0" layoutY="143.0" text="X" />
-                              <Label fx:id="btc" layoutX="111.0" layoutY="143.0" text="BTC" />
-                              <Button fx:id="createButton" layoutX="2.0" layoutY="160.0" mnemonicParsing="false" onAction="#NewPayTransaction" text="Create The Transaction" />
-                              <Button fx:id="delettButton" layoutX="320.0" layoutY="160.0" mnemonicParsing="false" text="Delete Product" />
-                              <Label fx:id="errorMassage" layoutX="157.0" layoutY="166.0" text="Please enter valid amount" visible="false">
+                              <Label fx:id="price" layoutX="98.0" layoutY="143.0" text="X">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
+                              <Label fx:id="btc" layoutX="111.0" layoutY="143.0" text="BTC" />
+                              <Button fx:id="createButton" layoutX="2.0" layoutY="160.0" mnemonicParsing="false" onAction="#NewPayTransaction" text="Create The Transaction" />
+                              <Button fx:id="delettButton" layoutX="320.0" layoutY="160.0" mnemonicParsing="false" text="Delete Product" />
+                              <Label fx:id="errorMassage" layoutX="157.0" layoutY="143.0" text="Please enter valid amount" textFill="#f2211d" visible="false">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Button fx:id="recButton" layoutX="158.0" layoutY="160.0" mnemonicParsing="false" onAction="#viewRecommendations" text="View Recommendations" />
                            </children>
                         </AnchorPane>
                      </content>

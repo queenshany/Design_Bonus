@@ -6,7 +6,7 @@ import java.sql.Date;
  * @author Shany Klein & Ofri Kokush
  *
  */
-public class System {
+public class SystemParams {
 	private double version;
 	private Date versionDate;
 	private int transMinSize;
@@ -17,14 +17,15 @@ public class System {
 	private double priceForDiscount;
 	private int transSizeFree;
 	private double maxAllowableDiscount;
+	private int lastTransferredTrans;
 
 	//---------------------------- Constructors ----------------------------
-	public System(double version) {
+	public SystemParams(double version) {
 		this.version = version;
 	}
 
-	public System(double version, Date versionDate, int transMinSize, int transMaxSize, int transSizeForExpansion,
-			double priceForExpansion, double discountPercentPerFee, double priceForDiscount, int transSizeFree, double maxAllowableDiscount) {
+	public SystemParams(double version, Date versionDate, int transMinSize, int transMaxSize, int transSizeForExpansion,
+			double priceForExpansion, double discountPercentPerFee, double priceForDiscount, int transSizeFree, double maxAllowableDiscount, int lastTransferredTrans) {
 		this.version = version;
 		this.versionDate = versionDate;
 		this.transMinSize = transMinSize;
@@ -35,6 +36,7 @@ public class System {
 		this.priceForDiscount = priceForDiscount;
 		this.transSizeFree = transSizeFree;
 		this.maxAllowableDiscount = maxAllowableDiscount;
+		this.lastTransferredTrans = lastTransferredTrans;
 	}
 
 	//---------------------------- Getters & Setters ----------------------------
@@ -119,6 +121,14 @@ public class System {
 		this.maxAllowableDiscount = maxAllowableDiscount;
 	}
 
+	public int getLastTransferredTrans() {
+		return lastTransferredTrans;
+	}
+
+	public void setLastTransferredTrans(int lastTransferredTrans) {
+		this.lastTransferredTrans = lastTransferredTrans;
+	}
+
 	//---------------------------- Hash & Equals ----------------------------
 	@Override
 	public int hashCode() {
@@ -138,7 +148,7 @@ public class System {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		System other = (System) obj;
+		SystemParams other = (SystemParams) obj;
 		if (Double.doubleToLongBits(version) != Double.doubleToLongBits(other.version))
 			return false;
 		return true;
@@ -150,7 +160,8 @@ public class System {
 		return "System [version=" + version + ", versionDate=" + versionDate + ", transMinSize=" + transMinSize
 				+ ", transMaxSize=" + transMaxSize + ", transSizeForExpansion=" + transSizeForExpansion
 				+ ", priceForExpansion=" + priceForExpansion + ", discountPercentPerFee=" + discountPercentPerFee
-				+ ", priceForDiscount=" + priceForDiscount + ", transSizeFree=" + transSizeFree + ", maxAllowableDiscount=" + maxAllowableDiscount + "]";
+				+ ", priceForDiscount=" + priceForDiscount + ", transSizeFree=" + transSizeFree + ", maxAllowableDiscount=" + maxAllowableDiscount + 
+				", lastTransferredTrans=" + lastTransferredTrans + "]";
 	}
 
 

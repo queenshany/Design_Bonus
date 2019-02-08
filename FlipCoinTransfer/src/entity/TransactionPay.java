@@ -9,23 +9,23 @@ import utils.E_Status;
  *
  */
 public class TransactionPay extends Transaction{
-	private int payValue;
+	private double payValue;
 
 	//---------------------------- Constructors ----------------------------
 	public TransactionPay(int transID, String description, int size, Date creationDate, Date executionDate, double fee,
 			E_Status status, String creatingAddress, String creatingSignature, String destinationAddress,
-			String destinationSignature, String walletAddress, int payValue) {
+			String destinationSignature, String walletAddress, double payValue) {
 		super(transID, description, size, creationDate, executionDate, fee, status, creatingAddress, creatingSignature,
 				destinationAddress, destinationSignature, walletAddress);
 		this.payValue = payValue;
 	}
 
 	//---------------------------- Getters & Setters ----------------------------
-	public int getPayValue() {
+	public double getPayValue() {
 		return payValue;
 	}
 
-	public void setPayValue(int payValue) {
+	public void setPayValue(double payValue) {
 		this.payValue = payValue;
 	}
 

@@ -72,7 +72,7 @@ public class ItemInTransaction {
 	//---------------------------- toString ----------------------------
 	@Override
 	public String toString() {
-		return "Item: " + item + " | Transaction" + trans;
+		return "Item: " + item + " | Transaction: " + trans + " | Quantity: " + quantity;
 	}
 
 }

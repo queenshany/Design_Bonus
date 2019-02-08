@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import entity.Category;
 import entity.Consts;
 import entity.Item;
+import entity.ItemInTransaction;
 import entity.Transaction;
 
 /**
@@ -53,7 +54,7 @@ public class ItemLogic {
 	
 	/**
 	 * Inserting an item to the DB
-	 * @param c
+	 * @param item
 	 */
 	public void insertItem(Item item) {
 		try {
@@ -104,6 +105,37 @@ public class ItemLogic {
 						stmt.setNull(i++, java.sql.Types.VARCHAR);
 					else
 						stmt.setString(i++, item.getSellerSignature());
+					
+					stmt.executeUpdate();
+				
+				} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println(item);
+	}
+	
+	/**
+	 * Inserting an item to a transaction in the DB
+	 * @param item
+	 */
+	public void insertItemIntoTrans(ItemInTransaction item) {
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try {
+				Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+				CallableStatement stmt = conn.prepareCall(Consts.SQL_INS_ITEM_INTO_TRANS);
+					int i = 1;
+
+					stmt.setInt(i++, item.getItem());
+					stmt.setInt(i++, item.getTrans());
+					if (item.getQuantity() <= 0)
+						stmt.setNull(i++, java.sql.Types.INTEGER);
+					else
+						stmt.setInt(i++, item.getQuantity());
 					
 					stmt.executeUpdate();
 				

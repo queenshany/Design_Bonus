@@ -10,7 +10,7 @@ import utils.E_Status;
  *
  */
 public class TransactionConfirm extends Transaction{
-	private boolean isConfirmed;
+	private Boolean isConfirmed;
 	private Date shippmentDate;
 
 	//---------------------------- Constructors ----------------------------
@@ -24,11 +24,11 @@ public class TransactionConfirm extends Transaction{
 	}
 
 	//---------------------------- Getters & Setters ----------------------------
-	public boolean isConfirmed() {
+	public Boolean getIsConfirmed() {
 		return isConfirmed;
 	}
 
-	public void setConfirmed(boolean isConfirmed) {
+	public void setConfirmed(Boolean isConfirmed) {
 		this.isConfirmed = isConfirmed;
 	}
 

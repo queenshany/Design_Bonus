@@ -22,7 +22,6 @@ public final class Consts {
 
 	// ***************************** INSERT QUERIES ***************************** 
 
-	//public static final String INS_CATEGORY = "{ call insertCategoryQry(?,?) }";
 	public static final String SQL_INS_CATEGORY = "INSERT INTO tblCategory ( serialNumber, categoryName )\r\n" + 
 			"VALUES ((?), (?))\r\n" + "";
 
@@ -47,8 +46,20 @@ public final class Consts {
 	public static final String SQL_INS_TRANS_CONFIRM = "INSERT INTO tblTransConfirm ( transID, description, size, creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress, isConfirmed, shippmentDate )\r\n" + 
 			"VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?))";
 
-	public static final String SQL_INS_TRANS_PAY = "INSERT INTO tblTransConfirm ( transID, description, size, creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress, payValue )\r\n" + 
+	public static final String SQL_INS_TRANS_PAY = "INSERT INTO tblTransPay ( transID, description, size, creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress, payValue )\r\n" + 
 			"VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?))";
+
+	public static final String SQL_INS_USER = "INSERT INTO tblUser ( publicAddress, signature, username, password, phone, email, isEmployee )\r\n" + 
+			"VALUES ((?), (?), (?), (?), (?), (?), (?))";
+
+	public static final String SQL_INS_WALLET = "INSERT INTO tblWallet ( uniqueAddress, price, isOnPC, isOnPhone, isOnTablet, amount, pendingAmount, userAddress, userSignature )\r\n" + 
+			"VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?))";
+
+	public static final String SQL_INS_WALLET_KNOTS = "INSERT INTO tblWalletBitcoinKnots ( walletUniqueAddress, discountPercent )\r\n" + 
+			"VALUES ((?), (?))";
+
+	public static final String SQL_INS_WALLET_SPACE = "INSERT INTO tblWalletBitcoinSpace ( walletUniqueAddress, transSize )\r\n" + 
+			"VALUES ((?), (?))";
 
 	// ***************************** UPDATE QUERIES ***************************** 
 

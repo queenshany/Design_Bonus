@@ -12,7 +12,7 @@ public class User {
 	private String password;
 	private String phone;
 	private String email;
-	private boolean isEmployee;
+	private Boolean isEmployee;
 
 	//---------------------------- Constructors ----------------------------
 	public User(String publicAddress, String signature) {
@@ -21,7 +21,7 @@ public class User {
 	}
 
 	public User(String publicAddress, String signature, String username, String password, String phone, String email,
-			boolean isEmployee) {
+			Boolean isEmployee) {
 		this.publicAddress = publicAddress;
 		this.signature = signature;
 		this.username = username;
@@ -80,11 +80,11 @@ public class User {
 		this.email = email;
 	}
 
-	public boolean isEmployee() {
+	public Boolean getIsEmployee() {
 		return isEmployee;
 	}
 
-	public void setEmployee(boolean isEmployee) {
+	public void setEmployee(Boolean isEmployee) {
 		this.isEmployee = isEmployee;
 	}
 	

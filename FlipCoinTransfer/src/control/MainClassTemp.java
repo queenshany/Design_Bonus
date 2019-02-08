@@ -11,6 +11,10 @@ import entity.RecommendedFor;
 import entity.SystemParams;
 import entity.TransactionConfirm;
 import entity.TransactionPay;
+import entity.User;
+import entity.Wallet;
+import entity.WalletBitcoinKnots;
+import entity.WalletBitcoinSpace;
 import utils.E_Level;
 import utils.E_Status;
 
@@ -36,8 +40,11 @@ public class MainClassTemp{
 		//rl.insertRecommendedFor(new RecommendedFor("A1A1A1", "A11", 8, E_Level.Weak));
 		//sd.insertSysParams(new SystemParams(2, new Date(8, 2, 2019), 5, 6, 4, 5, 4, 4, 4, 4, 8));
 		//tl.insertTransConfirm(new TransactionConfirm(9, "", 66, new Date(8, 2, 2019), new Date(8, 2, 2019), 5, E_Status.Executed, "A1A1A1", "A11", "B2B2B2", "B22", "AAAA", true, new Date(8, 2, 2019)));
-		tl.insertTransPay(new TransactionPay(9, "", 66, new Date(8, 2, 2019), new Date(8, 2, 2019), 5, E_Status.Executed, "A1A1A1", "A11", "B2B2B2", "B22", "AAAA", 8));
-
+		//tl.insertTransPay(new TransactionPay(9, "", 66, new Date(8, 2, 2019), new Date(8, 2, 2019), 5, E_Status.Executed, "A1A1A1", "A11", "B2B2B2", "B22", "BBBB", 8));
+		//ul.insertUser(new User("K", "KK", "kk", "kkk", "2", "2", false));
+		wl.insertWallet(new Wallet("z", 0.6, true, true, false, 4, 3, "A1A1A1", "A11"));
+		wl.insertWalletBitcoinKnots(new WalletBitcoinKnots("z", 0.6, true, true, false, 4, 3, "A1A1A1", "A11", 0.6));
+		wl.insertWalletBitcoinSpace(new WalletBitcoinSpace("z", 0.6, true, true, false, 4, 3, "A1A1A1", "A11",6));
 	}
 
 }

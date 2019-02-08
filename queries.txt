@@ -10,36 +10,35 @@ VALUES ([1], [2], [3], [4], [5], [6]);
 
 ********************** TRANSACTION REPORT QUERY **********************
 
-select creationDate, status, SUM(C) as transAmount,  SUM(C) * 100/ SUM(P) as transPercent, Min(transMin) as trMin, MAX(TransMax) as trMax
-FROM (SELECT creationDate, status, COUNT(*) as C, (Select COUNT(*) FROM tblTransConfirm WHERE creationDate = TC.creationDate) as P, MIN(commissionFee) as transMin, MAX(commissionFee) as TransMax
+SELECT creationDate, status, SUM(C) AS transAmount, 
+SUM(C) * 100/ ((Select COUNT(*) FROM tblTransPay TP WHERE TP.creationDate = date)+(Select COUNT(*) FROM tblTransConfirm TC WHERE TC.creationDate = date)) AS transPercent, Min(transMin) AS trMin, MAX(TransMax) AS trMax
+FROM (SELECT creationDate, status, COUNT(*) as C, (Select COUNT(*) FROM tblTransConfirm  WHERE TC.creationDate = date) as P, MIN(fee) as transMin, MAX(fee) as TransMax
 FROM tblTransConfirm TC 
-group by  creationDate,status
+group by  creationDate, status
 
 UNION ALL
 
-SELECT creationDate, status, COUNT(*) as C, (Select COUNT(*) FROM tblTransPay WHERE creationDate = TP.creationDate) as P, MIN(commissionFee) as transMin, MAX(commissionFee) as TransMax
+SELECT creationDate, status, COUNT(*) as C, (Select COUNT(*) FROM tblTransPay  WHERE TP.creationDate = date) as P, MIN(fee) as transMin, MAX(fee) as TransMax
 From tblTransPay TP
-group by creationDate, status)
-group by creationDate, status
-HAVING creationDate=[]
-ORDER BY creationDate
+group by creationDate, status) 
+GROUP BY creationDate, status
+HAVING creationDate=[date]
+ORDER BY creationDate;
 
 ********************** CALC PROBABILITY QUERY **********************
 
-SELECT SUM(C) * 100/ SUM(P) AS transPercent
-FROM (SELECT creationDate, status, COUNT(*) as C, (Select COUNT(*) FROM tblTransConfirm WHERE creationDate = TC.creationDate) as P
+SELECT SUM(C) * 100/((Select COUNT(*) FROM tblTransPay TP WHERE TP.creationDate = date)+(Select COUNT(*) FROM tblTransConfirm TC WHERE TC.creationDate = date)) AS transPercent
+FROM (SELECT creationDate, status, COUNT(*) as C, (Select COUNT(*) FROM tblTransConfirm WHERE TC.creationDate = date) as P
 FROM tblTransConfirm TC 
-group by  creationDate,status
+group by creationDate, status
 
 UNION ALL
 
-SELECT creationDate, status, COUNT(*) as C, (Select COUNT(*) FROM tblTransPay WHERE creationDate = TP.creationDate) as P
+SELECT creationDate, status, COUNT(*) as C, (Select COUNT(*) FROM tblTransPay WHERE TP.creationDate = date) as P
 From tblTransPay TP
-group by creationDate, status)  AS C
+group by creationDate, status) 
 GROUP BY creationDate, status
-HAVING creationDate=[] AND status="DONE"
-ORDER BY creationDate;
-
+HAVING creationDate=[date] AND status="Executed";
 
 ********************** PENDING STATUS TRANS **********************
 Select *
@@ -69,3 +68,4 @@ FROM tblTransConfirm)
 
 ORDER BY creationDate
 
+********************** PAIR QUERY **********************

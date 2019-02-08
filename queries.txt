@@ -25,6 +25,21 @@ GROUP BY creationDate, status
 HAVING creationDate=[date]
 ORDER BY creationDate;
 
+********************** USER REPORT QUERY **********************
+
+SELECT tblUser.publicAddress, tblUser.signature, tblUser.username, COUNT(T.transID) AS transAmount,  AVG(T.fee) AS averageFee,  ((Select count(*) From tblTransPay Where tblTransPay.status="Executed" AND tblUser.publicAddress=tblTransPay.creatingAddress AND tblUser.signature=tblTransPay.creatingSignature)+(Select count(*) From tblTransConfirm Where tblTransConfirm.status="Executed" AND tblUser.publicAddress=tblTransConfirm.creatingAddress AND tblUser.signature=tblTransConfirm.creatingSignature))*100/transAmount as executedPercent
+FROM tblUser, (Select  transID, creationDate, fee, status, creatingAddress, creatingSignature
+from (SELECT transID, creationDate, fee, status, creatingAddress, creatingSignature
+FROM tblTransPay)
+
+UNION ALL (SELECT transID, creationDate, fee, status, creatingAddress, creatingSignature
+FROM tblTransConfirm)
+ORDER BY creationDate)  AS T
+WHERE T.creationDate=[date] AND tblUser.publicAddress=T.creatingAddress AND tblUser.signature=T.creatingSignature
+GROUP BY tblUser.publicAddress, tblUser.signature, T.creationDate,  tblUser.username
+
+ORDER BY AVG(fee);
+
 ********************** CALC PROBABILITY QUERY **********************
 
 SELECT SUM(C) * 100/((Select COUNT(*) FROM tblTransPay TP WHERE TP.creationDate = date)+(Select COUNT(*) FROM tblTransConfirm TC WHERE TC.creationDate = date)) AS transPercent
@@ -42,30 +57,29 @@ HAVING creationDate=[date] AND status="Executed";
 
 ********************** PENDING STATUS TRANS **********************
 Select *
-from (SELECT transID, description, [size], creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress
+from (SELECT transID, description, [size], creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress ,'Pay' as source
 FROM tblTransPay
 WHERE status="Pending")
 
-UNION ALL
-
-(SELECT transID, description, [size], creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress
+UNION ALL (SELECT transID, description, [size], creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress, 'Confirm' as source
 FROM tblTransConfirm
 WHERE status="Pending")
-
-
-ORDER BY creationDate
+ORDER BY creationDate;
 
 ********************** ALL TRANS **********************
+
 Select *
-from (SELECT transID, description, [size], creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress
+from (SELECT transID, description, [size], creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress, 'Pay' as source
 FROM tblTransPay)
 
-UNION ALL
-
-(SELECT transID, description, [size], creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress
+UNION ALL (SELECT transID, description, [size], creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress, 'Confirm' as source
 FROM tblTransConfirm)
+ORDER BY creationDate;
 
-
-ORDER BY creationDate
 
 ********************** PAIR QUERY **********************
+
+SELECT tblTransaction.ID AS ID1, tblTransaction.size AS size1, tblTransaction.type AS type1, tblTransaction.fee AS fee1, tblTransaction_1.ID AS ID2, tblTransaction_1.size AS size2, tblTransaction_1.type AS type2, tblTransaction_1.fee AS fee2, size1+size2 AS totalSize, fee1+fee2 AS feeSum
+FROM tblTransaction, tblTransaction AS tblTransaction_1
+WHERE (tblTransaction.size+tblTransaction_1.size)<=[blockSize] AND (tblTransaction.ID <> tblTransaction_1.ID) AND (tblTransaction.ID < tblTransaction_1.ID)  AND (tblTransaction.blockAddress="" OR tblTransaction.blockAddress IS NULL) AND (tblTransaction_1.blockAddress="" OR tblTransaction_1.blockAddress IS NULL)
+ORDER BY tblTransaction.fee + tblTransaction_1.fee DESC;

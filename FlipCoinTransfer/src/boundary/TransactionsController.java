@@ -121,6 +121,20 @@ public class TransactionsController {
     private ComboBox<?> walletCombo;
 
     @FXML
+    private Button confirmButton;
+
+    @FXML
+    private Button unButton;
+
+    @FXML
+    private ComboBox<?> walletsCombo;
+
+    @FXML
+    void NewConfirmTransaction(ActionEvent event) {
+
+    }
+
+    @FXML
     void NewPayTransaction(ActionEvent event) {
 
     }
@@ -172,6 +186,11 @@ public class TransactionsController {
 
     @FXML
     void transactionsScreen(MouseEvent event) {
+
+    }
+
+    @FXML
+    void unconfirmed(ActionEvent event) {
 
     }
 

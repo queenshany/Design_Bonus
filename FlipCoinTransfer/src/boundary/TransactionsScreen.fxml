@@ -166,12 +166,35 @@
                   </Tab>
                 <Tab text="Your Waiting Trans">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TableView layoutY="1.0" prefHeight="199.0" prefWidth="419.0">
+                                <columns>
+                                  <TableColumn prefWidth="75.0" text="C1" />
+                                  <TableColumn prefWidth="75.0" text="C2" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
                   </content>
                 </Tab>
                 <Tab text="Waiting For Your Confirm">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TableView prefHeight="138.0" prefWidth="420.0">
+                                <columns>
+                                  <TableColumn prefWidth="75.0" text="C1" />
+                                  <TableColumn prefWidth="75.0" text="C2" />
+                                </columns>
+                              </TableView>
+                              <Button fx:id="confirmButton" layoutX="93.0" layoutY="168.0" mnemonicParsing="false" onAction="#NewConfirmTransaction" text="Send Confirm" />
+                              <TextField fx:id="feeText" layoutY="140.0" promptText="Please Enter Fee" />
+                              <Button fx:id="unButton" layoutX="333.0" layoutY="168.0" mnemonicParsing="false" onAction="#unconfirmed" text="Unconfirmed" />
+                              <Label fx:id="errorMassage" layoutX="153.0" layoutY="144.0" text="Please enter valid value" textFill="#eb2525" visible="false" />
+                              <ComboBox fx:id="walletsCombo" layoutY="168.0" prefHeight="25.0" prefWidth="85.0" promptText="Wallet" />
+                           </children>
+                        </AnchorPane>
                   </content>
                 </Tab>
               </tabs>

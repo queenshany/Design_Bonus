@@ -115,6 +115,12 @@ public class TransactionsController {
     private Button recButton;
 
     @FXML
+    private TextField feeText;
+
+    @FXML
+    private ComboBox<?> walletCombo;
+
+    @FXML
     void NewPayTransaction(ActionEvent event) {
 
     }

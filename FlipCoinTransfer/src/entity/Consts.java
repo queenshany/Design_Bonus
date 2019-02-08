@@ -10,6 +10,8 @@ public final class Consts {
 		throw new AssertionError();
 	}
 
+	public static final int PHONE_LENGTH = 7;
+	
 	public static final String JDBC_STR = "net.ucanaccess.jdbc.UcanaccessDriver";
 
 	public static final String DB_FILE_NAME = "DBTransfer.accdb";
@@ -17,7 +19,6 @@ public final class Consts {
 
 	public static final String CONN_STR = "jdbc:ucanaccess://" + DB_FILE_PATH + ";COLUMNORDER=DISPLAY";
 	
-	public static final int PHONE_LENGTH = 7;
 	
 	// ***************************** INSERT QUERIES ***************************** 
 	
@@ -25,6 +26,8 @@ public final class Consts {
 	public static final String SQL_INS_CATEGORY = "INSERT INTO tblCategory ( serialNumber, categoryName )\r\n" + 
 			"VALUES ((?), (?))\r\n" + "";
 
+	public static final String SQL_INS_ITEM = "INSERT INTO tblItem ( catalogNumber, itemName, image, description, price, quantity, category, sellerAddress, sellerSignature )\r\n" + 
+			"VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?))";
 	
 	// ***************************** UPDATE QUERIES ***************************** 
 	

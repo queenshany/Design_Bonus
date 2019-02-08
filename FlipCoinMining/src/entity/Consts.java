@@ -12,6 +12,8 @@ public final class Consts {
 	public static final String DB_FILE_PATH = getDBPath(); 
 
 	public static final String CONN_STR = "jdbc:ucanaccess://" + DB_FILE_PATH + ";COLUMNORDER=DISPLAY";
+
+	public static final int PHONE_LENGTH = 7;
 	
 	private static String getDBPath() {
 		try {

@@ -17,6 +17,21 @@ public final class Consts {
 
 	public static final String CONN_STR = "jdbc:ucanaccess://" + DB_FILE_PATH + ";COLUMNORDER=DISPLAY";
 	
+	public static final int PHONE_LENGTH = 7;
+	
+	// ***************************** INSERT QUERIES ***************************** 
+	
+	//public static final String INS_CATEGORY = "{ call insertCategoryQry(?,?) }";
+	public static final String SQL_INS_CATEGORY = "INSERT INTO tblCategory ( serialNumber, categoryName )\r\n" + 
+			"VALUES ((?), (?))\r\n" + "";
+
+	
+	// ***************************** UPDATE QUERIES ***************************** 
+	
+	// ***************************** DELETE QUERIES ***************************** 
+	
+	// ***************************** GENERAL QUERIES ***************************** 
+	
 	private static String getDBPath() {
 		try {
 			String path = Consts.class.getProtectionDomain().getCodeSource().getLocation().getPath();

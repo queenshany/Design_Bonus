@@ -57,11 +57,11 @@ HAVING creationDate=[date] AND status="Executed";
 
 ********************** PENDING STATUS TRANS **********************
 Select *
-from (SELECT transID, description, [size], creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress ,'Pay' as source
+from (SELECT transID, description, [size], creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress ,'Pay' as type
 FROM tblTransPay
 WHERE status="Pending")
 
-UNION ALL (SELECT transID, description, [size], creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress, 'Confirm' as source
+UNION ALL (SELECT transID, description, [size], creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress, 'Confirm' as type
 FROM tblTransConfirm
 WHERE status="Pending")
 ORDER BY creationDate;
@@ -69,13 +69,18 @@ ORDER BY creationDate;
 ********************** ALL TRANS **********************
 
 Select *
-from (SELECT transID, description, [size], creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress, 'Pay' as source
+from (SELECT transID, description, [size], creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress, 'Pay' as type
 FROM tblTransPay)
 
-UNION ALL (SELECT transID, description, [size], creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress, 'Confirm' as source
+UNION ALL (SELECT transID, description, [size], creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress, 'Confirm' as type
 FROM tblTransConfirm)
 ORDER BY creationDate;
 
+********************** SEARCH ITEM QUERY **********************
+
+SELECT *
+FROM tblCategory INNER JOIN tblItem ON tblCategory.serialNumber = tblItem.category
+WHERE (((tblItem.price) Between [minPrice] And [maxPrice])) OR (((tblCategory.categoryName)=[catName])) OR (((tblItem.itemName) Like "*" & [word] & "*")) OR (((tblItem.description) Like "*" & [word] & "*"));
 
 ********************** PAIR QUERY **********************
 

@@ -44,7 +44,7 @@
             </ImageView>
             <ImageView fx:id="mailIcon" fitHeight="22.0" fitWidth="19.0" onMouseClicked="#mailsScreen" pickOnBounds="true" smooth="false">
                <image>
-                  <Image url="@../../../FlipCoinTransfer/src/rsc/mailIcon.png" />
+                  <Image url="@../rsc/mailIcon.png" />
                </image>
                <HBox.margin>
                   <Insets left="190.0" top="12.0" />
@@ -52,7 +52,7 @@
             </ImageView>
             <ImageView fx:id="logoutIcon" fitHeight="17.0" fitWidth="17.0" onMouseClicked="#logOut" pickOnBounds="true" smooth="false">
                <image>
-                  <Image url="@../../../FlipCoinTransfer/src/rsc/logoutIcon.png" />
+                  <Image url="@../rsc/logoutIcon.png" />
                </image>
                <HBox.margin>
                   <Insets top="15.0" />
@@ -69,7 +69,7 @@
          <children>
             <ImageView fx:id="line" fitHeight="6.0" fitWidth="509.0" pickOnBounds="true" smooth="false">
                <image>
-                  <Image url="@../../../FlipCoinTransfer/src/rsc/line.png" />
+                  <Image url="@../rsc/line.png" />
                </image>
                <VBox.margin>
                   <Insets bottom="-3.0" top="5.0" />
@@ -79,7 +79,7 @@
                <children>
                   <ImageView fx:id="homeIcon" fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" smooth="false">
                      <image>
-                        <Image url="@../../../FlipCoinTransfer/src/rsc/homeIcon.png" />
+                        <Image url="@../rsc/homeIcon.png" />
                      </image>
                      <HBox.margin>
                         <Insets top="5.0" />

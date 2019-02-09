@@ -11,6 +11,12 @@ public final class Consts {
 	}
 
 	public static final int PHONE_LENGTH = 7;
+	
+	public static final int USER_SIGNATURE_LENGTH = 3;
+	
+	public static final int USER_ADDRESS_LENGTH = 6;
+	
+	public static final int WALLET_ADDRESS_LENGTH = 6;
 
 	public static final int MAX_PAY_TRANS = 100;
 

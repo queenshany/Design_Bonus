@@ -87,6 +87,6 @@ public class SysData {
 			e.printStackTrace();
 		}
 
-		System.out.println(sys);
+		System.out.println("INSERT " + sys);
 	}
 }

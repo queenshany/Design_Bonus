@@ -107,7 +107,7 @@ public class TransLogic {
 			e.printStackTrace();
 		}
 
-		System.out.println(trans);
+		System.out.println("INSERT " + trans);
 	}
 	
 	/**
@@ -198,6 +198,6 @@ public class TransLogic {
 			e.printStackTrace();
 		}
 
-		System.out.println(trans);
+		System.out.println("INSERT " + trans);
 	}
 }

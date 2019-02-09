@@ -77,7 +77,7 @@ public class WalletLogic {
 			e.printStackTrace();
 		}
 
-		System.out.println(wallet);
+		System.out.println("INSERT " + wallet);
 	}
 	
 	/**
@@ -108,7 +108,7 @@ public class WalletLogic {
 			e.printStackTrace();
 		}
 
-		System.out.println(wallet);
+		System.out.println("INSERT " + wallet);
 	}
 	
 	/**
@@ -139,6 +139,6 @@ public class WalletLogic {
 			e.printStackTrace();
 		}
 
-		System.out.println(wallet);
+		System.out.println("INSERT " + wallet);
 	}
 }

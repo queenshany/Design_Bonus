@@ -20,7 +20,15 @@ import entity.Transaction;
  *
  */
 public class ItemLogic {
+	private static ItemLogic instance;
+
+	public static ItemLogic getInstance() {
+		if (instance == null)
+			instance = new ItemLogic();
+		return instance;
+	}
 	
+	// ***************************** INSERT QUERIES ***************************** 
 	/**
 	 * Inserting a category to the DB
 	 * @param c
@@ -49,7 +57,7 @@ public class ItemLogic {
 			e.printStackTrace();
 		}
 
-		System.out.println(c);
+		System.out.println("INSERT " + c);
 	}
 	
 	/**
@@ -115,7 +123,7 @@ public class ItemLogic {
 			e.printStackTrace();
 		}
 
-		System.out.println(item);
+		System.out.println("INSERT " + item);
 	}
 	
 	/**
@@ -146,6 +154,83 @@ public class ItemLogic {
 			e.printStackTrace();
 		}
 
-		System.out.println(item);
+		System.out.println("INSERT " + item);
+	}
+	
+	// ***************************** DELETE QUERIES ***************************** 
+	/**
+	 * Deleting a category from the DB
+	 * @param c
+	 */
+	public void deleteCategory(Category c) {
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try {
+				Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+				CallableStatement stmt = conn.prepareCall(Consts.SQL_DEL_CATEGORY);
+					int i = 1;
+					
+					stmt.setInt(i++, c.getSerialNumber());
+					
+					stmt.executeUpdate();
+				
+				} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		System.out.println("DELETE " + c);
+	}
+	
+	/**
+	 * Deleting an item from trans in the DB
+	 * @param item
+	 */
+	public void deleteItemInTrans(ItemInTransaction item) {
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try {
+				Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+				CallableStatement stmt = conn.prepareCall(Consts.SQL_DEL_ITEM_IN_TRANS);
+					int i = 1;
+					
+					stmt.setInt(i++, item.getItem());
+					stmt.setInt(i++, item.getTrans());
+					
+					stmt.executeUpdate();
+				
+				} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		System.out.println("DELETE " + item);
+	}
+	
+	/**
+	 * Deleting an item from the DB
+	 * @param item
+	 */
+	public void deleteItem(Item item) {
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try {
+				Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+				CallableStatement stmt = conn.prepareCall(Consts.SQL_DEL_ITEM);
+					int i = 1;
+					
+					stmt.setInt(i++, item.getCatalogNumber());
+					
+					stmt.executeUpdate();
+				
+				} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		System.out.println("DELETE " + item);
 	}
 }

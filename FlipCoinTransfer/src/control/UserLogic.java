@@ -77,7 +77,7 @@ public class UserLogic {
 			e.printStackTrace();
 		}
 
-		System.out.println(message);
+		System.out.println("INSERT " + message);
 	}
 
 	/**
@@ -133,6 +133,6 @@ public class UserLogic {
 			e.printStackTrace();
 		}
 
-		System.out.println(user);
+		System.out.println("INSERT " + user);
 	}
 }

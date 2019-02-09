@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import entity.Consts;
+import entity.Item;
 import entity.Message;
 import entity.Recommendation;
 import entity.RecommendedFor;
@@ -24,6 +25,7 @@ public class RecLogic {
 		return instance;
 	}
 
+	// ***************************** INSERT QUERIES *****************************
 	/**
 	 * Inserting a recommendation to the DB
 	 * @param rec
@@ -67,7 +69,7 @@ public class RecLogic {
 			e.printStackTrace();
 		}
 
-		System.out.println(rec);
+		System.out.println("INSERT " + rec);
 	}
 
 	/**
@@ -108,6 +110,60 @@ public class RecLogic {
 			e.printStackTrace();
 		}
 
-		System.out.println(rec);
+		System.out.println("INSERT " + rec);
+	}
+
+	// ***************************** DELETE QUERIES *****************************
+	
+	/**
+	 * Deleting a recommendation from the DB
+	 * @param rec
+	 */
+	public void deleteRecommendation(Recommendation rec) {
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try {
+				Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+				CallableStatement stmt = conn.prepareCall(Consts.SQL_DEL_RECOMMENDATION);
+					int i = 1;
+					
+					stmt.setInt(i++, rec.getRecNum());
+					
+					stmt.executeUpdate();
+				
+				} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		System.out.println("DELETE " + rec);
+	}
+	
+	/**
+	 * Deleting a recommendation from the DB
+	 * @param rec
+	 */
+	public void deleteUserInRec(RecommendedFor rec) {
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try {
+				Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+				CallableStatement stmt = conn.prepareCall(Consts.SQL_DEL_USER_IN_REC);
+					int i = 1;
+					
+					stmt.setString(i++, rec.getUserAddress());
+					stmt.setString(i++, rec.getUserSignature());
+					stmt.setInt(i++, rec.getRecommendation());
+					
+					stmt.executeUpdate();
+				
+				} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		System.out.println("DELETE " + rec);
 	}
 }

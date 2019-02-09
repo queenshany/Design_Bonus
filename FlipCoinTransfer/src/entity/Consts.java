@@ -11,10 +11,13 @@ public final class Consts {
 	}
 
 	public static final int PHONE_LENGTH = 7;
+	
+	public static final int MAX_PAY_TRANS = 100;
 
 	public static final String JDBC_STR = "net.ucanaccess.jdbc.UcanaccessDriver";
 
 	public static final String DB_FILE_NAME = "DBTransfer.accdb";
+	
 	public static final String DB_FILE_PATH = getDBPath(); 
 
 	public static final String CONN_STR = "jdbc:ucanaccess://" + DB_FILE_PATH + ";COLUMNORDER=DISPLAY";
@@ -61,12 +64,27 @@ public final class Consts {
 	public static final String SQL_INS_WALLET_SPACE = "INSERT INTO tblWalletBitcoinSpace ( walletUniqueAddress, transSize )\r\n" + 
 			"VALUES ((?), (?))";
 
-	// ***************************** UPDATE QUERIES ***************************** 
-
 	// ***************************** DELETE QUERIES ***************************** 
 
+	public static final String SQL_DEL_CATEGORY = "{ call deleteCategoryQry(?) }";
+	
+	public static final String SQL_DEL_ITEM_IN_TRANS = "{ call deleteItemInTransactionQry(?, ?) }";
+	
+	public static final String SQL_DEL_ITEM = "{ call deleteItemQry(?) }";
+	
+	public static final String SQL_DEL_RECOMMENDATION = "{ call deleteRecommendationQry(?) }";
+	
+	public static final String SQL_DEL_USER_IN_REC = "{ call deleteUserInRecommendationQry(?, ?, ?) }";
+	
+	// ***************************** UPDATE QUERIES ***************************** 
+
+	
 	// ***************************** GENERAL QUERIES ***************************** 
 
+	
+	
+	// ***************************** PATH STUFF ***************************** 
+	
 	private static String getDBPath() {
 		try {
 			String path = Consts.class.getProtectionDomain().getCodeSource().getLocation().getPath();

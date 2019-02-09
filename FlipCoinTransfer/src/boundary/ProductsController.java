@@ -11,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class ProductsController {
 
@@ -86,18 +87,26 @@ public class ProductsController {
     }
 
     @FXML
+    void backHome(MouseEvent event) {
+    	closeWindow();
+		ViewLogic.newUserWindow();
+    }
+    
+    @FXML
     void editProduct(ActionEvent event) {
 
     }
 
     @FXML
     void logOut(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newLoginWindow();
     }
 
     @FXML
     void mailsScreen(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newEmailWindow();
     }
 
     @FXML
@@ -122,7 +131,7 @@ public class ProductsController {
 
     @FXML
     void switch1(MouseEvent event) {
-
+    products.setId("..\\rsc\\productsPic.png");
     }
 
     @FXML
@@ -137,12 +146,24 @@ public class ProductsController {
 
     @FXML
     void transactionsScreen(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newTransactionsWindow();
     }
 
     @FXML
     void walletsScreen(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newWalletsWindow();
     }
 
+
+
+
+	public void initialize() {
+//		System.out.println("h");
+	}
+
+	protected void closeWindow() {
+		((Stage) borderPane.getScene().getWindow()).close();
+	}
 }

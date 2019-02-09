@@ -393,7 +393,7 @@ public class ViewLogic {
 		setStage(stage);
 
 
-		newWindow(ViewLogic.class.getResource("ViewRecommendationScreen.fxml"),
+		newWindow(ViewLogic.class.getResource("UsersRecommendationsScreen.fxml"),
 				stage,
 				null, null,	null, null,	null, null,
 				false,

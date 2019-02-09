@@ -15,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class TransactionsController {
 
@@ -144,30 +145,6 @@ public class TransactionsController {
 
     }
 
-    @FXML
-    void logOut(MouseEvent event) {
-
-    }
-
-    @FXML
-    void mailsScreen(MouseEvent event) {
-
-    }
-
-    @FXML
-    void productsScreen(MouseEvent event) {
-
-    }
-
-    @FXML
-    void searchProducts(MouseEvent event) {
-
-    }
-
-    @FXML
-    void settingsScreen(MouseEvent event) {
-
-    }
 
     @FXML
     void switch1(MouseEvent event) {
@@ -184,10 +161,6 @@ public class TransactionsController {
 
     }
 
-    @FXML
-    void transactionsScreen(MouseEvent event) {
-
-    }
 
     @FXML
     void unconfirmed(ActionEvent event) {
@@ -196,12 +169,60 @@ public class TransactionsController {
 
     @FXML
     void viewRecommendations(ActionEvent event) {
+    	ViewLogic.newViewRecommendationWindow();
+    }
 
+
+    @FXML
+    void logOut(MouseEvent event) {
+    	closeWindow();
+    	ViewLogic.newLoginWindow();
+    }
+
+    @FXML
+    void mailsScreen(MouseEvent event) {
+    	closeWindow();
+    	ViewLogic.newEmailWindow();
+    }
+
+    @FXML
+    void productsScreen(MouseEvent event) {
+    	closeWindow();
+    	ViewLogic.newProductsWindow();
+    }
+
+    @FXML
+    void searchProducts(MouseEvent event) {
+    	closeWindow();
+    	ViewLogic.newSearchPageWindow();
+    }
+
+    @FXML
+    void settingsScreen(MouseEvent event) {
+    	closeWindow();
+    	ViewLogic.newSettingsWindow();
+    }
+
+    @FXML
+    void transactionsScreen(MouseEvent event) {
+    	closeWindow();
+    	ViewLogic.newTransactionsWindow();
     }
 
     @FXML
     void walletsScreen(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newWalletsWindow();
     }
 
+
+
+	public void initialize() {
+//		System.out.println("h");
+	}
+
+	protected void closeWindow() {
+		((Stage) borderPane.getScene().getWindow()).close();
+	}
 }
+

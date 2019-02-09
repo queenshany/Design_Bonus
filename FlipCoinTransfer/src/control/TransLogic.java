@@ -3,12 +3,17 @@ package control;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import entity.Consts;
-import entity.SystemParams;
+import entity.Transaction;
 import entity.TransactionConfirm;
 import entity.TransactionPay;
+import utils.E_Status;
+import utils.E_Type;
 
 /**
  * This class represents the Transaction Management in the system
@@ -24,6 +29,7 @@ public class TransLogic {
 		return instance;
 	}
 
+	// ***************************** INSERT QUERIES *****************************
 	/**
 	 * Inserting Trans Pay to the DB
 	 * @param trans
@@ -109,7 +115,7 @@ public class TransLogic {
 
 		System.out.println("INSERT " + trans);
 	}
-	
+
 	/**
 	 * Inserting Trans Confirm to the DB
 	 * @param trans
@@ -188,7 +194,7 @@ public class TransLogic {
 					stmt.setNull(i++, java.sql.Types.DATE);
 				else
 					stmt.setDate(i++, trans.getShippmentDate());	
-				
+
 				stmt.executeUpdate();
 
 			} catch (SQLException e) {
@@ -199,5 +205,87 @@ public class TransLogic {
 		}
 
 		System.out.println("INSERT " + trans);
+	}
+
+	// ***************************** GENERAL QUERIES *****************************
+
+	/**
+	 * Getting all transactions with status Pending
+	 * @return transactions with status Pending
+	 */
+	public ArrayList<Transaction> getAllPendingTrans() {
+		ArrayList<Transaction> results = new ArrayList<Transaction>();
+		try {
+			Class.forName(Consts.JDBC_STR);
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_ALL_PENDING_TRANS)){
+				ResultSet rs = stmt.executeQuery();
+				while (rs.next()) {
+					int i = 1;
+					results.add(new Transaction(rs.getInt(i++),
+							rs.getString(i++),
+							rs.getInt(i++),
+							rs.getDate(i++),
+							rs.getDate(i++),
+							rs.getDouble(i++),
+							E_Status.valueOf(rs.getString(i++)),
+							rs.getString(i++),
+							rs.getString(i++),
+							rs.getString(i++),
+							rs.getString(i++),
+							rs.getString(i++),
+							E_Type.valueOf(rs.getString(i++))
+							));
+				}
+			}
+		}
+
+		catch (SQLException e) {
+			e.printStackTrace();
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return results;
+	}
+
+	/**
+	 * Getting all transactions
+	 * @return all transactions
+	 */
+	public ArrayList<Transaction> getAllTrans() {
+		ArrayList<Transaction> results = new ArrayList<Transaction>();
+		try {
+			Class.forName(Consts.JDBC_STR);
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_ALL_TRANS)){
+				ResultSet rs = stmt.executeQuery();
+				while (rs.next()) {
+					int i = 1;
+					results.add(new Transaction(rs.getInt(i++),
+							rs.getString(i++),
+							rs.getInt(i++),
+							rs.getDate(i++),
+							rs.getDate(i++),
+							rs.getDouble(i++),
+							E_Status.valueOf(rs.getString(i++)),
+							rs.getString(i++),
+							rs.getString(i++),
+							rs.getString(i++),
+							rs.getString(i++),
+							rs.getString(i++),
+							E_Type.valueOf(rs.getString(i++))
+							));
+				}
+			}
+		}
+
+		catch (SQLException e) {
+			e.printStackTrace();
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return results;
 	}
 }

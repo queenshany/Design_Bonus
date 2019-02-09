@@ -3,6 +3,7 @@ package entity;
 import java.sql.Date;
 
 import utils.E_Status;
+import utils.E_Type;
 
 /**
  * This class represents a Transaction in the system
@@ -22,6 +23,7 @@ public class Transaction {
 	private String destinationAddress;
 	private String destinationSignature;
 	private String walletAddress;
+	private E_Type type;
 
 	//---------------------------- Constructors ----------------------------
 	public Transaction(int transID) {
@@ -30,7 +32,7 @@ public class Transaction {
 
 	public Transaction(int transID, String description, int size, Date creationDate, Date executionDate, double fee,
 			E_Status status, String creatingAddress, String creatingSignature, String destinationAddress,
-			String destinationSignature, String walletAddress) {
+			String destinationSignature, String walletAddress, E_Type type) {
 		this.transID = transID;
 		this.description = description;
 		this.size = size;
@@ -43,6 +45,7 @@ public class Transaction {
 		this.destinationAddress = destinationAddress;
 		this.destinationSignature = destinationSignature;
 		this.walletAddress = walletAddress;
+		this.type = type;
 	}
 
 	//---------------------------- Getters & Setters ----------------------------
@@ -140,6 +143,14 @@ public class Transaction {
 
 	public void setWalletAddress(String walletAddress) {
 		this.walletAddress = walletAddress;
+	}
+	
+	public E_Type getType() {
+		return type;
+	}
+
+	public void setType(E_Type type) {
+		this.type = type;
 	}
 
 	//---------------------------- Hash & Equals ----------------------------

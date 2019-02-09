@@ -11,13 +11,13 @@ public final class Consts {
 	}
 
 	public static final int PHONE_LENGTH = 7;
-	
+
 	public static final int MAX_PAY_TRANS = 100;
 
 	public static final String JDBC_STR = "net.ucanaccess.jdbc.UcanaccessDriver";
 
 	public static final String DB_FILE_NAME = "DBTransfer.accdb";
-	
+
 	public static final String DB_FILE_PATH = getDBPath(); 
 
 	public static final String CONN_STR = "jdbc:ucanaccess://" + DB_FILE_PATH + ";COLUMNORDER=DISPLAY";
@@ -67,24 +67,65 @@ public final class Consts {
 	// ***************************** DELETE QUERIES ***************************** 
 
 	public static final String SQL_DEL_CATEGORY = "{ call deleteCategoryQry(?) }";
-	
+
 	public static final String SQL_DEL_ITEM_IN_TRANS = "{ call deleteItemInTransactionQry(?, ?) }";
-	
+
 	public static final String SQL_DEL_ITEM = "{ call deleteItemQry(?) }";
-	
+
 	public static final String SQL_DEL_RECOMMENDATION = "{ call deleteRecommendationQry(?) }";
-	
+
 	public static final String SQL_DEL_USER_IN_REC = "{ call deleteUserInRecommendationQry(?, ?, ?) }";
-	
+
 	// ***************************** UPDATE QUERIES ***************************** 
 
+	public static final String SQL_UPD_CATEGORY = "{ call updateCategoryQry(?, ?) }";
+	
+	// ***************************** SELECT QUERIES ***************************** 
+
+	public static final String SQL_SEL_USERS = "SELECT * FROM tblUser";
+	
+	public static final String SQL_SEL_ITEMS = "SELECT * FROM tblItem";
+	
+	public static final String SQL_SEL_CATEGORIES = "SELECT * FROM tblCategory";
+	
+	public static final String SQL_SEL_SYS_PARAMS = "SELECT * FROM tblSystem";
 	
 	// ***************************** GENERAL QUERIES ***************************** 
 
-	
-	
+	public static final String SQL_REC_CALC_PROBABILITY = "SELECT SUM(C) * 100/((Select COUNT(*) FROM tblTransPay TP WHERE TP.creationDate = (?))+(Select COUNT(*) FROM tblTransConfirm TC WHERE TC.creationDate = (?))) AS transPercent\r\n" + 
+			"FROM (SELECT creationDate, status, COUNT(*) as C, (Select COUNT(*) FROM tblTransConfirm WHERE TC.creationDate = (?)) as P\r\n" + 
+			"FROM tblTransConfirm TC \r\n" + 
+			"group by creationDate, status\r\n" + 
+			"\r\n" + 
+			"UNION ALL\r\n" + 
+			"\r\n" + 
+			"SELECT creationDate, status, COUNT(*) as C, (Select COUNT(*) FROM tblTransPay WHERE TP.creationDate = (?)) as P\r\n" + 
+			"From tblTransPay TP\r\n" + 
+			"group by creationDate, status) \r\n" + 
+			"GROUP BY creationDate, status\r\n" + 
+			"HAVING creationDate=(?) AND status=\"Executed\"";
+
+	public static final String SQL_ALL_PENDING_TRANS = "Select *\r\n" + 
+			"from (SELECT transID, description, size, creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress ,'Pay' as type\r\n" + 
+			"FROM tblTransPay\r\n" + 
+			"WHERE status=\"Pending\")\r\n" + 
+			"\r\n" + 
+			"UNION ALL (SELECT transID, description, size, creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress, 'Confirm' as type\r\n" + 
+			"FROM tblTransConfirm\r\n" + 
+			"WHERE status=\"Pending\")\r\n" + 
+			"ORDER BY creationDate\r\n" + 
+			"";
+
+	public static final String SQL_ALL_TRANS = "Select *\r\n" + 
+			"from (SELECT transID, description, size, creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress, 'Pay' as type\r\n" + 
+			"FROM tblTransPay)\r\n" + 
+			"\r\n" + 
+			"UNION ALL (SELECT transID, description, size, creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress, 'Confirm' as type\r\n" + 
+			"FROM tblTransConfirm)\r\n" + 
+			"ORDER BY creationDate";
+
 	// ***************************** PATH STUFF ***************************** 
-	
+
 	private static String getDBPath() {
 		try {
 			String path = Consts.class.getProtectionDomain().getCodeSource().getLocation().getPath();

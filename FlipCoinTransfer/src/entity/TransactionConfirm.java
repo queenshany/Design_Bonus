@@ -3,6 +3,7 @@ package entity;
 import java.sql.Date;
 
 import utils.E_Status;
+import utils.E_Type;
 
 /**
  * This class represents a Transaction Confirm in the system
@@ -18,7 +19,7 @@ public class TransactionConfirm extends Transaction{
 			double fee, E_Status status, String creatingAddress, String creatingSignature, String destinationAddress,
 			String destinationSignature, String walletAddress, boolean isConfirmed, Date shippmentDate) {
 		super(transID, description, size, creationDate, executionDate, fee, status, creatingAddress, creatingSignature,
-				destinationAddress, destinationSignature, walletAddress);
+				destinationAddress, destinationSignature, walletAddress, E_Type.Confirm);
 		this.isConfirmed = isConfirmed;
 		this.shippmentDate = shippmentDate;
 	}

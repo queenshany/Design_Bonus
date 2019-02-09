@@ -2,8 +2,12 @@ package control;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 
 import entity.Consts;
 import entity.Item;
@@ -95,7 +99,7 @@ public class RecLogic {
 					stmt.setString(i++, rec.getUserSignature());
 
 				stmt.setInt(i++, rec.getRecommendation());
-				
+
 				if (rec.getCommitmentLevel() == null)
 					stmt.setNull(i++, java.sql.Types.VARCHAR);
 				else
@@ -114,7 +118,7 @@ public class RecLogic {
 	}
 
 	// ***************************** DELETE QUERIES *****************************
-	
+
 	/**
 	 * Deleting a recommendation from the DB
 	 * @param rec
@@ -125,13 +129,13 @@ public class RecLogic {
 			try {
 				Connection conn = DriverManager.getConnection(Consts.CONN_STR);
 				CallableStatement stmt = conn.prepareCall(Consts.SQL_DEL_RECOMMENDATION);
-					int i = 1;
-					
-					stmt.setInt(i++, rec.getRecNum());
-					
-					stmt.executeUpdate();
-				
-				} catch (SQLException e) {
+				int i = 1;
+
+				stmt.setInt(i++, rec.getRecNum());
+
+				stmt.executeUpdate();
+
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		} catch (ClassNotFoundException e) {
@@ -139,7 +143,7 @@ public class RecLogic {
 		}
 		System.out.println("DELETE " + rec);
 	}
-	
+
 	/**
 	 * Deleting a recommendation from the DB
 	 * @param rec
@@ -150,20 +154,60 @@ public class RecLogic {
 			try {
 				Connection conn = DriverManager.getConnection(Consts.CONN_STR);
 				CallableStatement stmt = conn.prepareCall(Consts.SQL_DEL_USER_IN_REC);
-					int i = 1;
-					
-					stmt.setString(i++, rec.getUserAddress());
-					stmt.setString(i++, rec.getUserSignature());
-					stmt.setInt(i++, rec.getRecommendation());
-					
-					stmt.executeUpdate();
-				
-				} catch (SQLException e) {
+				int i = 1;
+
+				stmt.setString(i++, rec.getUserAddress());
+				stmt.setString(i++, rec.getUserSignature());
+				stmt.setInt(i++, rec.getRecommendation());
+
+				stmt.executeUpdate();
+
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		System.out.println("DELETE " + rec);
+	}
+
+	// ***************************** GENERAL QUERIES *****************************
+
+	/**
+	 * Calculating the probability to be chosen
+	 * @param date of the probability
+	 * @return the probability to be chosen
+	 */
+	public Double calcProbability(Date date) {
+		Double result = 0.0;
+
+		try {
+			Class.forName(Consts.JDBC_STR);
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_REC_CALC_PROBABILITY)){
+				int i=1;
+				while (i < 6) {
+					if (date != null) 
+						stmt.setDate(i++, date);
+					else 
+						stmt.setNull(i++, java.sql.Types.DATE);
+				}
+				ResultSet rs = stmt.executeQuery();
+				//System.err.println(rs.toString());
+				while (rs.next())
+				{
+					result = rs.getDouble(1);
+				}
+				//return results;
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return result;
 	}
 }

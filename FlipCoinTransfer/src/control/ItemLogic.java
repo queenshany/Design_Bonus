@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -13,6 +14,7 @@ import entity.Consts;
 import entity.Item;
 import entity.ItemInTransaction;
 import entity.Transaction;
+import entity.User;
 
 /**
  * This class represents the Item Management in the system: Item, ItemInTransaction, Categories
@@ -259,7 +261,7 @@ public class ItemLogic {
 		}
 		System.out.println("UPDATE " + c);
 	}
-	
+
 	/**
 	 * Updates item in trans values
 	 * @param item
@@ -284,7 +286,7 @@ public class ItemLogic {
 		}
 		System.out.println("UPDATE " + item);
 	}
-	
+
 	/**
 	 * Updates item in trans values
 	 * @param item
@@ -312,5 +314,74 @@ public class ItemLogic {
 			e.printStackTrace();
 		}
 		System.out.println("UPDATE " + item);
+	}
+
+	// ***************************** SELECT QUERIES *****************************
+
+	/**
+	 * Loading Items from the DB to the system
+	 * @return ALL of the Items from the DB
+	 */
+	public ArrayList<Item> getItems() {
+		ArrayList<Item> results = new ArrayList<Item>();
+
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_SEL_ITEMS);
+					ResultSet rs = stmt.executeQuery())
+			{
+				while (rs.next()) {
+					int i = 1;
+					results.add(new Item(rs.getInt(i++),
+							rs.getString(i++),
+							rs.getString(i++),
+							rs.getString(i++),
+							rs.getDouble(i++),
+							rs.getInt(i++),
+							rs.getInt(i++),
+							rs.getString(i++),
+							rs.getString(i++)));
+				}
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		//System.out.println(results);
+		return results;
+	}
+
+	/**
+	 * Loading Categories from the DB to the system
+	 * @return ALL of the Categories from the DB
+	 */
+	public ArrayList<Category> getCategories() {
+		ArrayList<Category> results = new ArrayList<Category>();
+
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_SEL_CATEGORIES);
+					ResultSet rs = stmt.executeQuery())
+			{
+				while (rs.next()) {
+					int i = 1;
+					results.add(new Category(rs.getInt(i++),
+							rs.getString(i++)));
+				}
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		//System.out.println(results);
+		return results;
 	}
 }

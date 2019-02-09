@@ -134,7 +134,7 @@ public class Item {
 	public String toString() {
 		//TODO
 		Category c = new Category(category);
-		return "Catalog Number:" + catalogNumber + " | Item Name: " + itemName + " | Description: " + description
+		return "Catalog Number: " + catalogNumber + " | Item Name: " + itemName + " | Description: " + description
 				+ " | Price: " + price + " | Quantity: " + quantity + " | Category: " + c.getCategoryName() + " | Seller Address: "
 				+ sellerAddress + " | Seller Signature: " + sellerSignature;
 	}

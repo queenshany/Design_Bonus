@@ -3,7 +3,10 @@ package control;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import entity.Consts;
 import entity.Message;
@@ -187,5 +190,42 @@ public class UserLogic {
 			e.printStackTrace();
 		}
 		System.out.println("UPDATE " + user);
+	}
+	
+	// ***************************** SELECT QUERIES *****************************
+	
+	/**
+	 * Loading Users from the DB to the system
+	 * @return ALL of the Users from the DB
+	 */
+	public ArrayList<User> getUsers() {
+		ArrayList<User> results = new ArrayList<User>();
+
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_SEL_USERS);
+					ResultSet rs = stmt.executeQuery())
+			{
+					while (rs.next()) {
+					int i = 1;
+					results.add(new User(rs.getString(i++),
+							rs.getString(i++),
+							rs.getString(i++),
+							rs.getString(i++),
+							rs.getString(i++),
+							rs.getString(i++),
+							rs.getBoolean(i++)));
+				}
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		//System.out.println(results);
+		return results;
 	}
 }

@@ -63,10 +63,10 @@ public class MainClassTemp{
 		//tl.updateTransConfirm(new TransactionConfirm(9, "fff", 3456, new Date(8, 2, 2019), new Date(8, 2, 2019), 5, E_Status.Executed, "A1A1A1", "A11", "B2B2B2", "B22", "AAAA", true, new Date(8, 2, 2019)));
 		//tl.updateTransPay(new TransactionPay(8, "fffff", 67, new Date(8, 2, 2019), new Date(8, 2, 2019), 5, E_Status.Executed, "A1A1A1", "A11", "B2B2B2", "B22", "BBBB", 8));
 		//ul.updateUser(new User("kk", "kk", "aaaaaaaaa", "aaaaaaaaaa", "2", "2", true));
-		
-		wl.updateWallet(new Wallet("z", 0.6, false, false, false, 4, 3, "A1A1A1", "A11"));
-		wl.updateWalletBitcoinKnots(new WalletBitcoinKnots("z", 0.6, true, true, false, 4, 3, "A1A1A1", "A11", 888));
-		wl.updateWalletBitcoinSpace(new WalletBitcoinSpace("z", 0.6, true, true, false, 4, 3, "A1A1A1", "A11", 999));
+		//System.out.println(sd.getSysParams());
+		//wl.updateWallet(new Wallet("z", 0.6, false, false, false, 4, 3, "A1A1A1", "A11"));
+		//wl.updateWalletBitcoinKnots(new WalletBitcoinKnots("z", 0.6, true, true, false, 4, 3, "A1A1A1", "A11", 888));
+		//wl.updateWalletBitcoinSpace(new WalletBitcoinSpace("z", 0.6, true, true, false, 4, 3, "A1A1A1", "A11", 999));
 	}
 
 }

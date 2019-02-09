@@ -3,12 +3,16 @@ package control;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import entity.Consts;
 import entity.Item;
 import entity.SystemParams;
 import entity.Transaction;
+import entity.User;
 
 /**
  * This class represents the Sys Management: Net Mode, Parameters, Sign In
@@ -16,9 +20,9 @@ import entity.Transaction;
  *
  */
 public class SysData {
-	
+
 	// ***************************** INSERT QUERIES ***************************** 
-	
+
 	/**
 	 * Inserting sys params to the DB
 	 * @param sys
@@ -94,14 +98,14 @@ public class SysData {
 
 		System.out.println("INSERT " + sys);
 	}
-	
+
 	// ***************************** UPDATE QUERIES *****************************
-	
-/**
- * Updates last transferred trans
- * @param sys
- * @param trans
- */
+
+	/**
+	 * Updates last transferred trans
+	 * @param sys
+	 * @param trans
+	 */
 	public void updateLastTransferredTrans(SystemParams sys, Transaction trans) {
 		try {
 			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
@@ -121,4 +125,46 @@ public class SysData {
 		}
 		System.out.println("UPDATE " + sys);
 	}
+
+	// ***************************** SELECT QUERIES *****************************
+
+	/**
+	 * Loading SysParams from the DB to the system
+	 * @return ALL of the SysParams from the DB
+	 */
+	public ArrayList<SystemParams> getSysParams() {
+		ArrayList<SystemParams> results = new ArrayList<SystemParams>();
+
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_SEL_SYS_PARAMS);
+					ResultSet rs = stmt.executeQuery())
+			{
+				while (rs.next()) {
+					int i = 1;
+					results.add(new SystemParams(rs.getDouble(i++),
+							rs.getDate(i++),
+							rs.getInt(i++),
+							rs.getInt(i++),
+							rs.getInt(i++),
+							rs.getDouble(i++),
+							rs.getDouble(i++),
+							rs.getDouble(i++),
+							rs.getInt(i++),
+							rs.getDouble(i++),
+							rs.getInt(i++)));
+				}
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		//System.out.println(results);
+		return results;
+	}
+
 }

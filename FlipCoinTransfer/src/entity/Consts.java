@@ -171,7 +171,4 @@ public final class Consts {
 
 		//return new File("/database/" + DB_FILE_NAME).getAbsolutePath();
 	}
-
-
-
 }

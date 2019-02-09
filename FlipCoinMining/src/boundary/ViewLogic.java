@@ -140,23 +140,6 @@ public class ViewLogic {
 				false);
 	}
 
-	// ------------------------------ Employee ------------------------------
-	/**
-	 * Open Employee Main Window
-	 */
-	protected static void newEmployeeWindow() {
-		Stage stage = new Stage();
-		stage.setMaximized(true);
-		setStage(stage);
-
-
-		newWindow(ViewLogic.class.getResource("MainEmployeeScreen.fxml"),
-				stage,
-				null,null, null, null, null, null,
-				false,
-				"Employee",
-				false);
-	}
 
 
 	// ------------------------------ User ------------------------------
@@ -195,262 +178,166 @@ public class ViewLogic {
 	}
 
 
-	// ------------------------------ Search Page ------------------------------
+	// ------------------------------ Add Riddles ------------------------------
 	/**
-	 * Open Search Page Window
+	 * Open Add Riddles Window
 	 */
-	protected static void newSearchPageWindow() {
+	protected static void newAddRiddlesWindow() {
 		Stage stage = new Stage();
 		setStage(stage);
 
 
-		newWindow(ViewLogic.class.getResource("SearchPage.fxml"),
+		newWindow(ViewLogic.class.getResource("AddRiddlesScreen.fxml"),
 				stage,
 				null, null,	null, null,	null, null,
 				false,
-				"Search Page",
+				"Add Riddles",
 				false);
 	}
 
 
-	// ------------------------------ Settings ------------------------------
+	// ------------------------------ Dominant Miner Report ------------------------------
 	/**
-	 * Open Settings Window
+	 * Open Dominant Miner Report Window
 	 */
-	protected static void newSettingsWindow() {
+	protected static void newDominantUserWindow() {
 		Stage stage = new Stage();
 		setStage(stage);
 
 
-		newWindow(ViewLogic.class.getResource("SettingsScreen.fxml"),
+		newWindow(ViewLogic.class.getResource("DominantMinerReport.fxml"),
 				stage,
 				null, null,	null, null,	null, null,
 				false,
-				"Settings",
+				"Generate Report",
 				false);
 	}
 
 
-	// ------------------------------ Parameters ------------------------------
+	// ------------------------------ First Solver ------------------------------
 	/**
-	 * Open Parameters Window
+	 * Open First Solver Window
 	 */
-	protected static void newParametersWindow() {
+	protected static void newFirstSolverWindow() {
 		Stage stage = new Stage();
 		setStage(stage);
 
 
-		newWindow(ViewLogic.class.getResource("ParametersScreen.fxml"),
+		newWindow(ViewLogic.class.getResource("FirstSolverScreen.fxml"),
 				stage,
 				null, null,	null, null,	null, null,
 				false,
-				"Parameters",
-				false);
-	}
-
-
-
-	// ------------------------------ Transactions ------------------------------
-	/**
-	 * Open Transactions Window
-	 */
-	protected static void newTransactionsWindow() {
-		Stage stage = new Stage();
-		setStage(stage);
-
-
-		newWindow(ViewLogic.class.getResource("TransactionsScreen.fxml"),
-				stage,
-				null, null,	null, null,	null, null,
-				false,
-				"Transactions",
-				false);
-	}
-
-
-	// ------------------------------ Categories ------------------------------
-	/**
-	 * Open Categories Window
-	 */
-	protected static void newCategoriesWindow() {
-		Stage stage = new Stage();
-		setStage(stage);
-
-
-		newWindow(ViewLogic.class.getResource("CategoriesScreen.fxml"),
-				stage,
-				null, null,	null, null,	null, null,
-				false,
-				"Categories",
+				"Congratulations",
 				false);
 	}
 
 
 
-
-	// ------------------------------ All Details ------------------------------
+	// ------------------------------ Lotteries ------------------------------
 	/**
-	 * Open All Details Window
+	 * Open Lotteries Window
+	 */
+	protected static void newLotteriesWindow() {
+		Stage stage = new Stage();
+		setStage(stage);
+
+
+		newWindow(ViewLogic.class.getResource("LotteriesScreen.fxml"),
+				stage,
+				null, null,	null, null,	null, null,
+				false,
+				"Lotteries",
+				false);
+	}
+
+
+	// ------------------------------ Management ------------------------------
+	/**
+	 * Open Management Window
+	 */
+	protected static void newManagementWindow() {
+		Stage stage = new Stage();
+		setStage(stage);
+
+
+		newWindow(ViewLogic.class.getResource("ManagementScreen.fxml"),
+				stage,
+				null, null,	null, null,	null, null,
+				false,
+				"All Details",
+				false);
+	}
+
+
+
+
+	// ------------------------------ Manage Transactions ------------------------------
+	/**
+	 * Open Manage Transactions Window
 	 */
 	protected static void newDetailsWindow() {
 		Stage stage = new Stage();
 		setStage(stage);
 
 
-		newWindow(ViewLogic.class.getResource("AllDetailsScreen.fxml"),
+		newWindow(ViewLogic.class.getResource("ManageTransactionsScreen.fxml"),
 				stage,
 				null, null,	null, null,	null, null,
 				false,
-				"Details",
+				"Manage Blocks",
 				false);
 	}
 
 
 
-	// ------------------------------ Bitcoin Knots ------------------------------
+	// ------------------------------ All Miners ------------------------------
 	/**
-	 * Open Bitcoin Knots Window
+	 * Open Miners Window
 	 */
-	protected static void newBitcoinKnotsWindow() {
+	protected static void newAllMinersWindow() {
 		Stage stage = new Stage();
 		setStage(stage);
 
 
-		newWindow(ViewLogic.class.getResource("BitcoinKnots.fxml"),
+		newWindow(ViewLogic.class.getResource("MinersTableScreen.fxml"),
 				stage,
 				null, null,	null, null,	null, null,
 				false,
-				"Bitcoin Knots",
+				"Miners Table",
 				false);
 	}
 
 
 
-	// ------------------------------ Bitcoin Space ------------------------------
+	// ------------------------------ Riddles ------------------------------
 	/**
-	 * Open Bitcoin Space Window
+	 * Open Riddles Window
 	 */
-	protected static void newBitcoinSpaceWindow() {
+	protected static void newRiddlesWindow() {
 		Stage stage = new Stage();
 		setStage(stage);
 
 
-		newWindow(ViewLogic.class.getResource("BitcoinSpace.fxml"),
+		newWindow(ViewLogic.class.getResource("RiddlesScreen.fxml"),
 				stage,
 				null, null,	null, null,	null, null,
 				false,
-				"Bitcoin Space",
+				"Solve Riddles",
 				false);
 	}
 
 
 
+	private static void setStage(Stage stage) {
+		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+				event.consume();
+				//			if (saveOnExit())
+				//				stage.close();
 
-	// ------------------------------ Email ------------------------------
-	/**
-	 * Open Email Window
-	 */
-	protected static void newEmailWindow() {
-		Stage stage = new Stage();
-		setStage(stage);
-
-
-		newWindow(ViewLogic.class.getResource("EmailScreen.fxml"),
-				stage,
-				null, null,	null, null,	null, null,
-				false,
-				"Email",
-				false);
+			}
+		});
 	}
-
-
-
-
-	// ------------------------------ Create Recommendation ------------------------------
-	/**
-	 * Open Create Recommendation Window
-	 */
-	protected static void newCreateRecommendationWindow() {
-		Stage stage = new Stage();
-		setStage(stage);
-
-
-		newWindow(ViewLogic.class.getResource("CreateRecommendationScreen.fxml"),
-				stage,
-				null, null,	null, null,	null, null,
-				false,
-				"Create Recommendation",
-				false);
-	}
-
-
-	// ------------------------------ View Recommendation ------------------------------
-	/**
-	 * Open View Recommendation Window
-	 */
-	protected static void newViewRecommendationWindow() {
-		Stage stage = new Stage();
-		setStage(stage);
-
-
-		newWindow(ViewLogic.class.getResource("ViewRecommendationScreen.fxml"),
-				stage,
-				null, null,	null, null,	null, null,
-				false,
-				"View Recommendation",
-				false);
-	}
-
-
-
-	// ------------------------------ Products ------------------------------
-	/**
-	 * Open Products Window
-	 */
-	protected static void newProductsWindow() {
-		Stage stage = new Stage();
-		setStage(stage);
-
-
-		newWindow(ViewLogic.class.getResource("ProductsScreen.fxml"),
-				stage,
-				null, null,	null, null,	null, null,
-				false,
-				"Products",
-				false);
-	}
-
-
-
-	// ------------------------------ Wallets ------------------------------
-	/**
-	 * Open Wallets Window
-	 */
-	protected static void newWalletsWindow() {
-		Stage stage = new Stage();
-		setStage(stage);
-
-
-		newWindow(ViewLogic.class.getResource("UserWalletScreen.fxml"),
-				stage,
-				null, null,	null, null,	null, null,
-				false,
-				"Categories",
-				false);
-	}
-
-
-
-private static void setStage(Stage stage) {
-	stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-		@Override
-		public void handle(WindowEvent event) {
-			event.consume();
-//			if (saveOnExit())
-//				stage.close();
-
-		}
-	});
-}
 
 }

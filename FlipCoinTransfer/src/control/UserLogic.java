@@ -6,7 +6,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import entity.Consts;
-import entity.Item;
 import entity.Message;
 import entity.User;
 
@@ -23,6 +22,8 @@ public class UserLogic {
 			instance = new UserLogic();
 		return instance;
 	}
+
+	// ***************************** INSERT QUERIES *****************************
 
 	/**
 	 * Inserting a message to the DB
@@ -92,7 +93,7 @@ public class UserLogic {
 				CallableStatement stmt = conn.prepareCall(Consts.SQL_INS_USER);
 				int i = 1;
 
-				stmt.setString(i++, user.getUsername());
+				stmt.setString(i++, user.getPublicAddress());
 
 				if (user.getSignature() == null)
 					stmt.setNull(i++, java.sql.Types.VARCHAR);
@@ -134,5 +135,57 @@ public class UserLogic {
 		}
 
 		System.out.println("INSERT " + user);
+
+	}
+	
+	// ***************************** UPDATE QUERIES *****************************
+
+	/**
+	 * Updates User values
+	 * @param user
+	 */
+	public void updateUser(User user) {
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					CallableStatement stmt = conn.prepareCall(Consts.SQL_UPD_USER)) {
+
+				int i = 1;
+
+				if (user.getPassword() == null)
+					stmt.setNull(i++, java.sql.Types.VARCHAR);
+				else
+					stmt.setString(i++, user.getPassword());
+
+				if (user.getPhone() == null)
+					stmt.setNull(i++, java.sql.Types.VARCHAR);
+				else
+					stmt.setString(i++, user.getPhone());
+
+				if (user.getEmail() == null)
+					stmt.setNull(i++, java.sql.Types.VARCHAR);
+				else
+					stmt.setString(i++, user.getEmail());
+
+				if (user.getIsEmployee() == null)
+					stmt.setNull(i++, java.sql.Types.BOOLEAN);
+				else
+					stmt.setBoolean(i++, user.getIsEmployee());
+
+				stmt.setString(i++, user.getPublicAddress());
+
+				if (user.getSignature() == null)
+					stmt.setNull(i++, java.sql.Types.VARCHAR);
+				else
+					stmt.setString(i++, user.getSignature());
+
+				stmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		System.out.println("UPDATE " + user);
 	}
 }

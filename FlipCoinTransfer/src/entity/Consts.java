@@ -80,6 +80,28 @@ public final class Consts {
 
 	public static final String SQL_UPD_CATEGORY = "{ call updateCategoryQry(?, ?) }";
 	
+	public static final String SQL_UPD_ITEM_IN_TRANS = "{ call updateItemInTransactionQry(?, ?, ?) }";
+	
+	public static final String SQL_UPD_ITEM = "{ call updateItemQry(?, ?, ?, ?, ?, ?, ?) }";
+	
+	public static final String SQL_UPD_LAST_TRANSFERRED_TRANS = "{ call updateLastTransferredTrans(?, ?) }";
+	
+	public static final String SQL_UPD_REC = "{ call updateRecommendationQry(?, ?, ?) }";
+	
+	public static final String SQL_UPD_USER_IN_REC = "{ call updateRecommendedForQry(?, ?, ?, ?) }";
+	
+	public static final String SQL_UPD_TRANS_CONFIRM = "{ call updateTransConfirmQry(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }";
+	
+	public static final String SQL_UPD_TRANS_PAY = "{ call updateTransPayQry(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }";
+	
+	public static final String SQL_UPD_USER = "{ call updateUserQry(?, ?, ?, ?, ?, ?) }";
+	
+	public static final String SQL_UPD_WALLET_KNOTS = "{ call updateWalletBitcoinKnotsQry(?, ?) }";
+	
+	public static final String SQL_UPD_WALLET_SPACE = "{ call updateWalletBitcoinSpaceQry(?, ?) }";
+	
+	public static final String SQL_UPD_WALLET = "{ call updateWalletQry(?, ?, ?, ?, ?, ?, ?) }";
+	
 	// ***************************** SELECT QUERIES ***************************** 
 
 	public static final String SQL_SEL_USERS = "SELECT * FROM tblUser";

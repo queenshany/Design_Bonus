@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 
+import entity.Category;
 import entity.Consts;
 import entity.Item;
 import entity.Message;
@@ -171,6 +172,59 @@ public class RecLogic {
 		System.out.println("DELETE " + rec);
 	}
 
+	// ***************************** UPDATE QUERIES *****************************
+
+	/**
+	 * Updates Level of User in Recommendation value
+	 * @param rec
+	 */
+	public void updateUserInRec(RecommendedFor rec) {
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					CallableStatement stmt = conn.prepareCall(Consts.SQL_UPD_USER_IN_REC)) {
+
+				int i = 1;
+				stmt.setString(i++, rec.getCommitmentLevel().toString());
+				stmt.setString(i++, rec.getUserAddress());
+				stmt.setString(i++, rec.getUserSignature());
+				stmt.setInt(i++, rec.getRecommendation());
+
+				stmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		System.out.println("UPDATE " + rec);
+	}
+	
+	/**
+	 * Updates Recommendation values
+	 * @param rec
+	 */
+	public void updateRecommendation(Recommendation rec) {
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					CallableStatement stmt = conn.prepareCall(Consts.SQL_UPD_REC)) {
+
+				int i = 1;
+				stmt.setDouble(i++, rec.getRecommendedFee());
+				stmt.setBoolean(i++, rec.getIsApproved());
+				stmt.setInt(i++, rec.getRecNum());
+
+				stmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		System.out.println("UPDATE " + rec);
+	}
+	
 	// ***************************** GENERAL QUERIES *****************************
 
 	/**

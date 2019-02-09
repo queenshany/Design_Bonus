@@ -54,6 +54,19 @@ public class MainClassTemp{
 		//System.out.println(rl.calcProbability(new Date(8, 2, 2019)));
 		//System.out.println(tl.getAllPendingTrans());
 		//System.out.println(tl.getAllTrans());
+		//il.updateCategory(new Category(7, "j"));
+		//il.updateItemInTrans(new ItemInTransaction(3, 1, 2));
+		//il.updateItem(new Item(7, "v", "v", "v", 3, 3, 3, "A1A1A1", "A11"));
+		//sd.updateLastTransferredTrans(new SystemParams(2, new Date(8, 2, 2019), 5, 6, 4, 5, 4, 4, 4, 4, 8), new TransactionPay(8, "", 66, new Date(8, 2, 2019), new Date(8, 2, 2019), 5, E_Status.Executed, "A1A1A1", "A11", "B2B2B2", "B22", "BBBB", 8));
+		//rl.updateRecommendation(new Recommendation(3, new Date(8, 2, 2019), 500000000, 6000000, true));
+		//rl.updateUserInRec(new RecommendedFor("e5e5e5", "e55", 1, E_Level.Weak));
+		//tl.updateTransConfirm(new TransactionConfirm(9, "fff", 3456, new Date(8, 2, 2019), new Date(8, 2, 2019), 5, E_Status.Executed, "A1A1A1", "A11", "B2B2B2", "B22", "AAAA", true, new Date(8, 2, 2019)));
+		//tl.updateTransPay(new TransactionPay(8, "fffff", 67, new Date(8, 2, 2019), new Date(8, 2, 2019), 5, E_Status.Executed, "A1A1A1", "A11", "B2B2B2", "B22", "BBBB", 8));
+		//ul.updateUser(new User("kk", "kk", "aaaaaaaaa", "aaaaaaaaaa", "2", "2", true));
+		
+		wl.updateWallet(new Wallet("z", 0.6, false, false, false, 4, 3, "A1A1A1", "A11"));
+		wl.updateWalletBitcoinKnots(new WalletBitcoinKnots("z", 0.6, true, true, false, 4, 3, "A1A1A1", "A11", 888));
+		wl.updateWalletBitcoinSpace(new WalletBitcoinSpace("z", 0.6, true, true, false, 4, 3, "A1A1A1", "A11", 999));
 	}
 
 }

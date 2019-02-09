@@ -6,7 +6,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import entity.Consts;
+import entity.Item;
 import entity.SystemParams;
+import entity.Transaction;
 
 /**
  * This class represents the Sys Management: Net Mode, Parameters, Sign In
@@ -14,6 +16,9 @@ import entity.SystemParams;
  *
  */
 public class SysData {
+	
+	// ***************************** INSERT QUERIES ***************************** 
+	
 	/**
 	 * Inserting sys params to the DB
 	 * @param sys
@@ -88,5 +93,32 @@ public class SysData {
 		}
 
 		System.out.println("INSERT " + sys);
+	}
+	
+	// ***************************** UPDATE QUERIES *****************************
+	
+/**
+ * Updates last transferred trans
+ * @param sys
+ * @param trans
+ */
+	public void updateLastTransferredTrans(SystemParams sys, Transaction trans) {
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					CallableStatement stmt = conn.prepareCall(Consts.SQL_UPD_LAST_TRANSFERRED_TRANS)) {
+
+				int i = 1;
+				stmt.setInt(i++, trans.getTransID());
+				stmt.setDouble(i++, sys.getVersion());
+
+				stmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		System.out.println("UPDATE " + sys);
 	}
 }

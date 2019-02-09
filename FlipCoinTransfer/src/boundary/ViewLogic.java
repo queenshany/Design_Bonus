@@ -989,7 +989,7 @@ public class ViewLogic {
 			@Override
 			public void handle(WindowEvent event) {
 				event.consume();
-				if (saveOnExit())
+				//if (saveOnExit())
 					stage.close();
 
 			}

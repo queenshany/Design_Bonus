@@ -9,8 +9,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
-public class RegistrationController {
+public class RegistrationController extends AbstractController {
 
     @FXML
     private BorderPane borderPane;
@@ -90,9 +91,18 @@ public class RegistrationController {
     @FXML
     private Label registerLable;
 
+	protected void closeWindow() {
+		((Stage) borderPane.getScene().getWindow()).close();
+	}
+    
     @FXML
     void newAccount(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newUserWindow();
     }
+
+	public void initialize() {
+//		System.out.println("h");
+	}
 
 }

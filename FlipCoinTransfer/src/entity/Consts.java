@@ -16,7 +16,7 @@ public final class Consts {
 	
 	public static final int USER_ADDRESS_LENGTH = 6;
 	
-	public static final int WALLET_ADDRESS_LENGTH = 6;
+	public static final int WALLET_ADDRESS_LENGTH = 4;
 
 	public static final int MAX_PAY_TRANS = 100;
 
@@ -90,7 +90,7 @@ public final class Consts {
 	
 	public static final String SQL_UPD_ITEM = "{ call updateItemQry(?, ?, ?, ?, ?, ?, ?) }";
 	
-	public static final String SQL_UPD_LAST_TRANSFERRED_TRANS = "{ call updateLastTransferredTrans(?, ?) }";
+	public static final String SQL_UPD_LAST_TRANSFERRED_TRANS = "{ call updateLastTransferredTransQry(?, ?) }";
 	
 	public static final String SQL_UPD_REC = "{ call updateRecommendationQry(?, ?, ?) }";
 	

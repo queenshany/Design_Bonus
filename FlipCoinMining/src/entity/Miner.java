@@ -94,7 +94,7 @@ public class Miner {
 
 	@Override
 	public String toString() {
-		return "Miner Unique Address:" + uniqueAddress + " | Miner Name: " + minerName + " | Email: "
+		return "Miner Unique Address: " + uniqueAddress + " | Miner Name: " + minerName + " | Email: "
 				+ email + " | Digital Profit: " + digitalProfit;
 	}
 

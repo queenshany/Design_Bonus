@@ -6,15 +6,113 @@ public final class Consts {
 		throw new AssertionError();
 	}
 
+	public static final int PHONE_LENGTH = 7;
+
+	//TODO
+	public static final int USER_SIGNATURE_LENGTH = 3;
+
+	public static final int USER_ADDRESS_LENGTH = 6;
+
+	public static final int WALLET_ADDRESS_LENGTH = 6;
+
 	public static final String JDBC_STR = "net.ucanaccess.jdbc.UcanaccessDriver";
 
 	public static final String DB_FILE_NAME = "DBMining.accdb";
+
 	public static final String DB_FILE_PATH = getDBPath(); 
 
 	public static final String CONN_STR = "jdbc:ucanaccess://" + DB_FILE_PATH + ";COLUMNORDER=DISPLAY";
 
-	public static final int PHONE_LENGTH = 7;
+	// ***************************** INSERT QUERIES ***************************** 
+
+	public static final String SQL_INS_BLOCK = "INSERT INTO tblBlock ( blockAddress, creationDate, creationTime, size, previousBlock, minerAddress )\r\n" + 
+			"VALUES ((?), (?), (?), (?), (?), (?))";
+
+	public static final String SQL_INS_BONUS = "INSERT INTO tblBonus ( bonusNum, description )\r\n" + 
+			"VALUES ((?), (?))\r\n" + "";
+
+	public static final String SQL_INS_GET_BONUS = "INSERT INTO keyGetBonus ( lotteryNum, uniqueAddress, bonusNum )\r\n" + 
+			"VALUES ((?), (?), (?))";
+
+	public static final String SQL_INS_LOTTERY = "INSERT INTO tblLottery ( lotteryNum, lotteryDate, maxParticipants, numOfWinners, numOfBonuses )\r\n" + 
+			"VALUES ((?), (?), (?), (?), (?))";
+
+	public static final String SQL_INS_MESSAGE = "INSERT INTO tblMessage ( ID, uniqueAddress, title, description, messageDate, messageTime )\r\n" + 
+			"VALUES ((?), (?), (?), (?), (?), (?))";
+
+	public static final String SQL_INS_MINER_COMPANY = "INSERT INTO tblMinerCompany ( uniqueAddress, contactFirstName, contactLastName, contactPhone, contactEmail )\r\n" + 
+			"VALUES ((?), (?), (?), (?), (?))";
+
+	public static final String SQL_INS_MINER = "INSERT INTO tblMiner ( uniqueAddress, minerName, password, email )\r\n" + 
+			"VALUES ((?), (?), (?), (?))";
+
+	public static final String SQL_INS_PARTICIPANT = "INSERT INTO keyParticipant ( lotteryNum, uniqueAddress, isWinner )\r\n" + 
+			"VALUES ((?), (?), (?))";
+
+	public static final String SQL_INS_RIDDLE_LEVEL = "INSERT INTO tblRiddleLevel ( levelCode, levelName, difficultyLevel, blockSize )\r\n" + 
+			"VALUES ((?), (?), (?), (?))";
+
+	public static final String SQL_INS_RIDDLE = "INSERT INTO tblRiddle ( riddleNum, publishedDate, publishedTime, description, solutionDate, solutionTime, status, riddleLevel )\r\n" + 
+			"VALUES ((?), (?), (?), (?), (?), (?), (?), (?))";
+
+	public static final String SQL_INS_SOLUTION = "INSERT INTO tblSolution ( riddleNum, solutionNum, result )\r\n" + 
+			"VALUES ((?), (?), (?))";
+
+	public static final String SQL_INS_SOLVED_RIDDLE = "INSERT INTO keySolvedRiddle ( uniqueAddress, riddleNum, solvedDate, solvedTime )\r\n" + 
+			"VALUES ((?), (?), (?), (?))";
+
+	public static final String SQL_INS_TRANS = "INSERT INTO tblTransaction ( ID, size, type, fee )\r\n" + 
+			"VALUES ((?), (?), (?), (?))";
+
+	// ***************************** DELETE QUERIES ***************************** 
+
+	public static final String SQL_DEL_BONUS = "{ call deleteBonusQry(?) }";
+
+	// ***************************** UPDATE QUERIES ***************************** 
+
+	public static final String SQL_ATTACH_TRANS_TO_BLOCK = "UPDATE tblTransaction SET tblTransaction.blockAddress = (?), tblTransaction.additionDate = (?), tblTransaction.additionTime = (?)\r\n" + 
+			"WHERE (((tblTransaction.ID)=(?)));\r\n" + "";
+
+	public static final String SQL_UPD_BONUS = "{ call updateBonusQry(?, ?) }";
+
+	public static final String SQL_UPD_LAST_TRANSFERRED_TRANS = "{ call updateLastTransferredTransQry(?, ?) }";
 	
+	public static final String SQL_UPD_LOTTERY = "{ call updateLotteryQry(?, ?, ?, ?, ?) }";
+
+	public static final String SQL_UPD_MINER_COMPANY = "{ call updateMinerCompanyQry(?, ?, ?, ?, ?) }";
+
+	public static final String SQL_UPD_MINER_PROFIT = "{ call updateMinerProfitQry(?, ?) }";
+
+	public static final String SQL_UPD_MINER = "{ call updateMinerQry(?, ?, ?, ?) }";
+
+	public static final String SQL_UPD_RIDDLE_LEVEL = "{ call updateRiddleLevelQry(?, ?, ?, ?) }";
+
+	public static final String SQL_UPD_RIDDLE = "{ call updateRiddleQry(?, ?, ?, ?, ?) }";
+
+	// ***************************** SELECT QUERIES *****************************
+
+	public static final String SQL_SEL_MINERS = "SELECT * FROM tblMiner";
+
+	public static final String SQL_SEL_LOTTERIES = "SELECT * FROM tblLottery";
+
+	public static final String SQL_SEL_RIDDLES = "SELECT * FROM tblRiddle";
+
+	public static final String SQL_SEL_RIDDLE_LEVELS = "SELECT * FROM tblRiddleLevel";
+
+	public static final String SQL_SEL_BONUSES = "SELECT * FROM tblBonus";
+
+	// ***************************** GENERAL QUERIES ***************************** 
+
+	public static final String SQL_TRANS_WITHOUT_BLOCK = "SELECT *\r\n" + 
+			"FROM tblTransaction\r\n" + 
+			"WHERE (tblTransaction.blockUniqueAddress=\"\" OR tblTransaction.blockUniqueAddress IS NULL)";
+
+	public static final String SQL_TRANS_IN_BLOCK = "SELECT *\r\n" + 
+			"FROM tblTransaction\r\n" + 
+			"WHERE (tblTransaction.blockUniqueAddress)= (?)";
+
+	// ***************************** PATH STUFF ***************************** 
+
 	private static String getDBPath() {
 		try {
 			String path = Consts.class.getProtectionDomain().getCodeSource().getLocation().getPath();
@@ -38,7 +136,5 @@ public final class Consts {
 
 		//return new File("/database/" + DB_FILE_NAME).getAbsolutePath();
 	}
-
-
 
 }

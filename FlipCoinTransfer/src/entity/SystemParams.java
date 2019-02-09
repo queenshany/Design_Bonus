@@ -2,7 +2,7 @@ package entity;
 
 import java.sql.Date;
 /**
- * This class represents a Recommendation in the system
+ * This class represents the Sys Parameters in the system
  * @author Shany Klein & Ofri Kokush
  *
  */

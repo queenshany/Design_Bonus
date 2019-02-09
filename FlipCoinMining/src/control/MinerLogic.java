@@ -5,10 +5,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import entity.Block;
 import entity.Consts;
+import entity.Lottery;
 import entity.Message;
 import entity.Miner;
 import entity.MinerCompany;
+import entity.Transaction;
 
 /**
  * This class represents the Miners & Companies & Messages Management in the system
@@ -23,7 +26,7 @@ public class MinerLogic {
 			instance = new MinerLogic();
 		return instance;
 	}
-	
+
 	// ***************************** INSERT QUERIES ***************************** 
 
 	/**
@@ -76,7 +79,7 @@ public class MinerLogic {
 
 		System.out.println("INSERT " + message);
 	}
-	
+
 	/**
 	 * Inserting a miner company to the DB
 	 * @param mc
@@ -122,7 +125,7 @@ public class MinerLogic {
 
 		System.out.println("INSERT " + mc);
 	}
-	
+
 	/**
 	 * Inserting a miner to the DB
 	 * @param m
@@ -162,5 +165,122 @@ public class MinerLogic {
 		}
 
 		System.out.println("INSERT " + m);
+	}
+
+	// ***************************** UPLOAD QUERIES ***************************** 
+
+	/**
+	 * Updates Miner values
+	 * @param m
+	 */
+	public void updateMiner(Miner m) {
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					CallableStatement stmt = conn.prepareCall(Consts.SQL_UPD_MINER)) {
+
+				int i = 1;
+
+				if (m.getMinerName() == null)
+					stmt.setNull(i++, java.sql.Types.VARCHAR);
+				else
+					stmt.setString(i++, m.getMinerName());
+
+				if (m.getPassword() == null)
+					stmt.setNull(i++, java.sql.Types.VARCHAR);
+				else
+					stmt.setString(i++, m.getPassword());
+
+				if (m.getEmail() == null)
+					stmt.setNull(i++, java.sql.Types.VARCHAR);
+				else
+					stmt.setString(i++, m.getEmail());
+
+				stmt.setString(i++, m.getUniqueAddress());
+
+				stmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		System.out.println("UPDATE " + m);
+	}
+
+	/**
+	 * Updates Miner Company values
+	 * @param mc
+	 */
+	public void updateMiner(MinerCompany mc) {
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					CallableStatement stmt = conn.prepareCall(Consts.SQL_UPD_MINER_COMPANY)) {
+
+				int i = 1;
+
+				if (mc.getContactFirstName() == null)
+					stmt.setNull(i++, java.sql.Types.VARCHAR);
+				else
+					stmt.setString(i++, mc.getContactFirstName());
+
+				if (mc.getContactLastName() == null)
+					stmt.setNull(i++, java.sql.Types.VARCHAR);
+				else
+					stmt.setString(i++, mc.getContactLastName());
+
+				if (mc.getContactPhone() == null)
+					stmt.setNull(i++, java.sql.Types.VARCHAR);
+				else
+					stmt.setString(i++, mc.getContactPhone());
+
+				if (mc.getContactEmail() == null)
+					stmt.setNull(i++, java.sql.Types.VARCHAR);
+				else
+					stmt.setString(i++, mc.getContactEmail());
+
+				stmt.setString(i++, mc.getUniqueAddress());
+
+				stmt.executeUpdate();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println("UPDATE " + mc);
+	}
+
+	/**
+	 * Updates Miner Profit values
+	 * @param m
+	 */
+	/**
+	 * This method updates the miner's digital profit
+	 * @param trans
+	 * @param block
+	 */
+	public void updateProfit(Transaction trans, Block block) {
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					CallableStatement stmt = conn.prepareCall(Consts.SQL_UPD_MINER_PROFIT)) {
+
+				int i = 1;
+				stmt.setDouble(i++, trans.getFee());
+				stmt.setString(i++, block.getMinerAddress());
+
+				stmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("UPDATE PROFIT ");
 	}
 }

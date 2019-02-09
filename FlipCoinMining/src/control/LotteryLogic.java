@@ -213,4 +213,48 @@ public class LotteryLogic {
 			}
 			System.out.println("UPDATE " + b);
 		}
+		
+		/**
+		 * Updates Lottery values
+		 * @param lot
+		 */
+		public void updateLottery(Lottery lot) {
+			try {
+				Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+				try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+						CallableStatement stmt = conn.prepareCall(Consts.SQL_UPD_LOTTERY)) {
+
+					int i = 1;
+					
+					if (lot.getLotteryDate() == null)
+						stmt.setNull(i++, java.sql.Types.DATE);
+					else
+						stmt.setDate(i++, lot.getLotteryDate());
+					
+					if (lot.getMaxParticipants() < 0)
+						stmt.setNull(i++, java.sql.Types.INTEGER);
+					else
+						stmt.setInt(i++, lot.getMaxParticipants());
+					
+					if (lot.getNumOfWinners() < 0)
+						stmt.setNull(i++, java.sql.Types.INTEGER);
+					else
+						stmt.setInt(i++, lot.getNumOfWinners());
+					
+					if (lot.getNumOfBonuses() < 0)
+						stmt.setNull(i++, java.sql.Types.INTEGER);
+					else
+						stmt.setInt(i++, lot.getNumOfBonuses());
+					
+					stmt.setInt(i++, lot.getLotteryNum());
+
+					stmt.executeUpdate();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+			System.out.println("UPDATE " + lot);
+		}
 }

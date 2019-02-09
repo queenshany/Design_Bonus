@@ -2,6 +2,7 @@ package control;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDate;
 
 import entity.Block;
 import entity.Bonus;
@@ -48,7 +49,11 @@ public class MainClassTemp{
 		//btl.insertTrans(new Transaction(9, 8, E_Type.Confirm, 9, null, null, null));
 		//ll.updateBonus(new Bonus(9,"im reeeeaaaaaaalllllllyyyyyyy a bonus"));
 		//ll.deleteBonus(new Bonus(9));
-		btl.attachTransToBlock(new Transaction(9, 8, E_Type.Confirm, 9, null, null, null), new Block("d", new Date(2019,2,6), new Time(0, 0, 0), 3, "DDD4", "kk"));
+		//btl.attachTransToBlock(new Transaction(9, 8, E_Type.Confirm, 9, null, null, null), new Block("d", new Date(2019,2,6), new Time(0, 0, 0), 3, "DDD4", "kk"));
+		//ll.updateLottery(new Lottery(9, Date.valueOf(LocalDate.now()), 54, 43, 43));
+		//ml.updateMiner(new Miner("pp", "hiii", "ggg", "gf", 5));
+		//ml.updateMiner(new MinerCompany("pp", "hiii", "ggg", "gf", 5, "dd", "ssssss", "ssssss", "aaaa"));
+		//ml.updateProfit(new Transaction(9, 8, E_Type.Confirm, 18, null, null, null), new Block("d", new Date(2019,2,6), new Time(0, 0, 0), 3, "DDD4", "kk"));
 	}
 
 }

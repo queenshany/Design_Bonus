@@ -27,7 +27,7 @@ import javafx.stage.WindowEvent;
  * Class ViewLogic ~ manages the windows in the system
  * 
  * @author ID: 205791056
- * @author ID: 312181605
+ * @author ID: 205806128
  */
 public class ViewLogic {
 	// ------------------------------ Variables ------------------------------
@@ -79,7 +79,7 @@ public class ViewLogic {
 
 					Image image = new Image("rsc/flipcoinLogo.png");
 					stage.getIcons().setAll(image);
-					
+
 					stage.setScene(scene);
 
 					if (minWidth != null)
@@ -118,9 +118,9 @@ public class ViewLogic {
 		newWindow(ViewLogic.class.getResource("Login.fxml"),
 				stage,
 				null, null, null, null, null, null,
-				true,
+				false,
 				"Welcome to FlipCoin Transfer",
-				true);
+				false);
 	}
 
 	// ------------------------------ Admin ------------------------------
@@ -132,7 +132,7 @@ public class ViewLogic {
 		setStage(stage);
 
 
-		newWindow(ViewLogic.class.getResource("AdminMain.fxml"),
+		newWindow(ViewLogic.class.getResource("MainAdminScreen.fxml"),
 				stage,
 				null, null,	null, null,	null, null,
 				false,
@@ -140,23 +140,320 @@ public class ViewLogic {
 				false);
 	}
 
-	//================================ Admin Match =============================
+	// ------------------------------ Employee ------------------------------
 	/**
-	 * Open Admin Match Window
+	 * Open Employee Main Window
 	 */
-	protected static void newAdminMatchWindow() {
+	protected static void newEmployeeWindow() {
 		Stage stage = new Stage();
 		stage.setMaximized(true);
 		setStage(stage);
 
 
-		newWindow(ViewLogic.class.getResource("AdminMatch.fxml"),
+		newWindow(ViewLogic.class.getResource("MainEmployeeScreen.fxml"),
 				stage,
 				null,null, null, null, null, null,
-				true,
-				"Match Settings",
+				false,
+				"Employee",
 				false);
 	}
+
+
+	// ------------------------------ User ------------------------------
+	/**
+	 * Open User Main Window
+	 */
+	protected static void newUserWindow() {
+		Stage stage = new Stage();
+		setStage(stage);
+
+
+		newWindow(ViewLogic.class.getResource("MainUserScreen.fxml"),
+				stage,
+				null, null,	null, null,	null, null,
+				false,
+				"User",
+				false);
+	}
+
+
+	// ------------------------------ Registration ------------------------------
+	/**
+	 * Open Registration Window
+	 */
+	protected static void newRegistrationWindow() {
+		Stage stage = new Stage();
+		setStage(stage);
+
+
+		newWindow(ViewLogic.class.getResource("Registration.fxml"),
+				stage,
+				null, null,	null, null,	null, null,
+				false,
+				"Registration",
+				false);
+	}
+
+
+	// ------------------------------ Search Page ------------------------------
+	/**
+	 * Open Search Page Window
+	 */
+	protected static void newSearchPageWindow() {
+		Stage stage = new Stage();
+		setStage(stage);
+
+
+		newWindow(ViewLogic.class.getResource("SearchPage.fxml"),
+				stage,
+				null, null,	null, null,	null, null,
+				false,
+				"Search Page",
+				false);
+	}
+
+
+	// ------------------------------ Settings ------------------------------
+	/**
+	 * Open Settings Window
+	 */
+	protected static void newSettingsWindow() {
+		Stage stage = new Stage();
+		setStage(stage);
+
+
+		newWindow(ViewLogic.class.getResource("SettingsScreen.fxml"),
+				stage,
+				null, null,	null, null,	null, null,
+				false,
+				"Settings",
+				false);
+	}
+
+
+	// ------------------------------ Parameters ------------------------------
+	/**
+	 * Open Parameters Window
+	 */
+	protected static void newParametersWindow() {
+		Stage stage = new Stage();
+		setStage(stage);
+
+
+		newWindow(ViewLogic.class.getResource("ParametersScreen.fxml"),
+				stage,
+				null, null,	null, null,	null, null,
+				false,
+				"Parameters",
+				false);
+	}
+
+
+
+	// ------------------------------ Transactions ------------------------------
+	/**
+	 * Open Transactions Window
+	 */
+	protected static void newTransactionsWindow() {
+		Stage stage = new Stage();
+		setStage(stage);
+
+
+		newWindow(ViewLogic.class.getResource("TransactionsScreen.fxml"),
+				stage,
+				null, null,	null, null,	null, null,
+				false,
+				"Transactions",
+				false);
+	}
+
+
+	// ------------------------------ Categories ------------------------------
+	/**
+	 * Open Categories Window
+	 */
+	protected static void newCategoriesWindow() {
+		Stage stage = new Stage();
+		setStage(stage);
+
+
+		newWindow(ViewLogic.class.getResource("CategoriesScreen.fxml"),
+				stage,
+				null, null,	null, null,	null, null,
+				false,
+				"Categories",
+				false);
+	}
+
+
+
+
+	// ------------------------------ All Details ------------------------------
+	/**
+	 * Open All Details Window
+	 */
+	protected static void newDetailsWindow() {
+		Stage stage = new Stage();
+		setStage(stage);
+
+
+		newWindow(ViewLogic.class.getResource("AllDetailsScreen.fxml"),
+				stage,
+				null, null,	null, null,	null, null,
+				false,
+				"Details",
+				false);
+	}
+
+
+
+	// ------------------------------ Bitcoin Knots ------------------------------
+	/**
+	 * Open Bitcoin Knots Window
+	 */
+	protected static void newBitcoinKnotsWindow() {
+		Stage stage = new Stage();
+		setStage(stage);
+
+
+		newWindow(ViewLogic.class.getResource("BitcoinKnots.fxml"),
+				stage,
+				null, null,	null, null,	null, null,
+				false,
+				"Bitcoin Knots",
+				false);
+	}
+
+
+
+	// ------------------------------ Bitcoin Space ------------------------------
+	/**
+	 * Open Bitcoin Space Window
+	 */
+	protected static void newBitcoinSpaceWindow() {
+		Stage stage = new Stage();
+		setStage(stage);
+
+
+		newWindow(ViewLogic.class.getResource("BitcoinSpace.fxml"),
+				stage,
+				null, null,	null, null,	null, null,
+				false,
+				"Bitcoin Space",
+				false);
+	}
+
+
+
+
+	// ------------------------------ Email ------------------------------
+	/**
+	 * Open Email Window
+	 */
+	protected static void newEmailWindow() {
+		Stage stage = new Stage();
+		setStage(stage);
+
+
+		newWindow(ViewLogic.class.getResource("EmailScreen.fxml"),
+				stage,
+				null, null,	null, null,	null, null,
+				false,
+				"Email",
+				false);
+	}
+
+
+
+
+	// ------------------------------ Create Recommendation ------------------------------
+	/**
+	 * Open Create Recommendation Window
+	 */
+	protected static void newCreateRecommendationWindow() {
+		Stage stage = new Stage();
+		setStage(stage);
+
+
+		newWindow(ViewLogic.class.getResource("CreateRecommendationScreen.fxml"),
+				stage,
+				null, null,	null, null,	null, null,
+				false,
+				"Create Recommendation",
+				false);
+	}
+
+
+	// ------------------------------ View Recommendation ------------------------------
+	/**
+	 * Open View Recommendation Window
+	 */
+	protected static void newViewRecommendationWindow() {
+		Stage stage = new Stage();
+		setStage(stage);
+
+
+		newWindow(ViewLogic.class.getResource("ViewRecommendationScreen.fxml"),
+				stage,
+				null, null,	null, null,	null, null,
+				false,
+				"View Recommendation",
+				false);
+	}
+
+
+
+	// ------------------------------ Products ------------------------------
+	/**
+	 * Open Products Window
+	 */
+	protected static void newProductsWindow() {
+		Stage stage = new Stage();
+		setStage(stage);
+
+
+		newWindow(ViewLogic.class.getResource("ProductsScreen.fxml"),
+				stage,
+				null, null,	null, null,	null, null,
+				false,
+				"Products",
+				false);
+	}
+
+
+
+	// ------------------------------ Wallets ------------------------------
+	/**
+	 * Open Wallets Window
+	 */
+	protected static void newWalletsWindow() {
+		Stage stage = new Stage();
+		setStage(stage);
+
+
+		newWindow(ViewLogic.class.getResource("UserWalletScreen.fxml"),
+				stage,
+				null, null,	null, null,	null, null,
+				false,
+				"Categories",
+				false);
+	}
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
 
 	/**
 	 * Open Admin Match Creation Window
@@ -227,12 +524,12 @@ public class ViewLogic {
 				"Add New Stadium Form",
 				true);
 	}
-	
+
 	/**
 	 * Open Admin Staium Update Window
 	 */
 	protected static void newStadiumUpdateWindow() {
-		
+
 		Stage stage = new Stage();
 		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 
@@ -251,7 +548,7 @@ public class ViewLogic {
 	}
 	//==================================================================================
 	//================================== Admin Player ==================================
-	
+
 	/**
 	 * Open Admin Player Window
 	 */
@@ -267,7 +564,7 @@ public class ViewLogic {
 				"Player Settings",
 				false);
 	}
-	
+
 	/**
 	 * Open Admin Player Creation Window
 	 */
@@ -293,7 +590,7 @@ public class ViewLogic {
 	 * Open Admin Player Update Window
 	 */
 	protected static void newPlayerUpdateWindow() {
-		
+
 		Stage stage = new Stage();
 		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 
@@ -311,7 +608,7 @@ public class ViewLogic {
 				"Update Player Form",
 				true);
 	}
-	
+
 	//==================================================================================
 	// ================================== Admin Coach ==================================
 	/**
@@ -353,7 +650,7 @@ public class ViewLogic {
 	 * Open Admin Coach Update Window
 	 */
 	protected static void newCoachUpdateWindow() {
-		
+
 		Stage stage = new Stage();
 		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 
@@ -370,7 +667,7 @@ public class ViewLogic {
 				"Update Coach Form",
 				true);
 	}
-	
+
 	//==================================================================================
 	// ================================== Admin Trophy ==================================
 	/**
@@ -414,7 +711,7 @@ public class ViewLogic {
 
 	//==================================================================================
 	// ================================== Admin Recep ==================================
-	
+
 	/**
 	 * Open Admin Receptionist Window
 	 */
@@ -431,7 +728,7 @@ public class ViewLogic {
 				"Receptionist Settings",
 				false);
 	}
-	
+
 	/**
 	 * Open Admin Receptionist Creation Window
 	 */
@@ -453,7 +750,7 @@ public class ViewLogic {
 				"Add New Receptionist Form",
 				true);
 	}
-	
+
 	/**
 	 * Open Admin Receptionist Update Window
 	 */
@@ -549,24 +846,24 @@ public class ViewLogic {
 	/**
 	 * Open Admin Team Details Window
 	 */
-//	protected static void newAdminTeamDetailsWindow() {
-//
-//		Stage stage = new Stage();
-//		
-//		stage.setMaximized(true);
-//		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-			
-//			@Override
-//			public void handle(WindowEvent event) {
-//				adminTeamController.setPlayersTable();
-//				adminTeamController.setTeamTable();
-//				adminTeamController.setSuperPlayersTable();
-//				stage.close();
-//				
-//			}
-//		});
-		
-	
+	//	protected static void newAdminTeamDetailsWindow() {
+	//
+	//		Stage stage = new Stage();
+	//		
+	//		stage.setMaximized(true);
+	//		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+
+	//			@Override
+	//			public void handle(WindowEvent event) {
+	//				adminTeamController.setPlayersTable();
+	//				adminTeamController.setTeamTable();
+	//				adminTeamController.setSuperPlayersTable();
+	//				stage.close();
+	//				
+	//			}
+	//		});
+
+
 	//==================================================================================
 	// ------------------------------ Coach ------------------------------
 	/**
@@ -576,7 +873,7 @@ public class ViewLogic {
 		Stage stage = new Stage();
 		stage.setMaximized(true);
 		setStage(stage);
-		
+
 		newWindow(ViewLogic.class.getResource("CoachMain.fxml"),
 				stage,
 				null, null, null, null, null, null,
@@ -634,7 +931,7 @@ public class ViewLogic {
 			@Override
 			public void handle(WindowEvent event) {
 				stage.close();
-			//	ViewLogic.newRecepWindow();
+				//	ViewLogic.newRecepWindow();
 			}
 		});
 
@@ -699,12 +996,12 @@ public class ViewLogic {
 		});
 	}
 	// ----------------------------------------------------------------------
-/**
- * this method is responsible for exiting the system clicking X
- * @return true if system is serialized
- */
+	/**
+	 * this method is responsible for exiting the system clicking X
+	 * @return true if system is serialized
+	 */
 	private static boolean saveOnExit() {
-//		Sound.playLogoutSound();
+		//		Sound.playLogoutSound();
 		Alert alert = new Alert(AlertType.WARNING);
 
 		ButtonType buttonTypeYes;
@@ -724,38 +1021,38 @@ public class ViewLogic {
 		alert.setTitle("Save Changes");
 
 		Optional<ButtonType> answer = alert.showAndWait();
-//
-//		//ButtonType answer = alert.getResult();
-//		if (answer.get().getButtonData() == ButtonData.CANCEL_CLOSE) {
-//			return false;
-//		}
-//		else if (answer.get().getButtonData() == ButtonData.YES) {
-//			//Serialize
-//			try {
-//				if (ViewLogic.sysData.serialize()) {
-//				
-//					Validation.info("Data Serialized Successfully!", "DataBase.ser is saved in the project's folder.");
-//					
-//					System.out.println("Serialized ViewLogic");
-//				}
-//				else {
-//				
-//					Validation.alert("Data Was Not Serialized!");
-//					System.out.println("Not Serialized");
-//				}
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			//System.out.println("Serialized ViewLogic");
-//		}
-//		else {
-//			
-//			Validation.alert("Data Was Not Serialized!");
-//			
-//			System.out.println("Not Serialized");
-//		}
+		//
+		//		//ButtonType answer = alert.getResult();
+		//		if (answer.get().getButtonData() == ButtonData.CANCEL_CLOSE) {
+		//			return false;
+		//		}
+		//		else if (answer.get().getButtonData() == ButtonData.YES) {
+		//			//Serialize
+		//			try {
+		//				if (ViewLogic.sysData.serialize()) {
+		//				
+		//					Validation.info("Data Serialized Successfully!", "DataBase.ser is saved in the project's folder.");
+		//					
+		//					System.out.println("Serialized ViewLogic");
+		//				}
+		//				else {
+		//				
+		//					Validation.alert("Data Was Not Serialized!");
+		//					System.out.println("Not Serialized");
+		//				}
+		//			} catch (IOException e) {
+		//				// TODO Auto-generated catch block
+		//				e.printStackTrace();
+		//			}
+		//			//System.out.println("Serialized ViewLogic");
+		//		}
+		//		else {
+		//			
+		//			Validation.alert("Data Was Not Serialized!");
+		//			
+		//			System.out.println("Not Serialized");
+		//		}
 		return true;
-//	}
-}
+		//	}
 	}
+}

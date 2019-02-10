@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import entity.Block;
 import entity.Bonus;
@@ -15,6 +16,7 @@ import entity.GetBonus;
 import entity.Lottery;
 import entity.Miner;
 import entity.Participant;
+import entity.Transaction;
 
 /**
  * This class represents the Lottery & Bonus Management in the system
@@ -29,7 +31,6 @@ public class LotteryLogic {
 			instance = new LotteryLogic();
 		return instance;
 	}
-
 
 	// ***************************** INSERT QUERIES ***************************** 
 	/**
@@ -324,5 +325,44 @@ public class LotteryLogic {
 		}
 		//System.out.println(results);
 		return results;
+	}
+	
+	// ***************************** GENERAL METHODS *****************************
+	/**
+	 * generating id for new bonus
+	 * @return id for new bonus
+	 */
+	public int getBonusID() {
+		ArrayList<Bonus> bonuses = getBonuses();
+		bonuses.sort(new Comparator<Bonus>() {
+
+			@Override
+			public int compare(Bonus b1, Bonus b2) {
+				return b1.getBonusNum()-b2.getBonusNum();
+			}
+		});
+		
+		if (!bonuses.isEmpty())
+			return bonuses.get(bonuses.size()-1).getBonusNum() + 1;
+		return 1;
+	}
+	
+	/**
+	 * generating id for new lottery
+	 * @return id for new lottery
+	 */
+	public int getLotteryID() {
+		ArrayList<Lottery> lots = getLotteries();
+		lots.sort(new Comparator<Lottery>() {
+
+			@Override
+			public int compare(Lottery l1, Lottery l2) {
+				return l1.getLotteryNum()-l2.getLotteryNum();
+			}
+		});
+		
+		if (!lots.isEmpty())
+			return lots.get(lots.size()-1).getLotteryNum() + 1;
+		return 1;
 	}
 }

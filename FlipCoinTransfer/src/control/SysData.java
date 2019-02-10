@@ -7,11 +7,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import org.apache.commons.lang.RandomStringUtils;
 
 import entity.Consts;
 import entity.Item;
+import entity.Recommendation;
 import entity.SystemParams;
 import entity.Transaction;
 import entity.User;
@@ -184,5 +186,24 @@ public class SysData {
 	 */
 	public String generateRandomStrings(int length) {
 		return RandomStringUtils.randomAlphanumeric(length).toUpperCase();
+	}
+	
+	/**
+	 * generating id (version) for new sysparams
+	 * @return id for new sysparams
+	 */
+	public double getSysVersion() {
+		ArrayList<SystemParams> sys = getSysParams();
+		sys.sort(new Comparator<SystemParams>() {
+
+			@Override
+			public int compare(SystemParams s1, SystemParams s2) {
+				return new Double(s1.getVersion()).compareTo(new Double(s2.getVersion()));
+			}
+		});
+		
+		if (!sys.isEmpty())
+			return sys.get(sys.size()-1).getVersion() + 0.1;
+		return 1;
 	}
 }

@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import entity.Block;
 import entity.Consts;
@@ -353,5 +354,25 @@ public class MinerLogic {
 		}
 		//System.out.println(results);
 		return results;
+	}
+	
+	// ***************************** GENERAL METHODS *****************************
+	/**
+	 * generating id for new message
+	 * @return id for new message
+	 */
+	public int getMessageID() {
+		ArrayList<Message> messages = getMessages();
+		messages.sort(new Comparator<Message>() {
+
+			@Override
+			public int compare(Message m1, Message m2) {
+				return m1.getID()-m2.getID();
+			}
+		});
+		
+		if (!messages.isEmpty())
+			return messages.get(messages.size()-1).getID() + 1;
+		return 1;
 	}
 }

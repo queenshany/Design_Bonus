@@ -7,9 +7,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import entity.Consts;
 import entity.Lottery;
+import entity.Message;
 import entity.Riddle;
 import entity.RiddleLevel;
 import entity.Solution;
@@ -388,5 +390,42 @@ public class RiddleLogic {
 		//System.out.println(results);
 		return results;
 	}
+	// ***************************** GENERAL METHODS *****************************
+	/**
+	 * generating id for new riddle
+	 * @return id for new riddle
+	 */
+	public int getRiddleID() {
+		ArrayList<Riddle> riddles = getRiddles();
+		riddles.sort(new Comparator<Riddle>() {
 
+			@Override
+			public int compare(Riddle r1, Riddle r2) {
+				return r1.getRiddleNum()-r2.getRiddleNum();
+			}
+		});
+		
+		if (!riddles.isEmpty())
+			return riddles.get(riddles.size()-1).getRiddleNum() + 1;
+		return 1;
+	}
+	
+	/**
+	 * generating id for new riddle Level
+	 * @return id for new riddle Level
+	 */
+	public int getRiddleLevelID() {
+		ArrayList<RiddleLevel> levels = getRiddleLevels();
+		levels.sort(new Comparator<RiddleLevel>() {
+
+			@Override
+			public int compare(RiddleLevel r1, RiddleLevel r2) {
+				return r1.getLevelCode()-r2.getLevelCode();
+			}
+		});
+		
+		if (!levels.isEmpty())
+			return levels.get(levels.size()-1).getLevelCode() + 1;
+		return 1;
+	}
 }

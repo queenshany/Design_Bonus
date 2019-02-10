@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 
 import entity.Category;
 import entity.Consts;
@@ -300,5 +301,25 @@ public class RecLogic {
 		}
 
 		return result;
+	}
+	
+	// ***************************** GENERAL METHODS *****************************
+	/**
+	 * generating id for new rec
+	 * @return id for new rec
+	 */
+	public int getRecID() {
+		ArrayList<Recommendation> recs = getRecommendations();
+		recs.sort(new Comparator<Recommendation>() {
+
+			@Override
+			public int compare(Recommendation r1, Recommendation r2) {
+				return r1.getRecNum()-r2.getRecNum();
+			}
+		});
+		
+		if (!recs.isEmpty())
+			return recs.get(recs.size()-1).getRecNum() + 1;
+		return 1;
 	}
 }

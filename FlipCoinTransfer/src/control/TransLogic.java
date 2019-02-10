@@ -7,8 +7,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import entity.Consts;
+import entity.Recommendation;
 import entity.RecommendedFor;
 import entity.Transaction;
 import entity.TransactionConfirm;
@@ -463,5 +465,25 @@ public class TransLogic {
 			e.printStackTrace();
 		}
 		return results;
+	}
+	
+	// ***************************** GENERAL METHODS *****************************
+	/**
+	 * generating id for new Transaction
+	 * @return id for new Transaction
+	 */
+	public int getTransID() {
+		ArrayList<Transaction> trans = getAllTrans();
+		trans.sort(new Comparator<Transaction>() {
+
+			@Override
+			public int compare(Transaction t1, Transaction t2) {
+				return t1.getTransID()-t2.getTransID();
+			}
+		});
+		
+		if (!trans.isEmpty())
+			return trans.get(trans.size()-1).getTransID() + 1;
+		return 1;
 	}
 }

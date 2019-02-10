@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import entity.Category;
 import entity.Consts;
@@ -384,24 +385,44 @@ public class ItemLogic {
 		//System.out.println(results);
 		return results;
 	}
-	
+
 	// ***************************** GENERAL METHODS *****************************
-	
+
 	/**
 	 * generating id for new item
 	 * @return id for new item
 	 */
 	public int getItemID() {
-		Item item = getItems().get(getItems().size()-1);
-		return item.getCatalogNumber() + 1;
+		ArrayList<Item> items = getItems();
+		items.sort(new Comparator<Item>() {
+
+			@Override
+			public int compare(Item i1, Item i2) {
+				return i1.getCatalogNumber()-i2.getCatalogNumber();
+			}
+		});
+		
+		if (!items.isEmpty())
+			return items.get(items.size()-1).getCatalogNumber() + 1;
+		return 1;
 	}
-	
+
 	/**
 	 * generating id for new category
 	 * @return id for new category
 	 */
 	public int getCategoryID() {
-		Category category = getCategories().get(getCategories().size()-1);
-		return category.getSerialNumber() + 1;
+		ArrayList<Category> categories = getCategories();
+		categories.sort(new Comparator<Category>() {
+
+			@Override
+			public int compare(Category c1, Category c2) {
+				return c1.getSerialNumber()-c2.getSerialNumber();
+			}
+		});
+		
+		if (!categories.isEmpty())
+			return categories.get(categories.size()-1).getSerialNumber() + 1;
+		return 1;
 	}
 }

@@ -78,12 +78,13 @@ public class MainClassTemp{
 		//System.out.println(btl.getBlocks());
 		//System.out.println(ml.getMessages());
 		//System.out.println(ml.getMiners());
-		
-		int length = 3;
-		
-		String s = RandomStringUtils.randomAlphanumeric(length).toUpperCase();
-		
-		System.out.println(s);
+
+		//		System.out.println("BON " + ll.getBonusID());
+		//		System.out.println("LOT " + ll.getLotteryID());
+		//		System.out.println("MSG " + ml.getMessageID());
+		//		System.out.println("RDL " + rl.getRiddleID());
+		//		System.out.println("LVL " + rl.getRiddleLevelID());
+
 
 	}
 

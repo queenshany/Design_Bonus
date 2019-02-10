@@ -457,6 +457,23 @@ public class ViewLogic {
 				false);
 	}
 
+	// ------------------------------ Edit Product ------------------------------
+	/**
+	 * Open Add New Product Window
+	 */
+	protected static void newEditProductWindow() {
+		Stage stage = new Stage();
+		setStage(stage);
+
+
+		newWindow(ViewLogic.class.getResource("EditProductScreen.fxml"),
+				stage,
+				null, null,	null, null,	null, null,
+				false,
+				"Edit Product",
+				false);
+	}
+
 
 
 	

@@ -1,14 +1,24 @@
 package boundary;
 
+import java.sql.Date;
+import java.util.ArrayList;
+
+import entity.Item;
+import entity.Transaction;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -16,6 +26,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import utils.E_TransType;
 
 public class TransactionsController {
 
@@ -122,6 +133,27 @@ public class TransactionsController {
     private ComboBox<?> walletCombo;
 
     @FXML
+    private ScrollPane scroll;
+
+    @FXML
+    private TableView<Transaction> waitingTable;
+
+    @FXML
+    private TableColumn<Transaction, Date> creationDate;
+
+    @FXML
+    private TableColumn<Transaction, Date> executionDate;
+
+    @FXML
+    private TableColumn<Transaction, String> status;
+
+    @FXML
+    private TableColumn<Transaction, String> adress;
+
+    @FXML
+    private TableColumn<Transaction, String> signature;
+    
+    @FXML
     private Button confirmButton;
 
     @FXML
@@ -130,6 +162,36 @@ public class TransactionsController {
     @FXML
     private ComboBox<?> walletsCombo;
 
+    
+	public void initialize() {
+		creationDate.setCellValueFactory(new PropertyValueFactory<>("creationDate"));
+		executionDate.setCellValueFactory(new PropertyValueFactory<>("executionDate"));
+		status.setCellValueFactory(new PropertyValueFactory<>("status"));
+		adress.setCellValueFactory(new PropertyValueFactory<>("destinationAdress"));
+		signature.setCellValueFactory(new PropertyValueFactory<>("destinationSignature"));
+		
+		getPayTransactions();
+		   
+ } 
+ 
+ public void getPayTransactions(){
+	   
+	   ObservableList<Transaction> t= FXCollections.observableArrayList();
+	   ArrayList<Transaction> pay = control.TransLogic.getInstance().getAllTrans();
+	   for(Transaction tp : pay)
+	   {
+		   if(E_TransType.Pay.equals(tp.getType()) && tp.getCreatingAddress().equalsIgnoreCase("C3C3C3") && 
+			   tp.getCreatingSignature().equalsIgnoreCase("C33"))
+				   
+		   t.add(tp);
+		   }
+	   
+		waitingTable.setItems(t);	   
+		waitingTable.refresh();
+ }
+	
+	
+    
     @FXML
     void NewConfirmTransaction(ActionEvent event) {
 
@@ -215,11 +277,6 @@ public class TransactionsController {
     	ViewLogic.newWalletsWindow();
     }
 
-
-
-	public void initialize() {
-//		System.out.println("h");
-	}
 
 	protected void closeWindow() {
 		((Stage) borderPane.getScene().getWindow()).close();

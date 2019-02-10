@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -84,8 +85,11 @@
                      <children>
                         <TableView fx:id="t1" layoutX="7.0" layoutY="8.0" prefHeight="200.0" prefWidth="496.0">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="C1" />
-                            <TableColumn prefWidth="75.0" text="C2" />
+                            <TableColumn fx:id="publicAddress" prefWidth="100.33331298828125" text="Public Address" />
+                            <TableColumn fx:id="signature" prefWidth="84.0" text="Signature" />
+                              <TableColumn fx:id="username" prefWidth="83.66668701171875" text="Username" />
+                              <TableColumn fx:id="phone" prefWidth="81.0" text="Phone" />
+                              <TableColumn fx:id="isEmployee" prefWidth="92.33331298828125" text="Is Employee?" />
                           </columns>
                         </TableView>
                      </children>
@@ -96,12 +100,23 @@
             <content>
               <AnchorPane fx:id="p2" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="t2" layoutX="8.0" layoutY="8.0" prefHeight="200.0" prefWidth="494.0">
-                          <columns>
-                            <TableColumn prefWidth="75.0" text="C1" />
-                            <TableColumn prefWidth="75.0" text="C2" />
-                          </columns>
-                        </TableView>
+                        <ScrollPane layoutX="8.0" layoutY="8.0">
+                           <content>
+                              <TableView fx:id="t2" prefHeight="200.0" prefWidth="494.0">
+                                <columns>
+                                  <TableColumn fx:id="catalogNum" prefWidth="75.0" text="CatalogNum" />
+                                  <TableColumn fx:id="itemName" prefWidth="75.0" text="Item Name" />
+                                    <TableColumn fx:id="image" prefWidth="75.0" text="Image" />
+                                    <TableColumn fx:id="description" prefWidth="75.0" text="Descroption" />
+                                    <TableColumn fx:id="price" prefWidth="75.0" text="Price" />
+                                    <TableColumn fx:id="quantity" prefWidth="75.0" text="Quantity" />
+                                    <TableColumn fx:id="category" prefWidth="75.0" text="Category" />
+                                    <TableColumn fx:id="sellerA" prefWidth="75.0" text="Seller Address" />
+                                    <TableColumn fx:id="sellerS" prefWidth="75.0" text="Seller Signature" />
+                                </columns>
+                              </TableView>
+                           </content>
+                        </ScrollPane>
                      </children>
                   </AnchorPane>
             </content>
@@ -110,12 +125,25 @@
                <content>
                   <AnchorPane fx:id="p3" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="t3" layoutX="8.0" layoutY="8.0" prefHeight="200.0" prefWidth="495.0" AnchorPane.rightAnchor="6.0">
-                          <columns>
-                            <TableColumn prefWidth="75.0" text="C1" />
-                            <TableColumn prefWidth="75.0" text="C2" />
-                          </columns>
-                        </TableView>
+                        <ScrollPane layoutX="8.0" layoutY="8.0" AnchorPane.rightAnchor="6.0">
+                           <content>
+                              <TableView fx:id="t3" prefHeight="200.0" prefWidth="495.0">
+                                <columns>
+                                  <TableColumn prefWidth="75.0" text="Trans ID" />
+                                  <TableColumn prefWidth="75.0" text="Size" />
+                                    <TableColumn prefWidth="75.0" text="Creation Date" />
+                                    <TableColumn prefWidth="75.0" text="Execution Date" />
+                                    <TableColumn prefWidth="75.0" text="Fee" />
+                                    <TableColumn prefWidth="75.0" text="Status" />
+                                    <TableColumn prefWidth="75.0" text="Creator Address" />
+                                    <TableColumn prefWidth="75.0" text="Creator Signature" />
+                                    <TableColumn prefWidth="75.0" text="Destination Address" />
+                                    <TableColumn prefWidth="75.0" text="Destination Signature" />
+                                    <TableColumn prefWidth="75.0" text="Type" />
+                                </columns>
+                              </TableView>
+                           </content>
+                        </ScrollPane>
                      </children>
                   </AnchorPane>
                </content>

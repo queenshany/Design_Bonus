@@ -6,8 +6,8 @@ package utils;
  */
 public enum E_WalletType {
 	Wallet("Wallet"),
-	WalletBitcoinKnots("WalletBitcoinKnots"),
-	WalletBitcoinSpace("WalletBitcoinSpace");
+	BitcoinKnots("BitcoinKnots"),
+	BitcoinSpace("BitcoinSpace");
 
 	private String text;
 

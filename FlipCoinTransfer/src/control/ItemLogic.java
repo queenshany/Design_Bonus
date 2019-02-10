@@ -401,7 +401,7 @@ public class ItemLogic {
 				return i1.getCatalogNumber()-i2.getCatalogNumber();
 			}
 		});
-		
+
 		if (!items.isEmpty())
 			return items.get(items.size()-1).getCatalogNumber() + 1;
 		return 1;
@@ -420,9 +420,64 @@ public class ItemLogic {
 				return c1.getSerialNumber()-c2.getSerialNumber();
 			}
 		});
-		
+
 		if (!categories.isEmpty())
 			return categories.get(categories.size()-1).getSerialNumber() + 1;
 		return 1;
+	}
+	/**
+	 * searching for an item based on relevant queries
+	 * @return arraylist of searched items
+	 */
+	public ArrayList<Item> searchItem (Double minPrice, Double maxPrice, Category cat, String str, User seller){
+		ArrayList<Item> items = getItems();
+
+		// filtering by seller
+		if (seller != null){
+			ArrayList<Item> temp = new ArrayList<Item>();
+			for (int i = 0; i < items.size(); i++)
+				if (!items.get(i).getSellerAddress().equals(seller.getPublicAddress()) &&
+					!items.get(i).getSellerSignature().equals(seller.getSignature())) 
+					temp.add(items.get(i));
+			items.removeAll(temp);
+		}
+		
+		// filtering by min price
+		if (minPrice != null) {
+			ArrayList<Item> temp = new ArrayList<Item>();
+			for (int i = 0; i < items.size(); i++)
+				if (items.get(i).getPrice() < minPrice) 
+					temp.add(items.get(i));
+			items.removeAll(temp);
+		}
+
+		// filtering by max price
+		if (maxPrice != null) {
+			ArrayList<Item> temp = new ArrayList<Item>();
+			for (int i = 0; i < items.size(); i++)
+				if (items.get(i).getPrice() > maxPrice) 
+					temp.add(items.get(i));
+			items.removeAll(temp);
+		}
+
+		// filtering by category
+		if (cat != null) {
+			ArrayList<Item> temp = new ArrayList<Item>();
+			for (int i = 0; i < items.size(); i++)
+				if (items.get(i).getCategory() != cat.getSerialNumber()) 
+					temp.add(items.get(i));
+			items.removeAll(temp);
+		}
+
+		// filtering by string	~ product name & description
+		if (str != null) {
+			ArrayList<Item> temp = new ArrayList<Item>();
+			for (int i = 0; i < items.size(); i++)
+				if (!items.get(i).getItemName().toLowerCase().contains(str.toLowerCase()) &&
+					!items.get(i).getDescription().toLowerCase().contains(str.toLowerCase())) 
+					temp.add(items.get(i));
+			items.removeAll(temp);
+		}
+		return items;
 	}
 }

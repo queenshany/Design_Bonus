@@ -76,12 +76,15 @@ public class MainClassTemp{
 		//System.out.println(ul.getUsers());
 		//System.out.println(sd.getSysParams());
 		//System.out.println(wl.getWallets());
-		System.out.println("CATEGORY " + il.getCategoryID());
-		System.out.println("ITEM " + il.getItemID());
-		System.out.println("MSG " + ul.getMessageID());
-		System.out.println("REC " + rl.getRecID());
-		System.out.println("SYS " + sd.getSysVersion());
-		System.out.println("TRA " + tl.getTransID());
+		//		System.out.println("CATEGORY " + il.getCategoryID());
+		//		System.out.println("ITEM " + il.getItemID());
+		//		System.out.println("MSG " + ul.getMessageID());
+		//		System.out.println("REC " + rl.getRecID());
+		//		System.out.println("SYS " + sd.getSysVersion());
+		//		System.out.println("TRA " + tl.getTransID());
+
+		System.out.println(il.getItems());
+		System.out.println(il.searchItem(null, null, null, null, new User("B2B2B2", "B22")));
 	}
 
 }

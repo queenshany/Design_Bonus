@@ -132,10 +132,8 @@ public class Item {
 	//---------------------------- toString ----------------------------
 	@Override
 	public String toString() {
-		//TODO
-		Category c = new Category(category);
 		return "Catalog Number: " + catalogNumber + " | Item Name: " + itemName + " | Description: " + description
-				+ " | Price: " + price + " | Quantity: " + quantity + " | Category: " + c.getCategoryName() + " | Seller Address: "
+				+ " | Price: " + price + " | Quantity: " + quantity + " | Category: " + category + " | Seller Address: "
 				+ sellerAddress + " | Seller Signature: " + sellerSignature;
 	}
 

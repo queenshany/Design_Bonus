@@ -1,4 +1,7 @@
 package entity;
+
+import utils.E_WalletType;
+
 /**
  * This class represents a Wallet Bitcoin Knots in the system
  * @author Shany Klein & Ofri Kokush
@@ -10,7 +13,7 @@ public class WalletBitcoinKnots extends Wallet{
 	//---------------------------- Constructors ----------------------------
 	public WalletBitcoinKnots(String uniqueAddress, double price, boolean isOnPC, boolean isOnPhone, boolean isOnTablet,
 			double amount, double pendingAmount, String userAddress, String userSignature, double discountPercent) {
-		super(uniqueAddress, price, isOnPC, isOnPhone, isOnTablet, amount, pendingAmount, userAddress, userSignature);
+		super(uniqueAddress, price, isOnPC, isOnPhone, isOnTablet, amount, pendingAmount, userAddress, userSignature/*, E_WalletType.WalletBitcoinKnots*/);
 		this.discountPercent = discountPercent;
 	}
 

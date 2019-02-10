@@ -3,16 +3,19 @@ package control;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.sql.Date;
 
 import entity.Block;
-import entity.Bonus;
 import entity.Consts;
 import entity.Transaction;
+import utils.E_Type;
 
 /**
  * This class represents the Block & Transaction Management in the system
@@ -120,18 +123,18 @@ public class BlockTransLogic {
 
 		System.out.println("INSERT " + t);
 	}
-	
+
 	// ***************************** UPDATE QUERIES ***************************** 
-/**
- * Attaching trans to block
- * @param t
- * @param b
- */
+	/**
+	 * Attaching trans to block
+	 * @param t
+	 * @param b
+	 */
 	public void attachTransToBlock(Transaction t, Block b) {
-		
+
 		t.setAdditionDate(Date.valueOf(LocalDate.now()));
 		t.setAdditionTime(Time.valueOf(LocalTime.now()));
-		
+
 		try {
 			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
 			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
@@ -142,7 +145,7 @@ public class BlockTransLogic {
 				stmt.setDate(i++, t.getAdditionDate());
 				stmt.setTime(i++, t.getAdditionTime());
 				stmt.setInt(i++, t.getID());
-				
+
 				stmt.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -152,5 +155,95 @@ public class BlockTransLogic {
 		}
 		System.out.println("ATTACHED " + t);
 		System.out.println("TO " + b);
+	}
+
+	// ***************************** GENERAL QUERIES ***************************** 
+	/**
+	 * Loading trans from the DB to the system
+	 * @return ALL of the trans without blocks from the DB
+	 */
+	public ArrayList<Transaction> getTrans() {
+		ArrayList<Transaction> results = new ArrayList<Transaction>();
+
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					//CallableStatement stmt = conn.prepareCall(Consts.SQL_TRANS_WITHOUT_BLOCK_QRY);
+					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_TRANS_WITHOUT_BLOCK);
+					ResultSet rs = stmt.executeQuery())
+			{
+				while (rs.next()) {
+					int i = 1;
+					results.add(new Transaction(rs.getInt(i++),
+							rs.getInt(i++),
+							E_Type.valueOf(rs.getString(i++)),
+							rs.getDouble(i++),
+							rs.getString(i++),
+							rs.getDate(i++),
+							rs.getTime(i++)));
+				}
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		//System.out.println(results);
+		return results;
+	}
+
+	public ArrayList<Transaction> getTransInBlock(Block block) {
+		ArrayList<Transaction> results = new ArrayList<Transaction>();
+
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					//CallableStatement stmt = conn.prepareCall(Consts.SQL_TRANS_WITHOUT_BLOCK_QRY);
+					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_TRANS_WITHOUT_BLOCK)){
+				if (block.getBlockAddress() != null) 
+					stmt.setString(1, block.getBlockAddress());
+				else 
+					stmt.setNull(1, java.sql.Types.INTEGER);
+				ResultSet rs = stmt.executeQuery();
+				{
+					while (rs.next()) {
+						int i = 1;
+						results.add(new Transaction(rs.getInt(i++),
+								rs.getInt(i++),
+								E_Type.valueOf(rs.getString(i++)),
+								rs.getDouble(i++),
+								rs.getString(i++),
+								rs.getDate(i++),
+								rs.getTime(i++)));
+					}
+				}
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		//System.out.println(results);
+		return results;
+	}
+
+	/**
+	 * calculating the size left in block
+	 * @param block
+	 * @return the size left 
+	 */
+	public Integer calcBlockSizeLeft(Block block) {
+		Integer transSize = new Integer(0);
+		ArrayList<Transaction> trans = new ArrayList<>(getTransInBlock(block));
+
+		for (Transaction t : trans) {
+			transSize += t.getSize();
+		}
+
+		return block.getSize()-transSize;
 	}
 }

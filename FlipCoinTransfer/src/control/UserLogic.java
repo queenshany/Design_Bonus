@@ -228,4 +228,39 @@ public class UserLogic {
 		//System.out.println(results);
 		return results;
 	}
+	
+	/**
+	 * Loading Messages from the DB to the system
+	 * @return ALL of the Messages from the DB
+	 */
+	public ArrayList<Message> getMessages() {
+		ArrayList<Message> results = new ArrayList<Message>();
+
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_SEL_MESSAGES);
+					ResultSet rs = stmt.executeQuery())
+			{
+					while (rs.next()) {
+					int i = 1;
+					results.add(new Message(rs.getInt(i++),
+							rs.getString(i++),
+							rs.getString(i++),
+							rs.getString(i++),
+							rs.getString(i++),
+							rs.getDate(i++),
+							rs.getTime(i++)));
+				}
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		//System.out.println(results);
+		return results;
+	}
 }

@@ -21,6 +21,14 @@ import entity.User;
  */
 public class SysData {
 
+	private static SysData instance;
+
+	public static SysData getInstance() {
+		if (instance == null)
+			instance = new SysData();
+		return instance;
+	}
+	
 	// ***************************** INSERT QUERIES ***************************** 
 
 	/**

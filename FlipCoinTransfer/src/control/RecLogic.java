@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import entity.Category;
@@ -15,6 +16,7 @@ import entity.Item;
 import entity.Message;
 import entity.Recommendation;
 import entity.RecommendedFor;
+import entity.User;
 
 /**
  * This class represents the Recommendation Management in the system: Recommendation, RecommendationFor
@@ -199,7 +201,7 @@ public class RecLogic {
 		}
 		System.out.println("UPDATE " + rec);
 	}
-	
+
 	/**
 	 * Updates Recommendation values
 	 * @param rec
@@ -224,7 +226,42 @@ public class RecLogic {
 		}
 		System.out.println("UPDATE " + rec);
 	}
-	
+
+	// ***************************** SELECT QUERIES *****************************
+
+	/**
+	 * Loading Recommendations from the DB to the system
+	 * @return ALL of the Recommendations from the DB
+	 */
+	public ArrayList<Recommendation> getRecommendations() {
+		ArrayList<Recommendation> results = new ArrayList<Recommendation>();
+
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_SEL_RECOMMENDATIONS);
+					ResultSet rs = stmt.executeQuery())
+			{
+				while (rs.next()) {
+					int i = 1;
+					results.add(new Recommendation(rs.getInt(i++),
+							rs.getDate(i++),
+							rs.getDouble(i++),
+							rs.getDouble(i++),
+							rs.getBoolean(i++)));
+				}
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		//System.out.println(results);
+		return results;
+	}
+
 	// ***************************** GENERAL QUERIES *****************************
 
 	/**

@@ -1,4 +1,7 @@
 package entity;
+
+import utils.E_WalletType;
+
 /**
  * This class represents a Wallet in the system
  * @author Shany Klein & Ofri Kokush
@@ -14,6 +17,7 @@ public class Wallet {
 	private double pendingAmount;
 	private String userAddress;
 	private String userSignature;
+	private E_WalletType type = E_WalletType.Wallet;
 
 	//---------------------------- Constructors ----------------------------
 	public Wallet(String uniqueAddress) {
@@ -21,7 +25,7 @@ public class Wallet {
 	}
 
 	public Wallet(String uniqueAddress, double price, boolean isOnPC, boolean isOnPhone, boolean isOnTablet, double amount,
-			double pendingAmount, String userAddress, String userSignature) {
+			double pendingAmount, String userAddress, String userSignature/*, E_WalletType type*/) {
 		this.uniqueAddress = uniqueAddress;
 		this.price = price;
 		this.isOnPC = isOnPC;
@@ -31,6 +35,7 @@ public class Wallet {
 		this.pendingAmount = pendingAmount;
 		this.userAddress = userAddress;
 		this.userSignature = userSignature;
+		this.type = type;
 	}
 
 	//---------------------------- Getters & Setters ----------------------------
@@ -105,6 +110,15 @@ public class Wallet {
 	public void setUserSignature(String userSignature) {
 		this.userSignature = userSignature;
 	}
+	
+	public E_WalletType getType() {
+		return type;
+	}
+
+	public void setType(E_WalletType type) {
+		this.type = type;
+	}
+	
 	//---------------------------- Hash & Equals ----------------------------
 
 	@Override

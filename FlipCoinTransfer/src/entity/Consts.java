@@ -118,6 +118,12 @@ public final class Consts {
 	
 	public static final String SQL_SEL_SYS_PARAMS = "SELECT * FROM tblSystem";
 	
+	public static final String SQL_SEL_RECOMMENDATIONS = "SELECT * FROM tblRecommendation";
+	
+	public static final String SQL_SEL_MESSAGES = "SELECT * FROM tblMessage";
+	
+	public static final String SQL_SEL_WALLETS = "SELECT * FROM tblWallet";
+	
 	// ***************************** GENERAL QUERIES ***************************** 
 
 	public static final String SQL_REC_CALC_PROBABILITY = "SELECT SUM(C) * 100/((Select COUNT(*) FROM tblTransPay TP WHERE TP.creationDate = (?))+(Select COUNT(*) FROM tblTransConfirm TC WHERE TC.creationDate = (?))) AS transPercent\r\n" + 

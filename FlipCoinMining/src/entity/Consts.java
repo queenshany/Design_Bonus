@@ -8,12 +8,9 @@ public final class Consts {
 
 	public static final int PHONE_LENGTH = 7;
 
-	//TODO
-	public static final int USER_SIGNATURE_LENGTH = 3;
+	public static final int BLOCK_ADDRESS_LENGTH = 4;
 
-	public static final int USER_ADDRESS_LENGTH = 6;
-
-	public static final int WALLET_ADDRESS_LENGTH = 6;
+	public static final int MINER_ADDRESS_LENGTH = 6;
 
 	public static final String JDBC_STR = "net.ucanaccess.jdbc.UcanaccessDriver";
 
@@ -92,6 +89,7 @@ public final class Consts {
 
 	// ***************************** SELECT QUERIES *****************************
 
+	//TODO
 	public static final String SQL_SEL_MINERS = "SELECT * FROM tblMiner";
 
 	public static final String SQL_SEL_LOTTERIES = "SELECT * FROM tblLottery";
@@ -101,7 +99,13 @@ public final class Consts {
 	public static final String SQL_SEL_RIDDLE_LEVELS = "SELECT * FROM tblRiddleLevel";
 
 	public static final String SQL_SEL_BONUSES = "SELECT * FROM tblBonus";
-
+	
+	public static final String SQL_SEL_SOLUTIONS = "SELECT * FROM tblSolution";
+	
+	public static final String SQL_SEL_SYS_PARAMS = "SELECT * FROM tblSystem";
+	
+	public static final String SQL_SEL_MESSAGES = "SELECT * FROM tblMessage";
+	
 	// ***************************** GENERAL QUERIES ***************************** 
 
 	public static final String SQL_TRANS_WITHOUT_BLOCK = "SELECT *\r\n" + 

@@ -3,13 +3,17 @@ package control;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import entity.Block;
 import entity.Bonus;
 import entity.Consts;
 import entity.GetBonus;
 import entity.Lottery;
+import entity.Miner;
 import entity.Participant;
 
 /**
@@ -25,236 +29,300 @@ public class LotteryLogic {
 			instance = new LotteryLogic();
 		return instance;
 	}
-	
+
 
 	// ***************************** INSERT QUERIES ***************************** 
-		/**
-		 * Inserting a bonus to the DB
-		 * @param b
-		 */
-		public void insertBonus(Bonus b) {
+	/**
+	 * Inserting a bonus to the DB
+	 * @param b
+	 */
+	public void insertBonus(Bonus b) {
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
 			try {
-				Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-				try {
-					Connection conn = DriverManager.getConnection(Consts.CONN_STR);
-					CallableStatement stmt = conn.prepareCall(Consts.SQL_INS_BONUS);
-					int i = 1;
+				Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+				CallableStatement stmt = conn.prepareCall(Consts.SQL_INS_BONUS);
+				int i = 1;
 
-					stmt.setInt(i++, b.getBonusNum());
+				stmt.setInt(i++, b.getBonusNum());
 
-					if (b.getDescription() == null)
-						stmt.setNull(i++, java.sql.Types.VARCHAR);
-					else
-						stmt.setString(i++, b.getDescription());
-					
-					stmt.executeUpdate();
-
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-
-			System.out.println("INSERT " + b);
-		}
-		
-		/**
-		 * Inserting a bonus received to the DB
-		 * @param b
-		 */
-		public void insertGetBonus(GetBonus b) {
-			try {
-				Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-				try {
-					Connection conn = DriverManager.getConnection(Consts.CONN_STR);
-					CallableStatement stmt = conn.prepareCall(Consts.SQL_INS_GET_BONUS);
-					int i = 1;
-
-					stmt.setInt(i++, b.getLotteryNum());
-					stmt.setString(i++, b.getUniqueAddress());
-					stmt.setInt(i++, b.getBonusNum());
-
-					stmt.executeUpdate();
-
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-
-			System.out.println("INSERT " + b);
-		}
-		
-		/**
-		 * Inserting a lottery to the DB
-		 * @param lot
-		 */
-		public void insertLottery(Lottery lot) {
-			try {
-				Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-				try {
-					Connection conn = DriverManager.getConnection(Consts.CONN_STR);
-					CallableStatement stmt = conn.prepareCall(Consts.SQL_INS_LOTTERY);
-					int i = 1;
-
-					stmt.setInt(i++, lot.getLotteryNum());
-
-					if (lot.getLotteryDate() == null)
-						stmt.setNull(i++, java.sql.Types.DATE);
-					else
-						stmt.setDate(i++, lot.getLotteryDate());
-					
-					if (lot.getMaxParticipants() < 0)
-						stmt.setNull(i++, java.sql.Types.INTEGER);
-					else
-						stmt.setInt(i++, lot.getMaxParticipants());
-					
-					if (lot.getNumOfWinners() < 0)
-						stmt.setNull(i++, java.sql.Types.INTEGER);
-					else
-						stmt.setInt(i++, lot.getNumOfWinners());
-					
-					if (lot.getNumOfBonuses() < 0)
-						stmt.setNull(i++, java.sql.Types.INTEGER);
-					else
-						stmt.setInt(i++, lot.getNumOfBonuses());
-					
-					stmt.executeUpdate();
-
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-
-			System.out.println("INSERT " + lot);
-		}
-		
-		/**
-		 * Inserting a participant in a lottery received to the DB
-		 * @param p
-		 */
-		public void insertParticipant(Participant p) {
-			try {
-				Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-				try {
-					Connection conn = DriverManager.getConnection(Consts.CONN_STR);
-					CallableStatement stmt = conn.prepareCall(Consts.SQL_INS_GET_BONUS);
-					int i = 1;
-
-					stmt.setInt(i++, p.getLotteryNum());
-					stmt.setString(i++, p.getUniqueAddress());
-					stmt.setBoolean(i++, p.isWinner());
-
-					stmt.executeUpdate();
-
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-
-			System.out.println("INSERT " + p);
-		}
-		
-		// ***************************** DELETE QUERIES ***************************** 
-		
-		/**
-		 * Deleting a bonus from the DB
-		 * @param b
-		 */
-		public void deleteBonus(Bonus b) {
-			try {
-				Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-				try {
-					Connection conn = DriverManager.getConnection(Consts.CONN_STR);
-					CallableStatement stmt = conn.prepareCall(Consts.SQL_DEL_BONUS);
-					int i = 1;
-
-					stmt.setInt(i++, b.getBonusNum());
-
-					stmt.executeUpdate();
-
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-			System.out.println("DELETE " + b);
-		}
-		
-		// ***************************** UPDATE QUERIES *****************************
-		
-		/**
-		 * Updates Bonus values
-		 * @param b
-		 */
-		public void updateBonus(Bonus b) {
-			try {
-				Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-				try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
-						CallableStatement stmt = conn.prepareCall(Consts.SQL_UPD_BONUS)) {
-
-					int i = 1;
+				if (b.getDescription() == null)
+					stmt.setNull(i++, java.sql.Types.VARCHAR);
+				else
 					stmt.setString(i++, b.getDescription());
-					stmt.setInt(i++, b.getBonusNum());
 
-					stmt.executeUpdate();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			} catch (ClassNotFoundException e) {
+				stmt.executeUpdate();
+
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			System.out.println("UPDATE " + b);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		}
-		
-		/**
-		 * Updates Lottery values
-		 * @param lot
-		 */
-		public void updateLottery(Lottery lot) {
+
+		System.out.println("INSERT " + b);
+	}
+
+	/**
+	 * Inserting a bonus received to the DB
+	 * @param b
+	 */
+	public void insertGetBonus(GetBonus b) {
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
 			try {
-				Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-				try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
-						CallableStatement stmt = conn.prepareCall(Consts.SQL_UPD_LOTTERY)) {
+				Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+				CallableStatement stmt = conn.prepareCall(Consts.SQL_INS_GET_BONUS);
+				int i = 1;
 
-					int i = 1;
-					
-					if (lot.getLotteryDate() == null)
-						stmt.setNull(i++, java.sql.Types.DATE);
-					else
-						stmt.setDate(i++, lot.getLotteryDate());
-					
-					if (lot.getMaxParticipants() < 0)
-						stmt.setNull(i++, java.sql.Types.INTEGER);
-					else
-						stmt.setInt(i++, lot.getMaxParticipants());
-					
-					if (lot.getNumOfWinners() < 0)
-						stmt.setNull(i++, java.sql.Types.INTEGER);
-					else
-						stmt.setInt(i++, lot.getNumOfWinners());
-					
-					if (lot.getNumOfBonuses() < 0)
-						stmt.setNull(i++, java.sql.Types.INTEGER);
-					else
-						stmt.setInt(i++, lot.getNumOfBonuses());
-					
-					stmt.setInt(i++, lot.getLotteryNum());
+				stmt.setInt(i++, b.getLotteryNum());
+				stmt.setString(i++, b.getUniqueAddress());
+				stmt.setInt(i++, b.getBonusNum());
 
-					stmt.executeUpdate();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			} catch (ClassNotFoundException e) {
+				stmt.executeUpdate();
+
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			System.out.println("UPDATE " + lot);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		}
+
+		System.out.println("INSERT " + b);
+	}
+
+	/**
+	 * Inserting a lottery to the DB
+	 * @param lot
+	 */
+	public void insertLottery(Lottery lot) {
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try {
+				Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+				CallableStatement stmt = conn.prepareCall(Consts.SQL_INS_LOTTERY);
+				int i = 1;
+
+				stmt.setInt(i++, lot.getLotteryNum());
+
+				if (lot.getLotteryDate() == null)
+					stmt.setNull(i++, java.sql.Types.DATE);
+				else
+					stmt.setDate(i++, lot.getLotteryDate());
+
+				if (lot.getMaxParticipants() < 0)
+					stmt.setNull(i++, java.sql.Types.INTEGER);
+				else
+					stmt.setInt(i++, lot.getMaxParticipants());
+
+				if (lot.getNumOfWinners() < 0)
+					stmt.setNull(i++, java.sql.Types.INTEGER);
+				else
+					stmt.setInt(i++, lot.getNumOfWinners());
+
+				if (lot.getNumOfBonuses() < 0)
+					stmt.setNull(i++, java.sql.Types.INTEGER);
+				else
+					stmt.setInt(i++, lot.getNumOfBonuses());
+
+				stmt.executeUpdate();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println("INSERT " + lot);
+	}
+
+	/**
+	 * Inserting a participant in a lottery received to the DB
+	 * @param p
+	 */
+	public void insertParticipant(Participant p) {
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try {
+				Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+				CallableStatement stmt = conn.prepareCall(Consts.SQL_INS_GET_BONUS);
+				int i = 1;
+
+				stmt.setInt(i++, p.getLotteryNum());
+				stmt.setString(i++, p.getUniqueAddress());
+				stmt.setBoolean(i++, p.isWinner());
+
+				stmt.executeUpdate();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println("INSERT " + p);
+	}
+
+	// ***************************** DELETE QUERIES ***************************** 
+
+	/**
+	 * Deleting a bonus from the DB
+	 * @param b
+	 */
+	public void deleteBonus(Bonus b) {
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try {
+				Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+				CallableStatement stmt = conn.prepareCall(Consts.SQL_DEL_BONUS);
+				int i = 1;
+
+				stmt.setInt(i++, b.getBonusNum());
+
+				stmt.executeUpdate();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		System.out.println("DELETE " + b);
+	}
+
+	// ***************************** UPDATE QUERIES *****************************
+
+	/**
+	 * Updates Bonus values
+	 * @param b
+	 */
+	public void updateBonus(Bonus b) {
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					CallableStatement stmt = conn.prepareCall(Consts.SQL_UPD_BONUS)) {
+
+				int i = 1;
+				stmt.setString(i++, b.getDescription());
+				stmt.setInt(i++, b.getBonusNum());
+
+				stmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		System.out.println("UPDATE " + b);
+	}
+
+	/**
+	 * Updates Lottery values
+	 * @param lot
+	 */
+	public void updateLottery(Lottery lot) {
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					CallableStatement stmt = conn.prepareCall(Consts.SQL_UPD_LOTTERY)) {
+
+				int i = 1;
+
+				if (lot.getLotteryDate() == null)
+					stmt.setNull(i++, java.sql.Types.DATE);
+				else
+					stmt.setDate(i++, lot.getLotteryDate());
+
+				if (lot.getMaxParticipants() < 0)
+					stmt.setNull(i++, java.sql.Types.INTEGER);
+				else
+					stmt.setInt(i++, lot.getMaxParticipants());
+
+				if (lot.getNumOfWinners() < 0)
+					stmt.setNull(i++, java.sql.Types.INTEGER);
+				else
+					stmt.setInt(i++, lot.getNumOfWinners());
+
+				if (lot.getNumOfBonuses() < 0)
+					stmt.setNull(i++, java.sql.Types.INTEGER);
+				else
+					stmt.setInt(i++, lot.getNumOfBonuses());
+
+				stmt.setInt(i++, lot.getLotteryNum());
+
+				stmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		System.out.println("UPDATE " + lot);
+	}
+
+	// ***************************** SELECT QUERIES ***************************** 
+	/**
+	 * Loading Lotteries from the DB to the system
+	 * @return ALL of the Lotteries from the DB
+	 */
+	public ArrayList<Lottery> getLotteries() {
+		ArrayList<Lottery> results = new ArrayList<Lottery>();
+
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_SEL_MESSAGES);
+					ResultSet rs = stmt.executeQuery())
+			{
+				while (rs.next()) {
+					int i = 1;
+					results.add(new Lottery(rs.getInt(i++),
+							rs.getDate(i++),
+							rs.getInt(i++),
+							rs.getInt(i++),
+							rs.getInt(i++)));
+				}
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		//System.out.println(results);
+		return results;
+	}
+
+	/**
+	 * Loading Lotteries from the DB to the system
+	 * @return ALL of the Lotteries from the DB
+	 */
+	public ArrayList<Bonus> getBonuses() {
+		ArrayList<Bonus> results = new ArrayList<Bonus>();
+
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_SEL_BONUSES);
+					ResultSet rs = stmt.executeQuery())
+			{
+				while (rs.next()) {
+					int i = 1;
+					results.add(new Bonus(rs.getInt(i++),
+							rs.getString(i++)));
+				}
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		//System.out.println(results);
+		return results;
+	}
 }

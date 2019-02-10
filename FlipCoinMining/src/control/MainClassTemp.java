@@ -57,7 +57,6 @@ public class MainClassTemp{
 		//ml.updateProfit(new Transaction(9, 8, E_Type.Confirm, 18, null, null, null), new Block("d", new Date(2019,2,6), new Time(0, 0, 0), 3, "DDD4", "kk"));
 		//rl.updateRiddleLevel(new RiddleLevel(80, E_Level.Hard, 6, 8));
 		//rl.updateRiddle(new Riddle(9, new Date(2019,2,6), new Time(0, 0, 0), "description", Date.valueOf(LocalDate.now()), Time.valueOf(LocalTime.now()), E_Status.Solved, 1));
-
 	}
 
 }

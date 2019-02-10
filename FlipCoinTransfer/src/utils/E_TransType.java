@@ -4,13 +4,13 @@ package utils;
  * @author Shany Klein & Ofri Kokush
  *
  */
-public enum E_Type {
+public enum E_TransType {
 	Pay("Pay"),
 	Confirm("Confirm");
 	
 	private String text;
 	
-	E_Type(String text) {
+	E_TransType(String text) {
 		this.text = text;
 	}
 	
@@ -18,8 +18,8 @@ public enum E_Type {
 		return text;
 	}
 	
-	public static E_Type getType(String text) {
-		for (E_Type type : E_Type.values())
+	public static E_TransType getType(String text) {
+		for (E_TransType type : E_TransType.values())
 			if (type.text.equalsIgnoreCase(text))
 				return type;
 		return null;

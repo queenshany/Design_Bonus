@@ -14,7 +14,7 @@ import entity.Transaction;
 import entity.TransactionConfirm;
 import entity.TransactionPay;
 import utils.E_Status;
-import utils.E_Type;
+import utils.E_TransType;
 
 /**
  * This class represents the Transaction Management in the system
@@ -410,7 +410,7 @@ public class TransLogic {
 							rs.getString(i++),
 							rs.getString(i++),
 							rs.getString(i++),
-							E_Type.valueOf(rs.getString(i++))
+							E_TransType.valueOf(rs.getString(i++))
 							));
 				}
 			}
@@ -450,7 +450,7 @@ public class TransLogic {
 							rs.getString(i++),
 							rs.getString(i++),
 							rs.getString(i++),
-							E_Type.valueOf(rs.getString(i++))
+							E_TransType.valueOf(rs.getString(i++))
 							));
 				}
 			}

@@ -67,6 +67,15 @@ public class MainClassTemp{
 		//wl.updateWallet(new Wallet("z", 0.6, false, false, false, 4, 3, "A1A1A1", "A11"));
 		//wl.updateWalletBitcoinKnots(new WalletBitcoinKnots("z", 0.6, true, true, false, 4, 3, "A1A1A1", "A11", 888));
 		//wl.updateWalletBitcoinSpace(new WalletBitcoinSpace("z", 0.6, true, true, false, 4, 3, "A1A1A1", "A11", 999));
+		System.out.println(il.getCategories());
+		System.out.println(il.getItems());
+		System.out.println(rl.getRecommendations());
+		System.out.println("ALL " +tl.getAllTrans());
+		System.out.println("PENDING " +tl.getAllPendingTrans());
+		System.out.println(ul.getMessages());
+		System.out.println(ul.getUsers());
+		System.out.println(sd.getSysParams());
+		System.out.println(wl.getWallets());
 	}
 
 }

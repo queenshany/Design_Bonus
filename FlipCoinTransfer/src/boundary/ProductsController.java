@@ -1,11 +1,21 @@
 package boundary;
 
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
+import entity.Item;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Control;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -70,8 +80,29 @@ public class ProductsController {
     private Label yourproducts;
 
     @FXML
-    private TableView<?> table;
+    private TableView<Item> table;
+    
+    @FXML
+    private TableColumn<Item, Integer> catalogNumber;
 
+    @FXML
+    private TableColumn<Item, String> itemName;
+
+    @FXML
+    private TableColumn<Item, String> image;
+
+    @FXML
+    private TableColumn<Item, String> description;
+
+    @FXML
+    private TableColumn<Item, Double> price;
+
+    @FXML
+    private TableColumn<Item, Integer> quantity;
+
+    @FXML
+    private TableColumn<Item, String> category;
+    
     @FXML
     private Button removeButton;
 
@@ -81,6 +112,37 @@ public class ProductsController {
     @FXML
     private Button editButton;
 
+    
+	public void initialize() {
+		
+		catalogNumber.setCellValueFactory(new PropertyValueFactory<>("catalogNumber"));
+		itemName.setCellValueFactory(new PropertyValueFactory<>("itemName"));
+		image.setCellValueFactory(new PropertyValueFactory<>("image"));
+		description.setCellValueFactory(new PropertyValueFactory<>("description"));
+		price.setCellValueFactory(new PropertyValueFactory<>("price"));
+		quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+		category.setCellValueFactory(new PropertyValueFactory<>("category"));
+		
+		
+		table.setItems(getProducts());
+		table.refresh();
+		   
+ } 
+ 
+ public ObservableList<Item> getProducts(){
+	   
+	   ObservableList<Item> I= FXCollections.observableArrayList();
+	   ArrayList<Item> Items = control.ItemLogic.getInstance().getItems();
+	   System.out.println(Items);
+	   for(Item itms : Items)
+	   {
+		   if(itms.getSellerAddress().equalsIgnoreCase("A1A1A1") && itms.getSellerSignature().equalsIgnoreCase("A11"))
+		   I.add(itms);
+	   }
+		return I;
+ }
+	
+    
     @FXML
     void addProduct(ActionEvent event) {
 
@@ -158,10 +220,6 @@ public class ProductsController {
 
 
 
-
-	public void initialize() {
-//		System.out.println("h");
-	}
 
 	protected void closeWindow() {
 		((Stage) borderPane.getScene().getWindow()).close();

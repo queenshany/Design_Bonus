@@ -144,7 +144,7 @@
                             <TableColumn fx:id="c2" prefWidth="75.0" text="C2" />
                           </columns>
                         </TableView>
-                        <Button fx:id="expandButton" layoutX="292.0" layoutY="145.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="71.0" text="Expand" />
+                        <Button fx:id="expandButton" layoutX="292.0" layoutY="145.0" mnemonicParsing="false" onAction="#expandWallet" prefHeight="17.0" prefWidth="71.0" text="Expand" />
                      </children>
                   </AnchorPane>
             </content>
@@ -153,8 +153,8 @@
             <content>
               <AnchorPane fx:id="newPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="space" layoutX="227.0" layoutY="76.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="119.0" text="Bitcoin Space" />
-                        <Button fx:id="knots" layoutX="60.0" layoutY="75.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="119.0" text="Bitcoin Knots" />
+                        <Button fx:id="space" layoutX="227.0" layoutY="76.0" mnemonicParsing="false" onAction="#newBitcoinSpace" prefHeight="25.0" prefWidth="119.0" text="Bitcoin Space" />
+                        <Button fx:id="knots" layoutX="60.0" layoutY="75.0" mnemonicParsing="false" onAction="#newBitcoinKnots" prefHeight="25.0" prefWidth="119.0" text="Bitcoin Knots" />
                         <Label fx:id="pleaseChoose" layoutX="129.0" layoutY="26.0" text="Please choose a wallet">
                            <font>
                               <Font name="System Italic" size="14.0" />

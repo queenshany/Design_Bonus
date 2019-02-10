@@ -84,6 +84,12 @@ public class EmailScreenController {
     private TextArea textArea;
 
     @FXML
+    void hide1(MouseEvent event) {
+    	arrow1.setVisible(true);
+    	products.setVisible(false);
+    }
+    
+    @FXML
     void logOut(MouseEvent event) {
 
     }
@@ -109,8 +115,9 @@ public class EmailScreenController {
     }
 
     @FXML
-    void show1(DragEvent event) {
-
+    void show1(MouseEvent event) {
+    	arrow1.setVisible(false);
+    	products.setVisible(true);
     }
 
     @FXML

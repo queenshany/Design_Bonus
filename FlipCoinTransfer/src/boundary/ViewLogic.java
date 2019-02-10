@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 
-
+import entity.User;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -34,7 +34,7 @@ public class ViewLogic {
 	protected static final Rectangle2D FULL_SCREEN = Screen.getPrimary().getBounds();
 	protected static final Rectangle2D VISIBLE_SCREEN = Screen.getPrimary().getVisualBounds();
 
-	protected static String currentUserID;
+	protected static User currentUser;
 
 	// ------------------------------ Methods ------------------------------
 	/**

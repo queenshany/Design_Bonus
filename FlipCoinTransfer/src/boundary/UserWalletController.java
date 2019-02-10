@@ -1,5 +1,6 @@
 package boundary;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,8 +15,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
-public class UserWalletController {
+public class UserWalletController extends AbstractController{
 
     @FXML
     private BorderPane borderPane;
@@ -104,39 +106,71 @@ public class UserWalletController {
     @FXML
     private Label pleaseChoose;
 
+
+    @FXML
+    void newBitcoinKnots(ActionEvent event) {
+
+    }
+
+    @FXML
+    void newBitcoinSpace(ActionEvent event) {
+
+    }
+    
+    @FXML
+    void expandWallet(ActionEvent event) {
+
+    }
+
     @FXML
     void logOut(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newLoginWindow();
     }
 
     @FXML
     void mailsScreen(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newEmailWindow();
     }
 
     @FXML
     void productsScreen(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newProductsWindow();
     }
 
     @FXML
     void searchProducts(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newSearchPageWindow();
     }
 
     @FXML
     void settingsScreen(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newSettingsWindow();
     }
 
     @FXML
     void transactionsScreen(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newTransactionsWindow();
     }
 
     @FXML
     void walletsScreen(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newWalletsWindow();
     }
 
+
+
+	public void initialize() {
+//		System.out.println("h");
+	}
+
+	protected void closeWindow() {
+		((Stage) borderPane.getScene().getWindow()).close();
+	}
 }

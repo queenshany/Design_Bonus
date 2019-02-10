@@ -117,6 +117,38 @@
                   </AnchorPane>
                </content>
             </Tab>
+            <Tab fx:id="allTransactions1" text="Levels">
+               <content>
+                  <AnchorPane fx:id="p31" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="t31" layoutX="8.0" layoutY="8.0" prefHeight="178.0" prefWidth="495.0" AnchorPane.rightAnchor="6.0">
+                           <columns>
+                              <TableColumn prefWidth="75.0" text="C1" />
+                              <TableColumn prefWidth="75.0" text="C2" />
+                           </columns>
+                        </TableView>
+                        <Button fx:id="addB1" layoutX="10.0" layoutY="189.0" mnemonicParsing="false" onAction="#addBonus" text="  Add  " />
+                        <Button fx:id="editB1" layoutX="67.0" layoutY="189.0" mnemonicParsing="false" onAction="#editBonus" text="  Edit  " />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="allTransactions2" text="Miners">
+               <content>
+                  <AnchorPane fx:id="p32" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="t32" layoutX="8.0" layoutY="8.0" prefHeight="178.0" prefWidth="495.0" AnchorPane.rightAnchor="6.0">
+                           <columns>
+                              <TableColumn prefWidth="75.0" text="C1" />
+                              <TableColumn prefWidth="75.0" text="C2" />
+                           </columns>
+                        </TableView>
+                        <Button fx:id="addB2" layoutX="10.0" layoutY="189.0" mnemonicParsing="false" onAction="#addBonus" text="  Add  " />
+                        <Button fx:id="editB2" layoutX="67.0" layoutY="189.0" mnemonicParsing="false" onAction="#editBonus" text="  Edit  " />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
          </tabs>
       </TabPane>
    </center>

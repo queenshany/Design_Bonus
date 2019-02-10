@@ -11,8 +11,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
-public class SettingsController {
+public class SettingsController extends AbstractController {
 
     @FXML
     private BorderPane borderPane;
@@ -94,45 +95,62 @@ public class SettingsController {
 
     @FXML
     private Button saveButton;
-
-    @FXML
-    void logOut(MouseEvent event) {
-
-    }
-
-    @FXML
-    void mailsScreen(MouseEvent event) {
-
-    }
-
-    @FXML
-    void productsScreen(MouseEvent event) {
-
-    }
-
-    @FXML
-    void searchProducts(MouseEvent event) {
-
-    }
-
-    @FXML
-    void settingsScreen(MouseEvent event) {
-
-    }
-
-    @FXML
-    void transactionsScreen(MouseEvent event) {
-
-    }
-
+    
     @FXML
     void updateField(ActionEvent event) {
 
     }
 
-    @FXML
-    void walletsScreen(MouseEvent event) {
 
+    @FXML
+    void logOut(MouseEvent event) {
+    	closeWindow();
+    	ViewLogic.newLoginWindow();
     }
 
+    @FXML
+    void mailsScreen(MouseEvent event) {
+    	closeWindow();
+    	ViewLogic.newEmailWindow();
+    }
+
+    @FXML
+    void productsScreen(MouseEvent event) {
+    	closeWindow();
+    	ViewLogic.newProductsWindow();
+    }
+
+    @FXML
+    void searchProducts(MouseEvent event) {
+    	closeWindow();
+    	ViewLogic.newSearchPageWindow();
+    }
+
+    @FXML
+    void settingsScreen(MouseEvent event) {
+    	closeWindow();
+    	ViewLogic.newSettingsWindow();
+    }
+
+    @FXML
+    void transactionsScreen(MouseEvent event) {
+    	closeWindow();
+    	ViewLogic.newTransactionsWindow();
+    }
+
+    @FXML
+    void walletsScreen(MouseEvent event) {
+    	closeWindow();
+    	ViewLogic.newWalletsWindow();
+    }
+
+
+
+	public void initialize() {
+//		System.out.println("h");
+	}
+
+	protected void closeWindow() {
+		((Stage) borderPane.getScene().getWindow()).close();
+	}
 }

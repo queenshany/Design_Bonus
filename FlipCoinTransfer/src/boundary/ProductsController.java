@@ -133,10 +133,10 @@ public class ProductsController {
 	   
 	   ObservableList<Item> I= FXCollections.observableArrayList();
 	   ArrayList<Item> Items = control.ItemLogic.getInstance().getItems();
-	   System.out.println(Items);
 	   for(Item itms : Items)
 	   {
-		   if(itms.getSellerAddress().equalsIgnoreCase("A1A1A1") && itms.getSellerSignature().equalsIgnoreCase("A11"))
+		   if(itms.getSellerAddress().equalsIgnoreCase(LoginController.curretUser.getPublicAddress()) &&
+				   itms.getSellerSignature().equalsIgnoreCase(LoginController.curretUser.getSignature()))
 		   I.add(itms);
 	   }
 		return I;

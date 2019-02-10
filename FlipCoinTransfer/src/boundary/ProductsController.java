@@ -178,7 +178,9 @@ public class ProductsController {
 
     @FXML
     void removeProduct(ActionEvent event) {
-
+    	control.ItemLogic.getInstance().deleteItem(table.getSelectionModel().getSelectedItem());
+    	table.setItems(getProducts());
+    	table.refresh();
     }
 
     @FXML

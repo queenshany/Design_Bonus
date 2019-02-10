@@ -440,6 +440,23 @@ public class ViewLogic {
 	}
 
 
+	// ------------------------------ Add New Product ------------------------------
+	/**
+	 * Open Add New Product Window
+	 */
+	protected static void newAddProductWindow() {
+		Stage stage = new Stage();
+		setStage(stage);
+
+
+		newWindow(ViewLogic.class.getResource("AddNewProductScreen.fxml"),
+				stage,
+				null, null,	null, null,	null, null,
+				false,
+				"Add New Product",
+				false);
+	}
+
 
 
 	

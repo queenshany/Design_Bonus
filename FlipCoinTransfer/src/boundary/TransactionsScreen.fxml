@@ -134,7 +134,7 @@
                      <content>
                         <AnchorPane fx:id="pane1" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <ComboBox fx:id="usersCombo" layoutX="8.0" layoutY="14.0" prefHeight="25.0" prefWidth="119.0" promptText="Select User" />
+                              <ComboBox fx:id="usersCombo" layoutX="8.0" layoutY="14.0" onAction="#productsOfUser" prefHeight="25.0" prefWidth="119.0" promptText="Select User" />
                               <ComboBox fx:id="productsCombo" layoutX="132.0" layoutY="14.0" prefHeight="25.0" prefWidth="127.0" promptText="Select Product" />
                               <TextField fx:id="amountText" layoutX="264.0" layoutY="15.0" prefHeight="25.0" prefWidth="104.0" promptText="Select Amount" />
                               <Button fx:id="addButton" layoutX="372.0" layoutY="15.0" mnemonicParsing="false" onAction="#addToTable" prefHeight="23.0" prefWidth="43.0" text="Add" />

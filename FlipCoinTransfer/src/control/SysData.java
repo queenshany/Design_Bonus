@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.apache.commons.lang.RandomStringUtils;
+
 import entity.Consts;
 import entity.Item;
 import entity.SystemParams;
@@ -28,7 +30,7 @@ public class SysData {
 			instance = new SysData();
 		return instance;
 	}
-	
+
 	// ***************************** INSERT QUERIES ***************************** 
 
 	/**
@@ -174,5 +176,13 @@ public class SysData {
 		//System.out.println(results);
 		return results;
 	}
-
+	// ***************************** GENERAL METHODS *****************************
+	/**
+	 * This method generates Random Strings for addresses and stuff
+	 * @param length
+	 * @return the string
+	 */
+	public String generateRandomStrings(int length) {
+		return RandomStringUtils.randomAlphanumeric(length).toUpperCase();
+	}
 }

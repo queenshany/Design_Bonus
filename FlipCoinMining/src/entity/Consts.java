@@ -89,7 +89,8 @@ public final class Consts {
 
 	// ***************************** SELECT QUERIES *****************************
 
-	//TODO
+	public static final String SQL_SEL_BLOCKS = "SELECT * FROM tblBlock";
+	
 	public static final String SQL_SEL_MINERS = "SELECT * FROM tblMiner";
 
 	public static final String SQL_SEL_LOTTERIES = "SELECT * FROM tblLottery";
@@ -110,11 +111,11 @@ public final class Consts {
 
 	public static final String SQL_TRANS_WITHOUT_BLOCK = "SELECT *\r\n" + 
 			"FROM tblTransaction\r\n" + 
-			"WHERE (tblTransaction.blockUniqueAddress=\"\" OR tblTransaction.blockUniqueAddress IS NULL)";
+			"WHERE (tblTransaction.blockAddress=\"\" OR tblTransaction.blockAddress IS NULL)";
 
 	public static final String SQL_TRANS_IN_BLOCK = "SELECT *\r\n" + 
 			"FROM tblTransaction\r\n" + 
-			"WHERE (tblTransaction.blockUniqueAddress)= (?)";
+			"WHERE (tblTransaction.blockAddress)= (?)\r\n" + "";
 
 	// ***************************** PATH STUFF ***************************** 
 

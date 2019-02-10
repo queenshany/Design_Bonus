@@ -157,12 +157,48 @@ public class BlockTransLogic {
 		System.out.println("TO " + b);
 	}
 
+	// ***************************** SELECT QUERIES ***************************** 
+	/**
+	 * Loading blocks from the DB to the system
+	 * @return ALL of the blocks without blocks from the DB
+	 */
+	public ArrayList<Block> getBlocks() {
+		ArrayList<Block> results = new ArrayList<Block>();
+
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					//CallableStatement stmt = conn.prepareCall(Consts.SQL_TRANS_WITHOUT_BLOCK_QRY);
+					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_SEL_BLOCKS);
+					ResultSet rs = stmt.executeQuery())
+			{
+				while (rs.next()) {
+					int i = 1;
+					results.add(new Block(rs.getString(i++),
+							rs.getDate(i++),
+							rs.getTime(i++),
+							rs.getInt(i++),
+							rs.getString(i++),
+							rs.getString(i++)));
+				}
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		//System.out.println(results);
+		return results;
+	}
+
 	// ***************************** GENERAL QUERIES ***************************** 
 	/**
 	 * Loading trans from the DB to the system
 	 * @return ALL of the trans without blocks from the DB
 	 */
-	public ArrayList<Transaction> getTrans() {
+	public ArrayList<Transaction> getTransWithoutBlock() {
 		ArrayList<Transaction> results = new ArrayList<Transaction>();
 
 		try {
@@ -201,11 +237,12 @@ public class BlockTransLogic {
 			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
 			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
 					//CallableStatement stmt = conn.prepareCall(Consts.SQL_TRANS_WITHOUT_BLOCK_QRY);
-					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_TRANS_WITHOUT_BLOCK)){
+					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_TRANS_IN_BLOCK)){
 				if (block.getBlockAddress() != null) 
 					stmt.setString(1, block.getBlockAddress());
 				else 
 					stmt.setNull(1, java.sql.Types.INTEGER);
+
 				ResultSet rs = stmt.executeQuery();
 				{
 					while (rs.next()) {

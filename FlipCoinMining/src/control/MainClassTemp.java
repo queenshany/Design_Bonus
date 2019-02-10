@@ -4,6 +4,9 @@ import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+
+import org.apache.commons.lang.RandomStringUtils;
 
 import entity.Block;
 import entity.Bonus;
@@ -57,6 +60,31 @@ public class MainClassTemp{
 		//ml.updateProfit(new Transaction(9, 8, E_Type.Confirm, 18, null, null, null), new Block("d", new Date(2019,2,6), new Time(0, 0, 0), 3, "DDD4", "kk"));
 		//rl.updateRiddleLevel(new RiddleLevel(80, E_Level.Hard, 6, 8));
 		//rl.updateRiddle(new Riddle(9, new Date(2019,2,6), new Time(0, 0, 0), "description", Date.valueOf(LocalDate.now()), Time.valueOf(LocalTime.now()), E_Status.Solved, 1));
+		//System.out.println(ll.getBonuses());
+		//System.out.println(ll.getLotteries());
+		//System.out.println(rl.getRiddleLevels());
+		//System.out.println(rl.getRiddles());
+		//System.out.println(rl.getSolutions());
+		//System.out.println(btl.getTransWithoutBlock());
+		//ArrayList<Block> b = btl.getBlocks();
+		//Block bbb = new Block("d");
+		//	for ( Block bb : b)
+		//		if (bbb.getBlockAddress().equalsIgnoreCase(bb.getBlockAddress())) {
+		//			bbb = bb;
+		//			break;
+		//			}
+		//System.out.println(bbb);
+		//System.out.println(btl.getTransInBlock(bbb));
+		//System.out.println(btl.getBlocks());
+		//System.out.println(ml.getMessages());
+		//System.out.println(ml.getMiners());
+		
+		int length = 3;
+		
+		String s = RandomStringUtils.randomAlphanumeric(length).toUpperCase();
+		
+		System.out.println(s);
+
 	}
 
 }

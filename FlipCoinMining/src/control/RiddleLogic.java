@@ -300,7 +300,7 @@ public class RiddleLogic {
 		try {
 			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
 			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
-					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_SEL_MESSAGES);
+					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_SEL_RIDDLES);
 					ResultSet rs = stmt.executeQuery())
 			{
 				while (rs.next()) {
@@ -336,7 +336,7 @@ public class RiddleLogic {
 		try {
 			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
 			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
-					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_SEL_MESSAGES);
+					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_SEL_RIDDLE_LEVELS);
 					ResultSet rs = stmt.executeQuery())
 			{
 				while (rs.next()) {
@@ -368,7 +368,7 @@ public class RiddleLogic {
 		try {
 			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
 			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
-					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_SEL_MESSAGES);
+					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_SEL_SOLUTIONS);
 					ResultSet rs = stmt.executeQuery())
 			{
 				while (rs.next()) {

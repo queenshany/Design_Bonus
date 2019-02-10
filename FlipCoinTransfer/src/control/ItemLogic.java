@@ -384,4 +384,24 @@ public class ItemLogic {
 		//System.out.println(results);
 		return results;
 	}
+	
+	// ***************************** GENERAL METHODS *****************************
+	
+	/**
+	 * generating id for new item
+	 * @return id for new item
+	 */
+	public int getItemID() {
+		Item item = getItems().get(getItems().size()-1);
+		return item.getCatalogNumber() + 1;
+	}
+	
+	/**
+	 * generating id for new category
+	 * @return id for new category
+	 */
+	public int getCategoryID() {
+		Category category = getCategories().get(getCategories().size()-1);
+		return category.getSerialNumber() + 1;
+	}
 }

@@ -1,5 +1,9 @@
 package boundary;
 
+import java.util.ArrayList;
+
+import entity.Item;
+import entity.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +20,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class LoginController extends AbstractController{
+
+	protected static User curretUser;
 
     @FXML
     private BorderPane borderPane;
@@ -68,9 +74,16 @@ public class LoginController extends AbstractController{
     		closeWindow();
     		ViewLogic.newAdminWindow();
     }
-    	if(username.getText().equals("User") && password.getText().equals("User")){
-    		closeWindow();
-    		ViewLogic.newUserWindow();
+    	 ArrayList<User> user = control.UserLogic.getInstance().getUsers();
+  	   for(User us : user)
+  	   {
+  		   if(us.getUsername().equalsIgnoreCase(username.getText()) &&
+  				 us.getPassword().equalsIgnoreCase(password.getText())) {
+  			   curretUser = us;
+  				closeWindow();
+  	    		ViewLogic.newUserWindow();		   
+  	   }
+  
     }
       	if(username.getText().equals("Employee") && password.getText().equals("Employee")){
       		closeWindow();

@@ -6,7 +6,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import entity.Consts;
-import entity.Message;
 import entity.Riddle;
 import entity.RiddleLevel;
 import entity.Solution;
@@ -198,4 +197,91 @@ public class RiddleLogic {
 
 		System.out.println("INSERT " + sr);
 	}
+
+	// ***************************** UPDATE QUERIES ***************************** 
+
+	/**
+	 * Updates Riddle values
+	 * @param r
+	 */
+	public void updateRiddle(Riddle r) {
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					CallableStatement stmt = conn.prepareCall(Consts.SQL_UPD_RIDDLE)) {
+
+				int i = 1;
+
+				if (r.getSolutionDate() == null)
+					stmt.setNull(i++, java.sql.Types.DATE);
+				else
+					stmt.setDate(i++, r.getSolutionDate());
+
+				if (r.getSolutionTime() == null)
+					stmt.setNull(i++, java.sql.Types.TIME);
+				else
+					stmt.setTime(i++, r.getSolutionTime());
+
+				if (r.getStatus() == null)
+					stmt.setNull(i++, java.sql.Types.VARCHAR);
+				else
+					stmt.setString(i++, r.getStatus().toString());
+
+				if (r.getRiddleLevel() < 0)
+					stmt.setNull(i++, java.sql.Types.INTEGER);
+				else
+					stmt.setInt(i++, r.getRiddleLevel());
+
+				stmt.setInt(i++, r.getRiddleNum());
+
+				stmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		System.out.println("UPDATE " + r);
+	}
+
+	/**
+	 * Updates riddle Level values
+	 * @param r
+	 */
+	public void updateRiddleLevel(RiddleLevel r) {
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					CallableStatement stmt = conn.prepareCall(Consts.SQL_UPD_RIDDLE_LEVEL)) {
+
+				int i = 1;
+
+				if (r.getLevelName() == null)
+					stmt.setNull(i++, java.sql.Types.VARCHAR);
+				else
+					stmt.setString(i++, r.getLevelName().toString());
+
+				if (r.getDifficultyLevel() < 0)
+					stmt.setNull(i++, java.sql.Types.INTEGER);
+				else
+					stmt.setInt(i++, r.getDifficultyLevel());
+
+				if (r.getBlockSize() < 0)
+					stmt.setNull(i++, java.sql.Types.INTEGER);
+				else
+					stmt.setInt(i++, r.getBlockSize());
+
+				stmt.setInt(i++, r.getLevelCode());
+
+				stmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		System.out.println("UPDATE " + r);
+	}
+
+
 }

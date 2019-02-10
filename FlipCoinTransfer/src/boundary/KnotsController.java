@@ -1,5 +1,7 @@
 package boundary;
 
+import entity.Wallet;
+import entity.WalletBitcoinKnots;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -69,9 +71,13 @@ public class KnotsController {
     @FXML
     private Button buyButton;
 
-    @FXML
+    @SuppressWarnings("null")
+	@FXML
     void addNewWallet(ActionEvent event) {
-
+    	WalletBitcoinKnots wallet = null;
+    	wallet.setUniqueAddress(control.SysData.getInstance().generateRandomStrings(4));
+//    	wallet.setPendingAmount(textField.getText());
+    	control.WalletLogic.getInstance().insertWalletBitcoinKnots(wallet);
     }
 
     @FXML

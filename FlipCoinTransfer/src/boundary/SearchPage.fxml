@@ -128,8 +128,8 @@
                </VBox.margin>
                <children>
                   <TextField fx:id="keywords" blendMode="MULTIPLY" prefHeight="25.0" prefWidth="110.0" promptText="Keywords" />
-                  <TextField fx:id="from" blendMode="MULTIPLY" prefHeight="25.0" prefWidth="71.0" promptText="From Price" />
-                  <TextField fx:id="until" blendMode="MULTIPLY" prefHeight="25.0" prefWidth="68.0" promptText="Until Price" />
+                  <TextField fx:id="from" blendMode="MULTIPLY" prefHeight="25.0" prefWidth="71.0" promptText="Min Price" />
+                  <TextField fx:id="until" blendMode="MULTIPLY" prefHeight="25.0" prefWidth="68.0" promptText="Max Price" />
                   <ComboBox fx:id="category" blendMode="MULTIPLY" prefWidth="150.0" promptText="Category" />
                   <Button fx:id="searchButton" blendMode="MULTIPLY" mnemonicParsing="false" onAction="#searchProduct" text="Search" />
                </children>

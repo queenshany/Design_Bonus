@@ -332,7 +332,7 @@ public class MinerLogic {
 		try {
 			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
 			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
-					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_SEL_MESSAGES);
+					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_SEL_MINERS);
 					ResultSet rs = stmt.executeQuery())
 			{
 				while (rs.next()) {

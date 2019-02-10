@@ -273,7 +273,7 @@ public class LotteryLogic {
 		try {
 			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
 			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
-					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_SEL_MESSAGES);
+					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_SEL_LOTTERIES);
 					ResultSet rs = stmt.executeQuery())
 			{
 				while (rs.next()) {

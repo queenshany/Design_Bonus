@@ -1,5 +1,6 @@
 package boundary;
 
+import entity.Wallet;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -80,7 +81,7 @@ public class UserWalletController extends AbstractController{
     private AnchorPane walletPane;
 
     @FXML
-    private TableView<?> walletTable;
+    private TableView<Wallet> walletTable;
 
     @FXML
     private TableColumn<?, ?> c1;
@@ -107,6 +108,11 @@ public class UserWalletController extends AbstractController{
     private Label pleaseChoose;
 
 
+	public void initialize() {
+//		System.out.println("h");
+	}
+	
+    
     @FXML
     void newBitcoinKnots(ActionEvent event) {
 
@@ -164,11 +170,6 @@ public class UserWalletController extends AbstractController{
     	ViewLogic.newWalletsWindow();
     }
 
-
-
-	public void initialize() {
-//		System.out.println("h");
-	}
 
 	protected void closeWindow() {
 		((Stage) borderPane.getScene().getWindow()).close();

@@ -112,6 +112,10 @@ public class ProductsController {
     @FXML
     private Button editButton;
 
+    @FXML
+    private Label errorM;
+    
+    protected static Item currentProduct;
     
 	public void initialize() {
 		
@@ -145,7 +149,7 @@ public class ProductsController {
     
     @FXML
     void addProduct(ActionEvent event) {
-
+    	ViewLogic.newAddProductWindow();
     }
 
     @FXML
@@ -156,7 +160,15 @@ public class ProductsController {
     
     @FXML
     void editProduct(ActionEvent event) {
-
+    	errorM.setVisible(false);
+    	if(table.getSelectionModel().getSelectedItem()!=null) {
+    	currentProduct=table.getSelectionModel().getSelectedItem();
+    	ViewLogic.newEditProductWindow();
+    	}
+    	else {
+    	errorM.setVisible(true);	 
+    	}
+    		
     }
 
     @FXML
@@ -178,9 +190,14 @@ public class ProductsController {
 
     @FXML
     void removeProduct(ActionEvent event) {
+    	errorM.setVisible(false);
+    	if(table.getSelectionModel().getSelectedItem()!=null) {
     	control.ItemLogic.getInstance().deleteItem(table.getSelectionModel().getSelectedItem());
     	table.setItems(getProducts());
     	table.refresh();
+    	}
+    	else
+    		errorM.setVisible(true);
     }
 
     @FXML
@@ -195,7 +212,7 @@ public class ProductsController {
 
     @FXML
     void switch1(MouseEvent event) {
-    products.setId("..\\rsc\\productsPic.png");
+    products.setId("productsPic.png");
     }
 
     @FXML
@@ -219,8 +236,6 @@ public class ProductsController {
     	closeWindow();
     	ViewLogic.newWalletsWindow();
     }
-
-
 
 
 	protected void closeWindow() {

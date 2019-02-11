@@ -229,3 +229,4 @@ public class SysData {
 			return E_NetMode.High;
 		return E_NetMode.Normal;
 }
+}

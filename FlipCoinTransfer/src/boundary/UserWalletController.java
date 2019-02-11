@@ -115,12 +115,12 @@ public class UserWalletController extends AbstractController{
     
     @FXML
     void newBitcoinKnots(ActionEvent event) {
-    	
+    	ViewLogic.newBitcoinKnotsWindow();
     }
 
     @FXML
     void newBitcoinSpace(ActionEvent event) {
-
+    	ViewLogic.newBitcoinSpaceWindow();
     }
     
     @FXML

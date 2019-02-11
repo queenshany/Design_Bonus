@@ -217,7 +217,8 @@ public class BlockTransLogic {
 							rs.getDouble(i++),
 							rs.getString(i++),
 							rs.getDate(i++),
-							rs.getTime(i++)));
+							rs.getTime(i++),
+							rs.getString(i++)));
 				}
 			}
 		}
@@ -254,7 +255,8 @@ public class BlockTransLogic {
 								rs.getDouble(i++),
 								rs.getString(i++),
 								rs.getDate(i++),
-								rs.getTime(i++)));
+								rs.getTime(i++),
+								rs.getString(i++)));
 					}
 				}
 			}
@@ -284,6 +286,6 @@ public class BlockTransLogic {
 
 		return block.getSize()-transSize;
 	}
-	
+
 
 }

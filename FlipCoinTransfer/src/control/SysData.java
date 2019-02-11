@@ -217,7 +217,7 @@ public class SysData {
 	public SystemParams getLastVersionParams() {
 		return getSysParams().get(getSysParams().size()-1);
 	}
-	
+
 
 	/**
 	 * getting net mode status
@@ -228,4 +228,5 @@ public class SysData {
 		if (trans.size() >= Consts.MAX_PAY_TRANS)
 			return E_NetMode.High;
 		return E_NetMode.Normal;
+	}
 }

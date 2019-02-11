@@ -11,10 +11,13 @@ import java.util.ArrayList;
 import entity.Consts;
 import entity.Recommendation;
 import entity.Transaction;
+import entity.TransactionConfirm;
+import entity.TransactionPay;
 import entity.User;
 import entity.Wallet;
 import entity.WalletBitcoinKnots;
 import entity.WalletBitcoinSpace;
+import utils.E_Status;
 import utils.E_WalletType;
 
 /**
@@ -382,7 +385,41 @@ public class WalletLogic {
 	// ***************************** GENERAL METHODS *****************************
 
 	public void calcPendingAmount(Wallet wallet) {
-		ArrayList<Transaction> trans = TransLogic.getInstance().getAllPendingTrans();
+		Double pending = new Double(wallet.getAmount());
+		User user = new User(wallet.getUserAddress(), wallet.getUserSignature());
+		for (User u : UserLogic.getInstance().getUsers())
+			if (u != null && u.equals(user)) {
+				user = u;
+				break;
+			}
+
+		for (TransactionPay tp : TransLogic.getInstance().getAllPayTrans()) {
+			if (tp.getWalletAddress().equals(wallet.getUniqueAddress())){
+				if (tp.getStatus().equals(E_Status.Pending) || tp.getStatus().equals(E_Status.Waiting)
+						|| tp.getStatus().equals(E_Status.Executed)) {
+
+					if (tp.getCreatingAddress().equalsIgnoreCase(user.getPublicAddress())
+							&& tp.getCreatingSignature().equalsIgnoreCase(user.getSignature()))
+						pending -= (tp.getPayValue() + tp.getFee());
+
+					if (tp.getDestinationAddress().equalsIgnoreCase(user.getPublicAddress())
+							&& tp.getDestinationSignature().equalsIgnoreCase(user.getSignature()))
+						pending += tp.getPayValue();
+				}
+			}
+		}
+		
+		for (TransactionConfirm tc : TransLogic.getInstance().getAllConfirmTrans()) {
+			if (tc.getWalletAddress().equals(wallet.getUniqueAddress())){
+				if (tc.getStatus().equals(E_Status.Pending) || tc.getStatus().equals(E_Status.Waiting)
+						|| tc.getStatus().equals(E_Status.Executed)) {
+
+					if (tc.getCreatingAddress().equalsIgnoreCase(user.getPublicAddress())
+							&& tc.getCreatingSignature().equalsIgnoreCase(user.getSignature()))
+						pending -= tc.getFee();
+				}
+			}
+		}
 	}
 
 	/**

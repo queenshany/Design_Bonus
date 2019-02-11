@@ -293,6 +293,12 @@ public class TransLogic {
 				else
 					stmt.setDate(i++, trans.getShippmentDate());	
 
+
+				if (trans.getTransPayID() < 0)
+					stmt.setNull(i++, java.sql.Types.INTEGER);
+				else
+					stmt.setInt(i++, trans.getTransPayID());				
+
 				stmt.setInt(i++, trans.getTransID());
 
 				stmt.executeUpdate();
@@ -539,7 +545,8 @@ public class TransLogic {
 							rs.getString(i++),
 							rs.getString(i++),
 							rs.getBoolean(i++),
-							rs.getDate(i++)
+							rs.getDate(i++),
+							rs.getInt(i++)
 							));
 				}
 			}

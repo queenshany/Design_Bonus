@@ -2,6 +2,7 @@ package control;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDate;
 
 import entity.Category;
 import entity.Item;
@@ -85,8 +86,8 @@ public class MainClassTemp{
 
 		//System.out.println(il.getItems());
 		//System.out.println(il.searchItem(null, null, null, null, new User("B2B2B2", "B22")));
-	Communication.getInstance().exportTransactionsToJSON();
-	
+	//Communication.getInstance().exportTransactionsToJSON();
+	//rl.calcProbability(Date.valueOf(LocalDate.now()));
 	}
 
 }

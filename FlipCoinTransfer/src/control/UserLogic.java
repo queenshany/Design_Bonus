@@ -17,6 +17,7 @@ import entity.Category;
 import entity.Consts;
 import entity.Message;
 import entity.User;
+import entity.WalletBitcoinSpace;
 
 /**
  * This class represents the Users & Messages Management in the system
@@ -302,5 +303,20 @@ public class UserLogic {
 		message.setMessageTime(Time.valueOf(LocalTime.now()));
 
 		insertMessage(message);
+	}
+	
+	/**
+	 * getting messages of user
+	 * @param user
+	 * @return array list of user's messages
+	 */
+	public ArrayList<Message> getMessagesOfUser (User user){
+		ArrayList<Message> messages = new ArrayList<>();
+		for (Message m : getMessages())
+			if (m != null && m.getUserAddress().equalsIgnoreCase(user.getPublicAddress())
+			&& m.getUserSignature().equalsIgnoreCase(user.getSignature())) {
+				messages.add(m);	
+			}
+		return messages;		
 	}
 }

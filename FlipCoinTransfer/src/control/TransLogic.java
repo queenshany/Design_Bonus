@@ -10,11 +10,13 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 import entity.Consts;
+import entity.Message;
 import entity.Recommendation;
 import entity.RecommendedFor;
 import entity.Transaction;
 import entity.TransactionConfirm;
 import entity.TransactionPay;
+import entity.User;
 import utils.E_Status;
 import utils.E_TransType;
 
@@ -466,6 +468,90 @@ public class TransLogic {
 		}
 		return results;
 	}
+
+
+	/**
+	 * Getting all Pay transactions
+	 * @return all transactions
+	 */
+	public ArrayList<TransactionPay> getAllPayTrans() {
+		ArrayList<TransactionPay> results = new ArrayList<>();
+		try {
+			Class.forName(Consts.JDBC_STR);
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_SEL_TRANS_PAY)){
+				ResultSet rs = stmt.executeQuery();
+				while (rs.next()) {
+					int i = 1;
+					results.add(new TransactionPay(rs.getInt(i++),
+							rs.getString(i++),
+							rs.getInt(i++),
+							rs.getDate(i++),
+							rs.getDate(i++),
+							rs.getDouble(i++),
+							E_Status.valueOf(rs.getString(i++)),
+							rs.getString(i++),
+							rs.getString(i++),
+							rs.getString(i++),
+							rs.getString(i++),
+							rs.getString(i++),
+							rs.getDouble(i++)
+							));
+				}
+			}
+		}
+
+		catch (SQLException e) {
+			e.printStackTrace();
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return results;
+	}
+
+
+	/**
+	 * Getting all transactions
+	 * @return all transactions
+	 */
+	public ArrayList<TransactionConfirm> getAllConfirmTrans() {
+		ArrayList<TransactionConfirm> results = new ArrayList<>();
+		try {
+			Class.forName(Consts.JDBC_STR);
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_SEL_TRANS_CONFIRM)){
+				ResultSet rs = stmt.executeQuery();
+				while (rs.next()) {
+					int i = 1;
+					results.add(new TransactionConfirm(rs.getInt(i++),
+							rs.getString(i++),
+							rs.getInt(i++),
+							rs.getDate(i++),
+							rs.getDate(i++),
+							rs.getDouble(i++),
+							E_Status.valueOf(rs.getString(i++)),
+							rs.getString(i++),
+							rs.getString(i++),
+							rs.getString(i++),
+							rs.getString(i++),
+							rs.getString(i++),
+							rs.getBoolean(i++),
+							rs.getDate(i++)
+							));
+				}
+			}
+		}
+
+		catch (SQLException e) {
+			e.printStackTrace();
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return results;
+	}
+
 	
 	// ***************************** GENERAL METHODS *****************************
 	/**
@@ -487,6 +573,63 @@ public class TransLogic {
 		return 1;
 	}
 	
-	public void a() {
+	/**
+	 * getting Pay Trans of user Created
+	 * @param user
+	 * @return array list of Trans of user Created
+	 */
+	public ArrayList<TransactionPay> getPayTransOfUserCreated (User user){
+		ArrayList<TransactionPay> trans = new ArrayList<>();
+		for (TransactionPay t : getAllPayTrans())
+			if (t != null && t.getCreatingAddress().equalsIgnoreCase(user.getPublicAddress())
+			&& t.getCreatingSignature().equalsIgnoreCase(user.getSignature())) {
+				trans.add(t);	
+			}
+		return trans;		
+	}
+	
+	/**
+	 * getting Pay Trans of user Destination
+	 * @param user
+	 * @return array list of Trans of user Destination
+	 */
+	public ArrayList<TransactionPay> getPayTransOfUserDestination (User user){
+		ArrayList<TransactionPay> trans = new ArrayList<>();
+		for (TransactionPay t : getAllPayTrans())
+			if (t != null && t.getDestinationAddress().equalsIgnoreCase(user.getPublicAddress())
+			&& t.getDestinationSignature().equalsIgnoreCase(user.getSignature())) {
+				trans.add(t);	
+			}
+		return trans;		
+	}
+	
+	/**
+	 * getting Confirm Trans of user Created
+	 * @param user
+	 * @return array list of Trans of user Created
+	 */
+	public ArrayList<TransactionConfirm> getConfirmTransOfUserCreated (User user){
+		ArrayList<TransactionConfirm> trans = new ArrayList<>();
+		for (TransactionConfirm t : getAllConfirmTrans())
+			if (t != null && t.getCreatingAddress().equalsIgnoreCase(user.getPublicAddress())
+			&& t.getCreatingSignature().equalsIgnoreCase(user.getSignature())) {
+				trans.add(t);	
+			}
+		return trans;		
+	}
+	
+	/**
+	 * getting Confirm Trans of user Destination
+	 * @param user
+	 * @return array list of Trans of user Destination
+	 */
+	public ArrayList<TransactionConfirm> getConfirmTransOfUserDestination (User user){
+		ArrayList<TransactionConfirm> trans = new ArrayList<>();
+		for (TransactionConfirm t : getAllConfirmTrans())
+			if (t != null && t.getDestinationAddress().equalsIgnoreCase(user.getPublicAddress())
+			&& t.getDestinationSignature().equalsIgnoreCase(user.getSignature())) {
+				trans.add(t);	
+			}
+		return trans;		
 	}
 }

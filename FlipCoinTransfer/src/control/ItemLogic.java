@@ -14,6 +14,7 @@ import entity.Category;
 import entity.Consts;
 import entity.Item;
 import entity.ItemInTransaction;
+import entity.Message;
 import entity.Transaction;
 import entity.User;
 
@@ -437,11 +438,11 @@ public class ItemLogic {
 			ArrayList<Item> temp = new ArrayList<Item>();
 			for (int i = 0; i < items.size(); i++)
 				if (!items.get(i).getSellerAddress().equals(seller.getPublicAddress()) &&
-					!items.get(i).getSellerSignature().equals(seller.getSignature())) 
+						!items.get(i).getSellerSignature().equals(seller.getSignature())) 
 					temp.add(items.get(i));
 			items.removeAll(temp);
 		}
-		
+
 		// filtering by min price
 		if (minPrice != null) {
 			ArrayList<Item> temp = new ArrayList<Item>();
@@ -474,10 +475,25 @@ public class ItemLogic {
 			ArrayList<Item> temp = new ArrayList<Item>();
 			for (int i = 0; i < items.size(); i++)
 				if (!items.get(i).getItemName().toLowerCase().contains(str.toLowerCase()) &&
-					!items.get(i).getDescription().toLowerCase().contains(str.toLowerCase())) 
+						!items.get(i).getDescription().toLowerCase().contains(str.toLowerCase())) 
 					temp.add(items.get(i));
 			items.removeAll(temp);
 		}
 		return items;
+	}
+
+	/**
+	 * getting items of user
+	 * @param user
+	 * @return array list of user's products
+	 */
+	public ArrayList<Item> getItemsOfUser (User user){
+		ArrayList<Item> items = new ArrayList<>();
+		for (Item i : getItems())
+			if (i != null && i.getSellerAddress().equalsIgnoreCase(user.getPublicAddress())
+			&& i.getSellerSignature().equalsIgnoreCase(user.getSignature())) {
+				items.add(i);	
+			}
+		return items;		
 	}
 }

@@ -206,4 +206,12 @@ public class SysData {
 			return sys.get(sys.size()-1).getVersion() + 0.1;
 		return 1;
 	}
+	
+	/**
+	 * getting last version sysparams
+	 * @return the parameters in the last version
+	 */
+	public SystemParams getLastVersionParams() {
+		return getSysParams().get(getSysParams().size()-1);
+	}
 }

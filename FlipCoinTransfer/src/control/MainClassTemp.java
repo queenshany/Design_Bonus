@@ -83,8 +83,11 @@ public class MainClassTemp{
 		//		System.out.println("SYS " + sd.getSysVersion());
 		//		System.out.println("TRA " + tl.getTransID());
 
-		System.out.println(il.getItems());
-		System.out.println(il.searchItem(null, null, null, null, new User("B2B2B2", "B22")));
+		//System.out.println(il.getItems());
+		//System.out.println(il.searchItem(null, null, null, null, new User("B2B2B2", "B22")));
+	Communication communication = new Communication();
+	communication.exportAllTransactionsToJSON();
+	
 	}
 
 }

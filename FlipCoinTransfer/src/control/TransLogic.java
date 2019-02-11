@@ -2,10 +2,12 @@ package control;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -631,5 +633,32 @@ public class TransLogic {
 				trans.add(t);	
 			}
 		return trans;		
+	}
+	/**
+	 * this method sets transactions to irrelevant status
+	 */
+	private void setIrrelevantTransactions() {
+		Date today = Date.valueOf(LocalDate.now());
+		//LocalDate today = LocalDate.now();
+
+
+		ArrayList<TransactionPay> trP = TransLogic.getInstance().getAllPayTrans();
+		ArrayList<TransactionConfirm> trC = TransLogic.getInstance().getAllConfirmTrans();
+	
+		for (TransactionPay t: trP) {
+			if (t.getCreationDate().before(today) &&
+				(t.getStatus().equals(E_Status.Waiting) || t.getStatus().equals(E_Status.Pending))){
+				t.setStatus(E_Status.Irrelevent);
+				updateTransPay(t);
+			}
+		}
+		
+		for (TransactionConfirm t: trC) {
+			if (t.getCreationDate().before(today) &&
+				(t.getStatus().equals(E_Status.Waiting) || t.getStatus().equals(E_Status.Pending))){
+				t.setStatus(E_Status.Irrelevent);
+				updateTransConfirm(t);
+			}
+		}
 	}
 }

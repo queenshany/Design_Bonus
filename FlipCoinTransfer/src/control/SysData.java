@@ -228,9 +228,5 @@ public class SysData {
 		if (trans.size() >= Consts.MAX_PAY_TRANS)
 			return E_NetMode.High;
 		return E_NetMode.Normal;
-<<<<<<< HEAD
 	}
-=======
-}
->>>>>>> da0baf214195352ca9e7e8645febc0ef1d302753
 }

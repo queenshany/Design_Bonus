@@ -9,8 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import entity.Consts;
-import entity.Recommendation;
-import entity.Transaction;
 import entity.TransactionConfirm;
 import entity.TransactionPay;
 import entity.User;
@@ -18,7 +16,6 @@ import entity.Wallet;
 import entity.WalletBitcoinKnots;
 import entity.WalletBitcoinSpace;
 import utils.E_Status;
-import utils.E_WalletType;
 
 /**
  * This class represents the Wallet Management in the system
@@ -160,6 +157,10 @@ public class WalletLogic {
 	 * @param wallet
 	 */
 	public void updateWallet(Wallet wallet) {
+
+		calcAmount(wallet);
+		calcPendingAmount(wallet);
+
 		try {
 			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
 			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
@@ -383,8 +384,13 @@ public class WalletLogic {
 
 
 	// ***************************** GENERAL METHODS *****************************
+	/**
+	 * calc pending wallet amount
+	 * @param wallet
+	 * @return the amount left
+	 */
+	private void calcPendingAmount(Wallet wallet) {
 
-	public void calcPendingAmount(Wallet wallet) {
 		Double pending = new Double(wallet.getAmount());
 		User user = new User(wallet.getUserAddress(), wallet.getUserSignature());
 		for (User u : UserLogic.getInstance().getUsers())
@@ -408,7 +414,7 @@ public class WalletLogic {
 				}
 			}
 		}
-		
+
 		for (TransactionConfirm tc : TransLogic.getInstance().getAllConfirmTrans()) {
 			if (tc.getWalletAddress().equals(wallet.getUniqueAddress())){
 				if (tc.getStatus().equals(E_Status.Pending) || tc.getStatus().equals(E_Status.Waiting)
@@ -420,6 +426,51 @@ public class WalletLogic {
 				}
 			}
 		}
+
+		wallet.setPendingAmount(pending);
+	}
+
+	/**
+	 * calc pending wallet amount
+	 * @param wallet
+	 * @return the amount in wallet
+	 */
+	private void calcAmount(Wallet wallet) {
+
+		Double amt = new Double(wallet.getAmount());
+		User user = new User(wallet.getUserAddress(), wallet.getUserSignature());
+		for (User u : UserLogic.getInstance().getUsers())
+			if (u != null && u.equals(user)) {
+				user = u;
+				break;
+			}
+
+		for (TransactionPay tp : TransLogic.getInstance().getAllPayTrans()) {
+			if (tp.getWalletAddress().equals(wallet.getUniqueAddress())){
+				if (tp.getStatus().equals(E_Status.Closed)) {
+
+					if (tp.getCreatingAddress().equalsIgnoreCase(user.getPublicAddress())
+							&& tp.getCreatingSignature().equalsIgnoreCase(user.getSignature()))
+						amt -= (tp.getPayValue() + tp.getFee());
+
+					if (tp.getDestinationAddress().equalsIgnoreCase(user.getPublicAddress())
+							&& tp.getDestinationSignature().equalsIgnoreCase(user.getSignature()))
+						amt += tp.getPayValue();
+				}
+			}
+		}
+
+		for (TransactionConfirm tc : TransLogic.getInstance().getAllConfirmTrans()) {
+			if (tc.getWalletAddress().equals(wallet.getUniqueAddress())){
+				if (tc.getStatus().equals(E_Status.Closed)) {
+					if (tc.getCreatingAddress().equalsIgnoreCase(user.getPublicAddress())
+							&& tc.getCreatingSignature().equalsIgnoreCase(user.getSignature()))
+						amt -= tc.getFee();
+				}
+			}
+		}
+
+		wallet.setAmount(amt);
 	}
 
 	/**
@@ -465,5 +516,31 @@ public class WalletLogic {
 				wallets.add(w);	
 			}
 		return wallets;
+	}
+
+	/**
+	 * This method loads money to wallet
+	 * @param wallet
+	 * @param amount
+	 */
+	public void loadMoney(Wallet wallet, Double amount) {
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					CallableStatement stmt = conn.prepareCall(Consts.SQL_LOAD_MONEY)) {
+
+				int i = 1;
+				stmt.setDouble(i++, amount);
+				stmt.setString(i++, wallet.getUniqueAddress());
+
+				stmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println("UPDATE WALLET ");
 	}
 }

@@ -74,13 +74,20 @@ public class EditProductDetailsController extends AbstractController{
     }
 
 	public void initialize() {
-//		(ProductsController.currentProduct.getPrice()).toString();
+
+		//Fill the edit page
 		itemName.setText(ProductsController.currentProduct.getItemName());
 		image.setText(ProductsController.currentProduct.getImage());
-		description.setText(ProductsController.currentProduct.getDescription());
-//		categoryCombo.setPromptText(ProductsController.currentProduct.getCategory());
-//		price.setText(ProductsController.currentProduct.getPrice());
-//		quantity.setText(ProductsController.currentProduct.getQuantity());
+		description.setText(ProductsController.currentProduct.getDescription());		
+		categoryCombo.setPromptText(
+				control.ItemLogic.getInstance().getCategories().get(ProductsController
+						.currentProduct.getCategory()).getCategoryName()); 
+		Double convert = (ProductsController.currentProduct.getPrice());
+    	String pric = String.valueOf(convert);
+		price.setText(pric);
+		Integer convert2 = (ProductsController.currentProduct.getQuantity());
+    	String qua = String.valueOf(convert2);
+		quantity.setText(qua);
 
 		//Fill the category combobox
 		ArrayList<Category> ct = new ArrayList<Category>();

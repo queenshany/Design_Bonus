@@ -26,7 +26,7 @@ public class MainClass extends Application{
 	});
 
 	public static void main(String[] args) {
-		TransLogic.getInstance().setIrrelevantTransactions();
+		// TransLogic.getInstance().setIrrelevantTransactions();
 		backup.start();
 		launch(args);
 		backup.stop();

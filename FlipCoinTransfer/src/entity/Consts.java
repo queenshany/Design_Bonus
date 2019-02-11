@@ -60,8 +60,8 @@ public final class Consts {
 	public static final String SQL_INS_SYS_PARAM = "INSERT INTO tblSystem ( version, versionDate, transMinSize, transMaxSize, transSizeForExpansion, priceForExpansion, discountPercentPerFee, priceForDiscount, transSizeFree, maxAllowableDiscount, lastTransferredTrans, firstTransferredTrans)\r\n" + 
 			"VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?))";
 
-	public static final String SQL_INS_TRANS_CONFIRM = "INSERT INTO tblTransConfirm ( transID, description, size, creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress, isConfirmed, shippmentDate )\r\n" + 
-			"VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?))";
+	public static final String SQL_INS_TRANS_CONFIRM = "INSERT INTO tblTransConfirm ( transID, description, size, creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress, isConfirmed, shippmentDate, transPayID )\r\n" + 
+			"VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?))";
 
 	public static final String SQL_INS_TRANS_PAY = "INSERT INTO tblTransPay ( transID, description, size, creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress, payValue )\r\n" + 
 			"VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?))";
@@ -104,7 +104,7 @@ public final class Consts {
 	
 	public static final String SQL_UPD_USER_IN_REC = "{ call updateRecommendedForQry(?, ?, ?, ?) }";
 	
-	public static final String SQL_UPD_TRANS_CONFIRM = "{ call updateTransConfirmQry(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }";
+	public static final String SQL_UPD_TRANS_CONFIRM = "{ call updateTransConfirmQry(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }";
 	
 	public static final String SQL_UPD_TRANS_PAY = "{ call updateTransPayQry(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }";
 	

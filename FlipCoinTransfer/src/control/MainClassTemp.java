@@ -85,8 +85,7 @@ public class MainClassTemp{
 
 		//System.out.println(il.getItems());
 		//System.out.println(il.searchItem(null, null, null, null, new User("B2B2B2", "B22")));
-	Communication communication = new Communication();
-	communication.exportAllTransactionsToJSON();
+	Communication.getInstance().exportTransactionsToJSON();
 	
 	}
 

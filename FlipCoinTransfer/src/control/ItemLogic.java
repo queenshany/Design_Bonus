@@ -15,8 +15,10 @@ import entity.Consts;
 import entity.Item;
 import entity.ItemInTransaction;
 import entity.Message;
+import entity.RecommendedFor;
 import entity.Transaction;
 import entity.User;
+import utils.E_Level;
 
 /**
  * This class represents the Item Management in the system: Item, ItemInTransaction, Categories
@@ -374,6 +376,39 @@ public class ItemLogic {
 					int i = 1;
 					results.add(new Category(rs.getInt(i++),
 							rs.getString(i++)));
+				}
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		//System.out.println(results);
+		return results;
+	}
+
+
+	/**
+	 * Loading items in trans from the DB to the system
+	 * @return ALL of the items in trans from the DB
+	 */
+	public ArrayList<ItemInTransaction> getItemsInTrans() {
+		ArrayList<ItemInTransaction> results = new ArrayList<>();
+
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_SEL_ITEM_IN_TRANS);
+					ResultSet rs = stmt.executeQuery())
+			{
+				while (rs.next()) {
+					int i = 1;
+					results.add(new ItemInTransaction(rs.getInt(i++),
+							rs.getInt(i++),
+							rs.getInt(i++))
+							);
 				}
 			}
 		}

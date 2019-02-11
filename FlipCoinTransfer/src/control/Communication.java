@@ -24,6 +24,14 @@ import utils.E_Status;
  *
  */
 public class Communication {
+	
+	private static Communication instance;
+
+	public static Communication getInstance() {
+		if (instance == null)
+			instance = new Communication();
+		return instance;
+	}
 /**
  * exporting pending transactions to JSON
  */

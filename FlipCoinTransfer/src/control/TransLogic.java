@@ -388,7 +388,7 @@ public class TransLogic {
 		}
 		System.out.println("UPDATE " + trans);
 	}
-	
+
 	// ***************************** GENERAL QUERIES *****************************
 
 	/**
@@ -554,7 +554,7 @@ public class TransLogic {
 		return results;
 	}
 
-	
+
 	// ***************************** GENERAL METHODS *****************************
 	/**
 	 * generating id for new Transaction
@@ -569,12 +569,12 @@ public class TransLogic {
 				return t1.getTransID()-t2.getTransID();
 			}
 		});
-		
+
 		if (!trans.isEmpty())
 			return trans.get(trans.size()-1).getTransID() + 1;
 		return 1;
 	}
-	
+
 	/**
 	 * getting Pay Trans of user Created
 	 * @param user
@@ -589,7 +589,7 @@ public class TransLogic {
 			}
 		return trans;		
 	}
-	
+
 	/**
 	 * getting Pay Trans of user Destination
 	 * @param user
@@ -604,7 +604,7 @@ public class TransLogic {
 			}
 		return trans;		
 	}
-	
+
 	/**
 	 * getting Confirm Trans of user Created
 	 * @param user
@@ -619,7 +619,7 @@ public class TransLogic {
 			}
 		return trans;		
 	}
-	
+
 	/**
 	 * getting Confirm Trans of user Destination
 	 * @param user
@@ -637,25 +637,23 @@ public class TransLogic {
 	/**
 	 * this method sets transactions to irrelevant status
 	 */
-	private void setIrrelevantTransactions() {
+	public void setIrrelevantTransactions() {
 		Date today = Date.valueOf(LocalDate.now());
-		//LocalDate today = LocalDate.now();
-
 
 		ArrayList<TransactionPay> trP = TransLogic.getInstance().getAllPayTrans();
 		ArrayList<TransactionConfirm> trC = TransLogic.getInstance().getAllConfirmTrans();
-	
+
 		for (TransactionPay t: trP) {
 			if (t.getCreationDate().before(today) &&
-				(t.getStatus().equals(E_Status.Waiting) || t.getStatus().equals(E_Status.Pending))){
+					(t.getStatus().equals(E_Status.Waiting) || t.getStatus().equals(E_Status.Pending))){
 				t.setStatus(E_Status.Irrelevent);
 				updateTransPay(t);
 			}
 		}
-		
+
 		for (TransactionConfirm t: trC) {
 			if (t.getCreationDate().before(today) &&
-				(t.getStatus().equals(E_Status.Waiting) || t.getStatus().equals(E_Status.Pending))){
+					(t.getStatus().equals(E_Status.Waiting) || t.getStatus().equals(E_Status.Pending))){
 				t.setStatus(E_Status.Irrelevent);
 				updateTransConfirm(t);
 			}

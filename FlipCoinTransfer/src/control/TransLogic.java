@@ -486,4 +486,7 @@ public class TransLogic {
 			return trans.get(trans.size()-1).getTransID() + 1;
 		return 1;
 	}
+	
+	public void a() {
+	}
 }

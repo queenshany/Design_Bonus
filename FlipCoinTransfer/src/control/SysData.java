@@ -17,6 +17,7 @@ import entity.Recommendation;
 import entity.SystemParams;
 import entity.Transaction;
 import entity.User;
+import utils.E_NetMode;
 
 /**
  * This class represents the Sys Management: Net Mode, Parameters, Sign In
@@ -118,14 +119,15 @@ public class SysData {
 	 * @param sys
 	 * @param trans
 	 */
-	public void updateLastTransferredTrans(SystemParams sys, Transaction trans) {
+	public void updateLastTransferredTrans(SystemParams sys, Transaction first, Transaction last) {
 		try {
 			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
 			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
-					CallableStatement stmt = conn.prepareCall(Consts.SQL_UPD_LAST_TRANSFERRED_TRANS)) {
+					CallableStatement stmt = conn.prepareCall(Consts.SQL_UPD_FIRST_AND_LAST_TRANSFERRED_TRANS)) {
 
 				int i = 1;
-				stmt.setInt(i++, trans.getTransID());
+				stmt.setInt(i++, last.getTransID());
+				stmt.setInt(i++, first.getTransID());
 				stmt.setDouble(i++, sys.getVersion());
 
 				stmt.executeUpdate();
@@ -165,6 +167,7 @@ public class SysData {
 							rs.getDouble(i++),
 							rs.getInt(i++),
 							rs.getDouble(i++),
+							rs.getInt(i++),
 							rs.getInt(i++)));
 				}
 			}
@@ -187,7 +190,7 @@ public class SysData {
 	public String generateRandomStrings(int length) {
 		return RandomStringUtils.randomAlphanumeric(length).toUpperCase();
 	}
-	
+
 	/**
 	 * generating id (version) for new sysparams
 	 * @return id for new sysparams
@@ -201,12 +204,12 @@ public class SysData {
 				return new Double(s1.getVersion()).compareTo(new Double(s2.getVersion()));
 			}
 		});
-		
+
 		if (!sys.isEmpty())
 			return sys.get(sys.size()-1).getVersion() + 0.1;
 		return 1;
 	}
-	
+
 	/**
 	 * getting last version sysparams
 	 * @return the parameters in the last version
@@ -214,4 +217,15 @@ public class SysData {
 	public SystemParams getLastVersionParams() {
 		return getSysParams().get(getSysParams().size()-1);
 	}
+	
+
+	/**
+	 * getting net mode status
+	 * @return the net mode status
+	 */
+	public E_NetMode getMode() {
+		ArrayList<Transaction> trans = TransLogic.getInstance().getAllPendingTrans();
+		if (trans.size() >= Consts.MAX_PAY_TRANS)
+			return E_NetMode.High;
+		return E_NetMode.Normal;
 }

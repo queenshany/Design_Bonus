@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import entity.Consts;
 import entity.Recommendation;
+import entity.Transaction;
 import entity.User;
 import entity.Wallet;
 import entity.WalletBitcoinKnots;
@@ -294,5 +295,11 @@ public class WalletLogic {
 		}
 		//System.out.println(results);
 		return results;
+	}
+	
+	// ***************************** GENERAL METHODS *****************************
+	
+	public void calcPendingAmount(Wallet wallet) {
+		ArrayList<Transaction> trans = TransLogic.getInstance().getAllPendingTrans();
 	}
 }

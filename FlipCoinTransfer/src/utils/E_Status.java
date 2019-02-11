@@ -8,7 +8,8 @@ public enum E_Status {
 	Pending("Pending"),
 	Executed("Executed"),
 	Irrelevent("Irrelevent"),
-	Closed("Closed");
+	Closed("Closed"),
+	Waiting("Waiting");
 	
 	private String text;
 	

@@ -58,8 +58,8 @@ public final class Consts {
 	public static final String SQL_INS_SOLVED_RIDDLE = "INSERT INTO keySolvedRiddle ( uniqueAddress, riddleNum, solvedDate, solvedTime )\r\n" + 
 			"VALUES ((?), (?), (?), (?))";
 
-	public static final String SQL_INS_TRANS = "INSERT INTO tblTransaction ( ID, size, type, fee )\r\n" + 
-			"VALUES ((?), (?), (?), (?))";
+	public static final String SQL_INS_TRANS = "INSERT INTO tblTransaction ( ID, size, type, fee, status )\r\n" + 
+			"VALUES ((?), (?), (?), (?), 'Waiting')";
 
 	// ***************************** DELETE QUERIES ***************************** 
 
@@ -67,8 +67,8 @@ public final class Consts {
 
 	// ***************************** UPDATE QUERIES ***************************** 
 
-	public static final String SQL_ATTACH_TRANS_TO_BLOCK = "UPDATE tblTransaction SET tblTransaction.blockAddress = (?), tblTransaction.additionDate = (?), tblTransaction.additionTime = (?)\r\n" + 
-			"WHERE (((tblTransaction.ID)=(?)));\r\n" + "";
+	public static final String SQL_ATTACH_TRANS_TO_BLOCK = "UPDATE tblTransaction SET tblTransaction.blockAddress = [blockAddresss], tblTransaction.additionDate = (?), tblTransaction.additionTime = (?), tblTransaction = 'Executed'\r\n" + 
+			"WHERE (((tblTransaction.ID)=(?)))";
 
 	public static final String SQL_UPD_BONUS = "{ call updateBonusQry(?, ?) }";
 

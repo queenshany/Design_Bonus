@@ -18,6 +18,7 @@ public class Transaction {
 	private String blockAddress;
 	private Date additionDate;
 	private Time additionTime;
+	private String status;
 
 	// ---------------------------- Constructors ----------------------------
 	public Transaction(int ID) {
@@ -25,7 +26,7 @@ public class Transaction {
 	}
 
 	public Transaction(int ID, int size, E_Type type, double fee, String blockAddress, Date additionDate,
-			Time additionTime) {
+			Time additionTime, String status) {
 		super();
 		this.ID = ID;
 		this.size = size;
@@ -34,6 +35,7 @@ public class Transaction {
 		this.blockAddress = blockAddress;
 		this.additionDate = additionDate;
 		this.additionTime = additionTime;
+		this.status = status;
 	}
 
 	// ---------------------------- Getters & Setters ----------------------------
@@ -91,6 +93,14 @@ public class Transaction {
 
 	public void setAdditionTime(Time additionTime) {
 		this.additionTime = additionTime;
+	}
+	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	//---------------------------- Hash & Equals ----------------------------

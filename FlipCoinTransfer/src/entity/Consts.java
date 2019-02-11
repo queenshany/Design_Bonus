@@ -49,8 +49,8 @@ public final class Consts {
 	public static final String SQL_INS_RECOMMENDATION_FOR_USER = "INSERT INTO keyRecommendedFor ( userAddress, userSignature, recommendation, commitmentLevel )\r\n" + 
 			"VALUES ((?), (?), (?), (?))";
 
-	public static final String SQL_INS_SYS_PARAM = "INSERT INTO tblSystem ( version, versionDate, transMinSize, transMaxSize, transSizeForExpansion, priceForExpansion, discountPercentPerFee, priceForDiscount, transSizeFree, maxAllowableDiscount, lastTransferredTrans)\r\n" + 
-			"VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?))";
+	public static final String SQL_INS_SYS_PARAM = "INSERT INTO tblSystem ( version, versionDate, transMinSize, transMaxSize, transSizeForExpansion, priceForExpansion, discountPercentPerFee, priceForDiscount, transSizeFree, maxAllowableDiscount, lastTransferredTrans, firstTransferredTrans)\r\n" + 
+			"VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?))";
 
 	public static final String SQL_INS_TRANS_CONFIRM = "INSERT INTO tblTransConfirm ( transID, description, size, creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress, isConfirmed, shippmentDate )\r\n" + 
 			"VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?))";
@@ -90,7 +90,7 @@ public final class Consts {
 	
 	public static final String SQL_UPD_ITEM = "{ call updateItemQry(?, ?, ?, ?, ?, ?, ?) }";
 	
-	public static final String SQL_UPD_LAST_TRANSFERRED_TRANS = "{ call updateLastTransferredTransQry(?, ?) }";
+	public static final String SQL_UPD_FIRST_AND_LAST_TRANSFERRED_TRANS = "{ call updateFirstLastTransferredTransQry(?, ?, ?) }";
 	
 	public static final String SQL_UPD_REC = "{ call updateRecommendationQry(?, ?, ?) }";
 	
@@ -145,15 +145,14 @@ public final class Consts {
 			"HAVING creationDate=(?) AND status=\"Executed\"";
 
 	public static final String SQL_ALL_PENDING_TRANS = "Select *\r\n" + 
-			"from (SELECT transID, description, size, creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress ,'Pay' as type\r\n" + 
+			"from (SELECT transID, description, [size], creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress ,'Pay' as type\r\n" + 
 			"FROM tblTransPay\r\n" + 
-			"WHERE status=\"Pending\")\r\n" + 
+			"WHERE status=\"Pending\" OR status=\"Waiting\")\r\n" + 
 			"\r\n" + 
-			"UNION ALL (SELECT transID, description, size, creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress, 'Confirm' as type\r\n" + 
+			"UNION ALL (SELECT transID, description, [size], creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress, 'Confirm' as type\r\n" + 
 			"FROM tblTransConfirm\r\n" + 
-			"WHERE status=\"Pending\")\r\n" + 
-			"ORDER BY creationDate\r\n" + 
-			"";
+			"WHERE status=\"Pending\" OR status=\"Waiting\")\r\n" + 
+			"ORDER BY creationDate";
 
 	public static final String SQL_ALL_TRANS = "Select *\r\n" + 
 			"from (SELECT transID, description, size, creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress, 'Pay' as type\r\n" + 

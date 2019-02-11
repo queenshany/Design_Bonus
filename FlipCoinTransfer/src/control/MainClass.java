@@ -26,10 +26,10 @@ public class MainClass extends Application{
 	});
 
 	public static void main(String[] args) {
-		TransLogic.getInstance().setIrrelevantTransactions();
-		backup.start();
+//		TransLogic.getInstance().setIrrelevantTransactions();
+//		backup.start();
 		launch(args);
-		backup.stop();
+//		backup.stop();
 
 	}
 

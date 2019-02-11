@@ -126,8 +126,7 @@ public class ProductsController {
 		price.setCellValueFactory(new PropertyValueFactory<>("price"));
 		quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 		category.setCellValueFactory(new PropertyValueFactory<>("category"));
-		
-		
+			
 		getProducts();
 		   
  } 

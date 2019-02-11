@@ -2,10 +2,14 @@ package control;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -34,7 +38,7 @@ public class UserLogic {
 	 * Inserting a message to the DB
 	 * @param message
 	 */
-	public void insertMessage(Message message) {
+	private void insertMessage(Message message) {
 		try {
 			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
 			try {
@@ -284,5 +288,19 @@ public class UserLogic {
 		if (!messages.isEmpty())
 			return messages.get(messages.size()-1).getID() + 1;
 		return 1;
+	}
+	
+	/**
+	 * sending a message to user
+	 * @param string of message
+	 */
+	public void sendMessage (String title, String desc, User user) {
+		Message message = new Message(getMessageID(),user.getPublicAddress(),user.getSignature());
+		message.setTitle(title);
+		message.setDescription(desc);
+		message.setMessageDate(Date.valueOf(LocalDate.now()));
+		message.setMessageTime(Time.valueOf(LocalTime.now()));
+
+		insertMessage(message);
 	}
 }

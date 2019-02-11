@@ -125,9 +125,13 @@ public final class Consts {
 	public static final String SQL_SEL_WALLETS = "SELECT * FROM tblWallet";
 	
 	//TODO 
-	public static final String SQL_SEL_WALLET_SPACE = "SELECT * FROM tblWallet";
+	public static final String SQL_SEL_WALLET_KNOTS = "SELECT W.uniqueAddress, W.isOnPC, W.isOnPhone, W.isOnTablet, W.amount, W.pendingAmount, W.pendingAmount, W.userAddress, W.userSignature, K.discountPercent\r\n" + 
+			"FROM TblWallet AS W, tblWalletBitcoinKnots AS K\r\n" + 
+			"WHERE ((W.uniqueAddress=K.walletUniqueAddress))";
 	
-	public static final String SQL_SEL_WALLET_KNOTS = "SELECT * FROM tblWallet";
+	public static final String SQL_SEL_WALLET_SPACE = "SELECT W.uniqueAddress, W.isOnPC, W.isOnPhone, W.isOnTablet, W.amount, W.pendingAmount, W.pendingAmount, W.userAddress, W.userSignature, S.transSize\r\n" + 
+			"FROM TblWallet AS W, tblWalletBitcoinSpace AS S\r\n" + 
+			"WHERE W.uniqueAddress=S.walletUniqueAddress";
 	
 	// ***************************** GENERAL QUERIES ***************************** 
 

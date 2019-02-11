@@ -63,7 +63,7 @@
             </ImageView>
             <HBox fx:id="hbox" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="200.0">
                <children>
-                  <ImageView fx:id="homeIcon" fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" smooth="false">
+                  <ImageView fx:id="homeIcon" fitHeight="18.0" fitWidth="18.0" onMouseClicked="#goHome" pickOnBounds="true" smooth="false">
                      <image>
                         <Image url="@../rsc/homeIcon.png" />
                      </image>
@@ -129,17 +129,17 @@
                            <content>
                               <TableView fx:id="t3" prefHeight="200.0" prefWidth="495.0">
                                 <columns>
-                                  <TableColumn prefWidth="75.0" text="Trans ID" />
-                                  <TableColumn prefWidth="75.0" text="Size" />
-                                    <TableColumn prefWidth="75.0" text="Creation Date" />
-                                    <TableColumn prefWidth="75.0" text="Execution Date" />
-                                    <TableColumn prefWidth="75.0" text="Fee" />
-                                    <TableColumn prefWidth="75.0" text="Status" />
-                                    <TableColumn prefWidth="75.0" text="Creator Address" />
-                                    <TableColumn prefWidth="75.0" text="Creator Signature" />
-                                    <TableColumn prefWidth="75.0" text="Destination Address" />
-                                    <TableColumn prefWidth="75.0" text="Destination Signature" />
-                                    <TableColumn prefWidth="75.0" text="Type" />
+                                  <TableColumn fx:id="tranId" prefWidth="75.0" text="Trans ID" />
+                                  <TableColumn fx:id="size" prefWidth="75.0" text="Size" />
+                                    <TableColumn fx:id="creaDate" prefWidth="75.0" text="Creation Date" />
+                                    <TableColumn fx:id="execDate" prefWidth="75.0" text="Execution Date" />
+                                    <TableColumn fx:id="fee" prefWidth="75.0" text="Fee" />
+                                    <TableColumn fx:id="status" prefWidth="75.0" text="Status" />
+                                    <TableColumn fx:id="creaAddress" prefWidth="75.0" text="Creator Address" />
+                                    <TableColumn fx:id="creaSig" prefWidth="75.0" text="Creator Signature" />
+                                    <TableColumn fx:id="DesAddress" prefWidth="75.0" text="Destination Address" />
+                                    <TableColumn fx:id="DesSig" prefWidth="75.0" text="Destination Signature" />
+                                    <TableColumn fx:id="type" prefWidth="75.0" text="Type" />
                                 </columns>
                               </TableView>
                            </content>

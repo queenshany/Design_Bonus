@@ -7,6 +7,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class MainAdminScreenController {
 
@@ -57,7 +58,8 @@ public class MainAdminScreenController {
 
     @FXML
     void allDetails(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newDetailsWindow();
     }
 
     @FXML
@@ -90,4 +92,7 @@ public class MainAdminScreenController {
 
     }
 
+	protected void closeWindow() {
+		((Stage) borderPane.getScene().getWindow()).close();
+	}
 }

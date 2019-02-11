@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 
+import control.SysData;
 import entity.User;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -35,6 +36,7 @@ public class ViewLogic {
 	protected static final Rectangle2D VISIBLE_SCREEN = Screen.getPrimary().getVisualBounds();
 
 	protected static User currentUser;
+	protected static SysData sysData = control.SysData.getInstance();
 
 	// ------------------------------ Methods ------------------------------
 	/**

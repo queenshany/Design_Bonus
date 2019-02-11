@@ -337,7 +337,7 @@ public class WalletLogic {
 		return results;
 	}
 
-	
+
 	/**
 	 * Loading Wallets Space from the DB to the system
 	 * @return ALL of the Wallets from the DB
@@ -378,10 +378,55 @@ public class WalletLogic {
 		return results;
 	}
 
-	
+
 	// ***************************** GENERAL METHODS *****************************
-	
+
 	public void calcPendingAmount(Wallet wallet) {
 		ArrayList<Transaction> trans = TransLogic.getInstance().getAllPendingTrans();
+	}
+
+	/**
+	 * getting all wallets of user
+	 * @param user
+	 * @return array list of user's wallet
+	 */
+	public ArrayList<Wallet> getWalletsOfUser(User user){
+		ArrayList<Wallet> wallets = new ArrayList<>();
+		for (Wallet w : getWallets())
+			if (w != null && w.getUniqueAddress().equalsIgnoreCase(user.getPublicAddress())
+			&& w.getUserSignature().equalsIgnoreCase(user.getSignature())) {
+				wallets.add(w);	
+			}
+		return wallets;
+	}
+
+	/**
+	 * getting bitcoin knots wallets of user
+	 * @param user
+	 * @return array list of user's wallet
+	 */
+	public ArrayList<WalletBitcoinKnots> getWalletsKnotsOfUser(User user){
+		ArrayList<WalletBitcoinKnots> wallets = new ArrayList<>();
+		for (WalletBitcoinKnots w : getWalletsKnots())
+			if (w != null && w.getUniqueAddress().equalsIgnoreCase(user.getPublicAddress())
+			&& w.getUserSignature().equalsIgnoreCase(user.getSignature())) {
+				wallets.add(w);	
+			}
+		return wallets;
+	}
+
+	/**
+	 * getting bitcoin space wallets of user
+	 * @param user
+	 * @return array list of user's wallet
+	 */
+	public ArrayList<WalletBitcoinSpace> getWalletsSpaceOfUser(User user){
+		ArrayList<WalletBitcoinSpace> wallets = new ArrayList<>();
+		for (WalletBitcoinSpace w : getWalletSpace())
+			if (w != null && w.getUniqueAddress().equalsIgnoreCase(user.getPublicAddress())
+			&& w.getUserSignature().equalsIgnoreCase(user.getSignature())) {
+				wallets.add(w);	
+			}
+		return wallets;
 	}
 }

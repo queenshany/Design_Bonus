@@ -111,6 +111,10 @@ public final class Consts {
 	// ***************************** SELECT QUERIES ***************************** 
 
 	public static final String SQL_SEL_USERS = "SELECT * FROM tblUser";
+
+	public static final String SQL_SEL_TRANS_PAY = "SELECT * FROM tblTransPay";
+	
+	public static final String SQL_SEL_TRANS_CONFIRM = "SELECT * FROM tblTransConfirm";
 	
 	public static final String SQL_SEL_ITEMS = "SELECT * FROM tblItem";
 	
@@ -124,7 +128,6 @@ public final class Consts {
 	
 	public static final String SQL_SEL_WALLETS = "SELECT * FROM tblWallet";
 	
-	//TODO 
 	public static final String SQL_SEL_WALLET_KNOTS = "SELECT W.uniqueAddress, W.isOnPC, W.isOnPhone, W.isOnTablet, W.amount, W.pendingAmount, W.pendingAmount, W.userAddress, W.userSignature, K.discountPercent\r\n" + 
 			"FROM TblWallet AS W, tblWalletBitcoinKnots AS K\r\n" + 
 			"WHERE ((W.uniqueAddress=K.walletUniqueAddress))";

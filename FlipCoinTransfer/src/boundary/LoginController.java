@@ -87,7 +87,7 @@ public class LoginController extends AbstractController{
     }
       	if(username.getText().equals("Employee") && password.getText().equals("Employee")){
       		closeWindow();
-    		ViewLogic.newAdminWindow();
+    		ViewLogic.newEmployeeWindow();
     }
 
     }

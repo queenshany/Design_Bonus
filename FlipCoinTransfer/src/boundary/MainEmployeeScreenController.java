@@ -7,6 +7,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class MainEmployeeScreenController {
 
@@ -57,12 +58,13 @@ public class MainEmployeeScreenController {
 
     @FXML
     void allRecommendations(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newViewRecommendationWindow();
     }
 
     @FXML
     void generateTransReport(MouseEvent event) {
-
+    	
     }
 
     @FXML
@@ -72,22 +74,30 @@ public class MainEmployeeScreenController {
 
     @FXML
     void logOut(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newLoginWindow();
     }
 
     @FXML
     void manageCategories(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newCategoriesWindow();
     }
 
     @FXML
     void manageParameters(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newParametersWindow();
+ 
     }
 
     @FXML
     void newRecommendation(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newCreateRecommendationWindow();
     }
 
+	protected void closeWindow() {
+		((Stage) borderPane.getScene().getWindow()).close();
+	}
 }

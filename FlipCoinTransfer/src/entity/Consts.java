@@ -9,6 +9,14 @@ public final class Consts {
 	private Consts() {
 		throw new AssertionError();
 	}
+	
+	public static final String XML_EXPORT_FILE_PATH = System.getProperty("user.dir") + "..\\..\\comm_JSON_XML\\TransFromMining.xml";
+	
+	public static final String XML_IMPORT_FILE_PATH = System.getProperty("user.dir") + "\\comm_JSON_XML\\TransFromMining.xml";
+	
+	public static final String JSON_EXPORT_FILE_PATH = System.getProperty("user.dir") + "\\comm_JSON_XML\\TransFromTransfer.json";
+	
+	public static final String JSON_IMPORT_FILE_PATH = System.getProperty("user.dir") + "\\comm_JSON_XML\\TransFromTransfer.json";
 
 	public static final int PHONE_LENGTH = 7;
 	
@@ -112,6 +120,10 @@ public final class Consts {
 
 	public static final String SQL_SEL_USERS = "SELECT * FROM tblUser";
 
+	public static final String SQL_SEL_REC_FOR = "SELECT * FROM keyRecommendedFor";
+
+	public static final String SQL_SEL_ITEM_IN_TRANS = "SELECT * FROM keyItemInTransaction";
+	
 	public static final String SQL_SEL_TRANS_PAY = "SELECT * FROM tblTransPay";
 	
 	public static final String SQL_SEL_TRANS_CONFIRM = "SELECT * FROM tblTransConfirm";
@@ -169,6 +181,9 @@ public final class Consts {
 			"FROM tblTransConfirm)\r\n" + 
 			"ORDER BY creationDate";
 
+	public static final String SQL_LOAD_MONEY = "{ call loadMoneyToWalletQry(?, ?) }";
+	
+	
 	// ***************************** PATH STUFF ***************************** 
 
 	private static String getDBPath() {

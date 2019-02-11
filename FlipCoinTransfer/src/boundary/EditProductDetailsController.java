@@ -2,6 +2,7 @@ package boundary;
 
 import java.util.ArrayList;
 
+import control.ItemLogic;
 import entity.Category;
 import entity.Item;
 import entity.User;
@@ -12,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -64,13 +66,43 @@ public class EditProductDetailsController extends AbstractController{
     @FXML
     private Button saveButton;
 
-    
-    
+//	Category c = control.ItemLogic.getInstance().getCategories().get(ProductsController
+//			.currentProduct.getCategory());
+	    
     @FXML
     void updateProduct(ActionEvent event) {
-//    	Item item;
+    	Item item = ProductsController.currentProduct;
     	
-//    	control.ItemLogic.getInstance().updateItem(item);
+//    	Category c = control.ItemLogic.getInstance().getCategories().get(ProductsController
+//    			.currentProduct.getCategory());
+//    			for (Category cat : ItemLogic.getInstance().getCategories()) {
+//    				if (cat != null && c.equals(cat)) {
+//    					c = cat;
+//    					break;
+//    				}
+//    			}
+    	
+//    	if (c.equals(control.ItemLogic.getInstance().getCategories().get(ProductsController
+//			.currentProduct.getCategory()))) {
+//    		item.setCategory(c.getSerialNumber());
+    
+    	if (categoryCombo.getSelectionModel()==null) {
+    		item.setCategory(ProductsController.currentProduct.getCategory());
+    	}
+    		if (categoryCombo.getSelectionModel() != null) {
+    	item.setCategory(categoryCombo.getSelectionModel().getSelectedItem().getSerialNumber());
+    		}
+    	item.setDescription(description.getText());
+    	String convert = (price.getText());
+    	double pri = Double.parseDouble(convert);
+    	item.setPrice(pri);
+    	String convert2 = (quantity.getText());
+    	int qua = Integer.parseInt(convert2);
+    	item.setQuantity(qua);
+    	item.setImage(image.getText());
+    	item.setItemName(itemName.getText());
+    	
+    	control.ItemLogic.getInstance().updateItem(item);
     }
 
 	public void initialize() {
@@ -79,9 +111,13 @@ public class EditProductDetailsController extends AbstractController{
 		itemName.setText(ProductsController.currentProduct.getItemName());
 		image.setText(ProductsController.currentProduct.getImage());
 		description.setText(ProductsController.currentProduct.getDescription());		
-		categoryCombo.setPromptText(
-				control.ItemLogic.getInstance().getCategories().get(ProductsController
-						.currentProduct.getCategory()).getCategoryName()); 
+//		categoryCombo.setPromptText(
+//				control.ItemLogic.getInstance().getCategories().get(ProductsController
+//						.currentProduct.getCategory()).getCategoryName());
+//		int a = ProductsController.currentProduct.getCategory();
+//		SingleSelectionModel<Category> cat = control.ItemLogic.getInstance().getCategories().get(a);
+//		SingleSelectionModel<Category> array = cat;
+//		categoryCombo.setSelectionModel(array);
 		Double convert = (ProductsController.currentProduct.getPrice());
     	String pric = String.valueOf(convert);
 		price.setText(pric);

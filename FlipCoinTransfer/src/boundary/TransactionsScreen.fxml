@@ -140,8 +140,8 @@
                               <Button fx:id="addButton" layoutX="372.0" layoutY="15.0" mnemonicParsing="false" onAction="#addToTable" prefHeight="23.0" prefWidth="43.0" text="Add" />
                               <TableView fx:id="table" layoutX="7.0" layoutY="44.0" prefHeight="92.0" prefWidth="409.0">
                                 <columns>
-                                  <TableColumn prefWidth="75.0" text="C1" />
-                                  <TableColumn prefWidth="75.0" text="C2" />
+                                  <TableColumn fx:id="itemID" prefWidth="75.0" text="Item ID" />
+                                    <TableColumn fx:id="quantity" prefWidth="72.3333740234375" text="Quantity" />
                                 </columns>
                               </TableView>
                               <Label fx:id="lable" layoutX="8.0" layoutY="142.0" text="You have to pay" />

@@ -128,12 +128,11 @@ public class ProductsController {
 		category.setCellValueFactory(new PropertyValueFactory<>("category"));
 		
 		
-		table.setItems(getProducts());
-		table.refresh();
+		getProducts();
 		   
  } 
  
- public ObservableList<Item> getProducts(){
+ public void getProducts(){
 	   
 	   ObservableList<Item> I= FXCollections.observableArrayList();
 	   ArrayList<Item> Items = control.ItemLogic.getInstance().getItems();
@@ -143,7 +142,8 @@ public class ProductsController {
 				   itms.getSellerSignature().equalsIgnoreCase(LoginController.curretUser.getSignature()))
 		   I.add(itms);
 	   }
-		return I;
+		table.setItems(I);
+		table.refresh();
  }
 	
     
@@ -193,7 +193,7 @@ public class ProductsController {
     	errorM.setVisible(false);
     	if(table.getSelectionModel().getSelectedItem()!=null) {
     	control.ItemLogic.getInstance().deleteItem(table.getSelectionModel().getSelectedItem());
-    	table.setItems(getProducts());
+    	getProducts();
     	table.refresh();
     	}
     	else

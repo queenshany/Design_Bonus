@@ -72,7 +72,12 @@ public class AddNewProductController {
     	item.setImage(image.getText());
     	item.setDescription(description.getText());
     	item.setCategory(categoryCombo.getVisibleRowCount());
-//    	item.setPrice(price.getText());
+    	String convert = (price.getText());
+    	double x = Double.parseDouble(convert);
+    	item.setPrice(x);
+    	String convert2 = (quantity.getText());
+    	int y = Integer.parseInt(convert2);
+    	item.setQuantity(y);
     	
     	control.ItemLogic.getInstance().insertItem(item);
     

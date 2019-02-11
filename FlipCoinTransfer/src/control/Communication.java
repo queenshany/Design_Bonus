@@ -11,10 +11,12 @@ import java.util.TreeSet;
 import org.json.simple.JsonArray;
 import org.json.simple.JsonObject;
 
+import entity.Consts;
 import entity.SystemParams;
 import entity.Transaction;
 import entity.TransactionConfirm;
 import entity.TransactionPay;
+import utils.E_Status;
 
 /**
  * This class represents the communication between the systems (Transfer & Mining)
@@ -22,48 +24,61 @@ import entity.TransactionPay;
  *
  */
 public class Communication {
+	
+	private static Communication instance;
 
-	public void exportAllTransactionsToJSON() {
+	public static Communication getInstance() {
+		if (instance == null)
+			instance = new Communication();
+		return instance;
+	}
+/**
+ * exporting pending transactions to JSON
+ */
+	public void exportTransactionsToJSON() {
 		try {
-			File file = new File(System.getProperty("user.dir") + "\\FlipCoin-Mining\\allTrans.json");
+			File file = new File(Consts.JSON_EXPORT_FILE_PATH);
 			file.getParentFile().mkdirs();
 			if (!file.exists())
 				file.createNewFile();
 
-			SystemParams sys = SysData.getInstance().getLastVersionParams();
-			ArrayList<Transaction> temp = TransLogic.getInstance().getAllPendingTrans();
-			TreeSet<Transaction> trans = new TreeSet<>(new Comparator<Transaction>() {
-
-				public int compare(Transaction o1, Transaction o2) {
-					return o1.getCreationDate().compareTo(o2.getCreationDate());
-				}
-			});
-
-
+			ArrayList<TransactionPay> trP = TransLogic.getInstance().getAllPayTrans();
+			ArrayList<TransactionConfirm> trC = TransLogic.getInstance().getAllConfirmTrans();
 			JsonObject rootObject = new JsonObject();
 			JsonArray transJSON = new JsonArray();
 
 
-			/*			for (TransactionPay t : transPay) {
-				JsonObject tJSON = new JsonObject();
-				tJSON.put("ID", t.getTransID());
-				tJSON.put("Size", t.getSize());
-				tJSON.put("Comission Fee", t.getCommissionFee());
-				tJSON.put("Type", "Pay");
+			for (TransactionPay t : trP) {
+				if (t.getStatus().equals(E_Status.Pending)) {
+					t.setStatus(E_Status.Waiting);
+					TransLogic.getInstance().updateTransPay(t);
+					JsonObject tJSON = new JsonObject();
+					tJSON.put("ID", t.getTransID());
+					tJSON.put("Size", t.getSize());
+					tJSON.put("Fee", t.getFee());
+					tJSON.put("Type", t.getType().toString());
+					tJSON.put("Status", t.getStatus().toString());
 
-				transJSON.add(tJSON);
+					transJSON.add(tJSON);
+				}
 			}
 
-			for (TransactionConfirm t : transConfirm) {
-				JsonObject tJSON = new JsonObject();
-				tJSON.put("ID", t.getTransID());
-				tJSON.put("Size", t.getSize());
-				tJSON.put("Comission Fee", t.getCommissionFee());
-				tJSON.put("Type", "Confirm");
+			for (TransactionConfirm t : trC) {
+				if (t.getStatus().equals(E_Status.Pending)) {
+					t.setStatus(E_Status.Waiting);
+					TransLogic.getInstance().updateTransConfirm(t);
+					JsonObject tJSON = new JsonObject();
+					tJSON.put("ID", t.getTransID());
+					tJSON.put("Size", t.getSize());
+					tJSON.put("Fee", t.getFee());
+					tJSON.put("Type", t.getType().toString());
+					tJSON.put("Status", t.getStatus().toString());
 
-				transJSON.add(tJSON);
+					transJSON.add(tJSON);
+				}
 			}
-			 */		
+			//JsonObject tJSON = new JsonObject();
+
 			rootObject.put("Transactions", transJSON);
 
 			FileWriter fileWriter = new FileWriter(file);
@@ -77,5 +92,63 @@ public class Communication {
 		}
 	}
 
+	/**
+	 * importing transactions from XML
+	 */
+	public void importTransactionsFromXML() {
+		try {
+			File file = new File(Consts.JSON_EXPORT_FILE_PATH);
+			file.getParentFile().mkdirs();
+			if (!file.exists())
+				file.createNewFile();
 
+			ArrayList<TransactionPay> trP = TransLogic.getInstance().getAllPayTrans();
+			ArrayList<TransactionConfirm> trC = TransLogic.getInstance().getAllConfirmTrans();
+			JsonObject rootObject = new JsonObject();
+			JsonArray transJSON = new JsonArray();
+
+
+			for (TransactionPay t : trP) {
+				if (t.getStatus().equals(E_Status.Pending)) {
+					t.setStatus(E_Status.Waiting);
+					TransLogic.getInstance().updateTransPay(t);
+					JsonObject tJSON = new JsonObject();
+					tJSON.put("ID", t.getTransID());
+					tJSON.put("Size", t.getSize());
+					tJSON.put("Fee", t.getFee());
+					tJSON.put("Type", t.getType().toString());
+					tJSON.put("Status", t.getStatus().toString());
+
+					transJSON.add(tJSON);
+				}
+			}
+
+			for (TransactionConfirm t : trC) {
+				if (t.getStatus().equals(E_Status.Pending)) {
+					t.setStatus(E_Status.Waiting);
+					TransLogic.getInstance().updateTransConfirm(t);
+					JsonObject tJSON = new JsonObject();
+					tJSON.put("ID", t.getTransID());
+					tJSON.put("Size", t.getSize());
+					tJSON.put("Fee", t.getFee());
+					tJSON.put("Type", t.getType().toString());
+					tJSON.put("Status", t.getStatus().toString());
+
+					transJSON.add(tJSON);
+				}
+			}
+			//JsonObject tJSON = new JsonObject();
+
+			rootObject.put("Transactions", transJSON);
+
+			FileWriter fileWriter = new FileWriter(file);
+			fileWriter.write(rootObject.toJson());
+			fileWriter.close();
+
+			System.out.println("Exported To JSON XDXD");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

@@ -34,6 +34,7 @@ public class ViewLogic {
 	// ------------------------------ Variables ------------------------------
 	protected static final Rectangle2D FULL_SCREEN = Screen.getPrimary().getBounds();
 	protected static final Rectangle2D VISIBLE_SCREEN = Screen.getPrimary().getVisualBounds();
+//	protected static ProductsController productScreen;
 
 	protected static User currentUser;
 	protected static SysData sysData = control.SysData.getInstance();
@@ -148,7 +149,7 @@ public class ViewLogic {
 	 */
 	protected static void newEmployeeWindow() {
 		Stage stage = new Stage();
-		stage.setMaximized(true);
+//		stage.setMaximized(true);
 		setStage(stage);
 
 

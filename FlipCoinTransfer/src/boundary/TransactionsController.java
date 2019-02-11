@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import entity.User;
 import entity.Wallet;
 import entity.Item;
+import entity.ItemInTransaction;
 import entity.Transaction;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -104,8 +105,13 @@ public class TransactionsController {
 	@FXML
 	private Button addButton;
 
-	@FXML
-	private TableView<?> table;
+    private TableView<Item> table;
+
+    @FXML
+    private TableColumn<Item, Integer> itemID;
+
+    @FXML
+    private TableColumn<Item, Integer> quantity;
 
 	@FXML
 	private Label lable;
@@ -190,7 +196,6 @@ public class TransactionsController {
 		ObservableList<Wallet> w=getWallets();
 	 	    walletCombo.setItems(w);
 	 	    walletsCombo.setItems(w);
-	
 	 	    
 	} 
 	
@@ -233,6 +238,10 @@ public class TransactionsController {
 		   
 	 	    productsCombo.setItems(I);
 		   }
+		   
+		   
+		   itemID.setCellValueFactory(new PropertyValueFactory<>("catalogNumber"));
+			quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 	 }
 	 
 	    
@@ -266,7 +275,22 @@ public class TransactionsController {
 
 	@FXML
 	void addToTable(ActionEvent event) {
-
+		int itemID = productsCombo.getSelectionModel().getSelectedItem().getCatalogNumber();
+		if (quantity.getText()!=null && productsCombo.getSelectionModel()!=null) {
+			try {
+		String convert = (quantity.getText());
+    	Integer x = Integer.parseInt(convert);
+    	Item items = new Item(itemID);
+    	items.setQuantity(x);
+    	ObservableList<Item> item= FXCollections.observableArrayList();
+    	item.add(items);
+    	table.setItems(item);
+		}
+			catch (NumberFormatException e){
+				lable.setText("Invalid Value");
+			}
+	}
+    	
 	}
 
 

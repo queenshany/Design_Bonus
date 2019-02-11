@@ -124,6 +124,11 @@ public final class Consts {
 	
 	public static final String SQL_SEL_WALLETS = "SELECT * FROM tblWallet";
 	
+	//TODO 
+	public static final String SQL_SEL_WALLET_SPACE = "SELECT * FROM tblWallet";
+	
+	public static final String SQL_SEL_WALLET_KNOTS = "SELECT * FROM tblWallet";
+	
 	// ***************************** GENERAL QUERIES ***************************** 
 
 	public static final String SQL_REC_CALC_PROBABILITY = "SELECT SUM(C) * 100/((Select COUNT(*) FROM tblTransPay TP WHERE TP.creationDate = (?))+(Select COUNT(*) FROM tblTransConfirm TC WHERE TC.creationDate = (?))) AS transPercent\r\n" + 

@@ -47,58 +47,26 @@ public class Validation {
 			java.util.regex.Matcher m = p.matcher(email);
 			return m.matches();
 		}
-
+		
 		/**
-		 * This method pops up an alert error dialog
-		 * @param strHeader
-		 * @param strText
+		 * This method checks if an int is positive
+		 * @param num
+		 * @return true if valid, false otherwise
 		 */
-		public static void alert(String strHeader , String strText) {
-			Alert alert = new Alert(AlertType.ERROR);
-
-			alert.setTitle("Error Dialog");
-			alert.setHeaderText(strHeader);
-			alert.setContentText(strText);
-
-			alert.showAndWait();
+		public static boolean isPositiveInt(int num) {
+			if (num > 0)
+				return true;
+			return false;
 		}
 		
 		/**
-		 * This method pops up an alert error dialog
-		 * @param strHeader
-		 * @param strText
+		 * This method checks if a double is positive
+		 * @param num
+		 * @return true if valid, false otherwise
 		 */
-		public static void alert(String strHeader) {
-			Alert alert = new Alert(AlertType.ERROR);
-
-			alert.setTitle("Error Dialog");
-			alert.setHeaderText(strHeader);
-
-			alert.showAndWait();
-		}
-		
-		/**
-		 * This method pops up an alert info dialog
-		 * @param strHeader
-		 * @param strText
-		 */
-		public static void info(String header, String text) {
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Information Dialog");
-			alert.setHeaderText(header);
-			alert.setContentText(text);
-			alert.showAndWait();
-		}
-		
-		/**
-		 * This method pops up an alert info dialog
-		 * @param strHeader
-		 * @param strText
-		 */
-		public static void info(String header) {
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Information Dialog");
-			alert.setHeaderText(header);
-			alert.showAndWait();
+		public static boolean isPositiveDouble(double num) {
+			if (num > 0.0)
+				return true;
+			return false;
 		}
 }

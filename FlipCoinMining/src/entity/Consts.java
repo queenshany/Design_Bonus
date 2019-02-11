@@ -67,7 +67,7 @@ public final class Consts {
 			"VALUES ((?), (?), (?), (?))";
 
 	public static final String SQL_INS_TRANS = "INSERT INTO tblTransaction ( ID, size, type, fee, status )\r\n" + 
-			"VALUES ((?), (?), (?), (?), 'Waiting')";
+			"VALUES ((?), (?), (?), (?), (?))";
 
 	// ***************************** DELETE QUERIES ***************************** 
 

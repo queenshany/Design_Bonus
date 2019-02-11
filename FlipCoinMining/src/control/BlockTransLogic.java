@@ -16,6 +16,7 @@ import java.sql.Date;
 import entity.Block;
 import entity.Consts;
 import entity.Transaction;
+import utils.E_TransStatus;
 import utils.E_Type;
 
 /**
@@ -135,7 +136,8 @@ public class BlockTransLogic {
 
 		t.setAdditionDate(Date.valueOf(LocalDate.now()));
 		t.setAdditionTime(Time.valueOf(LocalTime.now()));
-
+		t.setStatus(E_TransStatus.Executed.toString());
+		
 		try {
 			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
 			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
@@ -145,6 +147,7 @@ public class BlockTransLogic {
 				stmt.setString(i++, b.getBlockAddress());
 				stmt.setDate(i++, t.getAdditionDate());
 				stmt.setTime(i++, t.getAdditionTime());
+				stmt.setString(i++, t.getStatus());
 				stmt.setInt(i++, t.getID());
 
 				stmt.executeUpdate();

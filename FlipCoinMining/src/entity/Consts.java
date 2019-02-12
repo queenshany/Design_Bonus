@@ -80,8 +80,6 @@ public final class Consts {
 
 	public static final String SQL_UPD_BONUS = "{ call updateBonusQry(?, ?) }";
 
-	public static final String SQL_UPD_LAST_TRANSFERRED_TRANS = "{ call updateLastTransferredTransQry(?, ?) }";
-	
 	public static final String SQL_UPD_LOTTERY = "UPDATE tblLottery SET tblLottery.lotteryDate = (?), tblLottery.maxParticipants = (?), tblLottery.numOfWinners = (?), tblLottery.numOfBonuses = (?)\r\n" + 
 			"WHERE (((tblLottery.lotteryNum)=(?)))";
 

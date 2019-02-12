@@ -309,36 +309,39 @@ public class RecLogic {
 	public Double calcProbability(Date date) {
 		Double result = 0.0;
 
-		try {
-			Class.forName(Consts.JDBC_STR);
-			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
-					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_REC_CALC_PROBABILITY)){
-				int i=1;
-				while (i < 6) {
-					if (date != null) 
-						stmt.setDate(i++, date);
-					else 
-						stmt.setNull(i++, java.sql.Types.DATE);
+		if (TransLogic.getInstance().getTransAmountPerDate(date) == 0)
+			return result;
+		else {
+			try {
+				Class.forName(Consts.JDBC_STR);
+				try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+						PreparedStatement stmt = conn.prepareStatement(Consts.SQL_REC_CALC_PROBABILITY)){
+					int i = 1;
+					while (i < 6) {
+						if (date != null) 
+							stmt.setDate(i++, date);
+						else 
+							stmt.setNull(i++, java.sql.Types.DATE);
+					}
+					ResultSet rs = stmt.executeQuery();
+					//System.err.println(rs.toString());
+					while (rs.next())
+					{
+						result = rs.getDouble(1);
+					}
+					//return results;
 				}
-				ResultSet rs = stmt.executeQuery();
-				//System.err.println(rs.toString());
-				while (rs.next())
-				{
-					result = rs.getDouble(1);
+				catch (SQLException e) {
+					e.printStackTrace();
 				}
-				//return results;
 			}
-			catch (SQLException e) {
+			catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
 
-		return result;
+			return result;
+		}
 	}
-
 	// ***************************** GENERAL METHODS *****************************
 	/**
 	 * generating id for new rec

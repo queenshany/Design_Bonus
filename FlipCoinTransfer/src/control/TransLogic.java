@@ -562,6 +562,41 @@ public class TransLogic {
 	}
 
 
+	/**
+	 * getting the Trans Amount Per Date 
+	 * @param date 
+	 * @return the Trans Amount Per Date
+	 */
+	public int getTransAmountPerDate(Date date) {
+		int result = 0;
+		try {
+			Class.forName(Consts.JDBC_STR);
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_TRANS_AMOUNT_PER_DATE)){
+				int i=1;
+					if (date != null) 
+						stmt.setDate(i++, date);
+					else 
+						stmt.setNull(i++, java.sql.Types.DATE);
+				ResultSet rs = stmt.executeQuery();
+				//System.err.println(rs.toString());
+				while (rs.next())
+				{
+					result = rs.getInt(1);
+				}
+				//return results;
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+	
 	// ***************************** GENERAL METHODS *****************************
 	/**
 	 * generating id for new Transaction

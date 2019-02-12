@@ -181,6 +181,14 @@ public final class Consts {
 			"FROM tblTransConfirm)\r\n" + 
 			"ORDER BY creationDate";
 
+	public static final String SQL_TRANS_AMOUNT_PER_DATE = "Select count(*) as transAmount\r\n" + 
+			"from (SELECT transID, creationDate, 'Pay' as type\r\n" + 
+			"FROM tblTransPay\r\n" + 
+			"\r\n" + 
+			"UNION ALL (SELECT transID, creationDate, 'Confirm' as type\r\n" + 
+			"FROM tblTransConfirm)) A\r\n" + 
+			"Where A.creationDate=(?)";
+	
 	public static final String SQL_LOAD_MONEY = "{ call loadMoneyToWalletQry(?, ?) }";
 	
 	

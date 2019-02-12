@@ -88,9 +88,10 @@ public class MainClassTemp{
 		//System.out.println(il.getItems());
 		//System.out.println(il.searchItem(null, null, null, null, new User("B2B2B2", "B22")));
 	//Communication.getInstance().exportTransactionsToJSON();
-	for (Transaction transaction : Communication.getInstance().importTransactionsFromXML())
-		System.out.println(transaction.toString());
-	//rl.calcProbability(Date.valueOf(LocalDate.now()));
+//	for (Transaction transaction : Communication.getInstance().importTransactionsFromXML())
+	//	System.out.println(transaction.toString());
+	System.out.println(rl.calcProbability(Date.valueOf(LocalDate.now())));
+		
 	}
 
 }

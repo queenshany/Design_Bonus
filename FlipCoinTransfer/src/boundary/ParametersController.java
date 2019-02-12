@@ -1,5 +1,7 @@
 package boundary;
 
+import java.sql.Date;
+
 import entity.SystemParams;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -215,7 +217,7 @@ public class ParametersController {
     	 int transSizeFree = Integer.parseInt(seven);
     	 double maxAllowableDiscount = Double.parseDouble(eigth);
 
-//    	 Date date
+    	 //Date date = Date.
 
     	 
     	 SystemParams sys = null;

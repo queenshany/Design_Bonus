@@ -17,6 +17,7 @@ import entity.Block;
 import entity.Consts;
 import entity.Miner;
 import entity.Riddle;
+import entity.RiddleLevel;
 import entity.SolvedRiddle;
 import entity.Transaction;
 import utils.E_Status;
@@ -122,12 +123,12 @@ public class BlockTransLogic {
 					stmt.setNull(i++, java.sql.Types.DATE);
 				else
 					stmt.setDate(i++, t.getInsertionDate());
-				
+
 				if (t.getStatus() == null)
 					stmt.setNull(i++, java.sql.Types.VARCHAR);
 				else
 					stmt.setString(i++, t.getStatus().toString());
-				
+
 				stmt.executeUpdate();
 
 			} catch (SQLException e) {
@@ -408,12 +409,23 @@ public class BlockTransLogic {
 	 * @param solved
 	 * @return
 	 */
-	//TODO
-	public boolean generateBlockForMiner(SolvedRiddle solved) {
-		Riddle riddle = RiddleLogic.getInstance().getRiddles().get(RiddleLogic.getInstance().getRiddles().indexOf(new Riddle(solved.getRiddleNum())));
-		System.out.println(riddle);
-		//int size = 
-		return false;
+	public void generateBlockForMiner(Miner miner, Riddle riddle) {
+		RiddleLevel rl = RiddleLogic.getInstance().getRiddleLevels().
+				get(RiddleLogic.getInstance().getRiddleLevels().indexOf(
+						new RiddleLevel(riddle.getRiddleLevel())));
+		//System.out.println(rl);
+		String blockAddress;
+		do {
+			blockAddress = SysData.getInstance().generateRandomStrings(Consts.BLOCK_ADDRESS_LENGTH);
+			System.out.println(blockAddress);
+		}
+		while (getBlocks().contains(new Block(blockAddress)));
+
+		Block previousBlock = getBlocks().get(getBlocks().size()-1);
+
+		Block b = new Block(blockAddress, Date.valueOf(LocalDate.now()), Time.valueOf(LocalTime.now()),
+				rl.getBlockSize(), previousBlock.getBlockAddress(), miner.getUniqueAddress());
+		insertBlock(b);
 	}
-	
+
 }

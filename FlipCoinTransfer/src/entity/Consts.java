@@ -10,7 +10,7 @@ public final class Consts {
 		throw new AssertionError();
 	}
 	
-	public static final String XML_EXPORT_FILE_PATH = System.getProperty("user.dir") + "..\\..\\comm_JSON_XML\\TransFromMining.xml";
+	public static final String XML_EXPORT_FILE_PATH = System.getProperty("user.dir") + "\\comm_JSON_XML\\TransFromMining.xml";
 	
 	public static final String XML_IMPORT_FILE_PATH = System.getProperty("user.dir") + "\\comm_JSON_XML\\TransFromMining.xml";
 	

@@ -71,7 +71,7 @@ public class AddNewProductController {
     	item.setItemName(itemName.getText());
     	item.setImage(image.getText());
     	item.setDescription(description.getText());
-    	item.setCategory(categoryCombo.getVisibleRowCount());
+    	item.setCategory(categoryCombo.getSelectionModel().getSelectedItem().getSerialNumber());
     	String convert = (price.getText());
     	double x = Double.parseDouble(convert);
     	item.setPrice(x);

@@ -119,14 +119,14 @@
    <center>
       <VBox prefHeight="209.0" prefWidth="194.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <ComboBox fx:id="categoriesCombo" prefHeight="25.0" prefWidth="189.0" promptText="Edit Category" />
+            <ComboBox fx:id="categoriesCombo" onAction="#theChosen" prefHeight="25.0" prefWidth="189.0" promptText="Edit Category" />
             <HBox prefHeight="75.0" prefWidth="200.0">
                <children>
                   <TextField fx:id="editText" />
                   <Button fx:id="save" mnemonicParsing="false" onAction="#updateCategoty" text="Save" />
                </children>
             </HBox>
-            <Label fx:id="lable" text="Add New Category">
+            <Label fx:id="lable2" text="Add New Category">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
                </font>
@@ -137,6 +137,11 @@
                   <Button fx:id="addButton" mnemonicParsing="false" onAction="#addCategory" text="Add" />
                </children>
             </HBox>
+            <Label fx:id="lable" text="Label" textFill="#4b3ced" visible="false">
+               <VBox.margin>
+                  <Insets bottom="20.0" top="-40.0" />
+               </VBox.margin>
+            </Label>
          </children>
          <BorderPane.margin>
             <Insets />

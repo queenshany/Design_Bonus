@@ -172,6 +172,7 @@ public class ParametersController {
     private Button saveButton;
 
 	public void initialize() {
+		System.out.println(String.valueOf(control.SysData.getInstance().getLastVersionParams().getTransMinSize()));
 		String one = String.valueOf(control.SysData.getInstance().getLastVersionParams().getTransMinSize());
 		String two = String.valueOf(control.SysData.getInstance().getLastVersionParams().getTransMaxSize());
 		String three = String.valueOf(control.SysData.getInstance().getLastVersionParams().getTransSizeForExpansion());
@@ -189,7 +190,6 @@ public class ParametersController {
 		priceForDiscount.setText(six);
 		transSizeFree.setText(seven);
 		maxDiscount.setText(eight);
-		
 	}
     
     @FXML

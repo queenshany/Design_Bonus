@@ -1,5 +1,6 @@
 package boundary;
 
+import entity.Category;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class CategoriesController {
 
@@ -60,7 +62,7 @@ public class CategoriesController {
     private ImageView parameters;
 
     @FXML
-    private ComboBox<?> categoriesCombo;
+    private ComboBox<Category> categoriesCombo;
 
     @FXML
     private TextField editText;
@@ -77,19 +79,30 @@ public class CategoriesController {
     @FXML
     private Button addButton;
 
+	public void initialize() {
+	}
+    
     @FXML
     void addCategory(ActionEvent event) {
 
     }
+    
+
+    @FXML
+    void updateCategoty(ActionEvent event) {
+
+    }
+
 
     @FXML
     void allRecommendations(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newViewRecommendationWindow();
     }
 
     @FXML
     void generateTransReport(MouseEvent event) {
-
+    	
     }
 
     @FXML
@@ -99,27 +112,31 @@ public class CategoriesController {
 
     @FXML
     void logOut(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newLoginWindow();
     }
 
     @FXML
     void manageCategories(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newCategoriesWindow();
     }
 
     @FXML
     void manageParameters(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newParametersWindow();
+ 
     }
 
     @FXML
     void newRecommendation(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newCreateRecommendationWindow();
     }
 
-    @FXML
-    void updateCategoty(ActionEvent event) {
-
-    }
-
+    
+	protected void closeWindow() {
+		((Stage) borderPane.getScene().getWindow()).close();
+	}
 }

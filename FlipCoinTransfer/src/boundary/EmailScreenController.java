@@ -99,10 +99,13 @@ public class EmailScreenController {
     public void initialize() {
 
 //		//Table
+<<<<<<< HEAD
 		//inboxC.setCellValueFactory(new PropertyValueFactory<>("title"));
 //		
 //		//Fill Table
 //		//Table
+=======
+>>>>>>> a6113865ba03fb2faf9d2b2f713b97885379a857
 //		inboxC.setCellValueFactory(new PropertyValueFactory<>("title"));
 //		
 //		//Fill Table

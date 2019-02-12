@@ -114,26 +114,26 @@ public class SysData {
 	 * @param sys
 	 * @param trans
 	 */
-	public void updateLastTransferredTrans(SystemParams sys, Transaction first, Transaction last) {
-		try {
-			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
-					CallableStatement stmt = conn.prepareCall(Consts.SQL_UPD_FIRST_AND_LAST_TRANSFERRED_TRANS)) {
-
-				int i = 1;
-				stmt.setInt(i++, last.getTransID());
-				stmt.setInt(i++, first.getTransID());
-				stmt.setDouble(i++, sys.getVersion());
-
-				stmt.executeUpdate();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		System.out.println("UPDATE " + sys);
-	}
+//	public void updateLastTransferredTrans(SystemParams sys, Transaction first, Transaction last) {
+//		try {
+//			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+//			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+//					CallableStatement stmt = conn.prepareCall(Consts.SQL_UPD_FIRST_AND_LAST_TRANSFERRED_TRANS)) {
+//
+//				int i = 1;
+//				stmt.setInt(i++, last.getTransID());
+//				stmt.setInt(i++, first.getTransID());
+//				stmt.setDouble(i++, sys.getVersion());
+//
+//				stmt.executeUpdate();
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//		} catch (ClassNotFoundException e) {
+//			e.printStackTrace();
+//		}
+//		System.out.println("UPDATE " + sys);
+//	}
 
 	// ***************************** SELECT QUERIES *****************************
 

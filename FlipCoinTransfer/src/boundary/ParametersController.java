@@ -1,5 +1,6 @@
 package boundary;
 
+import entity.SystemParams;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -172,7 +173,7 @@ public class ParametersController {
     private Button saveButton;
 
 	public void initialize() {
-		System.out.println(String.valueOf(control.SysData.getInstance().getLastVersionParams().getTransMinSize()));
+
 		String one = String.valueOf(control.SysData.getInstance().getLastVersionParams().getTransMinSize());
 		String two = String.valueOf(control.SysData.getInstance().getLastVersionParams().getTransMaxSize());
 		String three = String.valueOf(control.SysData.getInstance().getLastVersionParams().getTransSizeForExpansion());
@@ -192,9 +193,43 @@ public class ParametersController {
 		maxDiscount.setText(eight);
 	}
     
-    @FXML
+    @SuppressWarnings("null")
+	@FXML
     void editVirsion(ActionEvent event) {
+    	
+    	String one = transMinSize.getText();
+    	String two = transMaxSize.getText();
+    	String three = sizeForExpansion.getText();
+    	String four = priceForExpansion.getText();
+    	String five = discountPrecent.getText();
+    	String six = priceForDiscount.getText();
+    	String seven = transSizeFree.getText();
+    	String eigth = maxDiscount.getText();
+    	
+    	 int transMinSize = Integer.parseInt(one);
+    	 int transMaxSize = Integer.parseInt(two);
+    	 int transSizeForExpansion = Integer.parseInt(three);
+    	 double priceForExpansion = Double.parseDouble(four);
+    	 double discountPercentPerFee = Double.parseDouble(five);
+    	 double priceForDiscount = Double.parseDouble(six);
+    	 int transSizeFree = Integer.parseInt(seven);
+    	 double maxAllowableDiscount = Double.parseDouble(eigth);
 
+//    	 Date date
+
+    	 
+    	 SystemParams sys = null;
+    	 sys.setVersion(control.SysData.getInstance().getSysVersion());
+//    	 sys.setVersionDate(date);
+ 		sys.setTransMinSize(transMinSize);
+ 		sys.setTransMaxSize(transMaxSize);
+ 		sys.setTransSizeForExpansion(transSizeForExpansion);
+ 		sys.setPriceForExpansion(priceForExpansion);
+ 		sys.setDiscountPercentPerFee(discountPercentPerFee);
+ 		sys.setPriceForDiscount(priceForDiscount);
+ 		sys.setTransSizeFree(transSizeFree);
+ 		sys.setMaxAllowableDiscount(maxAllowableDiscount);
+    	 
     }
 
     @FXML

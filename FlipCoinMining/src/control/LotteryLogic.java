@@ -365,4 +365,26 @@ public class LotteryLogic {
 			return lots.get(lots.size()-1).getLotteryNum() + 1;
 		return 1;
 	}
+	
+	/**
+	 * this method generates random bonuses for winner
+	 */
+	//TODO
+	public void generateBonusForWinnerInLottery(Miner miner, Lottery lottery){
+		
+	}
+	/**
+	 * this method chooses who won in a lottery
+	 */
+	//TODO
+	public void generateWinnersInLottery(Participant part) {
+		
+	}
+	/**
+	 * this method performs a lottery, if its date has arrived
+	 */
+	//TODO
+	public void performLottery() {
+		
+	}
 }

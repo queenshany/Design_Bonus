@@ -11,12 +11,10 @@ import java.util.Comparator;
 
 import entity.Block;
 import entity.Consts;
-import entity.Lottery;
 import entity.Message;
 import entity.Miner;
 import entity.MinerCompany;
 import entity.Transaction;
-import entity.User;
 
 /**
  * This class represents the Miners & Companies & Messages Management in the system
@@ -389,5 +387,17 @@ public class MinerLogic {
 				messages.add(m);	
 			}
 		return messages;		
+	}
+	/**
+	 * allowing miner to view other miners
+	 * @param miner
+	 * @return array list of miners
+	 */
+	public ArrayList<Miner> viewOtherMiners (Miner miner){
+		ArrayList<Miner> miners = new ArrayList<Miner>(getMiners());
+		if (miners.contains(miner))
+			miners.remove(miner);
+		return miners;
+		
 	}
 }

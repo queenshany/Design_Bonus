@@ -83,9 +83,12 @@ public class MainClassTemp{
 		//		System.out.println("MSG " + ml.getMessageID());
 		//		System.out.println("RDL " + rl.getRiddleID());
 		//		System.out.println("LVL " + rl.getRiddleLevelID());
-//Communication.importFromJSON();
+		//Communication.importFromJSON();
 		//Communication.exportToXML();
-
+		//Miner m = MinerLogic.getInstance().getMiners().get(0);
+		//System.out.println(m);
+		//System.out.println(MinerLogic.getInstance().viewOtherMiners(m));
+BlockTransLogic.getInstance().generateBlockForMiner(new SolvedRiddle(MinerLogic.getInstance().getMiners().get(0).getUniqueAddress(), RiddleLogic.getInstance().getRiddles().get(0).getRiddleNum()));
 	}
 
 }

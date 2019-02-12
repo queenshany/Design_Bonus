@@ -113,14 +113,6 @@ public class Communication {
 			for (int i = 0; i < transactions.size(); i++) {
 				Element transElement = transactions.get(i);
 
-				/*System.out.println(transElement.getAttributeValue("ID"));
-				System.out.println(transElement.getAttributeValue("size"));
-				System.out.println(transElement.getAttributeValue("Type"));
-				System.out.println(transElement.getAttributeValue("ComissionFee"));
-				System.out.println(transElement.getAttributeValue("BlockUniqueAddress"));
-				System.out.println(transElement.getAttributeValue("TransactionDate"));
-				System.out.println();*/
-
 				int id = Integer.parseInt(transElement.getAttributeValue("ID"));
 				int size = Integer.parseInt(transElement.getAttributeValue("Size"));
 				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -167,7 +159,6 @@ public class Communication {
 						System.out.println(tc);
 					}
 				}
-
 			}
 			//System.out.println(t);
 		}

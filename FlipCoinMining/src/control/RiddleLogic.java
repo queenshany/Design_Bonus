@@ -2,16 +2,21 @@ package control;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 
 import entity.Consts;
 import entity.Lottery;
 import entity.Message;
+import entity.Miner;
 import entity.Riddle;
 import entity.RiddleLevel;
 import entity.Solution;
@@ -404,12 +409,12 @@ public class RiddleLogic {
 				return r1.getRiddleNum()-r2.getRiddleNum();
 			}
 		});
-		
+
 		if (!riddles.isEmpty())
 			return riddles.get(riddles.size()-1).getRiddleNum() + 1;
 		return 1;
 	}
-	
+
 	/**
 	 * generating id for new riddle Level
 	 * @return id for new riddle Level
@@ -423,9 +428,36 @@ public class RiddleLogic {
 				return r1.getLevelCode()-r2.getLevelCode();
 			}
 		});
-		
+
 		if (!levels.isEmpty())
 			return levels.get(levels.size()-1).getLevelCode() + 1;
 		return 1;
+	}
+	/**
+	 * checks if a miner solved a riddle first. if he did, we'll generate a block
+	 * @return true
+	 */
+	//TODO
+	public boolean isFirstSolved(Riddle riddle, Miner miner) {
+		
+		return false;
+	}
+	/**
+	 * checking if a miner solved a riddle correctly
+	 * @return true if he did
+	 */
+	//TODO SOLVED
+	public boolean isSolvedCorrectly(Solution solution, Riddle riddle, Miner miner) {
+		SolvedRiddle solved = new SolvedRiddle(miner.getUniqueAddress(), riddle.getRiddleNum(), Date.valueOf(LocalDate.now()), Time.valueOf(LocalTime.now()));
+		
+		return false;
+	}
+	/**
+	 * updating riddle status to irrelevant
+	 * @return true if he did
+	 */
+	//TODO
+	public void updateRiddleStatus(Riddle riddle) {
+		
 	}
 }

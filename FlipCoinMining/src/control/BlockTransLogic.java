@@ -16,6 +16,8 @@ import java.sql.Date;
 import entity.Block;
 import entity.Consts;
 import entity.Miner;
+import entity.Riddle;
+import entity.SolvedRiddle;
 import entity.Transaction;
 import utils.E_Status;
 import utils.E_TransStatus;
@@ -400,6 +402,18 @@ public class BlockTransLogic {
 				blocks.add(b);	
 			}
 		return blocks;		
+	}
+	/**
+	 * creating a new block for miner
+	 * @param solved
+	 * @return
+	 */
+	//TODO
+	public boolean generateBlockForMiner(SolvedRiddle solved) {
+		Riddle riddle = RiddleLogic.getInstance().getRiddles().get(RiddleLogic.getInstance().getRiddles().indexOf(new Riddle(solved.getRiddleNum())));
+		System.out.println(riddle);
+		//int size = 
+		return false;
 	}
 	
 }

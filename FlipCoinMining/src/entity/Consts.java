@@ -86,6 +86,8 @@ public final class Consts {
 	public static final String SQL_UPD_TRANS_STATUS = "UPDATE tblTransaction SET tblTransaction.status = (?)\r\n" + 
 			"WHERE (((tblTransaction.ID)=(?)))";
 	
+	//TODO UPDATE PARTICIPANT
+	
 	public static final String SQL_UPD_MINER_COMPANY = "{ call updateMinerCompanyQry(?, ?, ?, ?, ?) }";
 
 	public static final String SQL_UPD_MINER_PROFIT = "{ call updateMinerProfitQry(?, ?) }";
@@ -127,6 +129,8 @@ public final class Consts {
 	public static final String SQL_TRANS_IN_BLOCK = "SELECT *\r\n" + 
 			"FROM tblTransaction\r\n" + 
 			"WHERE (tblTransaction.blockAddress)= (?)\r\n" + "";
+	
+	//TODO get lotteries in a certain date
 
 	// ***************************** PATH STUFF ***************************** 
 

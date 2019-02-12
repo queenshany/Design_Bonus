@@ -95,11 +95,6 @@ public class SysData {
 				else
 					stmt.setDouble(i++, sys.getMaxAllowableDiscount());
 
-				if (sys.getLastTransferredTrans() < 0)
-					stmt.setNull(i++, java.sql.Types.INTEGER);
-				else
-					stmt.setDouble(i++, sys.getLastTransferredTrans());
-
 				stmt.executeUpdate();
 
 			} catch (SQLException e) {
@@ -166,9 +161,8 @@ public class SysData {
 							rs.getDouble(i++),
 							rs.getDouble(i++),
 							rs.getInt(i++),
-							rs.getDouble(i++),
-							rs.getInt(i++),
-							rs.getInt(i++)));
+							rs.getDouble(i++)
+							));
 				}
 			}
 		}

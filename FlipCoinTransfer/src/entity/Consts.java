@@ -57,8 +57,8 @@ public final class Consts {
 	public static final String SQL_INS_RECOMMENDATION_FOR_USER = "INSERT INTO keyRecommendedFor ( userAddress, userSignature, recommendation, commitmentLevel )\r\n" + 
 			"VALUES ((?), (?), (?), (?))";
 
-	public static final String SQL_INS_SYS_PARAM = "INSERT INTO tblSystem ( version, versionDate, transMinSize, transMaxSize, transSizeForExpansion, priceForExpansion, discountPercentPerFee, priceForDiscount, transSizeFree, maxAllowableDiscount, lastTransferredTrans, firstTransferredTrans)\r\n" + 
-			"VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?))";
+	public static final String SQL_INS_SYS_PARAM = "INSERT INTO tblSystem ( version, versionDate, transMinSize, transMaxSize, transSizeForExpansion, priceForExpansion, discountPercentPerFee, priceForDiscount, transSizeFree, maxAllowableDiscount)\r\n" + 
+			"VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), (?))";
 
 	public static final String SQL_INS_TRANS_CONFIRM = "INSERT INTO tblTransConfirm ( transID, description, size, creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress, isConfirmed, shippmentDate, transPayID )\r\n" + 
 			"VALUES ((?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?))";
@@ -97,8 +97,6 @@ public final class Consts {
 	public static final String SQL_UPD_ITEM_IN_TRANS = "{ call updateItemInTransactionQry(?, ?, ?) }";
 	
 	public static final String SQL_UPD_ITEM = "{ call updateItemQry(?, ?, ?, ?, ?, ?, ?) }";
-	
-	public static final String SQL_UPD_FIRST_AND_LAST_TRANSFERRED_TRANS = "{ call updateFirstLastTransferredTransQry(?, ?, ?) }";
 	
 	public static final String SQL_UPD_REC = "{ call updateRecommendationQry(?, ?, ?) }";
 	

@@ -66,8 +66,8 @@ public final class Consts {
 	public static final String SQL_INS_SOLVED_RIDDLE = "INSERT INTO keySolvedRiddle ( uniqueAddress, riddleNum, solvedDate, solvedTime )\r\n" + 
 			"VALUES ((?), (?), (?), (?))";
 
-	public static final String SQL_INS_TRANS = "INSERT INTO tblTransaction ( ID, size, type, fee, status )\r\n" + 
-			"VALUES ((?), (?), (?), (?), (?))";
+	public static final String SQL_INS_TRANS = "INSERT INTO tblTransaction ( ID, size, type, fee, insertionDate, status )\r\n" + 
+			"VALUES ((?), (?), (?), (?), (?), (?))";
 
 	// ***************************** DELETE QUERIES ***************************** 
 
@@ -83,6 +83,9 @@ public final class Consts {
 	public static final String SQL_UPD_LOTTERY = "UPDATE tblLottery SET tblLottery.lotteryDate = (?), tblLottery.maxParticipants = (?), tblLottery.numOfWinners = (?), tblLottery.numOfBonuses = (?)\r\n" + 
 			"WHERE (((tblLottery.lotteryNum)=(?)))";
 
+	public static final String SQL_UPD_TRANS_STATUS = "UPDATE tblTransaction SET tblTransaction.status = (?)\r\n" + 
+			"WHERE (((tblTransaction.ID)=(?)))";
+	
 	public static final String SQL_UPD_MINER_COMPANY = "{ call updateMinerCompanyQry(?, ?, ?, ?, ?) }";
 
 	public static final String SQL_UPD_MINER_PROFIT = "{ call updateMinerProfitQry(?, ?) }";
@@ -96,6 +99,8 @@ public final class Consts {
 	// ***************************** SELECT QUERIES *****************************
 
 	public static final String SQL_SEL_BLOCKS = "SELECT * FROM tblBlock";
+	
+	public static final String SQL_SEL_TRANS = "SELECT * FROM tblTransaction";
 	
 	public static final String SQL_SEL_MINERS = "SELECT * FROM tblMiner";
 
@@ -117,7 +122,7 @@ public final class Consts {
 
 	public static final String SQL_TRANS_WITHOUT_BLOCK = "SELECT *\r\n" + 
 			"FROM tblTransaction\r\n" + 
-			"WHERE (tblTransaction.blockAddress=\"\" OR tblTransaction.blockAddress IS NULL)";
+			"WHERE (tblTransaction.blockAddress =\"\" OR tblTransaction.blockAddress IS NULL AND tblTransaction.status = \"Waiting\")";
 
 	public static final String SQL_TRANS_IN_BLOCK = "SELECT *\r\n" + 
 			"FROM tblTransaction\r\n" + 

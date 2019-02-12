@@ -682,13 +682,13 @@ public class TransLogic {
 	public void setIrrelevantTransactions() {
 		Date today = Date.valueOf(LocalDate.now());
 
-		ArrayList<TransactionPay> trP = TransLogic.getInstance().getAllPayTrans();
-		ArrayList<TransactionConfirm> trC = TransLogic.getInstance().getAllConfirmTrans();
+		ArrayList<TransactionPay> trP = getAllPayTrans();
+		ArrayList<TransactionConfirm> trC = getAllConfirmTrans();
 
 		for (TransactionPay t: trP) {
 			if (t.getCreationDate().before(today) &&
 					(t.getStatus().equals(E_Status.Waiting) || t.getStatus().equals(E_Status.Pending))){
-				t.setStatus(E_Status.Irrelevent);
+				t.setStatus(E_Status.Irrelevant);
 				updateTransPay(t);
 			}
 		}
@@ -696,7 +696,7 @@ public class TransLogic {
 		for (TransactionConfirm t: trC) {
 			if (t.getCreationDate().before(today) &&
 					(t.getStatus().equals(E_Status.Waiting) || t.getStatus().equals(E_Status.Pending))){
-				t.setStatus(E_Status.Irrelevent);
+				t.setStatus(E_Status.Irrelevant);
 				updateTransConfirm(t);
 			}
 		}

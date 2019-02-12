@@ -8,6 +8,7 @@ package entity;
 import java.sql.Date;
 import java.sql.Time;
 
+import utils.E_TransStatus;
 import utils.E_Type;
 
 public class Transaction {
@@ -15,23 +16,25 @@ public class Transaction {
 	private int size;
 	private E_Type type;
 	private double fee;
+	private Date insertionDate;
 	private String blockAddress;
 	private Date additionDate;
 	private Time additionTime;
-	private String status;
+	private E_TransStatus status;
 
 	// ---------------------------- Constructors ----------------------------
 	public Transaction(int ID) {
 		this.ID = ID;
 	}
 
-	public Transaction(int ID, int size, E_Type type, double fee, String blockAddress, Date additionDate,
-			Time additionTime, String status) {
+	public Transaction(int ID, int size, E_Type type, double fee, Date insertionDate,String blockAddress, Date additionDate,
+			Time additionTime, E_TransStatus status) {
 		super();
 		this.ID = ID;
 		this.size = size;
 		this.type = type;
 		this.fee = fee;
+		this.insertionDate = insertionDate;
 		this.blockAddress = blockAddress;
 		this.additionDate = additionDate;
 		this.additionTime = additionTime;
@@ -95,12 +98,20 @@ public class Transaction {
 		this.additionTime = additionTime;
 	}
 	
-	public String getStatus() {
+	public E_TransStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(E_TransStatus status) {
 		this.status = status;
+	}
+
+	public Date getInsertionDate() {
+		return insertionDate;
+	}
+
+	public void setInsertionDate(Date insertionDate) {
+		this.insertionDate = insertionDate;
 	}
 
 	//---------------------------- Hash & Equals ----------------------------
@@ -129,7 +140,7 @@ public class Transaction {
 	// ---------------------------- toString ----------------------------
 	@Override
 	public String toString() {
-		return "Transaction ID: " + ID + " | Size: " + size + " | Type: " + type + " | Fee: " + fee + " | Block Address: "
+		return "Transaction ID: " + ID + " | Size: " + size + " | Type: " + type + " | Fee: " + fee + " | Insertion Date: " + insertionDate + " | Block Address: "
 				+ blockAddress + " | Addition Date: " + additionDate + " | Addition Time: " + additionTime;
 	}
 }

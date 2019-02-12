@@ -20,7 +20,7 @@ public class MainClass extends Application{
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				Communication.getInstance().exportTransactionsToJSON();
+				Communication.exportTransactionsToJSON();
 			}
 		}
 	});

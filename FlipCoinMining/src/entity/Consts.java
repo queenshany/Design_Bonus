@@ -130,6 +130,7 @@ public final class Consts {
 
 	// ***************************** PATH STUFF ***************************** 
 
+	/*
 	private static String getDBPath() {
 		try {
 			String path = Consts.class.getProtectionDomain().getCodeSource().getLocation().getPath();
@@ -138,7 +139,7 @@ public final class Consts {
 				decoded = decoded.substring(0, decoded.lastIndexOf('/'));
 				//System.out.println(decoded + "/database/" + DB_FILE_NAME);
 
-				return decoded + "/databaseMining/" + DB_FILE_NAME;
+				return decoded + "/databaseTransfer/" + DB_FILE_NAME;
 			}
 			else {
 				decoded = decoded.substring(0, decoded.lastIndexOf('/'));
@@ -153,5 +154,31 @@ public final class Consts {
 
 		//return new File("/database/" + DB_FILE_NAME).getAbsolutePath();
 	}
+	*/
+	
+	
+	private static String getDBPath() {
+		try {
+			String path = Consts.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+			String decoded = URLDecoder.decode(path, "UTF-8");
+			System.out.println(decoded);
+			if (decoded.contains(".jar")) {
+				decoded = decoded.substring(0, decoded.lastIndexOf('/'));
+				//System.out.println(decoded + "/database/" + DB_FILE_NAME);
 
+				return decoded + "/database/" + DB_FILE_NAME;
+			}
+			else {
+				decoded = decoded.substring(0, decoded.lastIndexOf("bin/"));
+				//System.out.println(decoded);
+
+				return decoded + "/src/entity/"+ DB_FILE_NAME;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		//return new File("/database/" + DB_FILE_NAME).getAbsolutePath();
+	}
 }

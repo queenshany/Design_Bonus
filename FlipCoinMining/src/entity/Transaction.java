@@ -141,6 +141,6 @@ public class Transaction {
 	@Override
 	public String toString() {
 		return "Transaction ID: " + ID + " | Size: " + size + " | Type: " + type + " | Fee: " + fee + " | Insertion Date: " + insertionDate + " | Block Address: "
-				+ blockAddress + " | Addition Date: " + additionDate + " | Addition Time: " + additionTime;
+				+ blockAddress + " | Addition Date: " + additionDate + " | Addition Time: " + additionTime + " | Status: " + status;
 	}
 }

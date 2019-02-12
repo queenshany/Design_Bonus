@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.jdom2.Document;
@@ -16,6 +18,8 @@ import org.json.simple.parser.JSONParser;
 
 import entity.Consts;
 import entity.Transaction;
+import utils.E_Status;
+import utils.E_TransStatus;
 import utils.E_Type;
 
 /**
@@ -24,34 +28,34 @@ import utils.E_Type;
  *
  */
 public class Communication {
-	
+
 	public static boolean exportToXML() {
 		try {
 			Document doc = new Document();
 			doc.setRootElement(new Element("Transactions"));
-			
+
 			File file = new File(Consts.XML_EXPORT_FILE_PATH);
 			file.getParentFile().mkdirs();
 			if (!file.exists())
 				file.createNewFile();
-			
-			ArrayList<Transaction> trans = tra
-			
+
+			ArrayList<Transaction> trans = BlockTransLogic.getInstance().getTrans();
+
 			for (Transaction t : trans) {
-				Element element = new Element("Transaction");
-				element.setAttribute("ID", String.valueOf(t.getID()));
-				element.setAttribute("size", String.valueOf(t.getSize()));
-				element.setAttribute("Type", (t.getType() == null ? "" : t.getType().toString()));
-				element.setAttribute("ComissionFee", String.valueOf(t.getCommissionFee()));
-				element.setAttribute("BlockUniqueAddress", (t.getBlockUniqueAddress() == null ? "" : t.getBlockUniqueAddress()));
-				element.setAttribute("TransactionDate", (t.getTransDate() == null ? "" : t.getTransDate().toString()));
-				
-				doc.getRootElement().addContent(element);
+				if (t.getStatus().equals(E_TransStatus.Executed)) {
+					Element element = new Element("Transaction");
+					element.setAttribute("ID", String.valueOf(t.getID()));
+					element.setAttribute("Size", String.valueOf(t.getSize()));
+					element.setAttribute("Type", (t.getType() == null ? "" : t.getType().toString()));
+					element.setAttribute("Fee", String.valueOf(t.getFee()));
+					element.setAttribute("Status", (t.getStatus().toString()));
+					element.setAttribute("ExecutaionDate", t.getAdditionDate().toString());
+					doc.getRootElement().addContent(element);
+				}
 			}
-			
 			XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
 			xmlOutputter.output(doc, new FileOutputStream(file));
-			
+
 			System.out.println("Exported To XML XDXD");
 			return true;
 		}
@@ -60,40 +64,47 @@ public class Communication {
 		}
 		return false;
 	}
-	
+
 	public static boolean importFromJSON() {
 		try {
 			File file = new File(Consts.JSON_IMPORT_FILE_PATH);
 			if (!file.exists())
 				return false;
-			
+
 			JSONParser jsonParser = new JSONParser();
 			Object obj = jsonParser.parse(new FileReader(file));
 			JSONObject rootObject = (JSONObject) obj;
-			
+
 			JSONArray jsonTrans = (JSONArray) rootObject.get("Transactions");
-			
+
 			ArrayList<Transaction> trans = new ArrayList<>();
-			
+
 			for (Object objT : jsonTrans) {
 				JSONObject jsonT = (JSONObject) objT;
-				Integer ID = Integer.parseInt(String.valueOf(jsonT.get("ID")));
+				Integer id = Integer.parseInt(String.valueOf(jsonT.get("ID")));
 				Integer size = Integer.parseInt(String.valueOf(jsonT.get("Size")));
-				Double comissionFee = Double.parseDouble(String.valueOf(jsonT.get("Comission Fee")));
+				Double fee = Double.parseDouble(String.valueOf(jsonT.get("Fee")));
 				E_Type type = E_Type.getType(String.valueOf(jsonT.get("Type")));
-				
-				Transaction transaction = new Transaction(null,
-														size,
-														type,
-														comissionFee,
-														null,
-														null);
-				
+				E_TransStatus status = E_TransStatus.getStatus(String.valueOf(jsonT.get("Status")));
+				Date date = Date.valueOf(LocalDate.now());
+
+				Transaction transaction = new Transaction(id,
+						size,
+						type,
+						fee,
+						date,
+						null,
+						null,
+						null,
+						status);
+
 				trans.add(transaction);
 			}
-			
+
 			//Add to DB instead of printing.
-			sysData.insertNewTransactions(trans);
+			for (Transaction t : trans) {
+				BlockTransLogic.getInstance().insertTrans(t);
+			}
 			return true;
 		}
 		catch (Exception e) {

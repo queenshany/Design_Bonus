@@ -16,8 +16,6 @@ import java.sql.Date;
 import entity.Block;
 import entity.Consts;
 import entity.Transaction;
-import entity.TransactionConfirm;
-import entity.TransactionPay;
 import utils.E_Status;
 import utils.E_TransStatus;
 import utils.E_Type;
@@ -117,6 +115,16 @@ public class BlockTransLogic {
 				else
 					stmt.setDouble(i++, t.getFee());
 
+				if (t.getInsertionDate() == null)
+					stmt.setNull(i++, java.sql.Types.DATE);
+				else
+					stmt.setDate(i++, t.getInsertionDate());
+				
+				if (t.getStatus() == null)
+					stmt.setNull(i++, java.sql.Types.VARCHAR);
+				else
+					stmt.setString(i++, t.getStatus().toString());
+				
 				stmt.executeUpdate();
 
 			} catch (SQLException e) {

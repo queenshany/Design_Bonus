@@ -12,7 +12,6 @@ import org.apache.commons.lang.RandomStringUtils;
 
 import entity.Consts;
 import entity.Message;
-import entity.SystemParams;
 import entity.Transaction;
 
 /**

@@ -395,6 +395,77 @@ public class TransLogic {
 		System.out.println("UPDATE " + trans);
 	}
 
+	
+	/**
+	 * Updates Trans Pay values
+	 * @param trans
+	 */
+	public void updateImportedTransPay(TransactionPay trans) {
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					CallableStatement stmt = conn.prepareCall(Consts.SQL_UPD_IMPT_TRANS_PAY)) {
+
+				int i = 1;
+
+				if (trans.getExecutionDate() == null)
+					stmt.setNull(i++, java.sql.Types.DATE);
+				else
+					stmt.setDate(i++, trans.getExecutionDate());	
+
+
+				if (trans.getStatus() == null)
+					stmt.setNull(i++, java.sql.Types.VARCHAR);
+				else
+					stmt.setString(i++, trans.getStatus().toString());	
+
+				stmt.setInt(i++, trans.getTransID());
+
+				stmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		System.out.println("UPDATE " + trans);
+	}
+	
+	/**
+	 * Updates Trans Confirm values
+	 * @param trans
+	 */
+	public void updateImportedTransConfirm(TransactionConfirm trans) {
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					CallableStatement stmt = conn.prepareCall(Consts.SQL_UPD_IMPT_TRANS_CONFIRM)) {
+
+				int i = 1;
+
+				if (trans.getExecutionDate() == null)
+					stmt.setNull(i++, java.sql.Types.DATE);
+				else
+					stmt.setDate(i++, trans.getExecutionDate());	
+
+
+				if (trans.getStatus() == null)
+					stmt.setNull(i++, java.sql.Types.VARCHAR);
+				else
+					stmt.setString(i++, trans.getStatus().toString());	
+
+				stmt.setInt(i++, trans.getTransID());
+
+				stmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		System.out.println("UPDATE " + trans);
+	}
+	
 	// ***************************** GENERAL QUERIES *****************************
 
 	/**

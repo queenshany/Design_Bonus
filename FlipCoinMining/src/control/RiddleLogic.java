@@ -21,8 +21,11 @@ import entity.Riddle;
 import entity.RiddleLevel;
 import entity.Solution;
 import entity.SolvedRiddle;
+import entity.Transaction;
 import utils.E_Level;
 import utils.E_Status;
+import utils.E_TransStatus;
+import utils.E_Type;
 
 /**
  * This class represents the Riddle & Solution & Level Management in the system
@@ -366,6 +369,45 @@ public class RiddleLogic {
 	}
 
 	/**
+	 * Loading riddle Levels from the DB to the system
+	 * @return ALL of the riddle Levels from the DB
+	 */
+	public ArrayList<SolvedRiddle> getSolvedRiddles(Riddle riddle) {
+		ArrayList<SolvedRiddle> results = new ArrayList<SolvedRiddle>();
+
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_GET_SOLVED_RIDDLE_BY_NUM)){
+					if (riddle.getRiddleNum() > 0) 
+						stmt.setInt(1, riddle.getRiddleNum());
+					else 
+						stmt.setNull(1, java.sql.Types.INTEGER);
+
+					ResultSet rs = stmt.executeQuery();
+					{
+						while (rs.next()) {
+							int i = 1;
+							results.add(new SolvedRiddle(rs.getString(i++),
+									rs.getInt(i++),
+									rs.getDate(i++),
+									rs.getTime(i++))
+									);
+						}
+					}
+				}
+			}
+		catch (SQLException e) {
+			e.printStackTrace();
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		//System.out.println(results);
+		return results;
+	}
+
+	/**
 	 * Loading Solutions from the DB to the system
 	 * @return ALL of the Solutions from the DB
 	 */
@@ -434,30 +476,40 @@ public class RiddleLogic {
 		return 1;
 	}
 	/**
-	 * checks if a miner solved a riddle first. if he did, we'll generate a block
+	 * checks if a miner solved a riddle first
 	 * @return true
 	 */
-	//TODO
 	public boolean isFirstSolved(Riddle riddle, Miner miner) {
-		
-		return false;
+		ArrayList<SolvedRiddle> riddles = getSolvedRiddles(riddle);
+		if (!riddles.isEmpty())
+			return false;
+		return true;
 	}
 	/**
-	 * checking if a miner solved a riddle correctly
+	 * checking if a miner solved a riddle correctly. if he solved first, we'll generate a block
 	 * @return true if he did
 	 */
 	//TODO SOLVED
 	public boolean isSolvedCorrectly(Solution solution, Riddle riddle, Miner miner) {
 		SolvedRiddle solved = new SolvedRiddle(miner.getUniqueAddress(), riddle.getRiddleNum(), Date.valueOf(LocalDate.now()), Time.valueOf(LocalTime.now()));
+		// check if solution is correct
+		
+			// check if solved first
+		
+				// if solved first, update riddle status to solved and generate a block
+		
+			// add to solved riddle table anyway
 		
 		return false;
 	}
 	/**
 	 * updating riddle status to irrelevant
-	 * @return true if he did
 	 */
-	//TODO
-	public void updateRiddleStatus(Riddle riddle) {
-		
+	public void updateRiddleStatusToIrrelevant(Riddle riddle) {
+		if (riddle.getSolutionDate().before(Date.valueOf(LocalDate.now()))
+			&& riddle.getSolutionTime().before(Time.valueOf(LocalTime.now()))
+			&& riddle.getStatus().equals(E_Status.Unsolved)){
+			riddle.setStatus(E_Status.Irrelevant);
+		}
 	}
 }

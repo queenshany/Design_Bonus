@@ -130,6 +130,8 @@ public final class Consts {
 			"FROM tblTransaction\r\n" + 
 			"WHERE (tblTransaction.blockAddress)= (?)\r\n" + "";
 	
+	public static final String SQL_GET_SOLVED_RIDDLE_BY_NUM = "{ call getSolvedRiddleByNumQry(?) }";
+	
 	//TODO get lotteries in a certain date
 
 	// ***************************** PATH STUFF ***************************** 

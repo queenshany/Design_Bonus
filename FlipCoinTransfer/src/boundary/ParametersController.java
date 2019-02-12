@@ -1,6 +1,7 @@
 package boundary;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import entity.SystemParams;
 import javafx.event.ActionEvent;
@@ -217,12 +218,11 @@ public class ParametersController {
     	 int transSizeFree = Integer.parseInt(seven);
     	 double maxAllowableDiscount = Double.parseDouble(eigth);
 
-    	 //Date date = Date.
-
+    	 Date date = Date.valueOf(LocalDate.now());
     	 
-    	 SystemParams sys = null;
+    	 SystemParams sys = control.SysData.getInstance().getLastVersionParams();
     	 sys.setVersion(control.SysData.getInstance().getSysVersion());
-//    	 sys.setVersionDate(date);
+    	 sys.setVersionDate(date);
  		sys.setTransMinSize(transMinSize);
  		sys.setTransMaxSize(transMaxSize);
  		sys.setTransSizeForExpansion(transSizeForExpansion);
@@ -231,6 +231,7 @@ public class ParametersController {
  		sys.setPriceForDiscount(priceForDiscount);
  		sys.setTransSizeFree(transSizeFree);
  		sys.setMaxAllowableDiscount(maxAllowableDiscount);
+ 		control.SysData.getInstance().insertSysParams(sys);
     	 
     }
 

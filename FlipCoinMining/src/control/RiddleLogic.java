@@ -379,24 +379,24 @@ public class RiddleLogic {
 			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
 			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
 					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_GET_SOLVED_RIDDLE_BY_NUM)){
-					if (riddle.getRiddleNum() > 0) 
-						stmt.setInt(1, riddle.getRiddleNum());
-					else 
-						stmt.setNull(1, java.sql.Types.INTEGER);
+				if (riddle.getRiddleNum() > 0) 
+					stmt.setInt(1, riddle.getRiddleNum());
+				else 
+					stmt.setNull(1, java.sql.Types.INTEGER);
 
-					ResultSet rs = stmt.executeQuery();
-					{
-						while (rs.next()) {
-							int i = 1;
-							results.add(new SolvedRiddle(rs.getString(i++),
-									rs.getInt(i++),
-									rs.getDate(i++),
-									rs.getTime(i++))
-									);
-						}
+				ResultSet rs = stmt.executeQuery();
+				{
+					while (rs.next()) {
+						int i = 1;
+						results.add(new SolvedRiddle(rs.getString(i++),
+								rs.getInt(i++),
+								rs.getDate(i++),
+								rs.getTime(i++))
+								);
 					}
 				}
 			}
+		}
 		catch (SQLException e) {
 			e.printStackTrace();
 
@@ -490,25 +490,42 @@ public class RiddleLogic {
 	 * @return true if he did
 	 */
 	//TODO SOLVED
-	public boolean isSolvedCorrectly(Solution solution, Riddle riddle, Miner miner) {
-		SolvedRiddle solved = new SolvedRiddle(miner.getUniqueAddress(), riddle.getRiddleNum(), Date.valueOf(LocalDate.now()), Time.valueOf(LocalTime.now()));
+	public boolean isSolvedCorrectly(ArrayList<Solution> solutions, Riddle riddle, Miner miner) {
+
+		ArrayList<Solution> tempSols = new ArrayList<>();
+		for (Solution sol: getSolutions()) {
+			if (sol.getRiddleNum() == riddle.getRiddleNum()) {
+				if (solutions.contains(sol))	
+					tempSols.add(sol);
+			}
+		}
+
 		// check if solution is correct
-		
-			// check if solved first
-		
-				// if solved first, update riddle status to solved and generate a block
-		
-			// add to solved riddle table anyway
-		
-		return false;
+		if (tempSols.size() != solutions.size())
+			return false;
+
+		// check if solved first
+
+		// if solved first, update riddle status to solved and generate a block
+		if (isFirstSolved(riddle, miner)) 
+			BlockTransLogic.getInstance().generateBlockForMiner(miner, riddle);
+
+		SolvedRiddle solved = new SolvedRiddle(miner.getUniqueAddress(),
+				riddle.getRiddleNum(),
+				Date.valueOf(LocalDate.now()),
+				Time.valueOf(LocalTime.now()));
+
+		// add to solved riddle table anyway
+		insertSolvedRiddle(solved);
+		return true;
 	}
 	/**
 	 * updating riddle status to irrelevant
 	 */
 	public void updateRiddleStatusToIrrelevant(Riddle riddle) {
 		if (riddle.getSolutionDate().before(Date.valueOf(LocalDate.now()))
-			&& riddle.getSolutionTime().before(Time.valueOf(LocalTime.now()))
-			&& riddle.getStatus().equals(E_Status.Unsolved)){
+				&& riddle.getSolutionTime().before(Time.valueOf(LocalTime.now()))
+				&& riddle.getStatus().equals(E_Status.Unsolved)){
 			riddle.setStatus(E_Status.Irrelevant);
 		}
 	}

@@ -98,10 +98,19 @@ public class EmailScreenController {
 
     public void initialize() {
 
+//		//Table
+		//inboxC.setCellValueFactory(new PropertyValueFactory<>("title"));
+//		
+//		//Fill Table
+//		//Table
+//		inboxC.setCellValueFactory(new PropertyValueFactory<>("title"));
+//		
+//		//Fill Table
 		//Table
 		inboxC.setCellValueFactory(new PropertyValueFactory<>("title"));
 		
 		//Fill Table
+
 		ArrayList<Message> m = control.UserLogic.getInstance().getMessages(); 	
 		ObservableList<Message> ms= FXCollections.observableArrayList(m);
 		inbox.setItems(ms);

@@ -91,7 +91,9 @@ public class MainClassTemp{
 //	for (Transaction transaction : Communication.getInstance().importTransactionsFromXML())
 	//	System.out.println(transaction.toString());
 	//System.out.println(rl.calcProbability(Date.valueOf(LocalDate.now())));
-		Communication.importTransactionsFromXML();
+//		Communication.importTransactionsFromXML();
+		//il.insertItem(new Item(9, "itemName", "image", "description", 6, 3, 2, "a1a1a1", "a11"));
+		
 	//	Communication.exportTransactionsToJSON();
 	}
 

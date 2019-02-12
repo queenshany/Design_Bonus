@@ -17,15 +17,13 @@ public class SystemParams {
 	private double priceForDiscount;
 	private int transSizeFree;
 	private double maxAllowableDiscount;
-	private int lastTransferredTrans;
-	private int firstTransferredTrans;
 	//---------------------------- Constructors ----------------------------
 	public SystemParams(double version) {
 		this.version = version;
 	}
 
 	public SystemParams(double version, Date versionDate, int transMinSize, int transMaxSize, int transSizeForExpansion,
-			double priceForExpansion, double discountPercentPerFee, double priceForDiscount, int transSizeFree, double maxAllowableDiscount, int lastTransferredTrans, int firstTransferredTrans) {
+			double priceForExpansion, double discountPercentPerFee, double priceForDiscount, int transSizeFree, double maxAllowableDiscount) {
 		this.version = version;
 		this.versionDate = versionDate;
 		this.transMinSize = transMinSize;
@@ -36,8 +34,6 @@ public class SystemParams {
 		this.priceForDiscount = priceForDiscount;
 		this.transSizeFree = transSizeFree;
 		this.maxAllowableDiscount = maxAllowableDiscount;
-		this.lastTransferredTrans = lastTransferredTrans;
-		this.firstTransferredTrans = firstTransferredTrans;
 	}
 
 	//---------------------------- Getters & Setters ----------------------------
@@ -122,23 +118,6 @@ public class SystemParams {
 		this.maxAllowableDiscount = maxAllowableDiscount;
 	}
 
-	public int getLastTransferredTrans() {
-		return lastTransferredTrans;
-	}
-
-	public void setLastTransferredTrans(int lastTransferredTrans) {
-		this.lastTransferredTrans = lastTransferredTrans;
-	}
-
-	
-	public int getFirstTransferredTrans() {
-		return firstTransferredTrans;
-	}
-
-	public void setFirstTransferredTrans(int firstTransferredTrans) {
-		this.firstTransferredTrans = firstTransferredTrans;
-	}
-
 	//---------------------------- Hash & Equals ----------------------------
 	@Override
 	public int hashCode() {
@@ -171,7 +150,7 @@ public class SystemParams {
 				+ ", transMaxSize=" + transMaxSize + ", transSizeForExpansion=" + transSizeForExpansion
 				+ ", priceForExpansion=" + priceForExpansion + ", discountPercentPerFee=" + discountPercentPerFee
 				+ ", priceForDiscount=" + priceForDiscount + ", transSizeFree=" + transSizeFree + ", maxAllowableDiscount=" + maxAllowableDiscount + 
-				", lastTransferredTrans=" + lastTransferredTrans + ", firstTransferredTrans=" + firstTransferredTrans + "]";
+				 "]";
 	}
 
 }

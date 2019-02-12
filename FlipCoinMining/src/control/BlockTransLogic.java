@@ -15,6 +15,7 @@ import java.sql.Date;
 
 import entity.Block;
 import entity.Consts;
+import entity.Miner;
 import entity.Transaction;
 import utils.E_Status;
 import utils.E_TransStatus;
@@ -387,4 +388,18 @@ public class BlockTransLogic {
 		}
 	}
 
+	/**
+	 * getting blocks of miner
+	 * @param blocks
+	 * @return array list of miner blocks
+	 */
+	public ArrayList<Block> getBlocksOfMiner (Miner miner){
+		ArrayList<Block> blocks = new ArrayList<>();
+		for (Block b : getBlocks())
+			if (b != null && b.getMinerAddress().equalsIgnoreCase(miner.getUniqueAddress())) {
+				blocks.add(b);	
+			}
+		return blocks;		
+	}
+	
 }

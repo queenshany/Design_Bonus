@@ -66,7 +66,7 @@ public class AddNewProductController {
     @SuppressWarnings("null")
 	@FXML
     void addNewProduct(ActionEvent event) {
-    	Item item = null;
+    	Item item = control.ItemLogic.getInstance().getItems().get(0);
     	item.setCatalogNumber(control.ItemLogic.getInstance().getItemID());
     	item.setItemName(itemName.getText());
     	item.setImage(image.getText());

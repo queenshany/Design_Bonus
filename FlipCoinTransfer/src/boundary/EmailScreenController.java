@@ -1,5 +1,6 @@
 package boundary;
 
+import entity.Message;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
@@ -75,7 +76,7 @@ public class EmailScreenController {
     private ImageView arrow3;
 
     @FXML
-    private TableView<?> inbox;
+    private TableView<Message> inbox;
 
     @FXML
     private TextField dateArea;

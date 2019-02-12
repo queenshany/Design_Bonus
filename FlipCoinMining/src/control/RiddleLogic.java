@@ -481,15 +481,14 @@ public class RiddleLogic {
 	 */
 	public boolean isFirstSolved(Riddle riddle, Miner miner) {
 		ArrayList<SolvedRiddle> riddles = getSolvedRiddles(riddle);
-		if (!riddles.isEmpty())
-			return false;
-		return true;
+		if (riddles.get(0).getUniqueAddress().equals(miner.getUniqueAddress()))
+			return true;
+		return false;
 	}
 	/**
 	 * checking if a miner solved a riddle correctly. if he solved first, we'll generate a block
 	 * @return true if he did
 	 */
-	//TODO SOLVED
 	public boolean isSolvedCorrectly(ArrayList<Solution> solutions, Riddle riddle, Miner miner) {
 
 		ArrayList<Solution> tempSols = new ArrayList<>();
@@ -504,19 +503,22 @@ public class RiddleLogic {
 		if (tempSols.size() != solutions.size())
 			return false;
 
+		SolvedRiddle solved = new SolvedRiddle(miner.getUniqueAddress(),
+				riddle.getRiddleNum(),
+				Date.valueOf(LocalDate.now()),
+				Time.valueOf(LocalTime.now()));
+		// add to solved riddle table anyway
+		insertSolvedRiddle(solved);
+
 		// check if solved first
 
 		// if solved first, update riddle status to solved and generate a block
 		if (isFirstSolved(riddle, miner)) 
 			BlockTransLogic.getInstance().generateBlockForMiner(miner, riddle);
 
-		SolvedRiddle solved = new SolvedRiddle(miner.getUniqueAddress(),
-				riddle.getRiddleNum(),
-				Date.valueOf(LocalDate.now()),
-				Time.valueOf(LocalTime.now()));
+		riddle.setStatus(E_Status.Solved);
+		updateRiddle(riddle);
 
-		// add to solved riddle table anyway
-		insertSolvedRiddle(solved);
 		return true;
 	}
 	/**

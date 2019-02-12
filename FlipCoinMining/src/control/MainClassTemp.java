@@ -20,7 +20,6 @@ import entity.Riddle;
 import entity.RiddleLevel;
 import entity.Solution;
 import entity.SolvedRiddle;
-import entity.SystemParams;
 import entity.Transaction;
 import utils.E_Level;
 import utils.E_Status;
@@ -84,7 +83,8 @@ public class MainClassTemp{
 		//		System.out.println("MSG " + ml.getMessageID());
 		//		System.out.println("RDL " + rl.getRiddleID());
 		//		System.out.println("LVL " + rl.getRiddleLevelID());
-
+//Communication.importFromJSON();
+		//Communication.exportToXML();
 
 	}
 

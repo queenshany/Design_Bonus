@@ -16,6 +16,7 @@ import entity.Message;
 import entity.Miner;
 import entity.MinerCompany;
 import entity.Transaction;
+import entity.User;
 
 /**
  * This class represents the Miners & Companies & Messages Management in the system
@@ -374,5 +375,19 @@ public class MinerLogic {
 		if (!messages.isEmpty())
 			return messages.get(messages.size()-1).getID() + 1;
 		return 1;
+	}
+	
+	/**
+	 * getting messages of miner
+	 * @param miner
+	 * @return array list of miner's messages
+	 */
+	public ArrayList<Message> getMessagesOfMiner (Miner miner){
+		ArrayList<Message> messages = new ArrayList<>();
+		for (Message m : getMessages())
+			if (m != null && m.getUniqueAddress().equalsIgnoreCase(miner.getUniqueAddress())) {
+				messages.add(m);	
+			}
+		return messages;		
 	}
 }

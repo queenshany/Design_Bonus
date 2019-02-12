@@ -12,7 +12,6 @@ import org.apache.commons.lang.RandomStringUtils;
 
 import entity.Consts;
 import entity.Message;
-import entity.SystemParams;
 import entity.Transaction;
 
 /**
@@ -28,33 +27,6 @@ public class SysData {
 		if (instance == null)
 			instance = new SysData();
 		return instance;
-	}
-
-	// ***************************** UPDATE QUERIES *****************************
-
-	/**
-	 * Updates last transferred trans
-	 * @param sys
-	 * @param trans
-	 */
-	public void updateLastTransferredTrans(SystemParams sys, Transaction trans) {
-		try {
-			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
-					CallableStatement stmt = conn.prepareCall(Consts.SQL_UPD_LAST_TRANSFERRED_TRANS)) {
-
-				int i = 1;
-				stmt.setInt(i++, trans.getID());
-				stmt.setDouble(i++, sys.getVersion());
-
-				stmt.executeUpdate();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		System.out.println("UPDATE " + sys);
 	}
 
 	// ***************************** GENERAL METHODS *****************************

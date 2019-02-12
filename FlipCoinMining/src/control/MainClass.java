@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 public class MainClass extends Application{
 
 	public static void main(String[] args) {
+		//BlockTransLogic.getInstance().setIrrelevantTransactions();
 		launch(args);
 		
 	}

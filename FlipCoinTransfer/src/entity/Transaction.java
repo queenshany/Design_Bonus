@@ -168,8 +168,8 @@ public class Transaction {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
+		/*if (getClass() != obj.getClass())
+			return false;*/
 		Transaction other = (Transaction) obj;
 		if (transID != other.transID)
 			return false;

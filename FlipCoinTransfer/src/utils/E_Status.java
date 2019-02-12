@@ -7,7 +7,7 @@ package utils;
 public enum E_Status {
 	Pending("Pending"),
 	Executed("Executed"),
-	Irrelevent("Irrelevent"),
+	Irrelevant("Irrelevant"),
 	Closed("Closed"),
 	Waiting("Waiting");
 	

@@ -1,6 +1,6 @@
 package utils;
 /**
- * This class represents a Transaction Type in the system
+ * This class represents a Riddle Level in the system
  * @author Shany Klein & Ofri Kokush
  *
  */

@@ -395,6 +395,77 @@ public class TransLogic {
 		System.out.println("UPDATE " + trans);
 	}
 
+	
+	/**
+	 * Updates Trans Pay values
+	 * @param trans
+	 */
+	public void updateImportedTransPay(TransactionPay trans) {
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					CallableStatement stmt = conn.prepareCall(Consts.SQL_UPD_IMPT_TRANS_PAY)) {
+
+				int i = 1;
+
+				if (trans.getExecutionDate() == null)
+					stmt.setNull(i++, java.sql.Types.DATE);
+				else
+					stmt.setDate(i++, trans.getExecutionDate());	
+
+
+				if (trans.getStatus() == null)
+					stmt.setNull(i++, java.sql.Types.VARCHAR);
+				else
+					stmt.setString(i++, trans.getStatus().toString());	
+
+				stmt.setInt(i++, trans.getTransID());
+
+				stmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		System.out.println("UPDATE " + trans);
+	}
+	
+	/**
+	 * Updates Trans Confirm values
+	 * @param trans
+	 */
+	public void updateImportedTransConfirm(TransactionConfirm trans) {
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					CallableStatement stmt = conn.prepareCall(Consts.SQL_UPD_IMPT_TRANS_CONFIRM)) {
+
+				int i = 1;
+
+				if (trans.getExecutionDate() == null)
+					stmt.setNull(i++, java.sql.Types.DATE);
+				else
+					stmt.setDate(i++, trans.getExecutionDate());	
+
+
+				if (trans.getStatus() == null)
+					stmt.setNull(i++, java.sql.Types.VARCHAR);
+				else
+					stmt.setString(i++, trans.getStatus().toString());	
+
+				stmt.setInt(i++, trans.getTransID());
+
+				stmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		System.out.println("UPDATE " + trans);
+	}
+	
 	// ***************************** GENERAL QUERIES *****************************
 
 	/**
@@ -562,6 +633,41 @@ public class TransLogic {
 	}
 
 
+	/**
+	 * getting the Trans Amount Per Date 
+	 * @param date 
+	 * @return the Trans Amount Per Date
+	 */
+	public int getTransAmountPerDate(Date date) {
+		int result = 0;
+		try {
+			Class.forName(Consts.JDBC_STR);
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_TRANS_AMOUNT_PER_DATE)){
+				int i=1;
+					if (date != null) 
+						stmt.setDate(i++, date);
+					else 
+						stmt.setNull(i++, java.sql.Types.DATE);
+				ResultSet rs = stmt.executeQuery();
+				//System.err.println(rs.toString());
+				while (rs.next())
+				{
+					result = rs.getInt(1);
+				}
+				//return results;
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+	
 	// ***************************** GENERAL METHODS *****************************
 	/**
 	 * generating id for new Transaction
@@ -647,13 +753,13 @@ public class TransLogic {
 	public void setIrrelevantTransactions() {
 		Date today = Date.valueOf(LocalDate.now());
 
-		ArrayList<TransactionPay> trP = TransLogic.getInstance().getAllPayTrans();
-		ArrayList<TransactionConfirm> trC = TransLogic.getInstance().getAllConfirmTrans();
+		ArrayList<TransactionPay> trP = getAllPayTrans();
+		ArrayList<TransactionConfirm> trC = getAllConfirmTrans();
 
 		for (TransactionPay t: trP) {
 			if (t.getCreationDate().before(today) &&
 					(t.getStatus().equals(E_Status.Waiting) || t.getStatus().equals(E_Status.Pending))){
-				t.setStatus(E_Status.Irrelevent);
+				t.setStatus(E_Status.Irrelevant);
 				updateTransPay(t);
 			}
 		}
@@ -661,7 +767,7 @@ public class TransLogic {
 		for (TransactionConfirm t: trC) {
 			if (t.getCreationDate().before(today) &&
 					(t.getStatus().equals(E_Status.Waiting) || t.getStatus().equals(E_Status.Pending))){
-				t.setStatus(E_Status.Irrelevent);
+				t.setStatus(E_Status.Irrelevant);
 				updateTransConfirm(t);
 			}
 		}

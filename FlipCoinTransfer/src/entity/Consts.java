@@ -10,7 +10,7 @@ public final class Consts {
 		throw new AssertionError();
 	}
 	
-	public static final String XML_EXPORT_FILE_PATH = System.getProperty("user.dir") + "..\\..\\comm_JSON_XML\\TransFromMining.xml";
+	public static final String XML_EXPORT_FILE_PATH = System.getProperty("user.dir") + "\\comm_JSON_XML\\TransFromMining.xml";
 	
 	public static final String XML_IMPORT_FILE_PATH = System.getProperty("user.dir") + "\\comm_JSON_XML\\TransFromMining.xml";
 	
@@ -108,6 +108,10 @@ public final class Consts {
 	
 	public static final String SQL_UPD_TRANS_PAY = "{ call updateTransPayQry(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }";
 	
+	public static final String SQL_UPD_IMPT_TRANS_CONFIRM = "{ call updateImportedTransConfirmQry(?, ?, ?) }";
+	
+	public static final String SQL_UPD_IMPT_TRANS_PAY = "{ call updateImportedTransPayQry(?, ?, ?) }";
+	
 	public static final String SQL_UPD_USER = "{ call updateUserQry(?, ?, ?, ?, ?, ?) }";
 	
 	public static final String SQL_UPD_WALLET_KNOTS = "{ call updateWalletBitcoinKnotsQry(?, ?) }";
@@ -164,7 +168,7 @@ public final class Consts {
 			"HAVING creationDate=(?) AND status=\"Executed\"";
 
 	public static final String SQL_ALL_PENDING_TRANS = "Select *\r\n" + 
-			"from (SELECT transID, description, [size], creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress ,'Pay' as type\r\n" + 
+			"from (SELECT transID, description, size, creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress ,'Pay' as type\r\n" + 
 			"FROM tblTransPay\r\n" + 
 			"WHERE status=\"Pending\" OR status=\"Waiting\")\r\n" + 
 			"\r\n" + 
@@ -181,11 +185,19 @@ public final class Consts {
 			"FROM tblTransConfirm)\r\n" + 
 			"ORDER BY creationDate";
 
+	public static final String SQL_TRANS_AMOUNT_PER_DATE = "Select count(*) as transAmount\r\n" + 
+			"from (SELECT transID, creationDate, 'Pay' as type\r\n" + 
+			"FROM tblTransPay\r\n" + 
+			"\r\n" + 
+			"UNION ALL (SELECT transID, creationDate, 'Confirm' as type\r\n" + 
+			"FROM tblTransConfirm)) A\r\n" + 
+			"Where A.creationDate=(?)";
+	
 	public static final String SQL_LOAD_MONEY = "{ call loadMoneyToWalletQry(?, ?) }";
 	
 	
 	// ***************************** PATH STUFF ***************************** 
-
+/*
 	private static String getDBPath() {
 		try {
 			String path = Consts.class.getProtectionDomain().getCodeSource().getLocation().getPath();
@@ -201,6 +213,33 @@ public final class Consts {
 				//System.out.println(decoded);
 
 				return decoded + "/entity/"+ DB_FILE_NAME;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		//return new File("/database/" + DB_FILE_NAME).getAbsolutePath();
+	}
+	*/
+	
+	
+	private static String getDBPath() {
+		try {
+			String path = Consts.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+			String decoded = URLDecoder.decode(path, "UTF-8");
+			System.out.println(decoded);
+			if (decoded.contains(".jar")) {
+				decoded = decoded.substring(0, decoded.lastIndexOf('/'));
+				//System.out.println(decoded + "/database/" + DB_FILE_NAME);
+
+				return decoded + "/database/" + DB_FILE_NAME;
+			}
+			else {
+				decoded = decoded.substring(0, decoded.lastIndexOf("bin/"));
+				//System.out.println(decoded);
+
+				return decoded + "/src/entity/"+ DB_FILE_NAME;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

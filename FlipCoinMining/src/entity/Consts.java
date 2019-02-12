@@ -66,8 +66,8 @@ public final class Consts {
 	public static final String SQL_INS_SOLVED_RIDDLE = "INSERT INTO keySolvedRiddle ( uniqueAddress, riddleNum, solvedDate, solvedTime )\r\n" + 
 			"VALUES ((?), (?), (?), (?))";
 
-	public static final String SQL_INS_TRANS = "INSERT INTO tblTransaction ( ID, size, type, fee, status )\r\n" + 
-			"VALUES ((?), (?), (?), (?), 'Waiting')";
+	public static final String SQL_INS_TRANS = "INSERT INTO tblTransaction ( ID, size, type, fee, insertionDate, status )\r\n" + 
+			"VALUES ((?), (?), (?), (?), (?), (?))";
 
 	// ***************************** DELETE QUERIES ***************************** 
 
@@ -80,11 +80,12 @@ public final class Consts {
 
 	public static final String SQL_UPD_BONUS = "{ call updateBonusQry(?, ?) }";
 
-	public static final String SQL_UPD_LAST_TRANSFERRED_TRANS = "{ call updateLastTransferredTransQry(?, ?) }";
-	
 	public static final String SQL_UPD_LOTTERY = "UPDATE tblLottery SET tblLottery.lotteryDate = (?), tblLottery.maxParticipants = (?), tblLottery.numOfWinners = (?), tblLottery.numOfBonuses = (?)\r\n" + 
 			"WHERE (((tblLottery.lotteryNum)=(?)))";
 
+	public static final String SQL_UPD_TRANS_STATUS = "UPDATE tblTransaction SET tblTransaction.status = (?)\r\n" + 
+			"WHERE (((tblTransaction.ID)=(?)))";
+	
 	public static final String SQL_UPD_MINER_COMPANY = "{ call updateMinerCompanyQry(?, ?, ?, ?, ?) }";
 
 	public static final String SQL_UPD_MINER_PROFIT = "{ call updateMinerProfitQry(?, ?) }";
@@ -98,6 +99,8 @@ public final class Consts {
 	// ***************************** SELECT QUERIES *****************************
 
 	public static final String SQL_SEL_BLOCKS = "SELECT * FROM tblBlock";
+	
+	public static final String SQL_SEL_TRANS = "SELECT * FROM tblTransaction";
 	
 	public static final String SQL_SEL_MINERS = "SELECT * FROM tblMiner";
 
@@ -119,7 +122,7 @@ public final class Consts {
 
 	public static final String SQL_TRANS_WITHOUT_BLOCK = "SELECT *\r\n" + 
 			"FROM tblTransaction\r\n" + 
-			"WHERE (tblTransaction.blockAddress=\"\" OR tblTransaction.blockAddress IS NULL)";
+			"WHERE (tblTransaction.blockAddress =\"\" OR tblTransaction.blockAddress IS NULL AND tblTransaction.status = \"Waiting\")";
 
 	public static final String SQL_TRANS_IN_BLOCK = "SELECT *\r\n" + 
 			"FROM tblTransaction\r\n" + 
@@ -127,6 +130,7 @@ public final class Consts {
 
 	// ***************************** PATH STUFF ***************************** 
 
+	/*
 	private static String getDBPath() {
 		try {
 			String path = Consts.class.getProtectionDomain().getCodeSource().getLocation().getPath();
@@ -135,7 +139,7 @@ public final class Consts {
 				decoded = decoded.substring(0, decoded.lastIndexOf('/'));
 				//System.out.println(decoded + "/database/" + DB_FILE_NAME);
 
-				return decoded + "/databaseMining/" + DB_FILE_NAME;
+				return decoded + "/databaseTransfer/" + DB_FILE_NAME;
 			}
 			else {
 				decoded = decoded.substring(0, decoded.lastIndexOf('/'));
@@ -150,5 +154,31 @@ public final class Consts {
 
 		//return new File("/database/" + DB_FILE_NAME).getAbsolutePath();
 	}
+	*/
+	
+	
+	private static String getDBPath() {
+		try {
+			String path = Consts.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+			String decoded = URLDecoder.decode(path, "UTF-8");
+			System.out.println(decoded);
+			if (decoded.contains(".jar")) {
+				decoded = decoded.substring(0, decoded.lastIndexOf('/'));
+				//System.out.println(decoded + "/database/" + DB_FILE_NAME);
 
+				return decoded + "/database/" + DB_FILE_NAME;
+			}
+			else {
+				decoded = decoded.substring(0, decoded.lastIndexOf("bin/"));
+				//System.out.println(decoded);
+
+				return decoded + "/src/entity/"+ DB_FILE_NAME;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		//return new File("/database/" + DB_FILE_NAME).getAbsolutePath();
+	}
 }

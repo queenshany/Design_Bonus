@@ -11,6 +11,7 @@ import entity.Message;
 import entity.Recommendation;
 import entity.RecommendedFor;
 import entity.SystemParams;
+import entity.Transaction;
 import entity.TransactionConfirm;
 import entity.TransactionPay;
 import entity.User;
@@ -87,7 +88,11 @@ public class MainClassTemp{
 		//System.out.println(il.getItems());
 		//System.out.println(il.searchItem(null, null, null, null, new User("B2B2B2", "B22")));
 	//Communication.getInstance().exportTransactionsToJSON();
-	//rl.calcProbability(Date.valueOf(LocalDate.now()));
+//	for (Transaction transaction : Communication.getInstance().importTransactionsFromXML())
+	//	System.out.println(transaction.toString());
+	//System.out.println(rl.calcProbability(Date.valueOf(LocalDate.now())));
+		Communication.importTransactionsFromXML();
+	//	Communication.exportTransactionsToJSON();
 	}
 
 }

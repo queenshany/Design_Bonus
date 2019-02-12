@@ -15,7 +15,10 @@ import java.sql.Date;
 
 import entity.Block;
 import entity.Consts;
+import entity.Miner;
 import entity.Transaction;
+import utils.E_Status;
+import utils.E_TransStatus;
 import utils.E_Type;
 
 /**
@@ -113,6 +116,16 @@ public class BlockTransLogic {
 				else
 					stmt.setDouble(i++, t.getFee());
 
+				if (t.getInsertionDate() == null)
+					stmt.setNull(i++, java.sql.Types.DATE);
+				else
+					stmt.setDate(i++, t.getInsertionDate());
+				
+				if (t.getStatus() == null)
+					stmt.setNull(i++, java.sql.Types.VARCHAR);
+				else
+					stmt.setString(i++, t.getStatus().toString());
+				
 				stmt.executeUpdate();
 
 			} catch (SQLException e) {
@@ -135,6 +148,7 @@ public class BlockTransLogic {
 
 		t.setAdditionDate(Date.valueOf(LocalDate.now()));
 		t.setAdditionTime(Time.valueOf(LocalTime.now()));
+		t.setStatus(E_TransStatus.Executed);
 
 		try {
 			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
@@ -145,6 +159,7 @@ public class BlockTransLogic {
 				stmt.setString(i++, b.getBlockAddress());
 				stmt.setDate(i++, t.getAdditionDate());
 				stmt.setTime(i++, t.getAdditionTime());
+				stmt.setString(i++, t.getStatus().toString());
 				stmt.setInt(i++, t.getID());
 
 				stmt.executeUpdate();
@@ -158,10 +173,35 @@ public class BlockTransLogic {
 		System.out.println("TO " + b);
 	}
 
+
+	/**
+	 * updating trans status
+	 * @param t
+	 */
+	public void updateTransStatus(Transaction t) {
+
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					CallableStatement stmt = conn.prepareCall(Consts.SQL_UPD_TRANS_STATUS)) {
+
+				int i = 1;
+				stmt.setString(i++, t.getStatus().toString());
+				stmt.setInt(i++, t.getID());
+
+				stmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
 	// ***************************** SELECT QUERIES ***************************** 
 	/**
 	 * Loading blocks from the DB to the system
-	 * @return ALL of the blocks without blocks from the DB
+	 * @return ALL of the blocks
 	 */
 	public ArrayList<Block> getBlocks() {
 		ArrayList<Block> results = new ArrayList<Block>();
@@ -194,9 +234,48 @@ public class BlockTransLogic {
 		return results;
 	}
 
-	// ***************************** GENERAL QUERIES ***************************** 
 	/**
 	 * Loading trans from the DB to the system
+	 * @return ALL of the trans 
+	 */
+	public ArrayList<Transaction> getTrans() {
+		ArrayList<Transaction> results = new ArrayList<Transaction>();
+
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					//CallableStatement stmt = conn.prepareCall(Consts.SQL_TRANS_WITHOUT_BLOCK_QRY);
+					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_SEL_TRANS);
+					ResultSet rs = stmt.executeQuery())
+			{
+				while (rs.next()) {
+					int i = 1;
+					results.add(new Transaction(rs.getInt(i++),
+							rs.getInt(i++),
+							E_Type.valueOf(rs.getString(i++)),
+							rs.getDouble(i++),
+							rs.getDate(i++),
+							rs.getString(i++),
+							rs.getDate(i++),
+							rs.getTime(i++),
+							E_TransStatus.valueOf(rs.getString(i++))
+							));
+				}
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		//System.out.println(results);
+		return results;
+	}
+
+	// ***************************** GENERAL QUERIES ***************************** 
+	/**
+	 * Loading trans from the DB to the system WITH STATUS WAITING
 	 * @return ALL of the trans without blocks from the DB
 	 */
 	public ArrayList<Transaction> getTransWithoutBlock() {
@@ -215,10 +294,12 @@ public class BlockTransLogic {
 							rs.getInt(i++),
 							E_Type.valueOf(rs.getString(i++)),
 							rs.getDouble(i++),
+							rs.getDate(i++),
 							rs.getString(i++),
 							rs.getDate(i++),
 							rs.getTime(i++),
-							rs.getString(i++)));
+							E_TransStatus.valueOf(rs.getString(i++))
+							));
 				}
 			}
 		}
@@ -253,10 +334,12 @@ public class BlockTransLogic {
 								rs.getInt(i++),
 								E_Type.valueOf(rs.getString(i++)),
 								rs.getDouble(i++),
+								rs.getDate(i++),
 								rs.getString(i++),
 								rs.getDate(i++),
 								rs.getTime(i++),
-								rs.getString(i++)));
+								E_TransStatus.valueOf(rs.getString(i++))
+								));
 					}
 				}
 			}
@@ -288,4 +371,35 @@ public class BlockTransLogic {
 	}
 
 
+	/**
+	 * this method sets transactions to irrelevant status
+	 */
+	public void setIrrelevantTransactions() {
+		Date today = Date.valueOf(LocalDate.now());
+
+		ArrayList<Transaction> trans = getTransWithoutBlock();
+
+		for (Transaction t: trans) {
+			if (t.getInsertionDate().before(today) &&
+					(t.getStatus().equals(E_TransStatus.Waiting))){
+				t.setStatus(E_TransStatus.Irrelevant);
+				updateTransStatus(t);
+			}
+		}
+	}
+
+	/**
+	 * getting blocks of miner
+	 * @param blocks
+	 * @return array list of miner blocks
+	 */
+	public ArrayList<Block> getBlocksOfMiner (Miner miner){
+		ArrayList<Block> blocks = new ArrayList<>();
+		for (Block b : getBlocks())
+			if (b != null && b.getMinerAddress().equalsIgnoreCase(miner.getUniqueAddress())) {
+				blocks.add(b);	
+			}
+		return blocks;		
+	}
+	
 }

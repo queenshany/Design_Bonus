@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class ParametersController {
 
@@ -170,19 +171,41 @@ public class ParametersController {
     @FXML
     private Button saveButton;
 
-    @FXML
-    void allRecommendations(MouseEvent event) {
+	public void initialize() {
+		String one = String.valueOf(control.SysData.getInstance().getLastVersionParams().getTransMinSize());
+		String two = String.valueOf(control.SysData.getInstance().getLastVersionParams().getTransMaxSize());
+		String three = String.valueOf(control.SysData.getInstance().getLastVersionParams().getTransSizeForExpansion());
+		String four = String.valueOf(control.SysData.getInstance().getLastVersionParams().getPriceForExpansion());
+		String five = String.valueOf(control.SysData.getInstance().getLastVersionParams().getDiscountPercentPerFee());
+		String six = String.valueOf(control.SysData.getInstance().getLastVersionParams().getPriceForDiscount());
+		String seven = String.valueOf(control.SysData.getInstance().getLastVersionParams().getTransSizeFree());
+		String eight = String.valueOf(control.SysData.getInstance().getLastVersionParams().getMaxAllowableDiscount());
 
-    }
-
+		transMinSize.setText(one);
+		transMaxSize.setText(two);
+		sizeForExpansion.setText(three);
+		priceForExpansion.setText(four);
+		discountPrecent.setText(five);
+		priceForDiscount.setText(six);
+		transSizeFree.setText(seven);
+		maxDiscount.setText(eight);
+		
+	}
+    
     @FXML
     void editVirsion(ActionEvent event) {
 
     }
 
     @FXML
-    void generateTransReport(MouseEvent event) {
+    void allRecommendations(MouseEvent event) {
+    	closeWindow();
+    	ViewLogic.newViewRecommendationWindow();
+    }
 
+    @FXML
+    void generateTransReport(MouseEvent event) {
+    	
     }
 
     @FXML
@@ -192,22 +215,31 @@ public class ParametersController {
 
     @FXML
     void logOut(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newLoginWindow();
     }
 
     @FXML
     void manageCategories(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newCategoriesWindow();
     }
 
     @FXML
     void manageParameters(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newParametersWindow();
+ 
     }
 
     @FXML
     void newRecommendation(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newCreateRecommendationWindow();
     }
 
+    
+	protected void closeWindow() {
+		((Stage) borderPane.getScene().getWindow()).close();
+	}
 }

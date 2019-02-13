@@ -91,7 +91,8 @@ public class MainClassTemp{
 //BlockTransLogic.getInstance().generateBlockForMiner(new SolvedRiddle(MinerLogic.getInstance().getMiners().get(0).getUniqueAddress(), RiddleLogic.getInstance().getRiddles().get(0).getRiddleNum()));
 	//System.out.println(RiddleLogic.getInstance().getSolvedRiddles(new Riddle(1)));
 		//btl.generateBlockForMiner(MinerLogic.getInstance().getMiners().get(0), RiddleLogic.getInstance().getRiddles().get(0));
-		Communication.importRiddlesFromXML();
+		// Communication.importRiddlesFromXML();
+		
 	}
 
 }

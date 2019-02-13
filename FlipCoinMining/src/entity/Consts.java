@@ -88,7 +88,7 @@ public final class Consts {
 	public static final String SQL_UPD_TRANS_STATUS = "UPDATE tblTransaction SET tblTransaction.status = (?)\r\n" + 
 			"WHERE (((tblTransaction.ID)=(?)))";
 	
-	//TODO UPDATE PARTICIPANT
+	public static final String SQL_UPD_PARTICIPANT = "{ call updateParticipantQry(?, ?, ?) }";
 	
 	public static final String SQL_UPD_MINER_COMPANY = "{ call updateMinerCompanyQry(?, ?, ?, ?, ?) }";
 
@@ -134,8 +134,10 @@ public final class Consts {
 	
 	public static final String SQL_GET_SOLVED_RIDDLE_BY_NUM = "{ call getSolvedRiddleByNumQry(?) }";
 	
-	//TODO get lotteries in a certain date
-
+	public static final String SQL_GET_LOTTERIES_BY_DATE = "{ call getLotteriesByDateQry(?) }";
+	
+	public static final String SQL_GET_LOTTERY_PARTICIPANTS = "{ call getParticipantsInALottery(?) }";
+	
 	// ***************************** PATH STUFF ***************************** 
 
 	/*
@@ -169,7 +171,7 @@ public final class Consts {
 		try {
 			String path = Consts.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 			String decoded = URLDecoder.decode(path, "UTF-8");
-			System.out.println(decoded);
+			//System.out.println(decoded);
 			if (decoded.contains(".jar")) {
 				decoded = decoded.substring(0, decoded.lastIndexOf('/'));
 				//System.out.println(decoded + "/database/" + DB_FILE_NAME);

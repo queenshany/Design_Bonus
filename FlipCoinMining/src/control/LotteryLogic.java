@@ -2,10 +2,12 @@ package control;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -16,6 +18,8 @@ import entity.GetBonus;
 import entity.Lottery;
 import entity.Miner;
 import entity.Participant;
+import entity.Riddle;
+import entity.SolvedRiddle;
 import entity.Transaction;
 
 /**
@@ -263,6 +267,38 @@ public class LotteryLogic {
 		System.out.println("UPDATE " + lot);
 	}
 
+	/**
+	 * Updates Lottery values
+	 * @param lot
+	 */
+	public void updateParticipant(Participant p) {
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					CallableStatement stmt = conn.prepareCall(Consts.SQL_UPD_PARTICIPANT)) {
+
+				int i = 1;
+
+				stmt.setBoolean(i++, p.isWinner());
+
+				if (p.getUniqueAddress() == null)
+					stmt.setNull(i++, java.sql.Types.VARCHAR);
+				else
+					stmt.setString(i++, p.getUniqueAddress());
+
+				stmt.setInt(i++, p.getLotteryNum());
+
+				stmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		System.out.println("UPDATE " + p);
+	}
+
+
 	// ***************************** SELECT QUERIES ***************************** 
 	/**
 	 * Loading Lotteries from the DB to the system
@@ -327,6 +363,83 @@ public class LotteryLogic {
 		return results;
 	}
 	
+	/**
+	 * Loading lotteries by date from the DB to the system
+	 * @return lotteries by date from the DB
+	 */
+	public ArrayList<Lottery> getLotteriesByDate(Date date) {
+		ArrayList<Lottery> results = new ArrayList<Lottery>();
+
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_GET_LOTTERIES_BY_DATE)){
+				if (date != null) 
+					stmt.setDate(1, date);
+				else 
+					return results;
+
+				ResultSet rs = stmt.executeQuery();
+				{
+					while (rs.next()) {
+						int i = 1;
+						results.add(new Lottery(rs.getInt(i++),
+								rs.getDate(i++),
+								rs.getInt(i++),
+								rs.getInt(i++),
+								rs.getInt(i++))
+								);
+					}
+				}
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		//System.out.println(results);
+		return results;
+	}
+	
+	/**
+	 * Loading lotteries by date from the DB to the system
+	 * @return lotteries by date from the DB
+	 */
+	public ArrayList<Participant> getLotteryParticipants(Lottery lot) {
+		ArrayList<Participant> results = new ArrayList<Participant>();
+
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_GET_LOTTERY_PARTICIPANTS)){
+				if (lot.getLotteryNum() < 0) 
+					stmt.setInt(1, lot.getLotteryNum());
+				else 
+					return results;
+
+				ResultSet rs = stmt.executeQuery();
+				{
+					while (rs.next()) {
+						int i = 1;
+						results.add(new Participant(rs.getInt(i++),
+								rs.getString(i++),
+								rs.getBoolean(i++))
+								);
+					}
+				}
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		//System.out.println(results);
+		return results;
+	}
 	// ***************************** GENERAL METHODS *****************************
 	/**
 	 * generating id for new bonus
@@ -341,12 +454,12 @@ public class LotteryLogic {
 				return b1.getBonusNum()-b2.getBonusNum();
 			}
 		});
-		
+
 		if (!bonuses.isEmpty())
 			return bonuses.get(bonuses.size()-1).getBonusNum() + 1;
 		return 1;
 	}
-	
+
 	/**
 	 * generating id for new lottery
 	 * @return id for new lottery
@@ -360,31 +473,43 @@ public class LotteryLogic {
 				return l1.getLotteryNum()-l2.getLotteryNum();
 			}
 		});
-		
+
 		if (!lots.isEmpty())
 			return lots.get(lots.size()-1).getLotteryNum() + 1;
 		return 1;
 	}
-	
+
 	/**
 	 * this method generates random bonuses for winner
 	 */
 	//TODO
-	public void generateBonusForWinnerInLottery(Miner miner, Lottery lottery){
-		
+	public void generateBonusForWinnerInLottery(Miner miner, Lottery lottery) {
+
 	}
 	/**
 	 * this method chooses who won in a lottery
 	 */
 	//TODO
 	public void generateWinnersInLottery(Participant part) {
-		
+
 	}
 	/**
 	 * this method performs a lottery, if its date has arrived
 	 */
 	//TODO
 	public void performLottery() {
-		
+		ArrayList<Lottery> lotteries = getLotteriesByDate(Date.valueOf(LocalDate.now()));
+		for (Lottery lot: lotteries) {
+			for( Participant p : getp)
+		}
+
+	}
+
+	/**
+	 * this method allows a miner to join a lottery, if there's enough room
+	 */
+	//TODO
+	public void joinLottery(Miner miner, Lottery lottery) {
+
 	}
 }

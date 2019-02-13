@@ -382,7 +382,7 @@ public class RiddleLogic {
 				if (riddle.getRiddleNum() > 0) 
 					stmt.setInt(1, riddle.getRiddleNum());
 				else 
-					stmt.setNull(1, java.sql.Types.INTEGER);
+					return results;
 
 				ResultSet rs = stmt.executeQuery();
 				{

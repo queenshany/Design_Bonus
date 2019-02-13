@@ -114,7 +114,8 @@ public class RiddlesScreenController {
 
     @FXML
     void manageBlocks(MouseEvent event) {
-
+//    	closeWindow();
+		ViewLogic.newBlocksWindow();
     }
 
     @FXML

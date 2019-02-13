@@ -6,6 +6,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class MainAdminScreenController {
 
@@ -68,7 +69,8 @@ public class MainAdminScreenController {
 
     @FXML
     void logOut(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newLoginWindow();
     }
 
     @FXML
@@ -78,7 +80,13 @@ public class MainAdminScreenController {
 
     @FXML
     void manageScreen(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newManagementWindow();
     }
 
+
+	protected void closeWindow() {
+		((Stage) borderPane.getScene().getWindow()).close();
+	}
 }
+

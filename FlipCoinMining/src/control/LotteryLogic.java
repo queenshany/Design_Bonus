@@ -486,9 +486,30 @@ public class LotteryLogic {
 	/**
 	 * this method generates random bonuses for winner
 	 */
-	//TODO
-	public void generateBonusForWinnerInLottery(Miner miner, Lottery lottery) {
+	public void generateBonusForWinnerInLottery(Participant par, Lottery lottery) {
+		ArrayList<Bonus> bonuses = getBonuses();
+		ArrayList<Bonus> bonusesForWinner = new ArrayList<>();
+		// generating random winners
+		do {
+			Random randomGenerator = new Random();
+			int index = randomGenerator.nextInt(bonuses.size());
+			bonusesForWinner.add(bonuses.get(index));
+		}while(bonusesForWinner.size() < lottery.getNumOfWinners());
 
+		for (Bonus bon : bonusesForWinner) {
+			insertGetBonus(new GetBonus(par.getLotteryNum(), par.getUniqueAddress(), bon.getBonusNum()));
+		}
+
+		// sending a message about bonus
+		String title = "You Won in a Lottery!";
+		String desc = "A lottery you took part in has been performed in " + lottery.getLotteryDate()
+		+ ".\nThe Bonuses you received are:\n" + bonusesForWinner;
+		MinerLogic.getInstance().insertMessage(
+				new Message(
+						MinerLogic.getInstance().getMessageID(), 
+						par.getUniqueAddress(), title, desc,
+						Date.valueOf(LocalDate.now()),
+						Time.valueOf(LocalTime.now())));
 	}
 	/**
 	 * this method chooses who won in a lottery
@@ -507,13 +528,13 @@ public class LotteryLogic {
 					winners.add(p.get(index));
 			}while(winners.size() < lottery.getNumOfWinners());
 		}
-		
+
 		for (Participant par : winners) {
 			par.setWinner(true);
 			updateParticipant(par);
-			
+			generateBonusForWinnerInLottery(par, lottery);
 		}
-		
+
 		// sending a message about lottery
 		String title = "A Lottery Has Been Performed!";
 		String desc = "A lottery you took part in has been performed in " + lottery.getLotteryDate()
@@ -526,7 +547,7 @@ public class LotteryLogic {
 							Date.valueOf(LocalDate.now()),
 							Time.valueOf(LocalTime.now())));
 		}
-		
+
 	}
 	/**
 	 * this method performs a lottery, if its date has arrived
@@ -542,7 +563,7 @@ public class LotteryLogic {
 	 * this method allows a miner to join a lottery, if there's enough room
 	 */
 	//TODO
-	public void joinLottery(Miner miner, Lottery lottery) {
-
+	public boolean joinLottery(Miner miner, Lottery lottery) {
+return true;
 	}
 }

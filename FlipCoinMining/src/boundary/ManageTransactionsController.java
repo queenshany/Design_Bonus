@@ -111,6 +111,8 @@ public class ManageTransactionsController {
 	@FXML
 	private Button viewReport;
 
+	protected static Block currentBlock;
+	
 	public void initialize() {
 
 		Blockid.setCellValueFactory(new PropertyValueFactory<>("blockAddress"));
@@ -127,7 +129,6 @@ public class ManageTransactionsController {
 		ObservableList<Transaction> t= FXCollections.observableArrayList(trans);
 		transTable.setItems(t);
 
-		
 
 	} 
 
@@ -147,11 +148,19 @@ public class ManageTransactionsController {
 	void updateSizeLable(MouseEvent event) {
 		String s = String.valueOf(table.getSelectionModel().getSelectedItem().getSize());
 		sizeLable.setText(s);
+		currentBlock = table.getSelectionModel().getSelectedItem();
+		System.out.println(currentBlock);
 	}
 
 	@FXML
 	void addTransToBlock(ActionEvent event) {
-
+		Transaction t = transTable.getSelectionModel().getSelectedItem();
+		System.out.println(t);
+		control.BlockTransLogic.getInstance().attachTransToBlock(t, currentBlock);
+		int currentSize = control.BlockTransLogic.getInstance().calcBlockSizeLeft(currentBlock);
+		System.out.println(currentSize);
+		String s = String.valueOf(currentSize);
+		sizeLable.setText(s);
 	}
 
 

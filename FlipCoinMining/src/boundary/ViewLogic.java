@@ -169,7 +169,7 @@ public class ViewLogic {
 //		setStage(stage);
 
 
-		newWindow(ViewLogic.class.getResource("Registration.fxml"),
+		newWindow(ViewLogic.class.getResource("RegistrationScreen.fxml"),
 				stage,
 				null, null,	null, null,	null, null,
 				false,

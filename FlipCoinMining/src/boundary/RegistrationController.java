@@ -13,6 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class RegistrationController {
 
@@ -121,6 +122,15 @@ public class RegistrationController {
 	@FXML
 	private Label registerLable;
 
+	 public void initialize() {
+	usernameText1.setVisible(false);
+	phoneText.setVisible(false);
+	emailText.setVisible(false);
+	username1.setVisible(false);
+	phone.setVisible(false);
+	email.setVisible(false);
+	 }
+	 
 	protected static int flag = 0;
 
 	@FXML
@@ -144,20 +154,23 @@ public class RegistrationController {
 			
 			miner.setUniqueAddress(uniqueAddress);
 			
+			control.MinerLogic.getInstance().insertMiner(miner);
+			
 			if (flag==1) {
-				MinerCompany comp = (MinerCompany) control.MinerLogic.getInstance().getMiners().get(0);
-				comp.setMinerName(usernameText.getText());
-				comp.setDigitalProfit(0);
-				comp.setEmail(emailText.getText());
-				comp.setPassword(passwordText.getText());
-				
-				String ua;
-				do {
-					ua = control.SysData.getInstance().generateRandomStrings(Consts.MINER_ADDRESS_LENGTH);
-				}
-				while (control.MinerLogic.getInstance().getMiners().contains(new Miner(ua)));
-				
-				comp.setUniqueAddress(ua);
+				MinerCompany comp = (MinerCompany) control.MinerLogic.getInstance().getMiners()
+						.get(control.MinerLogic.getInstance().getMiners().size()-1);
+//				comp.setMinerName(usernameText.getText());
+//				comp.setDigitalProfit(0);
+//				comp.setEmail(emailText.getText());
+//				comp.setPassword(passwordText.getText());
+//				
+//				String ua;
+//				do {
+//					ua = control.SysData.getInstance().generateRandomStrings(Consts.MINER_ADDRESS_LENGTH);
+//				}
+//				while (control.MinerLogic.getInstance().getMiners().contains(new Miner(ua)));
+//				
+//				comp.setUniqueAddress(ua);
 				
 				comp.setContactEmail(emailText.getText());
 				comp.setContactFirstName(usernameText1.getText());
@@ -166,9 +179,7 @@ public class RegistrationController {
 				
 				control.MinerLogic.getInstance().insertMinerCompany(comp);
 				}
-				if (flag==0) {
-					control.MinerLogic.getInstance().insertMiner(miner);
-			}
+
 		}
 	}
 
@@ -183,4 +194,7 @@ public class RegistrationController {
 		email.setVisible(true);
 	}
 
+	protected void closeWindow() {
+		((Stage) borderPane.getScene().getWindow()).close();
+	}
 }

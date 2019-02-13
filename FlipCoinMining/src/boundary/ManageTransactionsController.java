@@ -149,18 +149,22 @@ public class ManageTransactionsController {
 		String s = String.valueOf(table.getSelectionModel().getSelectedItem().getSize());
 		sizeLable.setText(s);
 		currentBlock = table.getSelectionModel().getSelectedItem();
-		System.out.println(currentBlock);
 	}
 
 	@FXML
 	void addTransToBlock(ActionEvent event) {
+		errorMassage.setVisible(false);
 		Transaction t = transTable.getSelectionModel().getSelectedItem();
-		System.out.println(t);
+		if (t.getSize() > control.BlockTransLogic.getInstance().calcBlockSizeLeft(currentBlock)) {
+			errorMassage.setText("Please choose smaller transaction");
+			errorMassage.setVisible(true);
+		}
+		else {
 		control.BlockTransLogic.getInstance().attachTransToBlock(t, currentBlock);
 		int currentSize = control.BlockTransLogic.getInstance().calcBlockSizeLeft(currentBlock);
-		System.out.println(currentSize);
 		String s = String.valueOf(currentSize);
 		sizeLable.setText(s);
+		}
 	}
 
 

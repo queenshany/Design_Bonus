@@ -6,12 +6,17 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import com.sun.corba.se.spi.servicecontext.UEInfoServiceContext;
+
 import entity.Recommendation;
+import entity.RecommendedFor;
 import entity.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
@@ -205,6 +210,40 @@ public class CreateRecommendationController {
 
     @FXML
     void sendMethod(ActionEvent event) {
+
+    	if(usernameCombo.getValue()==null || levelCombo.getValue()== null) {
+       	 
+    		Alert alert = new Alert(AlertType.ERROR);
+        	alert.setTitle("EROR");
+        	alert.setContentText("Please enter user and level");
+
+        	alert.showAndWait(); 
+    	
+	}
+	
+	if (usernameCombo.getValue()!=null && levelCombo.getValue()!=null) {
+		RecommendedFor rf = control.RecLogic.getInstance().getRecommendationsFor().get(0);
+		rf.setCommitmentLevel(levelCombo.getValue());
+		rf.setRecommendation(control.RecLogic.getInstance().getRecommendations()
+				.get(control.RecLogic.getInstance().getRecommendations().size()).getRecNum());
+		rf.setUserAddress(usernameCombo.getValue().getPublicAddress());
+		rf.setUserSignature(usernameCombo.getValue().getSignature());
+	control.RecLogic.getInstance().insertRecommendedFor(rf);
+	
+	Alert alert = new Alert(AlertType.CONFIRMATION);
+	alert.setTitle("Done");
+	alert.setContentText("Recommendation send to " + usernameCombo.getValue().getUsername());
+
+	alert.showAndWait(); 
+	}
+	
+	if (commision.getText() == null  || probability.getText() ==null || !newButton.isVisible()){
+		Alert alert = new Alert(AlertType.ERROR);
+    	alert.setTitle("EROR");
+    	alert.setContentText("You have to creat a recommandation");
+
+    	alert.showAndWait(); 
+	}
 
     }
 

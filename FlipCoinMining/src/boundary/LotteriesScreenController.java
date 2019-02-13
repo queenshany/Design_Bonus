@@ -90,13 +90,18 @@ public class LotteriesScreenController {
     
     @FXML
     void addUserToLottery(MouseEvent event) {
-    	if (lorretycombo.getValue()!=null)
+    	if (lorretycombo.getValue()!=null) {
     	if (!(control.LotteryLogic.getInstance().joinLottery(LoginController.curretMiner, lorretycombo.getValue()))){
     		errorMassage.setVisible(true);
     		errorMassage.setText("You can't sign to this lottery");
     	}
     		errorMassage.setVisible(true);
     		errorMassage.setText("You have successfully joined");
+    	}
+    	else { 
+    		errorMassage.setVisible(true);
+    		errorMassage.setText("Please choose a lottery first");
+    	}
     }
 
     @FXML

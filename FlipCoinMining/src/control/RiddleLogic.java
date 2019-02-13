@@ -160,9 +160,9 @@ public class RiddleLogic {
 				stmt.setInt(i++, s.getRiddleNum());
 				stmt.setInt(i++, s.getSolutionNum());
 
-				if (s.getResult() < 0)
-					stmt.setNull(i++, java.sql.Types.DOUBLE);
-				else
+//				if (s.getResult() < 0)
+//					stmt.setNull(i++, java.sql.Types.DOUBLE);
+//				else
 					stmt.setDouble(i++, s.getResult());
 
 				stmt.executeUpdate();

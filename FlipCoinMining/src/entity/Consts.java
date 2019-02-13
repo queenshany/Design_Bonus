@@ -7,7 +7,9 @@ public final class Consts {
 	}
 
 	public static final String XML_EXPORT_FILE_PATH = System.getProperty("user.dir") + "\\comm_JSON_XML\\TransFromMining.xml";
-	
+
+	public static final String XML_RIDDLES_FILE_PATH = System.getProperty("user.dir") + "\\comm_JSON_XML\\RiddlesForMining.xml";
+
 	public static final String XML_IMPORT_FILE_PATH = System.getProperty("user.dir") + "\\comm_JSON_XML\\TransFromMining.xml";
 	
 	public static final String JSON_EXPORT_FILE_PATH = System.getProperty("user.dir") + "\\comm_JSON_XML\\TransFromTransfer.json";

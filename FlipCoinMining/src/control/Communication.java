@@ -5,11 +5,18 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 import org.json.simple.JSONArray;
@@ -17,6 +24,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import entity.Consts;
+import entity.Riddle;
+import entity.Solution;
 import entity.Transaction;
 import utils.E_Status;
 import utils.E_TransStatus;
@@ -29,6 +38,9 @@ import utils.E_Type;
  */
 public class Communication {
 
+	/**
+	 * exporting trans to XML
+	 */
 	public static boolean exportToXML() {
 		try {
 			Document doc = new Document();
@@ -65,6 +77,9 @@ public class Communication {
 		return false;
 	}
 
+	/**
+	 * importing trans from JSON
+	 */
 	public static boolean importFromJSON() {
 		try {
 			File file = new File(Consts.JSON_IMPORT_FILE_PATH);
@@ -112,4 +127,82 @@ public class Communication {
 		}
 		return false;
 	}
+
+
+	/**
+	 * importing riddles from XML
+	 */
+	public static boolean importRiddlesFromXML() {
+		ArrayList<Riddle> riddles = new ArrayList<>();
+		ArrayList<Solution> solutions = new ArrayList<>();
+
+		SAXBuilder builder = new SAXBuilder();
+		File file = new File(Consts.XML_RIDDLES_FILE_PATH);
+
+		try {
+			Document document = (Document) builder.build(file);
+			Element rootElement = document.getRootElement();
+			//List<Element> ridE = rootElement.getChildren("Riddles");
+			//List<Element> solE = rootElement.getChildren("Solutions");
+			Element riddleElement = rootElement.getChild("Riddles");
+			Element solutionElement = rootElement.getChild("Solutions");
+			List<Element> ridE = riddleElement.getChildren("Riddle");
+			List<Element> solE = solutionElement.getChildren("Solution");
+			
+			System.out.println(solE);
+			for (int i = 0; i < ridE.size(); i++) {
+				Element ridElement = ridE.get(i);
+
+				int id = Integer.parseInt(ridElement.getAttributeValue("RiddleNum"));
+				String desc = ridElement.getAttributeValue("Description");
+
+				riddles.add(new Riddle(id,
+						Date.valueOf(LocalDate.now()),
+						Time.valueOf(LocalTime.now()),
+						desc,
+						null,
+						null,
+						E_Status.Unsolved,
+						1));
+			}
+
+			for (int i = 0; i < solE.size(); i++) {
+				Element solElement = solE.get(i);
+
+				int ridID = Integer.parseInt(solElement.getAttributeValue("RiddleNum"));
+				int solID = Integer.parseInt(solElement.getAttributeValue("SolutionNum"));
+				double result = Double.parseDouble(solElement.getAttributeValue("Result"));
+
+				solutions.add(new Solution(ridID, solID, result));
+			}
+
+			for (int i = 0; i < riddles.size(); i++) {
+				System.err.println(riddles.get(i));
+				
+				int temp = riddles.get(i).getRiddleNum();
+				riddles.get(i).setRiddleNum(RiddleLogic.getInstance().getRiddleID());
+				RiddleLogic.getInstance().insertRiddle(riddles.get(i));
+				
+				System.out.println();
+				
+				for (int j = 0; j < solutions.size(); j++) {
+					if (temp == solutions.get(j).getRiddleNum()) {
+//						System.out.println(solutions.get(j));
+						solutions.get(j).setRiddleNum(riddles.get(i).getRiddleNum());
+						RiddleLogic.getInstance().insertSolution(solutions.get(j));
+				
+						System.out.println(solutions.get(j));
+					}
+				}
+				System.out.println();
+			}
+			//System.out.println(t);
+		}
+		catch (IOException | JDOMException e) {
+			e.printStackTrace();
+		}
+
+		return true;
+	}
+
 }

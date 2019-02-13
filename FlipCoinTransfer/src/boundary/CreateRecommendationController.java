@@ -187,12 +187,10 @@ public class CreateRecommendationController {
     	probability.setDisable(true);
     	Date date= Date.valueOf(LocalDate.now());
     	int com;
-//    	int prob;
     	com=Integer.parseInt(commision.getText());
-//    	prob=Integer.parseInt(probability.getText());
     	usernameCombo.setDisable(false);
     	levelCombo.setDisable(false);
-    	Recommendation rec = null;
+    	Recommendation rec = control.RecLogic.getInstance().getRecommendations().get(0);
     	rec.setProbability(control.RecLogic.getInstance().calcProbability(date));
     	rec.setRecNum(control.RecLogic.getInstance().getRecID());
     	rec.setCreationDate(date);

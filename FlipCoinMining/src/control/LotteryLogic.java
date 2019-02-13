@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Random;
 
 import entity.Block;
 import entity.Bonus;
@@ -362,7 +363,7 @@ public class LotteryLogic {
 		//System.out.println(results);
 		return results;
 	}
-	
+
 	/**
 	 * Loading lotteries by date from the DB to the system
 	 * @return lotteries by date from the DB
@@ -402,7 +403,7 @@ public class LotteryLogic {
 		//System.out.println(results);
 		return results;
 	}
-	
+
 	/**
 	 * Loading lotteries by date from the DB to the system
 	 * @return lotteries by date from the DB
@@ -490,19 +491,33 @@ public class LotteryLogic {
 	 * this method chooses who won in a lottery
 	 */
 	//TODO
-	public void generateWinnersInLottery(Participant part) {
-
+	public void generateWinnersInLottery(Lottery lottery) {
+		ArrayList<Participant> p = getLotteryParticipants(lottery);
+		ArrayList<Participant> winners = new ArrayList<>();
+		if (p.size() < lottery.getNumOfWinners())
+			winners.addAll(p);
+		else {
+			do {
+				Random randomGenerator = new Random();
+				int index = randomGenerator.nextInt(p.size());
+				if (!winners.contains(p.get(index)))
+					winners.add(p.get(index));
+			}while(winners.size() < lottery.getNumOfWinners());
+		}
+		
+		for (Participant par : winners) {
+			par.setWinner(true);
+			updateParticipant(par);
+		}
 	}
 	/**
 	 * this method performs a lottery, if its date has arrived
 	 */
-	//TODO
 	public void performLottery() {
 		ArrayList<Lottery> lotteries = getLotteriesByDate(Date.valueOf(LocalDate.now()));
 		for (Lottery lot: lotteries) {
-			for( Participant p : getp)
+			generateWinnersInLottery(lot);
 		}
-
 	}
 
 	/**

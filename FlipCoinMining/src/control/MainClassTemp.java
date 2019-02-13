@@ -92,7 +92,10 @@ public class MainClassTemp{
 	//System.out.println(RiddleLogic.getInstance().getSolvedRiddles(new Riddle(1)));
 		//btl.generateBlockForMiner(MinerLogic.getInstance().getMiners().get(0), RiddleLogic.getInstance().getRiddles().get(0));
 		// Communication.importRiddlesFromXML();
-		
+		//ll.performLottery();
+		//Lottery l = ll.getLotteries().get(ll.getLotteries().indexOf(new Lottery(4)));
+		//Miner m = ml.getMiners().get(ml.getMiners().indexOf(new Miner("J0J0J0")));
+		//ll.joinLottery(m, l);
 	}
 
 }

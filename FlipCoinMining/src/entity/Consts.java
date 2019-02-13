@@ -134,9 +134,13 @@ public final class Consts {
 	
 	public static final String SQL_GET_SOLVED_RIDDLE_BY_NUM = "{ call getSolvedRiddleByNumQry(?) }";
 	
-	public static final String SQL_GET_LOTTERIES_BY_DATE = "{ call getLotteriesByDateQry(?) }";
+	public static final String SQL_GET_LOTTERIES_BY_DATE = "SELECT *\r\n" + 
+			"FROM tblLottery\r\n" + 
+			"WHERE tblLottery.lotteryDate = (?)";
 	
-	public static final String SQL_GET_LOTTERY_PARTICIPANTS = "{ call getParticipantsInALottery(?) }";
+	public static final String SQL_GET_LOTTERY_PARTICIPANTS = "SELECT *\r\n" + 
+			"FROM keyParticipant\r\n" + 
+			"WHERE keyParticipant.lotteryNum = (?)";
 	
 	// ***************************** PATH STUFF ***************************** 
 

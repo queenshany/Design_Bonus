@@ -152,6 +152,7 @@ public class BlockTransLogic {
 		t.setAdditionDate(Date.valueOf(LocalDate.now()));
 		t.setAdditionTime(Time.valueOf(LocalTime.now()));
 		t.setStatus(E_TransStatus.Executed);
+		t.setBlockAddress(b.getBlockAddress());
 
 		try {
 			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
@@ -161,8 +162,8 @@ public class BlockTransLogic {
 				int i = 1;
 				stmt.setString(i++, b.getBlockAddress());
 				stmt.setDate(i++, t.getAdditionDate());
-				stmt.setTime(i++, t.getAdditionTime());
-				stmt.setString(i++, t.getStatus().toString());
+				stmt.setTime(i++, t.getAdditionTime())/*;
+				stmt.setString(i++, t.getStatus().toString())*/;
 				stmt.setInt(i++, t.getID());
 
 				stmt.executeUpdate();

@@ -77,7 +77,7 @@ public final class Consts {
 
 	// ***************************** UPDATE QUERIES ***************************** 
 
-	public static final String SQL_ATTACH_TRANS_TO_BLOCK = "UPDATE tblTransaction SET tblTransaction.blockAddress = [blockAddresss], tblTransaction.additionDate = (?), tblTransaction.additionTime = (?), tblTransaction = 'Executed'\r\n" + 
+	public static final String SQL_ATTACH_TRANS_TO_BLOCK = "UPDATE tblTransaction SET tblTransaction.blockAddress = (?), tblTransaction.additionDate = (?), tblTransaction.additionTime = (?), tblTransaction.status = 'Executed'\r\n" + 
 			"WHERE (((tblTransaction.ID)=(?)))";
 
 	public static final String SQL_UPD_BONUS = "{ call updateBonusQry(?, ?) }";

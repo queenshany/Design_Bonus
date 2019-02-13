@@ -11,6 +11,10 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
+
+import javax.swing.JFrame;
+
 import java.sql.Date;
 
 import entity.Block;
@@ -20,6 +24,10 @@ import entity.Riddle;
 import entity.RiddleLevel;
 import entity.SolvedRiddle;
 import entity.Transaction;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.swing.JRViewer;
 import utils.E_Status;
 import utils.E_TransStatus;
 import utils.E_Type;
@@ -429,4 +437,41 @@ public class BlockTransLogic {
 		insertBlock(b);
 	}
 
+	
+	/**
+	 * producing Trans Pair report
+	 * @param date of the report
+	 * @return the report itself
+	 */
+	//TODO
+	public JFrame produceTransPairReport(Block b) {
+		try {
+			Class.forName(Consts.JDBC_STR);
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR)){
+				HashMap<String, Object> params = new HashMap<>();
+				params.put("blockSize", b.getSize());
+				JasperPrint print = JasperFillManager.fillReport(
+						//getClass().getResourceAsStream("../boundary/TransactionStatusReport.jasper"),
+						getClass().getResourceAsStream("/boundary/TransactionPairReport.jasper"),
+						params, conn);
+
+				JFrame frame = new JFrame("Transaction Status Report");
+				frame.getContentPane().add(new JRViewer(print));
+				frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+				frame.pack();
+				return frame;
+			}
+			catch (SQLException | JRException | NullPointerException e) {
+				e.printStackTrace();
+			}
+
+		}
+		catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+	
+	
 }

@@ -193,29 +193,32 @@ public class Communication {
 //				}
 //			});
 
-			for (int i = 0; i < riddles.size(); i++) {
-				//System.err.println(riddles.get(i));
-				Riddle r = riddles.get(i);
-				int temp = r.getRiddleNum();
-				r.setRiddleNum(RiddleLogic.getInstance().getRiddleID());
-
-				System.out.println();
-
-				for (int j = 0; j < solutions.size(); j++) {
-					Solution s = solutions.get(j);
-					if (temp == s.getRiddleNum()) {
-						s.setRiddleNum(r.getRiddleNum());
-						//System.out.println(s);
-						RiddleLogic.getInstance().insertSolution(s);
-						break;
-					}
-				}
-				RiddleLogic.getInstance().insertRiddle(r);
-				System.out.println();
-			}
-
-			//for (Solution sol : solutions)
-				//RiddleLogic.getInstance().insertSolution(sol);
+//			for (int i = 0; i < riddles.size(); i++) {
+//				//System.err.println(riddles.get(i));
+//				Riddle r = riddles.get(i);
+//				int temp = r.getRiddleNum();
+//				r.setRiddleNum(RiddleLogic.getInstance().getRiddleID());
+//				
+//				System.out.println();
+//
+//				for (int j = 0; j < solutions.size(); j++) {
+//					Solution s = solutions.get(j);
+//					if (temp == s.getRiddleNum()) {
+//						System.out.println(r);
+//						s.setRiddleNum(r.getRiddleNum());
+//						//System.out.println(s);
+//						RiddleLogic.getInstance().insertSolution(s);
+//						//break;
+//					}
+//				}
+//				RiddleLogic.getInstance().insertRiddle(r);
+//				System.out.println();
+//			}
+			for (Riddle rid : riddles)
+				RiddleLogic.getInstance().insertRiddle(rid);
+			
+			for (Solution sol : solutions)
+				RiddleLogic.getInstance().insertSolution(sol);
 			//System.out.println(t);
 		}
 		catch (IOException | JDOMException e) {

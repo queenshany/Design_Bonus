@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import org.jdom2.Document;
@@ -148,22 +149,23 @@ public class Communication {
 			Element solutionElement = rootElement.getChild("Solutions");
 			List<Element> ridE = riddleElement.getChildren("Riddle");
 			List<Element> solE = solutionElement.getChildren("Solution");
-			
-			System.out.println(solE);
+
 			for (int i = 0; i < ridE.size(); i++) {
 				Element ridElement = ridE.get(i);
 
 				int id = Integer.parseInt(ridElement.getAttributeValue("RiddleNum"));
 				String desc = ridElement.getAttributeValue("Description");
 
-				riddles.add(new Riddle(id,
+				Riddle r = new Riddle(id,
 						Date.valueOf(LocalDate.now()),
 						Time.valueOf(LocalTime.now()),
 						desc,
 						null,
 						null,
 						E_Status.Unsolved,
-						1));
+						1);
+			//	System.out.println(r);
+				riddles.add(r);
 			}
 
 			for (int i = 0; i < solE.size(); i++) {
@@ -172,30 +174,48 @@ public class Communication {
 				int ridID = Integer.parseInt(solElement.getAttributeValue("RiddleNum"));
 				int solID = Integer.parseInt(solElement.getAttributeValue("SolutionNum"));
 				double result = Double.parseDouble(solElement.getAttributeValue("Result"));
-
-				solutions.add(new Solution(ridID, solID, result));
+				Solution s  = new Solution(ridID, solID, result);
+				//System.out.println(s);
+				solutions.add(s);
 			}
+
+//			solutions.sort(new Comparator<Solution>() {
+//				@Override
+//				public int compare(Solution s1, Solution s2) {
+//					return s1.getRiddleNum()-s2.getRiddleNum();
+//				}
+//			});
+//
+//			riddles.sort(new Comparator<Riddle>() {
+//				@Override
+//				public int compare(Riddle s1, Riddle s2) {
+//					return s1.getRiddleNum()-s2.getRiddleNum();
+//				}
+//			});
 
 			for (int i = 0; i < riddles.size(); i++) {
-				System.err.println(riddles.get(i));
-				
-				int temp = riddles.get(i).getRiddleNum();
-				riddles.get(i).setRiddleNum(RiddleLogic.getInstance().getRiddleID());
-				RiddleLogic.getInstance().insertRiddle(riddles.get(i));
-				
+				//System.err.println(riddles.get(i));
+				Riddle r = riddles.get(i);
+				int temp = r.getRiddleNum();
+				r.setRiddleNum(RiddleLogic.getInstance().getRiddleID());
+
 				System.out.println();
-				
+
 				for (int j = 0; j < solutions.size(); j++) {
-					if (temp == solutions.get(j).getRiddleNum()) {
-//						System.out.println(solutions.get(j));
-						solutions.get(j).setRiddleNum(riddles.get(i).getRiddleNum());
-						RiddleLogic.getInstance().insertSolution(solutions.get(j));
-				
-						System.out.println(solutions.get(j));
+					Solution s = solutions.get(j);
+					if (temp == s.getRiddleNum()) {
+						s.setRiddleNum(r.getRiddleNum());
+						//System.out.println(s);
+						RiddleLogic.getInstance().insertSolution(s);
+						break;
 					}
 				}
+				RiddleLogic.getInstance().insertRiddle(r);
 				System.out.println();
 			}
+
+			//for (Solution sol : solutions)
+				//RiddleLogic.getInstance().insertSolution(sol);
 			//System.out.println(t);
 		}
 		catch (IOException | JDOMException e) {

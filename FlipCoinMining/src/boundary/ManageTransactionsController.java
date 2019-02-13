@@ -1,143 +1,207 @@
 package boundary;
 
+import java.util.ArrayList;
+
+import entity.Block;
+import entity.Transaction;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import utils.E_Type;
 
 public class ManageTransactionsController {
 
-    @FXML
-    private BorderPane borderPane;
 
-    @FXML
-    private VBox menu;
+	@FXML
+	private BorderPane borderPane;
 
-    @FXML
-    private ImageView lotteries;
+	@FXML
+	private VBox menu;
 
-    @FXML
-    private ImageView riddles;
+	@FXML
+	private ImageView lotteries;
 
-    @FXML
-    private ImageView blocks;
+	@FXML
+	private ImageView riddles;
 
-    @FXML
-    private ImageView miners;
+	@FXML
+	private ImageView blocks;
 
-    @FXML
-    private ImageView report;
+	@FXML
+	private ImageView miners;
 
-    @FXML
-    private HBox topBorder;
+	@FXML
+	private ImageView report;
 
-    @FXML
-    private ImageView logo;
+	@FXML
+	private HBox topBorder;
 
-    @FXML
-    private ImageView mailIcon;
+	@FXML
+	private ImageView logo;
 
-    @FXML
-    private ImageView logoutIcon;
+	@FXML
+	private ImageView mailIcon;
 
-    @FXML
-    private VBox bottom;
+	@FXML
+	private ImageView logoutIcon;
 
-    @FXML
-    private ImageView line;
+	@FXML
+	private VBox bottom;
 
-    @FXML
-    private HBox hbox;
+	@FXML
+	private ImageView line;
 
-    @FXML
-    private ImageView homeIcon;
+	@FXML
+	private HBox hbox;
 
-    @FXML
-    private TableView<?> table;
+	@FXML
+	private ImageView homeIcon;
 
-    @FXML
-    private TableColumn<?, ?> id;
+	@FXML
+	private TableView<Block> table;
 
-    @FXML
-    private TableColumn<?, ?> level;
+	@FXML
+	private TableColumn<Block, String> Blockid;
 
-    @FXML
-    private Label errorMassage;
+	@FXML
+	private TableColumn<Block, Integer> blockSize;
 
-    @FXML
-    private Label availabilityLable;
+	@FXML
+	private Label errorMassage;
 
-    @FXML
-    private Label bytesLable;
+	@FXML
+	private Label availabilityLable;
 
-    @FXML
-    private Label sizeLable;
+	@FXML
+	private Label bytesLable;
 
-    @FXML
-    private TableView<?> transTable;
+	@FXML
+	private Label sizeLable;
 
-    @FXML
-    private TableColumn<?, ?> c1;
+	@FXML
+	private TableView<Transaction> transTable;
 
-    @FXML
-    private TableColumn<?, ?> c2;
-    
-    @FXML
-    private Button addButton;
+	@FXML
+	private TableColumn<Transaction, Integer> ID;
 
-    @FXML
-    private Button viewReport;
+	@FXML
+	private TableColumn<Transaction, E_Type> type;
 
-    @FXML
-    void addTransToBlock(ActionEvent event) {
+	@FXML
+	private TableColumn<Transaction, Integer> size;
 
-    }
+	@FXML
+	private TableColumn<Transaction, Double> fee;
 
-    @FXML
-    void logOut(MouseEvent event) {
+	@FXML
+	private Button addButton;
 
-    }
+	@FXML
+	private Button viewReport;
 
-    @FXML
-    void lotteriesScreen(MouseEvent event) {
+	public void initialize() {
 
-    }
+		Blockid.setCellValueFactory(new PropertyValueFactory<>("blockAddress"));
+		blockSize.setCellValueFactory(new PropertyValueFactory<>("size"));
 
-    @FXML
-    void mailsScreen(MouseEvent event) {
+		getBlocks();
+		
+		ID.setCellValueFactory(new PropertyValueFactory<>("ID"));
+		type.setCellValueFactory(new PropertyValueFactory<>("type"));
+		size.setCellValueFactory(new PropertyValueFactory<>("size"));
+		fee.setCellValueFactory(new PropertyValueFactory<>("fee"));
+		
+		ArrayList<Transaction> trans = control.BlockTransLogic.getInstance().getTransWithoutBlock();
+		ObservableList<Transaction> t= FXCollections.observableArrayList(trans);
+		transTable.setItems(t);
 
-    }
+		
 
-    @FXML
-    void manageBlocks(MouseEvent event) {
+	} 
 
-    }
+	public void getBlocks(){
 
-    @FXML
-    void minersScreen(MouseEvent event) {
+		ObservableList<Block> b= FXCollections.observableArrayList();
+		ArrayList<Block> blocks = control.BlockTransLogic.getInstance().getBlocksOfMiner(LoginController.curretMiner);
+		for(Block bb : blocks)
+		{
+			b.add(bb);
+		}
+		table.setItems(b);
+		table.refresh();
+	}
 
-    }
+	@FXML
+	void updateSizeLable(MouseEvent event) {
+		String s = String.valueOf(table.getSelectionModel().getSelectedItem().getSize());
+		sizeLable.setText(s);
+	}
 
-    @FXML
-    void pairsReport(ActionEvent event) {
+	@FXML
+	void addTransToBlock(ActionEvent event) {
 
-    }
+	}
 
-    @FXML
-    void riddlesScreen(MouseEvent event) {
 
-    }
+	@FXML
+	void pairsReport(ActionEvent event) {
 
-    @FXML
-    void watchReport(MouseEvent event) {
+	}
 
-    }
+	@FXML
+	void logOut(MouseEvent event) {
+		closeWindow();
+		ViewLogic.newLoginWindow();
+	}
 
+	@FXML
+	void lotteriesScreen(MouseEvent event) {
+		closeWindow();
+		ViewLogic.newLotteriesWindow();
+	}
+
+	@FXML
+	void mailsScreen(MouseEvent event) {
+
+	}
+
+	@FXML
+	void manageBlocks(MouseEvent event) {
+		closeWindow();
+		ViewLogic.newBlocksWindow();
+	}
+
+	@FXML
+	void minersScreen(MouseEvent event) {
+		closeWindow();
+		ViewLogic.newAllMinersWindow();
+	}
+
+	@FXML
+	void riddlesScreen(MouseEvent event) {
+		closeWindow();
+		ViewLogic.newRiddlesWindow();
+	}
+
+	@FXML
+	void watchReport(MouseEvent event) {
+
+	}
+
+
+	protected void closeWindow() {
+		((Stage) borderPane.getScene().getWindow()).close();
+	}
 }

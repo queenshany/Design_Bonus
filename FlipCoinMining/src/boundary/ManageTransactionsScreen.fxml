@@ -105,10 +105,10 @@
    <right>
       <VBox prefWidth="120.0" BorderPane.alignment="TOP_RIGHT">
          <children>
-            <TableView fx:id="table" prefHeight="228.0" prefWidth="83.0">
+            <TableView fx:id="table" onMouseClicked="#updateSizeLable" onMousePressed="#updateSizeLable" prefHeight="228.0" prefWidth="83.0">
                <columns>
-                  <TableColumn fx:id="id" prefWidth="51.0" text="Id" />
-                  <TableColumn fx:id="level" prefWidth="65.0" text="Size" />
+                  <TableColumn fx:id="Blockid" prefWidth="51.0" text="Id" />
+                  <TableColumn fx:id="blockSize" prefWidth="65.0" text="Size" />
                </columns>
             </TableView>
          </children>
@@ -129,8 +129,10 @@
                <content>
                   <TableView fx:id="transTable" prefHeight="122.0" prefWidth="276.0">
                     <columns>
-                      <TableColumn fx:id="c1" prefWidth="75.0" text="C1" />
-                      <TableColumn fx:id="c2" prefWidth="75.0" text="C2" />
+                      <TableColumn fx:id="ID" prefWidth="65.66668701171875" text="ID" />
+                      <TableColumn fx:id="type" prefWidth="68.3333740234375" text="Type" />
+                        <TableColumn fx:id="size" minWidth="8.0" prefWidth="70.0" text="Size" />
+                        <TableColumn fx:id="fee" prefWidth="70.0" text="Fee" />
                     </columns>
                   </TableView>
                </content>

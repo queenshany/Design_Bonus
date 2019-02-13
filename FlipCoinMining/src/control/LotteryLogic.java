@@ -155,7 +155,8 @@ public class LotteryLogic {
 			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
 			try {
 				Connection conn = DriverManager.getConnection(Consts.CONN_STR);
-				CallableStatement stmt = conn.prepareCall(Consts.SQL_INS_GET_BONUS);
+				CallableStatement stmt = conn.prepareCall(Consts.SQL_INS_PARTICIPANT);
+				//PreparedStatement stmt = conn.prepareStatement(Consts.SQL_INS_PARTICIPANT);
 				int i = 1;
 
 				stmt.setInt(i++, p.getLotteryNum());
@@ -286,12 +287,12 @@ public class LotteryLogic {
 				stmt.setBoolean(i++, p.isWinner());
 
 				stmt.setInt(i++, p.getLotteryNum());
-				
+
 				if (p.getUniqueAddress() == null)
 					stmt.setNull(i++, java.sql.Types.VARCHAR);
 				else
 					stmt.setString(i++, p.getUniqueAddress());
-				
+
 				stmt.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -566,8 +567,20 @@ public class LotteryLogic {
 	/**
 	 * this method allows a miner to join a lottery, if there's enough room
 	 */
-	//TODO
 	public boolean joinLottery(Miner miner, Lottery lottery) {
+		// Miner exists already
+		if (getLotteryParticipants(lottery).contains(new Participant(lottery.getLotteryNum(), miner.getUniqueAddress()))) {
+			System.out.println("Miner exists already");
+			return false;
+		}
+		// Lottery is full
+		if (getLotteryParticipants(lottery).size() >= lottery.getMaxParticipants()) {
+			System.out.println("Lottery is full");
+			return false;
+		}
+
+		insertParticipant(new Participant(lottery.getLotteryNum(), miner.getUniqueAddress()));
+
 		return true;
 	}
 }

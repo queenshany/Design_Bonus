@@ -1,5 +1,8 @@
 package boundary;
 
+import entity.Consts;
+import entity.Miner;
+import entity.MinerCompany;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -13,119 +16,171 @@ import javafx.scene.layout.VBox;
 
 public class RegistrationController {
 
-    @FXML
-    private BorderPane borderPane;
+	@FXML
+	private BorderPane borderPane;
 
-    @FXML
-    private VBox topBorder;
+	@FXML
+	private VBox topBorder;
 
-    @FXML
-    private ImageView registerTitle;
+	@FXML
+	private ImageView registerTitle;
 
-    @FXML
-    private Label clickHere;
+	@FXML
+	private Label clickHere;
 
-    @FXML
-    private VBox centerBorder;
+	@FXML
+	private VBox centerBorder;
 
-    @FXML
-    private HBox HBox1;
+	@FXML
+	private HBox HBox1;
 
-    @FXML
-    private Label username;
+	@FXML
+	private Label username;
 
-    @FXML
-    private TextField usernameText;
+	@FXML
+	private TextField usernameText;
 
-    @FXML
-    private Label usernameLable;
+	@FXML
+	private Label usernameLable;
 
-    @FXML
-    private HBox HBox2;
+	@FXML
+	private HBox HBox2;
 
-    @FXML
-    private Label password;
+	@FXML
+	private Label password;
 
-    @FXML
-    private PasswordField passwordText;
+	@FXML
+	private PasswordField passwordText;
 
-    @FXML
-    private Label passwordLable;
+	@FXML
+	private Label passwordLable;
 
-    @FXML
-    private HBox HBox3;
+	@FXML
+	private HBox HBox3;
 
-    @FXML
-    private Label verify;
+	@FXML
+	private Label verify;
 
-    @FXML
-    private PasswordField verifyText;
+	@FXML
+	private PasswordField verifyText;
 
-    @FXML
-    private Label verifyLable;
+	@FXML
+	private Label verifyLable;
 
-    @FXML
-    private HBox Hbox51;
+	@FXML
+	private HBox Hbox51;
 
-    @FXML
-    private Label email1;
+	@FXML
+	private Label email1;
 
-    @FXML
-    private TextField emailText1;
+	@FXML
+	private TextField emailText1;
 
-    @FXML
-    private Label emailLable1;
+	@FXML
+	private Label emailLable1;
 
-    @FXML
-    private HBox HBox11;
+	@FXML
+	private HBox HBox11;
 
-    @FXML
-    private Label username1;
+	@FXML
+	private Label username1;
 
-    @FXML
-    private TextField usernameText1;
+	@FXML
+	private TextField usernameText1;
 
-    @FXML
-    private Label usernameLable1;
+	@FXML
+	private Label usernameLable1;
 
-    @FXML
-    private HBox HBox4;
+	@FXML
+	private HBox HBox4;
 
-    @FXML
-    private Label phone;
+	@FXML
+	private Label phone;
 
-    @FXML
-    private ComboBox<?> combo;
+	@FXML
+	private ComboBox<?> combo;
 
-    @FXML
-    private TextField phoneText;
+	@FXML
+	private TextField phoneText;
 
-    @FXML
-    private Label phoneLable;
+	@FXML
+	private Label phoneLable;
 
-    @FXML
-    private HBox Hbox5;
+	@FXML
+	private HBox Hbox5;
 
-    @FXML
-    private Label email;
+	@FXML
+	private Label email;
 
-    @FXML
-    private TextField emailText;
+	@FXML
+	private TextField emailText;
 
-    @FXML
-    private Label emailLable;
+	@FXML
+	private Label emailLable;
 
-    @FXML
-    private Label registerLable;
+	@FXML
+	private Label registerLable;
 
-    @FXML
-    void newAccount(MouseEvent event) {
+	protected static int flag = 0;
 
-    }
+	@FXML
+	void newAccount(MouseEvent event) {
+			if (!passwordText.getText().equals(verifyText.getText())) {
+				passwordLable.setText("Please try again");
+				passwordLable.setVisible(true);
+			}
+			else {
+			Miner miner = control.MinerLogic.getInstance().getMiners().get(0);
+			miner.setMinerName(usernameText.getText());
+			miner.setDigitalProfit(0);
+			miner.setEmail(emailText.getText());
+			miner.setPassword(passwordText.getText());
+			
+			String uniqueAddress;
+			do {
+				uniqueAddress = control.SysData.getInstance().generateRandomStrings(Consts.MINER_ADDRESS_LENGTH);
+			}
+			while (control.MinerLogic.getInstance().getMiners().contains(new Miner(uniqueAddress)));
+			
+			miner.setUniqueAddress(uniqueAddress);
+			
+			if (flag==1) {
+				MinerCompany comp = (MinerCompany) control.MinerLogic.getInstance().getMiners().get(0);
+				comp.setMinerName(usernameText.getText());
+				comp.setDigitalProfit(0);
+				comp.setEmail(emailText.getText());
+				comp.setPassword(passwordText.getText());
+				
+				String ua;
+				do {
+					ua = control.SysData.getInstance().generateRandomStrings(Consts.MINER_ADDRESS_LENGTH);
+				}
+				while (control.MinerLogic.getInstance().getMiners().contains(new Miner(ua)));
+				
+				comp.setUniqueAddress(ua);
+				
+				comp.setContactEmail(emailText.getText());
+				comp.setContactFirstName(usernameText1.getText());
+				comp.setContactLastName(usernameText1.getText());
+				comp.setContactPhone(phoneText.getText());
+				
+				control.MinerLogic.getInstance().insertMinerCompany(comp);
+				}
+				if (flag==0) {
+					control.MinerLogic.getInstance().insertMiner(miner);
+			}
+		}
+	}
 
-    @FXML
-    void openCompanyField(MouseEvent event) {
-
-    }
+	@FXML
+	void openCompanyField(MouseEvent event) {
+		flag = 1;
+		usernameText1.setVisible(true);
+		phoneText.setVisible(true);
+		emailText.setVisible(true);
+		username1.setVisible(true);
+		phone.setVisible(true);
+		email.setVisible(true);
+	}
 
 }

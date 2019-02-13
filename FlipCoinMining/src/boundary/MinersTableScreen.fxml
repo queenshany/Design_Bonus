@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
@@ -98,12 +99,18 @@
       </VBox>
    </bottom>
    <center>
-      <TableView fx:id="minersTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-        <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
-        </columns>
-      </TableView>
+      <ScrollPane BorderPane.alignment="CENTER">
+         <content>
+            <TableView fx:id="minersTable" prefHeight="231.0" prefWidth="392.0">
+              <columns>
+                <TableColumn fx:id="Uniqe" prefWidth="100.0" text="Unique Address" />
+                <TableColumn fx:id="name" prefWidth="101.0" text="Miner Name" />
+                  <TableColumn fx:id="mail" prefWidth="97.33331298828125" text="Email" />
+                  <TableColumn fx:id="digprof" prefWidth="91.66668701171875" text="Digital Profit" />
+              </columns>
+            </TableView>
+         </content>
+      </ScrollPane>
    </center>
    <right>
       <VBox prefHeight="228.0" prefWidth="20.0" BorderPane.alignment="CENTER" />

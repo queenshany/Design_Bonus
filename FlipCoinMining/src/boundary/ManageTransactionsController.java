@@ -84,6 +84,12 @@ public class ManageTransactionsController {
     private TableView<?> transTable;
 
     @FXML
+    private TableColumn<?, ?> c1;
+
+    @FXML
+    private TableColumn<?, ?> c2;
+    
+    @FXML
     private Button addButton;
 
     @FXML

@@ -129,7 +129,7 @@ public class ViewLogic {
 	 */
 	protected static void newAdminWindow() {
 		Stage stage = new Stage();
-		setStage(stage);
+//		setStage(stage);
 
 
 		newWindow(ViewLogic.class.getResource("MainAdminScreen.fxml"),
@@ -148,7 +148,7 @@ public class ViewLogic {
 	 */
 	protected static void newUserWindow() {
 		Stage stage = new Stage();
-		setStage(stage);
+//		setStage(stage);
 
 
 		newWindow(ViewLogic.class.getResource("MainUserScreen.fxml"),
@@ -166,7 +166,7 @@ public class ViewLogic {
 	 */
 	protected static void newRegistrationWindow() {
 		Stage stage = new Stage();
-		setStage(stage);
+//		setStage(stage);
 
 
 		newWindow(ViewLogic.class.getResource("Registration.fxml"),
@@ -184,7 +184,7 @@ public class ViewLogic {
 	 */
 	protected static void newAddRiddlesWindow() {
 		Stage stage = new Stage();
-		setStage(stage);
+//		setStage(stage);
 
 
 		newWindow(ViewLogic.class.getResource("AddRiddlesScreen.fxml"),
@@ -202,7 +202,7 @@ public class ViewLogic {
 	 */
 	protected static void newDominantUserWindow() {
 		Stage stage = new Stage();
-		setStage(stage);
+//		setStage(stage);
 
 
 		newWindow(ViewLogic.class.getResource("DominantMinerReport.fxml"),
@@ -220,7 +220,7 @@ public class ViewLogic {
 	 */
 	protected static void newFirstSolverWindow() {
 		Stage stage = new Stage();
-		setStage(stage);
+//		setStage(stage);
 
 
 		newWindow(ViewLogic.class.getResource("FirstSolverScreen.fxml"),
@@ -239,7 +239,7 @@ public class ViewLogic {
 	 */
 	protected static void newLotteriesWindow() {
 		Stage stage = new Stage();
-		setStage(stage);
+//		setStage(stage);
 
 
 		newWindow(ViewLogic.class.getResource("LotteriesScreen.fxml"),
@@ -257,7 +257,7 @@ public class ViewLogic {
 	 */
 	protected static void newManagementWindow() {
 		Stage stage = new Stage();
-		setStage(stage);
+//		setStage(stage);
 
 
 		newWindow(ViewLogic.class.getResource("ManagementScreen.fxml"),
@@ -277,7 +277,7 @@ public class ViewLogic {
 	 */
 	protected static void newBlocksWindow() {
 		Stage stage = new Stage();
-		setStage(stage);
+//		setStage(stage);
 
 
 		newWindow(ViewLogic.class.getResource("ManageTransactionsScreen.fxml"),
@@ -296,7 +296,7 @@ public class ViewLogic {
 	 */
 	protected static void newAllMinersWindow() {
 		Stage stage = new Stage();
-		setStage(stage);
+//		setStage(stage);
 
 
 		newWindow(ViewLogic.class.getResource("MinersTableScreen.fxml"),
@@ -315,7 +315,7 @@ public class ViewLogic {
 	 */
 	protected static void newRiddlesWindow() {
 		Stage stage = new Stage();
-		setStage(stage);
+//		setStage(stage);
 
 
 		newWindow(ViewLogic.class.getResource("RiddlesScreen.fxml"),

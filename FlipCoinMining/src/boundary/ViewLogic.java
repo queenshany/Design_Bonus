@@ -275,7 +275,7 @@ public class ViewLogic {
 	/**
 	 * Open Manage Transactions Window
 	 */
-	protected static void newDetailsWindow() {
+	protected static void newBlocksWindow() {
 		Stage stage = new Stage();
 		setStage(stage);
 

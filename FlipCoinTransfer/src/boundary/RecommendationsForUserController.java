@@ -1,5 +1,6 @@
 package boundary;
 
+import entity.RecommendedFor;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableView;
@@ -14,6 +15,6 @@ public class RecommendationsForUserController {
     private AnchorPane pane;
 
     @FXML
-    private TableView<?> table;
+    private TableView<RecommendedFor> table;
 
 }

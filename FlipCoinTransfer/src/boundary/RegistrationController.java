@@ -1,5 +1,6 @@
 package boundary;
 
+import entity.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -97,8 +98,19 @@ public class RegistrationController extends AbstractController {
     
     @FXML
     void newAccount(MouseEvent event) {
+    	
+    	User user = control.UserLogic.getInstance().getUsers().get(0);
+    	user.setPublicAddress(control.SysData.getInstance().generateRandomStrings(6));
+    	user.setSignature(control.SysData.getInstance().generateRandomStrings(4));
+    	user.setUsername(usernameText.getText());
+    	user.setPassword(passwordText.getText());
+    	user.setPhone(phoneText.getText());
+    	user.setEmail(emailText.getText());
+    	if (passwordText.getText().equals(verifyText.getText())) {
+    		control.UserLogic.getInstance().insertUser(user);
     	closeWindow();
-    	ViewLogic.newUserWindow();
+    	ViewLogic.newLoginWindow();
+    	}
     }
 
 	public void initialize() {

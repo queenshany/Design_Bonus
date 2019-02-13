@@ -187,6 +187,7 @@ public class CreateRecommendationController {
 	@FXML
     void saveMethod(ActionEvent event) {
     	newButton.setVisible(true);
+    	newButton.setDisable(true);
     	saveButton.setVisible(false);
     	commision.setDisable(true);
     	probability.setDisable(true);
@@ -206,6 +207,7 @@ public class CreateRecommendationController {
     	rec.setRecommendedFee(com);
     
     	control.RecLogic.getInstance().insertRecommendation(rec);
+    	sendButton.setDisable(false);
     }
 
     @FXML
@@ -218,14 +220,13 @@ public class CreateRecommendationController {
         	alert.setContentText("Please enter user and level");
 
         	alert.showAndWait(); 
-    	
 	}
 	
 	if (usernameCombo.getValue()!=null && levelCombo.getValue()!=null) {
 		RecommendedFor rf = control.RecLogic.getInstance().getRecommendationsFor().get(0);
 		rf.setCommitmentLevel(levelCombo.getValue());
 		rf.setRecommendation(control.RecLogic.getInstance().getRecommendations()
-				.get(control.RecLogic.getInstance().getRecommendations().size()).getRecNum());
+				.get(control.RecLogic.getInstance().getRecommendations().size()-1).getRecNum());
 		rf.setUserAddress(usernameCombo.getValue().getPublicAddress());
 		rf.setUserSignature(usernameCombo.getValue().getSignature());
 	control.RecLogic.getInstance().insertRecommendedFor(rf);

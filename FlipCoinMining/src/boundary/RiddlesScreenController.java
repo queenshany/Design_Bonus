@@ -158,6 +158,11 @@ public class RiddlesScreenController {
 	@FXML
     void solutionRiddle(ActionEvent event) {
 		double sol = Double.parseDouble(solutionText.getText());
+		control.RiddleLogic.getInstance().getSolutions();
+//		control.RiddleLogic.getInstance().insertSolvedRiddle(sr);
+//		control.RiddleLogic.getInstance().isSolvedCorrectly(solutions, riddle, miner);
+//		control.RiddleLogic.getInstance().isFirstSolved(riddle, miner);
+//		control.BlockTransLogic.getInstance().generateBlockForMiner(miner, riddle);
 		
     }
 	

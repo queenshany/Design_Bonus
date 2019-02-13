@@ -1,5 +1,11 @@
 package boundary;
 
+import java.util.ArrayList;
+
+import entity.Lottery;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -8,6 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class LotteriesScreenController {
 
@@ -57,7 +64,7 @@ public class LotteriesScreenController {
     private ImageView homeIcon;
 
     @FXML
-    private ComboBox<?> lorretycombo;
+    private ComboBox<Lottery> lorretycombo;
 
     @FXML
     private ImageView enterButton;
@@ -68,44 +75,78 @@ public class LotteriesScreenController {
     @FXML
     private Label errorMassage;
 
+    
+    public void initialize() {
+    	
+		ArrayList<Lottery> l = new ArrayList<Lottery>();
+		l = control.LotteryLogic.getInstance().getLotteries();
+    	 
+ 			 lorretycombo.getItems().addAll(l);
+ 		   
+ 			ObservableList<Lottery> lot= FXCollections.observableArrayList(l);
+ 	 	    lorretycombo.setItems(lot);	
+ 	 	    
+    }
+    
     @FXML
     void addUserToLottery(MouseEvent event) {
-
+    	if (lorretycombo.getValue()!=null)
+    	if (!(control.LotteryLogic.getInstance().joinLottery(LoginController.curretMiner, lorretycombo.getValue()))){
+    		errorMassage.setVisible(true);
+    		errorMassage.setText("You can't sign to this lottery");
+    	}
+    		errorMassage.setVisible(true);
+    		errorMassage.setText("You have successfully joined");
     }
 
     @FXML
-    void logOut(MouseEvent event) {
-
+    void clean(ActionEvent event) {
+    	errorMassage.setVisible(false);
     }
+    
+	@FXML
+	void logOut(MouseEvent event) {
+		closeWindow();
+		ViewLogic.newLoginWindow();
+	}
 
-    @FXML
-    void lotteriesScreen(MouseEvent event) {
+	@FXML
+	void lotteriesScreen(MouseEvent event) {
+		closeWindow();
+		ViewLogic.newLotteriesWindow();
+	}
 
-    }
+	@FXML
+	void mailsScreen(MouseEvent event) {
 
-    @FXML
-    void mailsScreen(MouseEvent event) {
+	}
 
-    }
+	@FXML
+	void manageBlocks(MouseEvent event) {
+		closeWindow();
+		ViewLogic.newBlocksWindow();
+	}
 
-    @FXML
-    void manageBlocks(MouseEvent event) {
+	@FXML
+	void minersScreen(MouseEvent event) {
+		closeWindow();
+		ViewLogic.newAllMinersWindow();
+	}
 
-    }
+	@FXML
+	void riddlesScreen(MouseEvent event) {
+		closeWindow();
+		ViewLogic.newRiddlesWindow();
+	}
 
-    @FXML
-    void minersScreen(MouseEvent event) {
+	@FXML
+	void watchReport(MouseEvent event) {
 
-    }
+	}
 
-    @FXML
-    void riddlesScreen(MouseEvent event) {
 
-    }
-
-    @FXML
-    void watchReport(MouseEvent event) {
-
-    }
-
+	protected void closeWindow() {
+		((Stage) borderPane.getScene().getWindow()).close();
+	}
 }
+

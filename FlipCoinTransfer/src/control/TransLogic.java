@@ -10,6 +10,9 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
+
+import javax.swing.JFrame;
 
 import entity.Consts;
 import entity.Message;
@@ -19,6 +22,10 @@ import entity.Transaction;
 import entity.TransactionConfirm;
 import entity.TransactionPay;
 import entity.User;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.swing.JRViewer;
 import utils.E_Status;
 import utils.E_TransType;
 
@@ -772,4 +779,39 @@ public class TransLogic {
 			}
 		}
 	}
+	
+	/**
+	 * producing Transactions status report
+	 * @return the report itself
+	 */
+	//TODO
+	public JFrame produceTransStatusReport() {
+		try {
+			Class.forName(Consts.JDBC_STR);
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR)){
+				HashMap<String, Object> params = new HashMap<>();
+				params.put("date", Date.valueOf(LocalDate.now()));
+				JasperPrint print = JasperFillManager.fillReport(
+						//getClass().getResourceAsStream("../boundary/TransactionStatusReport.jasper"),
+						getClass().getResourceAsStream("/boundary/TransactionsReport.jasper"),
+						params, conn);
+
+				JFrame frame = new JFrame("Transaction Status Report");
+				frame.getContentPane().add(new JRViewer(print));
+				frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+				frame.pack();
+				return frame;
+			}
+			catch (SQLException | JRException | NullPointerException e) {
+				e.printStackTrace();
+			}
+
+		}
+		catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+	
 }

@@ -6,11 +6,13 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 import control.RecLogic;
+import control.Validation;
 import entity.User;
 import entity.Wallet;
 import entity.Item;
 import entity.ItemInTransaction;
 import entity.Transaction;
+import entity.TransactionConfirm;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -193,6 +195,8 @@ public class TransactionsController {
 
 	protected User user;
 
+	protected static Transaction tranConfirm;
+	
 	public void initialize() {
 
 		//Fill the User Combo Box
@@ -222,6 +226,16 @@ public class TransactionsController {
 		//Chosen Products
 		itemID.setCellValueFactory(new PropertyValueFactory<>("catalogNumber"));
 		quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+		
+		
+		//Fill Confirm Table
+		IDconfirm.setCellValueFactory(new PropertyValueFactory<>("transID"));
+		creationDateConfirm.setCellValueFactory(new PropertyValueFactory<>("creationDate"));
+		creating1confirm.setCellValueFactory(new PropertyValueFactory<>("creatingAddress"));
+		creating2confirm.setCellValueFactory(new PropertyValueFactory<>("creatingSignature"));
+		
+		//Fill the confirm transactions of the current user
+				getConfrimTransactions();
 	} 
 
 
@@ -265,6 +279,7 @@ public class TransactionsController {
 		}
 	}
 
+	
 
 	public void getPayTransactions(){
 
@@ -283,10 +298,45 @@ public class TransactionsController {
 		waitingTable.refresh();
 	}
 
+	
 
+	public void getConfrimTransactions(){
+
+		ObservableList<Transaction> t= FXCollections.observableArrayList();
+		ArrayList<Transaction> confirm = control.TransLogic.getInstance().getAllTrans();
+		for(Transaction tp : confirm)
+		{
+			if(E_TransType.Pay.equals(tp.getType()) &&
+					tp.getDestinationAddress().equalsIgnoreCase(LoginController.curretUser.getPublicAddress()) && 
+					tp.getDestinationSignature().equalsIgnoreCase(LoginController.curretUser.getSignature()))
+
+				t.add(tp);
+		}
+
+		confirmTable.setItems(t);	   
+		confirmTable.refresh();
+	}
+
+	
+    @FXML
+    void chosenConfrimTrans(MouseEvent event) {
+    	tranConfirm = confirmTable.getSelectionModel().getSelectedItem();
+    }
+	
 	@FXML
 	void NewConfirmTransaction(ActionEvent event) {
-
+		double fee = Double.parseDouble(feeText.getText());
+		if (feeText.getText()!=null && Validation.isPositiveDouble(fee)
+				&&walletsCombo.getSelectionModel() != null) {
+			TransactionConfirm tc = (TransactionConfirm) tranConfirm;
+			tc.setDestinationAddress(tc.getCreatingAddress());
+			tc.setDestinationSignature(tc.getCreatingSignature());
+			tc.setCreatingAddress(LoginController.curretUser.getPublicAddress());
+			tc.setCreatingSignature(LoginController.curretUser.getSignature());
+			tc.setWalletAddress(walletsCombo.getSelectionModel().getSelectedItem().getUniqueAddress());
+			control.TransLogic.getInstance().insertTransConfirm(tc);
+			
+		}
 	}
 
 	@FXML

@@ -346,7 +346,7 @@ public class WalletLogic {
 	 * Loading Wallets Space from the DB to the system
 	 * @return ALL of the Wallets from the DB
 	 */
-	public ArrayList<WalletBitcoinSpace> getWalletSpace() {
+	public ArrayList<WalletBitcoinSpace> getWalletsSpace() {
 		ArrayList<WalletBitcoinSpace> results = new ArrayList<WalletBitcoinSpace>();
 
 		try {
@@ -510,7 +510,7 @@ public class WalletLogic {
 	 */
 	public ArrayList<WalletBitcoinSpace> getWalletsSpaceOfUser(User user){
 		ArrayList<WalletBitcoinSpace> wallets = new ArrayList<>();
-		for (WalletBitcoinSpace w : getWalletSpace())
+		for (WalletBitcoinSpace w : getWalletsSpace())
 			if (w != null && w.getUniqueAddress().equalsIgnoreCase(user.getPublicAddress())
 			&& w.getUserSignature().equalsIgnoreCase(user.getSignature())) {
 				wallets.add(w);	

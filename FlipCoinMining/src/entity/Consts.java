@@ -108,6 +108,9 @@ public final class Consts {
 	
 	public static final String SQL_SEL_MINERS = "SELECT * FROM tblMiner";
 
+	public static final String SQL_SEL_COMPANIES = "SELECT M.uniqueAddress, M.minerName, M.password, M.email, M.digitalProfit, C.contactFirstName, C.contactLastName, C.contactPhone, C.contactEmail\r\n" + 
+			"FROM tblMiner M inner join tblMinerCompany C on M.uniqueAddress=C.uniqueAddress";
+	
 	public static final String SQL_SEL_LOTTERIES = "SELECT * FROM tblLottery";
 
 	public static final String SQL_SEL_RIDDLES = "SELECT * FROM tblRiddle";

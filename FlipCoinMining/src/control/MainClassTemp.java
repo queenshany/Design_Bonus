@@ -6,8 +6,11 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+
 import org.apache.commons.lang.RandomStringUtils;
 
+import boundary.ViewLogic;
 import entity.Block;
 import entity.Bonus;
 import entity.GetBonus;
@@ -21,6 +24,10 @@ import entity.RiddleLevel;
 import entity.Solution;
 import entity.SolvedRiddle;
 import entity.Transaction;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Modality;
 import utils.E_Level;
 import utils.E_Status;
 import utils.E_Type;
@@ -96,6 +103,30 @@ public class MainClassTemp{
 		//Lottery l = ll.getLotteries().get(ll.getLotteries().indexOf(new Lottery(4)));
 		//Miner m = ml.getMiners().get(ml.getMiners().indexOf(new Miner("J0J0J0")));
 		//ll.joinLottery(m, l);
+		//produceTransPairReport();
 	}
 
+	
+	//TODO
+		/**
+		 * producing report when button is clicked
+		 */
+		@FXML
+		private static void produceTransPairReport() {
+			//LocalDate dateToCheck = reportDate.getValue();
+			//if (dateToCheck == null) {
+			//	Alert alert = new Alert(AlertType.ERROR);
+				//alert.setTitle("Select Date");
+				//alert.setContentText("Please select date");
+			//	alert.initModality(Modality.APPLICATION_MODAL);
+			//	alert.showAndWait();
+			//}
+		//	else {
+				//Date date = Date.valueOf(dateToCheck);
+			Block b = BlockTransLogic.getInstance().getBlocks().get(0);
+				JFrame reportFrame = BlockTransLogic.getInstance().produceTransPairReport(b);
+				reportFrame.setVisible(true);
+		//	}
+		}
+	
 }

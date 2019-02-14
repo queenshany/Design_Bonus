@@ -93,7 +93,7 @@ public class MainClassTemp{
 	//System.out.println(rl.calcProbability(Date.valueOf(LocalDate.now())));
 //		Communication.importTransactionsFromXML();
 		//il.insertItem(new Item(9, "itemName", "image", "description", 6, 3, 2, "a1a1a1", "a11"));
-		
+		System.out.println(wl.getWalletsSpace());
 	//	Communication.exportTransactionsToJSON();
 	}
 

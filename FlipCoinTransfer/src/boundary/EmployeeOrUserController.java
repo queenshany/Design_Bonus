@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class EmployeeOrUserController {
 
@@ -24,13 +26,21 @@ public class EmployeeOrUserController {
     private ImageView line;
 
     @FXML
+    private AnchorPane pane;
+    
+    @FXML
     void logasEmployee(ActionEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newEmployeeWindow();
     }
 
     @FXML
     void logasUser(ActionEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newUserWindow();
     }
-
+    
+	protected void closeWindow() {
+		((Stage) pane.getScene().getWindow()).close();
+	}
 }

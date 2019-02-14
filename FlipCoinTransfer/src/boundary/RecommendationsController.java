@@ -95,7 +95,8 @@ public class RecommendationsController {
 	fee.setCellValueFactory(new PropertyValueFactory<>("recommendedFee"));
 	
 	setTable();
-	
+
+	System.out.println(LoginController.curretUser);
 	}
 	
 	public void setTable() {

@@ -324,15 +324,23 @@ public class TransactionsController {
 	@FXML
 	void viewRecommendations(ActionEvent event) {
 		//ViewLogic.newViewRecommendationWindow();
+<<<<<<< HEAD
+		if (ViewLogic.currentUser == null) {
+=======
 		System.out.println(LoginController.curretUser);
 		if (LoginController.curretUser == null) {
+>>>>>>> a85617acb6d004fea85c442949063a357d2accb0
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("User is null");
 			alert.setContentText("Please select user");
 			alert.initModality(Modality.APPLICATION_MODAL);
 			alert.showAndWait();
 		}else {
+<<<<<<< HEAD
+			JFrame reportFrame = RecLogic.getInstance().produceViewRecommendationsReport(ViewLogic.currentUser);
+=======
 			JFrame reportFrame = RecLogic.getInstance().produceViewRecommendationsReport(LoginController.curretUser);
+>>>>>>> a85617acb6d004fea85c442949063a357d2accb0
 			reportFrame.setVisible(true);
 		}
 	}

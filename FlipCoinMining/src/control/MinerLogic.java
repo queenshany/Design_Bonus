@@ -2,12 +2,17 @@ package control;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
+
+import javax.swing.JFrame;
 
 import entity.Block;
 import entity.Consts;
@@ -15,6 +20,10 @@ import entity.Message;
 import entity.Miner;
 import entity.MinerCompany;
 import entity.Transaction;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.swing.JRViewer;
 
 /**
  * This class represents the Miners & Companies & Messages Management in the system
@@ -455,5 +464,72 @@ public class MinerLogic {
 	 */
 	public MinerCompany getMinerCompanyDetails(Miner miner) {
 		return getCompanies().get(getCompanies().indexOf(miner));
+	}
+	
+	/**
+	 * producing Market Prediction Report
+	 * @return the report itself
+	 */
+	//TODO
+	public JFrame produceMarketPredictionReport() {
+		try {
+			Class.forName(Consts.JDBC_STR);
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR)){
+				HashMap<String, Object> params = new HashMap<>();
+				params.put("date", Date.valueOf(LocalDate.now()));
+				JasperPrint print = JasperFillManager.fillReport(
+						//getClass().getResourceAsStream("../boundary/TransactionStatusReport.jasper"),
+						getClass().getResourceAsStream("/boundary/MarketPredictionReport.jasper"),
+						params, conn);
+
+				JFrame frame = new JFrame("Market Prediction Report");
+				frame.getContentPane().add(new JRViewer(print));
+				frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+				frame.pack();
+				return frame;
+			}
+			catch (SQLException | JRException | NullPointerException e) {
+				e.printStackTrace();
+			}
+
+		}
+		catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+	
+	/**
+	 * producing Dominant Miner Report
+	 * @return the report itself
+	 */
+	//TODO
+	public JFrame produceDominantMinerReport(Date start, Date end) {
+		try {
+			Class.forName(Consts.JDBC_STR);
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR)){
+				HashMap<String, Object> params = new HashMap<>();
+				params.put("startDate", start);
+				params.put("endDate", end);
+				JasperPrint print = JasperFillManager.fillReport(
+						//getClass().getResourceAsStream("../boundary/TransactionStatusReport.jasper"),
+						getClass().getResourceAsStream("/boundary/DominantMinerReport.jasper"),
+						params, conn);
+
+				JFrame frame = new JFrame("Dominant Miner Report");
+				frame.getContentPane().add(new JRViewer(print));
+				frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+				frame.pack();
+				return frame;
+			}
+			catch (SQLException | JRException | NullPointerException e) {
+				e.printStackTrace();
+			}
+		}
+		catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

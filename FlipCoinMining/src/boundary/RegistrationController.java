@@ -123,12 +123,7 @@ public class RegistrationController {
 	private Label registerLable;
 
 	 public void initialize() {
-	usernameText1.setVisible(false);
-	phoneText.setVisible(false);
-	emailText.setVisible(false);
-	username1.setVisible(false);
-	phone.setVisible(false);
-	email.setVisible(false);
+
 	 }
 	 
 	protected static int flag = 0;
@@ -157,20 +152,19 @@ public class RegistrationController {
 			control.MinerLogic.getInstance().insertMiner(miner);
 			
 			if (flag==1) {
-				MinerCompany comp = (MinerCompany) control.MinerLogic.getInstance().getMiners()
-						.get(control.MinerLogic.getInstance().getMiners().size()-1);
+//				MinerCompany comp = control.MinerLogic.getInstance().get;
 //				comp.setMinerName(usernameText.getText());
 //				comp.setDigitalProfit(0);
 //				comp.setEmail(emailText.getText());
 //				comp.setPassword(passwordText.getText());
-//				
+				
 //				String ua;
 //				do {
 //					ua = control.SysData.getInstance().generateRandomStrings(Consts.MINER_ADDRESS_LENGTH);
 //				}
 //				while (control.MinerLogic.getInstance().getMiners().contains(new Miner(ua)));
-//				
-//				comp.setUniqueAddress(ua);
+				
+				comp.setUniqueAddress(miner.getUniqueAddress());
 				
 				comp.setContactEmail(emailText.getText());
 				comp.setContactFirstName(usernameText1.getText());
@@ -186,12 +180,9 @@ public class RegistrationController {
 	@FXML
 	void openCompanyField(MouseEvent event) {
 		flag = 1;
-		usernameText1.setVisible(true);
-		phoneText.setVisible(true);
-		emailText.setVisible(true);
-		username1.setVisible(true);
-		phone.setVisible(true);
-		email.setVisible(true);
+		HBox11.setVisible(true);
+		HBox4.setVisible(true);
+		Hbox5.setVisible(true);
 	}
 
 	protected void closeWindow() {

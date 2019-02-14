@@ -74,22 +74,25 @@ public class MainAdminScreenController {
 
     @FXML
     void logOut(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newLoginWindow();
     }
 
     @FXML
     void manageCategories(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newCategoriesWindow();
     }
 
     @FXML
     void manageEmployees(MouseEvent event) {
-
+    	
     }
 
     @FXML
     void manageParameters(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newParametersWindow();
     }
 
 	protected void closeWindow() {

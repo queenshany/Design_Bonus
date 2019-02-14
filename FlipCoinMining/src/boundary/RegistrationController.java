@@ -152,11 +152,11 @@ public class RegistrationController {
 			control.MinerLogic.getInstance().insertMiner(miner);
 			
 			if (flag==1) {
-//				MinerCompany comp = control.MinerLogic.getInstance().get;
-//				comp.setMinerName(usernameText.getText());
-//				comp.setDigitalProfit(0);
-//				comp.setEmail(emailText.getText());
-//				comp.setPassword(passwordText.getText());
+				MinerCompany comp = control.MinerLogic.getInstance().getCompanies().get(0);
+				comp.setMinerName(usernameText.getText());
+				comp.setDigitalProfit(0);
+				comp.setEmail(emailText.getText());
+				comp.setPassword(passwordText.getText());
 				
 //				String ua;
 //				do {

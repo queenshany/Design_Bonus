@@ -103,7 +103,7 @@ public class MainClassTemp{
 		//Lottery l = ll.getLotteries().get(ll.getLotteries().indexOf(new Lottery(4)));
 		//Miner m = ml.getMiners().get(ml.getMiners().indexOf(new Miner("J0J0J0")));
 		//ll.joinLottery(m, l);
-		produceTransPairReport();
+		//produceTransPairReport();
 	}
 
 	

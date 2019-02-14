@@ -355,6 +355,43 @@ public class MinerLogic {
 		return results;
 	}
 	
+	/**
+	 * Loading Miners from the DB to the system
+	 * @return ALL of the Miners from the DB
+	 */
+	public ArrayList<MinerCompany> getCompanies() {
+		ArrayList<MinerCompany> results = new ArrayList<MinerCompany>();
+
+		try {
+			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
+					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_SEL_COMPANIES);
+					ResultSet rs = stmt.executeQuery())
+			{
+				while (rs.next()) {
+					int i = 1;
+					results.add(new MinerCompany(rs.getString(i++),
+							rs.getString(i++),
+							rs.getString(i++),
+							rs.getString(i++),
+							rs.getDouble(i++),
+							rs.getString(i++),
+							rs.getString(i++),
+							rs.getString(i++),
+							rs.getString(i++)));
+							}
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		//System.out.println(results);
+		return results;
+	}
+	
 	// ***************************** GENERAL METHODS *****************************
 	/**
 	 * generating id for new message
@@ -400,4 +437,6 @@ public class MinerLogic {
 		return miners;
 		
 	}
-}
+	
+	//public boolean isMinwr
+	}

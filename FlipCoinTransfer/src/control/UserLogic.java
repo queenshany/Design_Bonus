@@ -44,7 +44,8 @@ public class UserLogic {
 			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
 			try {
 				Connection conn = DriverManager.getConnection(Consts.CONN_STR);
-				CallableStatement stmt = conn.prepareCall(Consts.SQL_INS_MESSAGE);
+			//	CallableStatement stmt = conn.prepareCall(Consts.SQL_INS_MESSAGE);
+				PreparedStatement stmt = conn.prepareStatement(Consts.SQL_INS_MESSAGE);
 				int i = 1;
 
 				stmt.setInt(i++, message.getID());
@@ -296,7 +297,7 @@ public class UserLogic {
 	 * @param string of message
 	 */
 	public void sendMessage (String title, String desc, User user) {
-		Message message = new Message(getMessageID(),user.getPublicAddress(),user.getSignature());
+		Message message = new Message(getMessageID(), user.getPublicAddress(), user.getSignature());
 		message.setTitle(title);
 		message.setDescription(desc);
 		message.setMessageDate(Date.valueOf(LocalDate.now()));

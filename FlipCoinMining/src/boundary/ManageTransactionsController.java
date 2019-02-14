@@ -2,12 +2,17 @@ package boundary;
 
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+
+import control.BlockTransLogic;
 import entity.Block;
 import entity.Transaction;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -18,6 +23,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import utils.E_Type;
 
@@ -170,7 +176,16 @@ public class ManageTransactionsController {
 
 	@FXML
 	void pairsReport(ActionEvent event) {
-
+		if (currentBlock == null) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Select Block");
+			alert.setContentText("Please select block");
+			alert.initModality(Modality.APPLICATION_MODAL);
+			alert.showAndWait();
+		}else {
+		JFrame reportFrame = BlockTransLogic.getInstance().produceTransPairReport(currentBlock);
+		reportFrame.setVisible(true);
+		}
 	}
 
 	@FXML

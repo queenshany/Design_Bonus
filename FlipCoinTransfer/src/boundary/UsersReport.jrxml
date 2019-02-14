@@ -3,72 +3,76 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TransactionPairReport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="70c125f5-d57e-4cbf-97f0-129ee43f4f13">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UCA"/>
-	<parameter name="userAddress" class="java.lang.String" isForPrompting="false"/>
-	<parameter name="userSignature" class="java.lang.String" isForPrompting="false"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="194"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="800"/>
+	<parameter name="date" class="java.sql.Date" isForPrompting="false"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT R.creationDate, R.recNum, R.recommendedFee, F.commitmentLevel
-FROM tblRecommendation AS R INNER JOIN keyRecommendedFor AS F ON R.recNum = F.recommendation
-WHERE F.userAddress = $P{userAddress}  AND F.userSignature = $P{userSignature} 
-ORDER BY R.creationDate DESC]]>
+		<![CDATA[SELECT tblUser.publicAddress,
+tblUser.signature,
+tblUser.username,
+COUNT(T.transID) AS transAmount,
+AVG(T.fee) AS averageFee,
+(Select count(*) From tblTransPay Where tblTransPay.status="Executed" AND tblUser.publicAddress=tblTransPay.creatingAddress AND tblUser.signature=tblTransPay.creatingSignature)+(Select count(*) From tblTransConfirm Where tblTransConfirm.status="Executed" AND tblUser.publicAddress=tblTransConfirm.creatingAddress AND tblUser.signature=tblTransConfirm.creatingSignature)*100/COUNT(T.transID) AS executedPercent
+FROM tblUser, 
+(Select  transID, creationDate, fee, status, creatingAddress, creatingSignature
+from (SELECT transID, creationDate, fee, status, creatingAddress, creatingSignature
+FROM tblTransPay
+
+UNION ALL SELECT transID, creationDate, fee, status, creatingAddress, creatingSignature
+FROM tblTransConfirm
+ORDER BY creationDate))  AS T
+WHERE T.creationDate=  $P{date}  AND tblUser.publicAddress=T.creatingAddress AND tblUser.signature=T.creatingSignature
+GROUP BY tblUser.publicAddress, tblUser.signature, T.creationDate, tblUser.username
+ORDER BY executedPercent DESC]]>
 	</queryString>
-	<field name="creationDate" class="java.sql.Timestamp">
-		<property name="com.jaspersoft.studio.field.label" value="creationDate"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tblRecommendation"/>
+	<field name="publicAddress" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="publicAddress"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tblUser"/>
 	</field>
-	<field name="recNum" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.label" value="recNum"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tblRecommendation"/>
+	<field name="signature" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="signature"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tblUser"/>
 	</field>
-	<field name="recommendedFee" class="java.lang.Double">
-		<property name="com.jaspersoft.studio.field.label" value="recommendedFee"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tblRecommendation"/>
+	<field name="username" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="username"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tblUser"/>
 	</field>
-	<field name="commitmentLevel" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="commitmentLevel"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="keyRecommendedFor"/>
+	<field name="transAmount" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="transAmount"/>
+	</field>
+	<field name="averageFee" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="averageFee"/>
+	</field>
+	<field name="EXECUTEDPERCENT" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="EXECUTEDPERCENT"/>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="94" splitType="Stretch">
+		<band height="76" splitType="Stretch">
 			<staticText>
 				<reportElement x="138" y="20" width="278" height="30" forecolor="#002B99" uuid="9f703ffd-3a5d-4b4f-9181-0657c1412ece"/>
 				<textElement textAlignment="Center">
 					<font size="18" isBold="true"/>
 				</textElement>
-				<text><![CDATA[View Recommendations Report]]></text>
+				<text><![CDATA[Users Report]]></text>
 			</staticText>
 			<textField pattern="MMMMM dd, yyyy">
 				<reportElement x="0" y="0" width="100" height="20" uuid="921c42a9-6a7a-418b-9b35-8e08a3c38679"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="50" width="90" height="18" uuid="3d4d1748-50f7-4d26-8cf0-850e5a061b3a"/>
+				<reportElement x="0" y="53" width="230" height="20" uuid="3d4d1748-50f7-4d26-8cf0-850e5a061b3a"/>
 				<textElement>
-					<font isBold="false"/>
+					<font size="8" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Address:]]></text>
+				<text><![CDATA[* If a user doesn't appear here, he didn't create any transactions.]]></text>
 			</staticText>
 			<image>
 				<reportElement x="490" y="2" width="65" height="67" uuid="ca45582a-66c0-4ed8-9485-fc4acc4e8be7"/>
 				<imageExpression><![CDATA["src/rsc/flipcoinLogo.png"]]></imageExpression>
 			</image>
-			<textField>
-				<reportElement x="51" y="50" width="80" height="18" uuid="4ef8d78c-5144-4871-a68b-e5d832416b0d"/>
-				<textFieldExpression><![CDATA[$P{userAddress}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="0" y="68" width="90" height="18" uuid="99a8dab1-0fbc-4b97-b9b4-60ef2a2a6a04"/>
-				<textElement>
-					<font isBold="false"/>
-				</textElement>
-				<text><![CDATA[Signature:]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="51" y="69" width="90" height="17" uuid="e8056a09-43fa-4a9b-9276-047839ec4612"/>
-				<textFieldExpression><![CDATA[$P{userSignature}]]></textFieldExpression>
-			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -77,72 +81,104 @@ ORDER BY R.creationDate DESC]]>
 	<columnHeader>
 		<band height="37" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="141" height="30" uuid="a5d19862-b91d-4aec-8550-b2814ad78f75">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8672ff27-56bd-4a19-ac42-d6e6e212f504"/>
+				<reportElement x="0" y="0" width="95" height="30" uuid="ba92a008-ccd6-4fdf-b92e-f5e8c8e15fe2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e36216e6-0018-437f-8ac7-bbbb0510ab7a"/>
 				</reportElement>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Creation Date]]></text>
+				<text><![CDATA[Public Address]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="141" y="0" width="138" height="30" uuid="0249cf71-4e09-4007-986b-5b783f95e022">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6931ccb5-cc85-4f12-94e6-c5800ec12c23"/>
+				<reportElement x="95" y="0" width="92" height="30" uuid="78c3cdcc-9a0e-4646-aa98-ec5991e16845">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="398111a7-9388-44d8-bbff-a73e17b24478"/>
 				</reportElement>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Recommendation Number]]></text>
+				<text><![CDATA[Signature]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="279" y="0" width="138" height="30" uuid="e374100b-a4cf-4704-b77c-0d9146f4035f">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ed1fb8bc-ab69-40db-aa07-8165a37cc9a4"/>
+				<reportElement x="187" y="0" width="92" height="30" uuid="351e23d8-1a51-4d40-9bec-fbf901bad97d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ed7e369f-8cc1-425f-a2ed-402fbd0dd295"/>
 				</reportElement>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Recommended Fee]]></text>
+				<text><![CDATA[Username]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="417" y="0" width="138" height="30" uuid="d5893bb3-619a-4a05-953c-609458cf64a5">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f0ac6702-a88b-42e6-a568-c164329dfe1a"/>
+				<reportElement x="279" y="0" width="92" height="30" uuid="ce630367-02a3-4fb8-bf36-3e0411f13846">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b7519a7e-cb0a-41ef-94b3-b87da0e2f2fe"/>
 				</reportElement>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Commitment Level]]></text>
+				<text><![CDATA[Transaction Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="371" y="0" width="92" height="30" uuid="863454a6-ca37-4106-b0e4-6e394d118a85">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2b5a3601-6500-4448-a72a-24483a99ffb7"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Average Fee]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="463" y="0" width="92" height="30" uuid="b1d57666-857f-498b-9594-435455859aa4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="47494600-565c-4961-b29b-5e9e81452983"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Executed Percent (%)]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="32" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="141" height="30" uuid="c5c9b178-0b3d-457f-ad47-e1930ff1faf9">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8672ff27-56bd-4a19-ac42-d6e6e212f504"/>
+				<reportElement x="0" y="0" width="95" height="30" uuid="eaba7241-4f5e-4fd2-9e87-6937a8d6652a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e36216e6-0018-437f-8ac7-bbbb0510ab7a"/>
 				</reportElement>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{creationDate}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{publicAddress}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="141" y="0" width="138" height="30" uuid="d74eca34-b643-4977-b067-cbc1c99718c1">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6931ccb5-cc85-4f12-94e6-c5800ec12c23"/>
+				<reportElement x="95" y="0" width="92" height="30" uuid="44e255b7-3f69-43bf-add3-2ab19c685352">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="398111a7-9388-44d8-bbff-a73e17b24478"/>
 				</reportElement>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{recNum}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{signature}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="279" y="0" width="138" height="30" uuid="111486ad-d6eb-4699-85b6-d2901c25302d">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ed1fb8bc-ab69-40db-aa07-8165a37cc9a4"/>
+				<reportElement x="187" y="0" width="92" height="30" uuid="b71f1869-9397-44eb-b338-599d08203cb9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ed7e369f-8cc1-425f-a2ed-402fbd0dd295"/>
 				</reportElement>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{recommendedFee}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{username}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="417" y="0" width="138" height="30" uuid="db6f6de1-b02b-4c96-944b-ee9b715c5400">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f0ac6702-a88b-42e6-a568-c164329dfe1a"/>
+				<reportElement x="279" y="0" width="92" height="30" uuid="2960738f-30cc-40c6-b82a-b228677a1acb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b7519a7e-cb0a-41ef-94b3-b87da0e2f2fe"/>
 				</reportElement>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{commitmentLevel}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{transAmount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="371" y="0" width="92" height="30" uuid="83bc6854-d037-4faa-bb3b-20e8c70c1284">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2b5a3601-6500-4448-a72a-24483a99ffb7"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{averageFee}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="463" y="0" width="92" height="30" uuid="dabc80e9-7e86-49d1-aa3f-80128752276f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="47494600-565c-4961-b29b-5e9e81452983"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{EXECUTEDPERCENT}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

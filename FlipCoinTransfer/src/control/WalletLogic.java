@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import entity.Consts;
+import entity.SystemParams;
 import entity.TransactionConfirm;
 import entity.TransactionPay;
 import entity.User;
@@ -542,5 +543,25 @@ public class WalletLogic {
 		}
 
 		System.out.println("UPDATE WALLET ");
+	}
+	/**
+	 * generating a new wallet for user
+	 * @param user
+	 */
+	public void generateWalletForNewUser(User user){
+		String walletAddress;
+		do {
+			walletAddress = SysData.getInstance().generateRandomStrings(Consts.WALLET_ADDRESS_LENGTH);
+			System.out.println(walletAddress);
+		}
+		while (getWallets().contains(new Wallet(walletAddress)));
+
+		Wallet wallet = new Wallet(walletAddress, 0, true, false, false, 0, 0, user.getPublicAddress(), user.getSignature());
+		insertWallet(wallet);
+		
+		// sending a message
+		String title = "You Received a New Wallet!";
+		String desc = "You received a new wallet (ID: " + wallet.getUniqueAddress() + "). You can view and edit it in Wallets Management in your profile.";
+		UserLogic.getInstance().sendMessage(title, desc, user);
 	}
 }

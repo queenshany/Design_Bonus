@@ -1,5 +1,6 @@
 package boundary;
 
+import entity.Consts;
 import entity.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -100,8 +101,8 @@ public class RegistrationController extends AbstractController {
     void newAccount(MouseEvent event) {
     	
     	User user = control.UserLogic.getInstance().getUsers().get(0);
-    	user.setPublicAddress(control.SysData.getInstance().generateRandomStrings(6));
-    	user.setSignature(control.SysData.getInstance().generateRandomStrings(4));
+    	user.setPublicAddress(control.SysData.getInstance().generateRandomStrings(Consts.USER_ADDRESS_LENGTH));
+    	user.setSignature(control.SysData.getInstance().generateRandomStrings(Consts.USER_SIGNATURE_LENGTH));
     	user.setUsername(usernameText.getText());
     	user.setPassword(passwordText.getText());
     	user.setPhone(phoneText.getText());

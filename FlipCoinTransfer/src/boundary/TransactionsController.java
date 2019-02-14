@@ -324,6 +324,10 @@ public class TransactionsController {
 	@FXML
 	void viewRecommendations(ActionEvent event) {
 		//ViewLogic.newViewRecommendationWindow();
+<<<<<<< HEAD
+		if (ViewLogic.currentUser == null) {
+=======
+>>>>>>> e634a1bf96f5229034eb559d37853ad1a629b93f
 		System.out.println(LoginController.curretUser);
 		if (LoginController.curretUser == null) {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -332,9 +336,14 @@ public class TransactionsController {
 			alert.initModality(Modality.APPLICATION_MODAL);
 			alert.showAndWait();
 		}else {
+<<<<<<< HEAD
+//			JFrame reportFrame = RecLogic.getInstance().produceViewRecommendationsReport(ViewLogic.currentUser);
+=======
+>>>>>>> e634a1bf96f5229034eb559d37853ad1a629b93f
 			JFrame reportFrame = RecLogic.getInstance().produceViewRecommendationsReport(LoginController.curretUser);
 			reportFrame.setVisible(true);
 		}
+	}
 	}
 
 	@FXML

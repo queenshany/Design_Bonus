@@ -12,12 +12,19 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
+
+import javax.swing.JFrame;
 
 import entity.Category;
 import entity.Consts;
 import entity.Message;
 import entity.User;
 import entity.WalletBitcoinSpace;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.swing.JRViewer;
 
 /**
  * This class represents the Users & Messages Management in the system
@@ -319,5 +326,39 @@ public class UserLogic {
 				messages.add(m);	
 			}
 		return messages;		
+	}
+	
+	/**
+	 * producing Users report
+	 * @return the report itself
+	 */
+	//TODO
+	public JFrame produceUsersReport() {
+		try {
+			Class.forName(Consts.JDBC_STR);
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR)){
+				HashMap<String, Object> params = new HashMap<>();
+				params.put("date", Date.valueOf(LocalDate.now()));
+				JasperPrint print = JasperFillManager.fillReport(
+						//getClass().getResourceAsStream("../boundary/TransactionStatusReport.jasper"),
+						getClass().getResourceAsStream("/boundary/UsersReport.jasper"),
+						params, conn);
+
+				JFrame frame = new JFrame("Users Report");
+				frame.getContentPane().add(new JRViewer(print));
+				frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+				frame.pack();
+				return frame;
+			}
+			catch (SQLException | JRException | NullPointerException e) {
+				e.printStackTrace();
+			}
+
+		}
+		catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 }

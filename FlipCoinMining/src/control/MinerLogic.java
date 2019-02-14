@@ -321,7 +321,7 @@ public class MinerLogic {
 		//System.out.println(results);
 		return results;
 	}
-	
+
 	/**
 	 * Loading Miners from the DB to the system
 	 * @return ALL of the Miners from the DB
@@ -354,7 +354,7 @@ public class MinerLogic {
 		//System.out.println(results);
 		return results;
 	}
-	
+
 	/**
 	 * Loading Miners from the DB to the system
 	 * @return ALL of the Miners from the DB
@@ -379,7 +379,7 @@ public class MinerLogic {
 							rs.getString(i++),
 							rs.getString(i++),
 							rs.getString(i++)));
-							}
+				}
 			}
 		}
 		catch (SQLException e) {
@@ -391,7 +391,7 @@ public class MinerLogic {
 		//System.out.println(results);
 		return results;
 	}
-	
+
 	// ***************************** GENERAL METHODS *****************************
 	/**
 	 * generating id for new message
@@ -406,12 +406,12 @@ public class MinerLogic {
 				return m1.getID()-m2.getID();
 			}
 		});
-		
+
 		if (!messages.isEmpty())
 			return messages.get(messages.size()-1).getID() + 1;
 		return 1;
 	}
-	
+
 	/**
 	 * getting messages of miner
 	 * @param miner
@@ -435,8 +435,25 @@ public class MinerLogic {
 		if (miners.contains(miner))
 			miners.remove(miner);
 		return miners;
-		
+
 	}
-	
-	//public boolean isMinwr
+	/**
+	 * checks if a miner is a company
+	 * @param miner
+	 * @return true if he is
+	 */
+	public boolean isMinerACompany(Miner miner) {
+		if (getCompanies().contains(new Miner(miner.getUniqueAddress())))
+			return true;
+		return false;
 	}
+
+	/**
+	 * getting specific miner company details
+	 * @param miner
+	 * @return miner company
+	 */
+	public MinerCompany getMinerCompanyDetails(Miner miner) {
+		return getCompanies().get(getCompanies().indexOf(miner));
+	}
+}

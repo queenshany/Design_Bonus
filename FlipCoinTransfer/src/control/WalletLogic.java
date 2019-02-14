@@ -482,7 +482,7 @@ public class WalletLogic {
 	public ArrayList<Wallet> getWalletsOfUser(User user){
 		ArrayList<Wallet> wallets = new ArrayList<>();
 		for (Wallet w : getWallets())
-			if (w != null && w.getUniqueAddress().equalsIgnoreCase(user.getPublicAddress())
+			if (w != null && w.getUserAddress().equalsIgnoreCase(user.getPublicAddress())
 			&& w.getUserSignature().equalsIgnoreCase(user.getSignature())) {
 				wallets.add(w);	
 			}
@@ -497,7 +497,7 @@ public class WalletLogic {
 	public ArrayList<WalletBitcoinKnots> getWalletsKnotsOfUser(User user){
 		ArrayList<WalletBitcoinKnots> wallets = new ArrayList<>();
 		for (WalletBitcoinKnots w : getWalletsKnots())
-			if (w != null && w.getUniqueAddress().equalsIgnoreCase(user.getPublicAddress())
+			if (w != null && w.getUserAddress().equalsIgnoreCase(user.getPublicAddress())
 			&& w.getUserSignature().equalsIgnoreCase(user.getSignature())) {
 				wallets.add(w);	
 			}
@@ -512,7 +512,7 @@ public class WalletLogic {
 	public ArrayList<WalletBitcoinSpace> getWalletsSpaceOfUser(User user){
 		ArrayList<WalletBitcoinSpace> wallets = new ArrayList<>();
 		for (WalletBitcoinSpace w : getWalletsSpace())
-			if (w != null && w.getUniqueAddress().equalsIgnoreCase(user.getPublicAddress())
+			if (w != null && w.getUserAddress().equalsIgnoreCase(user.getPublicAddress())
 			&& w.getUserSignature().equalsIgnoreCase(user.getSignature())) {
 				wallets.add(w);	
 			}

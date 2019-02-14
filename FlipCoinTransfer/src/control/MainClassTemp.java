@@ -95,7 +95,10 @@ public class MainClassTemp{
 		//il.insertItem(new Item(9, "itemName", "image", "description", 6, 3, 2, "a1a1a1", "a11"));
 	//	System.out.println(wl.getWalletsSpace());
 	//	Communication.exportTransactionsToJSON();
-		wl.generateWalletForNewUser(new User("A1A1A1", "A11"));
+		//wl.generateWalletForNewUser(new User("A1A1A1", "A11"));
+		User u =ul.getUsers().get(ul.getUsers().indexOf(new User("A1A1A1", "A11")));
+		System.out.println(u);
+		System.out.println(wl.getWalletsOfUser(u));
 	}
 
 }

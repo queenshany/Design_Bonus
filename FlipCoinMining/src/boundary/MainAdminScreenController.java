@@ -61,6 +61,7 @@ public class MainAdminScreenController {
     void generateReport(MouseEvent event) {
 
     }
+   
 
     @FXML
     void importJSON(MouseEvent event) {

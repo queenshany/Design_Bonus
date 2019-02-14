@@ -80,6 +80,12 @@ public class DominantMinerController {
     private ImageView V;
 
     @FXML
+    void generateDominant(MouseEvent event) {
+
+    }
+
+    
+    @FXML
     void exportXML(MouseEvent event) {
 
     }

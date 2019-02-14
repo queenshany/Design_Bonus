@@ -110,7 +110,10 @@ public class EditProductDetailsController extends AbstractController{
 		//Fill the edit page
 		itemName.setText(ProductsController.currentProduct.getItemName());
 		image.setText(ProductsController.currentProduct.getImage());
-		description.setText(ProductsController.currentProduct.getDescription());		
+		description.setText(ProductsController.currentProduct.getDescription());
+		
+		Category c = control.ItemLogic.getInstance().getCategories().get(ProductsController.currentProduct.getCategory()-1);
+		categoryCombo.setValue(c);
 //		categoryCombo.setPromptText(
 //				control.ItemLogic.getInstance().getCategories().get(ProductsController
 //						.currentProduct.getCategory()).getCategoryName());

@@ -191,10 +191,12 @@ public class UserWalletController {
 
 	@FXML
 	private Label pleaseChoose;
+	
+	protected static Wallet currentWallet;
 
 	public void initialize() {
 
-		id1.setCellValueFactory(new PropertyValueFactory<>("walletUnique"));
+		id1.setCellValueFactory(new PropertyValueFactory<>("uniqueAddress"));
 		transSize.setCellValueFactory(new PropertyValueFactory<>("transSize"));
 		amount1.setCellValueFactory(new PropertyValueFactory<>("amount"));
 		pending1.setCellValueFactory(new PropertyValueFactory<>("pendingAmount"));
@@ -202,7 +204,7 @@ public class UserWalletController {
 		phone1.setCellValueFactory(new PropertyValueFactory<>("isOnPhone"));
 		tablet1.setCellValueFactory(new PropertyValueFactory<>("isOnTablet"));
 
-		getSpace();
+		getSpace(); 
 
 		id.setCellValueFactory(new PropertyValueFactory<>("uniqueAddress"));
 		amount.setCellValueFactory(new PropertyValueFactory<>("amount"));
@@ -231,9 +233,16 @@ public class UserWalletController {
 
 	@FXML
 	void chargeMoney(ActionEvent event) {
-
+		if (currentWallet!=null)
+		ViewLogic.newChargerWindow();
 	}
 
+	   @FXML
+	    void chosenWallet(MouseEvent event) {
+		   System.out.println("jjjjjj");
+		   currentWallet = walletTable.getSelectionModel().getSelectedItem();
+	    }
+	
 	@FXML
 	void editKnots(ActionEvent event) {
 

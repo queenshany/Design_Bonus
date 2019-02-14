@@ -139,7 +139,7 @@
             <content>
               <AnchorPane fx:id="walletPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="180.0">
                      <children>
-                        <TableView fx:id="walletTable" prefHeight="142.0" prefWidth="389.0">
+                        <TableView fx:id="walletTable" onMouseClicked="#chosenWallet" prefHeight="142.0" prefWidth="389.0">
                           <columns>
                             <TableColumn fx:id="id" prefWidth="58.3333740234375" text="ID" />
                             <TableColumn fx:id="amount" prefWidth="68.66668701171875" text="Amount" />

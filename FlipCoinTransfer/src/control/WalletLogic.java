@@ -390,7 +390,7 @@ public class WalletLogic {
 	 * @param wallet
 	 * @return the amount left
 	 */
-	private void calcPendingAmount(Wallet wallet) {
+	public void calcPendingAmount(Wallet wallet) {
 
 		Double pending = new Double(wallet.getAmount());
 		User user = new User(wallet.getUserAddress(), wallet.getUserSignature());
@@ -436,7 +436,7 @@ public class WalletLogic {
 	 * @param wallet
 	 * @return the amount in wallet
 	 */
-	private void calcAmount(Wallet wallet) {
+	public void calcAmount(Wallet wallet) {
 
 		Double amt = new Double(wallet.getAmount());
 		User user = new User(wallet.getUserAddress(), wallet.getUserSignature());

@@ -269,6 +269,23 @@ public class ViewLogic {
 				"Transactions",
 				false);
 	}
+	
+	// ------------------------------ Charger ------------------------------
+	/**
+	 * Open Charge Window
+	 */
+	protected static void newChargerWindow() {
+		Stage stage = new Stage();
+		setStage(stage);
+
+
+		newWindow(ViewLogic.class.getResource("ChargerScreen.fxml"),
+				stage,
+				null, null,	null, null,	null, null,
+				false,
+				"Charge Money",
+				false);
+	}
 
 
 	// ------------------------------ Categories ------------------------------

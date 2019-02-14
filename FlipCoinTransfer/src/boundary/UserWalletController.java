@@ -1,12 +1,5 @@
 package boundary;
 
-import java.util.ArrayList;
-
-import entity.Item;
-import entity.Wallet;
-import entity.WalletBitcoinKnots;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -16,7 +9,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -25,7 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class UserWalletController extends AbstractController{
+public class UserWalletController {
 
     @FXML
     private BorderPane borderPane;
@@ -88,19 +80,94 @@ public class UserWalletController extends AbstractController{
     private AnchorPane walletPane;
 
     @FXML
-    private TableView<Wallet> walletTable;
+    private TableView<?> walletTable;
 
     @FXML
-    private TableColumn<Wallet, String> id;
+    private TableColumn<?, ?> id;
 
     @FXML
-    private TableColumn<Wallet, Double> amount;
+    private TableColumn<?, ?> amount;
 
     @FXML
-    private TableColumn<Wallet, Double> discount;
+    private TableColumn<?, ?> pending;
 
     @FXML
-    private Button expandButton;
+    private TableColumn<?, ?> pc;
+
+    @FXML
+    private TableColumn<?, ?> phone;
+
+    @FXML
+    private TableColumn<?, ?> tablet;
+
+    @FXML
+    private Button chargeButton;
+
+    @FXML
+    private Tab bitcoinSpace;
+
+    @FXML
+    private AnchorPane walletPane1;
+
+    @FXML
+    private TableView<?> walletTable1;
+
+    @FXML
+    private TableColumn<?, ?> id1;
+
+    @FXML
+    private TableColumn<?, ?> transSize;
+
+    @FXML
+    private TableColumn<?, ?> amount1;
+
+    @FXML
+    private TableColumn<?, ?> pending1;
+
+    @FXML
+    private TableColumn<?, ?> pc1;
+
+    @FXML
+    private TableColumn<?, ?> phone1;
+
+    @FXML
+    private TableColumn<?, ?> tablet1;
+
+    @FXML
+    private Button editSpaceButton;
+
+    @FXML
+    private Tab BitcoinKnots;
+
+    @FXML
+    private AnchorPane walletPane11;
+
+    @FXML
+    private TableView<?> walletTable11;
+
+    @FXML
+    private TableColumn<?, ?> id11;
+
+    @FXML
+    private TableColumn<?, ?> discount;
+
+    @FXML
+    private TableColumn<?, ?> amount11;
+
+    @FXML
+    private TableColumn<?, ?> pending11;
+
+    @FXML
+    private TableColumn<?, ?> pc11;
+
+    @FXML
+    private TableColumn<?, ?> phone11;
+
+    @FXML
+    private TableColumn<?, ?> tablet11;
+
+    @FXML
+    private Button editKnotsButton;
 
     @FXML
     private Tab newWallet;
@@ -117,6 +184,20 @@ public class UserWalletController extends AbstractController{
     @FXML
     private Label pleaseChoose;
 
+    @FXML
+    void chargeMoney(ActionEvent event) {
+
+    }
+
+    @FXML
+    void editKnots(ActionEvent event) {
+
+    }
+
+    @FXML
+    void editSpace(ActionEvent event) {
+
+    }
 
 	public void initialize() {
 

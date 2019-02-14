@@ -160,10 +160,10 @@ public class RiddleLogic {
 				stmt.setInt(i++, s.getRiddleNum());
 				stmt.setInt(i++, s.getSolutionNum());
 
-//				if (s.getResult() < 0)
-//					stmt.setNull(i++, java.sql.Types.DOUBLE);
-//				else
-					stmt.setDouble(i++, s.getResult());
+				//				if (s.getResult() < 0)
+				//					stmt.setNull(i++, java.sql.Types.DOUBLE);
+				//				else
+				stmt.setDouble(i++, s.getResult());
 
 				stmt.executeUpdate();
 
@@ -489,37 +489,33 @@ public class RiddleLogic {
 	 * checking if a miner solved a riddle correctly. if he solved first, we'll generate a block
 	 * @return true if he did
 	 */
-	public boolean isSolvedCorrectly(ArrayList<Solution> solutions, Riddle riddle, Miner miner) {
+	public boolean isSolvedCorrectly(Double solution, Riddle riddle, Miner miner) {
 
-		ArrayList<Solution> tempSols = new ArrayList<>();
 		for (Solution sol: getSolutions()) {
 			if (sol.getRiddleNum() == riddle.getRiddleNum()) {
-				if (solutions.contains(sol))	
-					tempSols.add(sol);
+				if (sol.getResult() == solution) {	
+
+					SolvedRiddle solved = new SolvedRiddle(miner.getUniqueAddress(),
+							riddle.getRiddleNum(),
+							Date.valueOf(LocalDate.now()),
+							Time.valueOf(LocalTime.now()));
+					// add to solved riddle table anyway
+					insertSolvedRiddle(solved);
+
+					// check if solved first
+
+					// if solved first, update riddle status to solved and generate a block
+					if (isFirstSolved(riddle, miner)) 
+						BlockTransLogic.getInstance().generateBlockForMiner(miner, riddle);
+
+					riddle.setStatus(E_Status.Solved);
+					updateRiddle(riddle);
+
+					return true;
+				}
 			}
 		}
-
-		// check if solution is correct
-		if (tempSols.size() != solutions.size())
-			return false;
-
-		SolvedRiddle solved = new SolvedRiddle(miner.getUniqueAddress(),
-				riddle.getRiddleNum(),
-				Date.valueOf(LocalDate.now()),
-				Time.valueOf(LocalTime.now()));
-		// add to solved riddle table anyway
-		insertSolvedRiddle(solved);
-
-		// check if solved first
-
-		// if solved first, update riddle status to solved and generate a block
-		if (isFirstSolved(riddle, miner)) 
-			BlockTransLogic.getInstance().generateBlockForMiner(miner, riddle);
-
-		riddle.setStatus(E_Status.Solved);
-		updateRiddle(riddle);
-
-		return true;
+		return false;
 	}
 	/**
 	 * updating riddle status to irrelevant

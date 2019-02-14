@@ -422,6 +422,23 @@ public class ViewLogic {
 	}
 
 
+	// ------------------------------ Employee Or User  ------------------------------
+		/**
+		 * Open Window
+		 */
+		protected static void newEmployeeOrUserWindow() {
+			Stage stage = new Stage();
+			setStage(stage);
+
+
+			newWindow(ViewLogic.class.getResource("EmployeeOrUserScreen.fxml"),
+					stage,
+					null, null,	null, null,	null, null,
+					false,
+					"",
+					false);
+		}
+
 
 	// ------------------------------ Products ------------------------------
 	/**

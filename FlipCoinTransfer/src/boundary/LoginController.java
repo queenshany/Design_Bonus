@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -61,6 +62,9 @@ public class LoginController extends AbstractController{
 
     @FXML
     private Text errorMassege;
+    
+    @FXML
+    private Label error;
 
     @FXML
     void createNewAcount(MouseEvent event) {
@@ -70,27 +74,35 @@ public class LoginController extends AbstractController{
 
     @FXML
     void login(ActionEvent event) {
+    	error.setVisible(false);
+    	
     	if(username.getText().equals("Admin") && password.getText().equals("Admin")){
     		closeWindow();
     		ViewLogic.newAdminWindow();
     }
+    	else {
     	 ArrayList<User> user = control.UserLogic.getInstance().getUsers();
   	   for(User us : user)
   	   {
   		   if(us.getUsername().equalsIgnoreCase(username.getText()) &&
-  				 us.getPassword().equalsIgnoreCase(password.getText())) {
+  				 us.getPassword().equalsIgnoreCase(password.getText()) 
+  				 &&!us.getIsEmployee()) {
   			   curretUser = us;
   				closeWindow();
   	    		ViewLogic.newUserWindow();		   
   	   }
-  
-    }
-      	if(username.getText().equals("Employee") && password.getText().equals("Employee")){
-      		closeWindow();
-    		ViewLogic.newEmployeeWindow();
+  		 if(us.getUsername().equalsIgnoreCase(username.getText()) &&
+  				 us.getPassword().equalsIgnoreCase(password.getText()) 
+  				 &&us.getIsEmployee()) {
+  			 ViewLogic.newEmployeeOrUserWindow();
+  			 closeWindow();
+  		 }
+ 
+  		   }
+    	}
+			   error.setVisible(true);
     }
 
-    }
 
 
 	public void initialize() {

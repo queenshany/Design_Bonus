@@ -3,72 +3,67 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TransactionPairReport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="70c125f5-d57e-4cbf-97f0-129ee43f4f13">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UCA"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="190"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="805"/>
 	<parameter name="userAddress" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="userSignature" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="date" class="java.sql.Date" isForPrompting="false"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT R.creationDate, R.recNum, R.recommendedFee, F.commitmentLevel
-FROM tblRecommendation AS R INNER JOIN keyRecommendedFor AS F ON R.recNum = F.recommendation
-WHERE F.userAddress = $P{userAddress}  AND F.userSignature = $P{userSignature} 
-ORDER BY R.creationDate DESC]]>
+		<![CDATA[SELECT creationDate, status, SUM(C) AS transAmount, SUM(C) * 100/ NULLIF((Select COUNT(*) FROM tblTransPay TP WHERE TP.creationDate =  $P{date} )+(Select COUNT(*) FROM tblTransConfirm TC WHERE TC.creationDate =  $P{date} ),0) AS transPercent, Min(transMin) AS trMin, MAX(TransMax) AS trMax
+FROM (SELECT creationDate, status, COUNT(*) as C, (Select COUNT(*) FROM tblTransConfirm  WHERE TC.creationDate =  $P{date} ) as P, MIN(fee) as transMin, MAX(fee) as TransMax
+FROM tblTransConfirm TC 
+group by  creationDate, status
+
+UNION ALL
+
+SELECT creationDate, status, COUNT(*) as C, (Select COUNT(*) FROM tblTransPay  WHERE TP.creationDate =  $P{date} ) as P, MIN(fee) as transMin, MAX(fee) as TransMax
+From tblTransPay TP
+group by creationDate, status)
+GROUP BY creationDate, status
+HAVING creationDate= $P{date} 
+ORDER BY creationDate
+]]>
 	</queryString>
-	<field name="creationDate" class="java.sql.Timestamp">
-		<property name="com.jaspersoft.studio.field.label" value="creationDate"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tblRecommendation"/>
+	<field name="CREATIONDATE" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="CREATIONDATE"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="SYSTEM_SUBQUERY"/>
 	</field>
-	<field name="recNum" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.label" value="recNum"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tblRecommendation"/>
+	<field name="status" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="status"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="SYSTEM_SUBQUERY"/>
 	</field>
-	<field name="recommendedFee" class="java.lang.Double">
-		<property name="com.jaspersoft.studio.field.label" value="recommendedFee"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tblRecommendation"/>
+	<field name="transAmount" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="transAmount"/>
 	</field>
-	<field name="commitmentLevel" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="commitmentLevel"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="keyRecommendedFor"/>
+	<field name="TRANSPERCENT" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="TRANSPERCENT"/>
+	</field>
+	<field name="TRMIN" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="TRMIN"/>
+	</field>
+	<field name="TRMAX" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="TRMAX"/>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="94" splitType="Stretch">
+		<band height="72" splitType="Stretch">
 			<staticText>
 				<reportElement x="138" y="20" width="278" height="30" forecolor="#002B99" uuid="9f703ffd-3a5d-4b4f-9181-0657c1412ece"/>
 				<textElement textAlignment="Center">
 					<font size="18" isBold="true"/>
 				</textElement>
-				<text><![CDATA[View Recommendations Report]]></text>
+				<text><![CDATA[Transaction Status Report]]></text>
 			</staticText>
 			<textField pattern="MMMMM dd, yyyy">
 				<reportElement x="0" y="0" width="100" height="20" uuid="921c42a9-6a7a-418b-9b35-8e08a3c38679"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="0" y="50" width="90" height="18" uuid="3d4d1748-50f7-4d26-8cf0-850e5a061b3a"/>
-				<textElement>
-					<font isBold="false"/>
-				</textElement>
-				<text><![CDATA[Address:]]></text>
-			</staticText>
 			<image>
 				<reportElement x="490" y="2" width="65" height="67" uuid="ca45582a-66c0-4ed8-9485-fc4acc4e8be7"/>
 				<imageExpression><![CDATA["src/rsc/flipcoinLogo.png"]]></imageExpression>
 			</image>
-			<textField>
-				<reportElement x="51" y="50" width="80" height="18" uuid="4ef8d78c-5144-4871-a68b-e5d832416b0d"/>
-				<textFieldExpression><![CDATA[$P{userAddress}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="0" y="68" width="90" height="18" uuid="99a8dab1-0fbc-4b97-b9b4-60ef2a2a6a04"/>
-				<textElement>
-					<font isBold="false"/>
-				</textElement>
-				<text><![CDATA[Signature:]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="51" y="69" width="90" height="17" uuid="e8056a09-43fa-4a9b-9276-047839ec4612"/>
-				<textFieldExpression><![CDATA[$P{userSignature}]]></textFieldExpression>
-			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -77,72 +72,88 @@ ORDER BY R.creationDate DESC]]>
 	<columnHeader>
 		<band height="37" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="141" height="30" uuid="a5d19862-b91d-4aec-8550-b2814ad78f75">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8672ff27-56bd-4a19-ac42-d6e6e212f504"/>
+				<reportElement x="0" y="0" width="111" height="30" uuid="6f642c04-3cf6-4595-825b-67ac7f7ca3d0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5bec731f-f0dd-43cd-a5aa-60a3c15ed22c"/>
 				</reportElement>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Creation Date]]></text>
+				<text><![CDATA[Status]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="141" y="0" width="138" height="30" uuid="0249cf71-4e09-4007-986b-5b783f95e022">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6931ccb5-cc85-4f12-94e6-c5800ec12c23"/>
+				<reportElement x="111" y="0" width="111" height="30" uuid="038938c5-49a6-45c9-8e4c-fcd8ec0abd5f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d5a9f2c8-2f0c-4b8e-941b-f069e4a0a409"/>
 				</reportElement>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Recommendation Number]]></text>
+				<text><![CDATA[Transactions Amount]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="279" y="0" width="138" height="30" uuid="e374100b-a4cf-4704-b77c-0d9146f4035f">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ed1fb8bc-ab69-40db-aa07-8165a37cc9a4"/>
+				<reportElement x="222" y="0" width="111" height="30" uuid="4e990526-84ed-41dd-be75-26e9e2ab758e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8a2e561c-523c-47ea-9080-22b18bf0d691"/>
 				</reportElement>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Recommended Fee]]></text>
+				<text><![CDATA[Percent (%)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="417" y="0" width="138" height="30" uuid="d5893bb3-619a-4a05-953c-609458cf64a5">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f0ac6702-a88b-42e6-a568-c164329dfe1a"/>
+				<reportElement x="333" y="0" width="111" height="30" uuid="a234f735-77a9-490c-9479-9d0c1e9ee38b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="25f06eb0-8662-4f21-a210-3a614e110229"/>
 				</reportElement>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Commitment Level]]></text>
+				<text><![CDATA[Minimum Fee]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="444" y="0" width="111" height="30" uuid="5a9f3021-8528-4a76-bb22-de9f9f39e0d4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="73b4de29-6298-40c4-853d-96be69d3e163"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Maximum Fee]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="32" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="141" height="30" uuid="c5c9b178-0b3d-457f-ad47-e1930ff1faf9">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8672ff27-56bd-4a19-ac42-d6e6e212f504"/>
+				<reportElement x="0" y="0" width="111" height="30" uuid="74070d60-3e1a-4dfe-998f-c74128ab47d3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5bec731f-f0dd-43cd-a5aa-60a3c15ed22c"/>
 				</reportElement>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{creationDate}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="141" y="0" width="138" height="30" uuid="d74eca34-b643-4977-b067-cbc1c99718c1">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6931ccb5-cc85-4f12-94e6-c5800ec12c23"/>
+				<reportElement x="111" y="0" width="111" height="30" uuid="5a01e6f4-fcac-4ee1-b6a9-bde400a9567f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d5a9f2c8-2f0c-4b8e-941b-f069e4a0a409"/>
 				</reportElement>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{recNum}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{transAmount}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="279" y="0" width="138" height="30" uuid="111486ad-d6eb-4699-85b6-d2901c25302d">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ed1fb8bc-ab69-40db-aa07-8165a37cc9a4"/>
+				<reportElement x="222" y="0" width="111" height="30" uuid="14022487-1da8-4407-8dde-4e9289271072">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8a2e561c-523c-47ea-9080-22b18bf0d691"/>
 				</reportElement>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{recommendedFee}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{TRANSPERCENT}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="417" y="0" width="138" height="30" uuid="db6f6de1-b02b-4c96-944b-ee9b715c5400">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f0ac6702-a88b-42e6-a568-c164329dfe1a"/>
+				<reportElement x="333" y="0" width="111" height="30" uuid="408143b8-28b5-49c7-a278-5ccff258ae7e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="25f06eb0-8662-4f21-a210-3a614e110229"/>
 				</reportElement>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{commitmentLevel}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{TRMIN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="444" y="0" width="111" height="30" uuid="1a6b5c91-e8a5-4537-9440-fda1d716595d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="73b4de29-6298-40c4-853d-96be69d3e163"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{TRMAX}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

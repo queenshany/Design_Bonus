@@ -10,6 +10,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
+import java.util.HashMap;
+
+import javax.swing.JFrame;
 
 import entity.Category;
 import entity.Consts;
@@ -18,6 +21,10 @@ import entity.Message;
 import entity.Recommendation;
 import entity.RecommendedFor;
 import entity.User;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.swing.JRViewer;
 import utils.E_Level;
 
 /**
@@ -360,5 +367,41 @@ public class RecLogic {
 		if (!recs.isEmpty())
 			return recs.get(recs.size()-1).getRecNum() + 1;
 		return 1;
+	}
+	
+	/**
+	 * producing View Recommendations report
+	 * @param user
+	 * @return the report itself
+	 */
+	//TODO
+	public JFrame produceViewRecommendationsReport(User u) {
+		try {
+			Class.forName(Consts.JDBC_STR);
+			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR)){
+				HashMap<String, Object> params = new HashMap<>();
+				params.put("userAddress", u.getPublicAddress());
+				params.put("userSignature", u.getSignature());
+				JasperPrint print = JasperFillManager.fillReport(
+						//getClass().getResourceAsStream("../boundary/TransactionStatusReport.jasper"),
+						getClass().getResourceAsStream("/boundary/ViewRecommendations.jasper"),
+						params, conn);
+
+				JFrame frame = new JFrame("View Recommendations Report");
+				frame.getContentPane().add(new JRViewer(print));
+				frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+				frame.pack();
+				return frame;
+			}
+			catch (SQLException | JRException | NullPointerException e) {
+				e.printStackTrace();
+			}
+
+		}
+		catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 }

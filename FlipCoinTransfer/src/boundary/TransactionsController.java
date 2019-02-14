@@ -3,6 +3,9 @@ package boundary;
 import java.sql.Date;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+
+import control.RecLogic;
 import entity.User;
 import entity.Wallet;
 import entity.Item;
@@ -12,6 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -21,6 +25,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -28,6 +33,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import utils.E_TransType;
 
@@ -105,13 +111,13 @@ public class TransactionsController {
 	@FXML
 	private Button addButton;
 
-    private TableView<Item> table;
+	private TableView<Item> table;
 
-    @FXML
-    private TableColumn<Item, Integer> itemID;
+	@FXML
+	private TableColumn<Item, Integer> itemID;
 
-    @FXML
-    private TableColumn<Item, Integer> quantity;
+	@FXML
+	private TableColumn<Item, Integer> quantity;
 
 	@FXML
 	private Label lable;
@@ -172,17 +178,17 @@ public class TransactionsController {
 
 
 	public void initialize() {
-		
+
 		//Fill the User Combo Box
 		ArrayList<User> users = new ArrayList<User>();
 		users= control.UserLogic.getInstance().getUsers();
-    	 
- 			 usersCombo.getItems().addAll(users);
- 		   
- 			ObservableList<User> us= FXCollections.observableArrayList(users);
- 	 	    usersCombo.setItems(us);	
- 	 	    
- 	 	    //Fill the pay transaction table
+
+		usersCombo.getItems().addAll(users);
+
+		ObservableList<User> us= FXCollections.observableArrayList(users);
+		usersCombo.setItems(us);	
+
+		//Fill the pay transaction table
 		creationDate.setCellValueFactory(new PropertyValueFactory<>("creationDate"));
 		executionDate.setCellValueFactory(new PropertyValueFactory<>("executionDate"));
 		status.setCellValueFactory(new PropertyValueFactory<>("status"));
@@ -191,60 +197,59 @@ public class TransactionsController {
 
 		//Fill the Pay transactions of the current user
 		getPayTransactions();
-		
+
 		//Fill the wallets comboBox of the current user
 		ObservableList<Wallet> w=getWallets();
-	 	    walletCombo.setItems(w);
-	 	    walletsCombo.setItems(w);
-	 	    
+		walletCombo.setItems(w);
+		walletsCombo.setItems(w);
 	} 
-	
+
 
 	//Fill the wallet comboBox
-	 @FXML
-	   public ObservableList<Wallet> getWallets() {
-		 	ArrayList<Wallet> wallets = new ArrayList<Wallet>();
-			wallets= control.WalletLogic.getInstance().getWallets();
-			ObservableList<Wallet> w = FXCollections.observableArrayList();
-		  
-		   for(Wallet wt : wallets)
-		   {
-			   if(wt.getUserAddress().equalsIgnoreCase(LoginController.curretUser.getPublicAddress())
-					   && wt.getUserSignature().equalsIgnoreCase
-					   (LoginController.curretUser.getSignature()))
-			   w.add(wt);
-		   }			
-		   return w;
-//	 	    walletsCombo.setItems(w);
-		   }
-	 
-	
-	
-	//Fill the product combo according to the chosen user
-	
-	 @FXML
-	    void productsOfUser(ActionEvent event) {
+	@FXML
+	public ObservableList<Wallet> getWallets() {
+		ArrayList<Wallet> wallets = new ArrayList<Wallet>();
+		wallets= control.WalletLogic.getInstance().getWallets();
+		ObservableList<Wallet> w = FXCollections.observableArrayList();
 
-		   ObservableList<Item> I= FXCollections.observableArrayList();
-		   ArrayList<Item> Items = control.ItemLogic.getInstance().getItems();
-		   if (usersCombo.getSelectionModel()!=null) {
-		   for(Item itms : Items)
-		   {
-			   if(itms.getSellerAddress().equalsIgnoreCase(usersCombo.getSelectionModel().getSelectedItem().getPublicAddress())
-					   && itms.getSellerSignature().equalsIgnoreCase
-					   (usersCombo.getSelectionModel().getSelectedItem().getSignature()))
-			   I.add(itms);
-		   }			
-		   
-	 	    productsCombo.setItems(I);
-		   }
-		   
-		   
-		   itemID.setCellValueFactory(new PropertyValueFactory<>("catalogNumber"));
-			quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-	 }
-	 
-	    
+		for(Wallet wt : wallets)
+		{
+			if(wt.getUserAddress().equalsIgnoreCase(LoginController.curretUser.getPublicAddress())
+					&& wt.getUserSignature().equalsIgnoreCase
+					(LoginController.curretUser.getSignature()))
+				w.add(wt);
+		}			
+		return w;
+		//	 	    walletsCombo.setItems(w);
+	}
+
+
+
+	//Fill the product combo according to the chosen user
+
+	@FXML
+	void productsOfUser(ActionEvent event) {
+
+		ObservableList<Item> I= FXCollections.observableArrayList();
+		ArrayList<Item> Items = control.ItemLogic.getInstance().getItems();
+		if (usersCombo.getSelectionModel()!=null) {
+			for(Item itms : Items)
+			{
+				if(itms.getSellerAddress().equalsIgnoreCase(usersCombo.getSelectionModel().getSelectedItem().getPublicAddress())
+						&& itms.getSellerSignature().equalsIgnoreCase
+						(usersCombo.getSelectionModel().getSelectedItem().getSignature()))
+					I.add(itms);
+			}			
+
+			productsCombo.setItems(I);
+		}
+
+
+		itemID.setCellValueFactory(new PropertyValueFactory<>("catalogNumber"));
+		quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+	}
+
+
 	public void getPayTransactions(){
 
 		ObservableList<Transaction> t= FXCollections.observableArrayList();
@@ -278,19 +283,19 @@ public class TransactionsController {
 		int itemID = productsCombo.getSelectionModel().getSelectedItem().getCatalogNumber();
 		if (quantity.getText()!=null && productsCombo.getSelectionModel()!=null) {
 			try {
-		String convert = (quantity.getText());
-    	Integer x = Integer.parseInt(convert);
-    	Item items = new Item(itemID);
-    	items.setQuantity(x);
-    	ObservableList<Item> item= FXCollections.observableArrayList();
-    	item.add(items);
-    	table.setItems(item);
-		}
+				String convert = (quantity.getText());
+				Integer x = Integer.parseInt(convert);
+				Item items = new Item(itemID);
+				items.setQuantity(x);
+				ObservableList<Item> item= FXCollections.observableArrayList();
+				item.add(items);
+				table.setItems(item);
+			}
 			catch (NumberFormatException e){
 				lable.setText("Invalid Value");
 			}
-	}
-    	
+		}
+
 	}
 
 
@@ -317,7 +322,17 @@ public class TransactionsController {
 
 	@FXML
 	void viewRecommendations(ActionEvent event) {
-		ViewLogic.newViewRecommendationWindow();
+		//ViewLogic.newViewRecommendationWindow();
+		if (ViewLogic.currentUser == null) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("User is null");
+			alert.setContentText("Please select user");
+			alert.initModality(Modality.APPLICATION_MODAL);
+			alert.showAndWait();
+		}else {
+			JFrame reportFrame = RecLogic.getInstance().produceViewRecommendationsReport(ViewLogic.currentUser);
+			reportFrame.setVisible(true);
+		}
 	}
 
 	@FXML

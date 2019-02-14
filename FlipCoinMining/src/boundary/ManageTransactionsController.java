@@ -118,19 +118,19 @@ public class ManageTransactionsController {
 	private Button viewReport;
 
 	protected static Block currentBlock;
-	
+
 	public void initialize() {
 
 		Blockid.setCellValueFactory(new PropertyValueFactory<>("blockAddress"));
 		blockSize.setCellValueFactory(new PropertyValueFactory<>("size"));
 
 		getBlocks();
-		
+
 		ID.setCellValueFactory(new PropertyValueFactory<>("ID"));
 		type.setCellValueFactory(new PropertyValueFactory<>("type"));
 		size.setCellValueFactory(new PropertyValueFactory<>("size"));
 		fee.setCellValueFactory(new PropertyValueFactory<>("fee"));
-		
+
 		ArrayList<Transaction> trans = control.BlockTransLogic.getInstance().getTransWithoutBlock();
 		ObservableList<Transaction> t= FXCollections.observableArrayList(trans);
 		transTable.setItems(t);
@@ -166,10 +166,10 @@ public class ManageTransactionsController {
 			errorMassage.setVisible(true);
 		}
 		else {
-		control.BlockTransLogic.getInstance().attachTransToBlock(t, currentBlock);
-		int currentSize = control.BlockTransLogic.getInstance().calcBlockSizeLeft(currentBlock);
-		String s = String.valueOf(currentSize);
-		sizeLable.setText(s);
+			control.BlockTransLogic.getInstance().attachTransToBlock(t, currentBlock);
+			int currentSize = control.BlockTransLogic.getInstance().calcBlockSizeLeft(currentBlock);
+			String s = String.valueOf(currentSize);
+			sizeLable.setText(s);
 		}
 	}
 
@@ -183,8 +183,8 @@ public class ManageTransactionsController {
 			alert.initModality(Modality.APPLICATION_MODAL);
 			alert.showAndWait();
 		}else {
-		JFrame reportFrame = BlockTransLogic.getInstance().produceTransPairReport(currentBlock);
-		reportFrame.setVisible(true);
+			JFrame reportFrame = BlockTransLogic.getInstance().produceTransPairReport(currentBlock);
+			reportFrame.setVisible(true);
 		}
 	}
 

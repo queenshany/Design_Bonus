@@ -98,7 +98,9 @@ public class SettingsController extends AbstractController {
     
     @FXML
     void updateField(ActionEvent event) {
-
+    	LoginController.curretUser.setEmail(emailText.getText());
+    	LoginController.curretUser.setPhone(phoneText.getText());
+    	control.UserLogic.getInstance().updateUser(LoginController.curretUser);
     }
 
 

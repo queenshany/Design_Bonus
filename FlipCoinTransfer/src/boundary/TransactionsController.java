@@ -167,6 +167,21 @@ public class TransactionsController {
 	@FXML
 	private TableColumn<Transaction, String> signature;
 
+    @FXML
+    private TableView<Transaction> confirmTable;
+
+    @FXML
+    private TableColumn<Transaction, Integer> IDconfirm;
+
+    @FXML
+    private TableColumn<Transaction, Date> creationDateConfirm;
+
+    @FXML
+    private TableColumn<Transaction, String> creating1confirm;
+
+    @FXML
+    private TableColumn<Transaction, String> creating2confirm;
+
 	@FXML
 	private Button confirmButton;
 

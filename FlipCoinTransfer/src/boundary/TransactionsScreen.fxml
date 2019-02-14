@@ -190,10 +190,12 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TableView prefHeight="138.0" prefWidth="420.0">
+                              <TableView fx:id="confirmTable" prefHeight="138.0" prefWidth="420.0">
                                 <columns>
-                                  <TableColumn prefWidth="75.0" text="C1" />
-                                  <TableColumn prefWidth="75.0" text="C2" />
+                                  <TableColumn fx:id="IDconfirm" prefWidth="97.66668701171875" text="Transaction ID" />
+                                  <TableColumn fx:id="creationDateConfirm" prefWidth="97.33331298828125" text="Creation Date" />
+                                    <TableColumn fx:id="creating1confirm" prefWidth="106.66668701171875" text="Creating Address" />
+                                    <TableColumn fx:id="creating2confirm" minWidth="0.0" prefWidth="118.0" text="Creating Signature" />
                                 </columns>
                               </TableView>
                               <Button fx:id="confirmButton" layoutX="93.0" layoutY="168.0" mnemonicParsing="false" onAction="#NewConfirmTransaction" text="Send Confirm" />

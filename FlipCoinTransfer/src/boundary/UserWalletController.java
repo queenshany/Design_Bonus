@@ -1,5 +1,11 @@
 package boundary;
 
+import java.util.ArrayList;
+
+import entity.Item;
+import entity.WalletBitcoinSpace;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -9,6 +15,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -110,19 +117,19 @@ public class UserWalletController {
     private AnchorPane walletPane1;
 
     @FXML
-    private TableView<?> walletTable1;
+    private TableView<WalletBitcoinSpace> walletTable1;
 
     @FXML
-    private TableColumn<?, ?> id1;
+    private TableColumn<WalletBitcoinSpace, String> id1;
 
     @FXML
-    private TableColumn<?, ?> transSize;
+    private TableColumn<WalletBitcoinSpace, Integer> transSize;
 
     @FXML
-    private TableColumn<?, ?> amount1;
+    private TableColumn<WalletBitcoinSpace, Double> amount1;
 
     @FXML
-    private TableColumn<?, ?> pending1;
+    private TableColumn<WalletBitcoinSpace, Double> pending1;
 
     @FXML
     private TableColumn<?, ?> pc1;
@@ -184,6 +191,29 @@ public class UserWalletController {
     @FXML
     private Label pleaseChoose;
 
+	public void initialize() {
+		
+		id1.setCellValueFactory(new PropertyValueFactory<>("walletUnique"));
+		transSize.setCellValueFactory(new PropertyValueFactory<>("transSize"));
+		amount1.setCellValueFactory(new PropertyValueFactory<>("amount"));
+		pending1.setCellValueFactory(new PropertyValueFactory<>("pendingAmount"));
+		pc1.setCellValueFactory(new PropertyValueFactory<>("isOnPC"));
+		phone1.setCellValueFactory(new PropertyValueFactory<>("isOnPhone"));
+		tablet1.setCellValueFactory(new PropertyValueFactory<>("isOnTablet"));
+			
+		getSpace();
+		   
+ } 
+ 
+ public void getSpace(){
+	   
+	   ObservableList<WalletBitcoinSpace> s= FXCollections.observableArrayList();
+	   ArrayList<WalletBitcoinSpace> space = control.WalletLogic.getInstance().getWalletsSpaceOfUser(LoginController.curretUser);
+	   s.addAll(space);
+		walletTable1.setItems(s);
+		walletTable1.refresh();
+ }
+ 
     @FXML
     void chargeMoney(ActionEvent event) {
 
@@ -198,10 +228,6 @@ public class UserWalletController {
     void editSpace(ActionEvent event) {
 
     }
-
-	public void initialize() {
-
-	}
 	
     
     @FXML

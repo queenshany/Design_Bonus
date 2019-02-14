@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="165.0" prefWidth="288.0" style="-fx-background-color: #eaf0f9;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="boundary.EmployeeOrUserController">
+   <children>
+      <Label fx:id="l1" layoutX="62.0" layoutY="39.0" text="Do you want to login as">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="l2" layoutX="53.0" layoutY="67.0" text="an user or as an employee?">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Button fx:id="userButton" blendMode="MULTIPLY" layoutX="57.0" layoutY="107.0" mnemonicParsing="false" onAction="#logasUser" text="    User    " />
+      <Button fx:id="employeeButton" blendMode="MULTIPLY" layoutX="174.0" layoutY="108.0" mnemonicParsing="false" onAction="#logasEmployee" text="Employee" />
+      <ImageView fx:id="line" fitHeight="6.0" fitWidth="169.0" layoutX="-66.0" layoutY="77.0" pickOnBounds="true" rotate="90.0" smooth="false">
+         <image>
+            <Image url="@../rsc/line.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

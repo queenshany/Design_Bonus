@@ -175,9 +175,9 @@ public class TransactionsController {
 
 	@FXML
 	private ComboBox<Wallet> walletsCombo;
-	
+
 	protected User user;
-	
+
 	public void initialize() {
 
 		//Fill the User Combo Box
@@ -324,27 +324,19 @@ public class TransactionsController {
 	@FXML
 	void viewRecommendations(ActionEvent event) {
 		//ViewLogic.newViewRecommendationWindow();
-<<<<<<< HEAD
-		if (ViewLogic.currentUser == null) {
-=======
 		if (LoginController.curretUser == null) {
->>>>>>> 3858ff87aac16f5fd252bb9563d07588ac29a9f8
-		System.out.println(LoginController.curretUser);
-		if (LoginController.curretUser == null) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("User is null");
-			alert.setContentText("Please select user");
-			alert.initModality(Modality.APPLICATION_MODAL);
-			alert.showAndWait();
-		}else {
-<<<<<<< HEAD
-//			JFrame reportFrame = RecLogic.getInstance().produceViewRecommendationsReport(ViewLogic.currentUser);
-=======
->>>>>>> 3858ff87aac16f5fd252bb9563d07588ac29a9f8
-			JFrame reportFrame = RecLogic.getInstance().produceViewRecommendationsReport(LoginController.curretUser);
-			reportFrame.setVisible(true);
+			System.out.println(LoginController.curretUser);
+			if (LoginController.curretUser == null) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("User is null");
+				alert.setContentText("Please select user");
+				alert.initModality(Modality.APPLICATION_MODAL);
+				alert.showAndWait();
+			}else {
+				JFrame reportFrame = RecLogic.getInstance().produceViewRecommendationsReport(LoginController.curretUser);
+				reportFrame.setVisible(true);
+			}
 		}
-	}
 	}
 
 	@FXML

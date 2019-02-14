@@ -3,6 +3,7 @@ package boundary;
 import java.util.ArrayList;
 
 import entity.Item;
+import entity.Wallet;
 import entity.WalletBitcoinSpace;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,173 +27,173 @@ import javafx.stage.Stage;
 
 public class UserWalletController {
 
-    @FXML
-    private BorderPane borderPane;
+	@FXML
+	private BorderPane borderPane;
 
-    @FXML
-    private VBox menu;
+	@FXML
+	private VBox menu;
 
-    @FXML
-    private ImageView products;
+	@FXML
+	private ImageView products;
 
-    @FXML
-    private ImageView transactions;
+	@FXML
+	private ImageView transactions;
 
-    @FXML
-    private ImageView wallets;
+	@FXML
+	private ImageView wallets;
 
-    @FXML
-    private HBox topBorder;
+	@FXML
+	private HBox topBorder;
 
-    @FXML
-    private ImageView logo;
+	@FXML
+	private ImageView logo;
 
-    @FXML
-    private ImageView searchIcon;
+	@FXML
+	private ImageView searchIcon;
 
-    @FXML
-    private TextField searchText;
+	@FXML
+	private TextField searchText;
 
-    @FXML
-    private ImageView mailIcon;
+	@FXML
+	private ImageView mailIcon;
 
-    @FXML
-    private ImageView settingsIcon;
+	@FXML
+	private ImageView settingsIcon;
 
-    @FXML
-    private ImageView logoutIcon;
+	@FXML
+	private ImageView logoutIcon;
 
-    @FXML
-    private VBox bottom;
+	@FXML
+	private VBox bottom;
 
-    @FXML
-    private ImageView line;
+	@FXML
+	private ImageView line;
 
-    @FXML
-    private HBox hbox;
+	@FXML
+	private HBox hbox;
 
-    @FXML
-    private Label networkStatus;
+	@FXML
+	private Label networkStatus;
 
-    @FXML
-    private ImageView homeIcon;
+	@FXML
+	private ImageView homeIcon;
 
-    @FXML
-    private TabPane tabPane;
+	@FXML
+	private TabPane tabPane;
 
-    @FXML
-    private Tab yourWallet;
+	@FXML
+	private Tab yourWallet;
 
-    @FXML
-    private AnchorPane walletPane;
+	@FXML
+	private AnchorPane walletPane;
 
-    @FXML
-    private TableView<?> walletTable;
+	@FXML
+	private TableView<Wallet> walletTable;
 
-    @FXML
-    private TableColumn<?, ?> id;
+	@FXML
+	private TableColumn<Wallet, String> id;
 
-    @FXML
-    private TableColumn<?, ?> amount;
+	@FXML
+	private TableColumn<Wallet, Double> amount;
 
-    @FXML
-    private TableColumn<?, ?> pending;
+	@FXML
+	private TableColumn<Wallet, Double> pending;
 
-    @FXML
-    private TableColumn<?, ?> pc;
+	@FXML
+	private TableColumn<Wallet, Boolean> pc;
 
-    @FXML
-    private TableColumn<?, ?> phone;
+	@FXML
+	private TableColumn<Wallet, Boolean> phone;
 
-    @FXML
-    private TableColumn<?, ?> tablet;
+	@FXML
+	private TableColumn<Wallet, Boolean> tablet;
 
-    @FXML
-    private Button chargeButton;
+	@FXML
+	private Button chargeButton;
 
-    @FXML
-    private Tab bitcoinSpace;
+	@FXML
+	private Tab bitcoinSpace;
 
-    @FXML
-    private AnchorPane walletPane1;
+	@FXML
+	private AnchorPane walletPane1;
 
-    @FXML
-    private TableView<WalletBitcoinSpace> walletTable1;
+	@FXML
+	private TableView<WalletBitcoinSpace> walletTable1;
 
-    @FXML
-    private TableColumn<WalletBitcoinSpace, String> id1;
+	@FXML
+	private TableColumn<WalletBitcoinSpace, String> id1;
 
-    @FXML
-    private TableColumn<WalletBitcoinSpace, Integer> transSize;
+	@FXML
+	private TableColumn<WalletBitcoinSpace, Integer> transSize;
 
-    @FXML
-    private TableColumn<WalletBitcoinSpace, Double> amount1;
+	@FXML
+	private TableColumn<WalletBitcoinSpace, Double> amount1;
 
-    @FXML
-    private TableColumn<WalletBitcoinSpace, Double> pending1;
+	@FXML
+	private TableColumn<WalletBitcoinSpace, Double> pending1;
 
-    @FXML
-    private TableColumn<?, ?> pc1;
+	@FXML
+	private TableColumn<WalletBitcoinSpace, Boolean> pc1;
 
-    @FXML
-    private TableColumn<?, ?> phone1;
+	@FXML
+	private TableColumn<WalletBitcoinSpace, Boolean> phone1;
 
-    @FXML
-    private TableColumn<?, ?> tablet1;
+	@FXML
+	private TableColumn<WalletBitcoinSpace, Boolean> tablet1;
 
-    @FXML
-    private Button editSpaceButton;
+	@FXML
+	private Button editSpaceButton;
 
-    @FXML
-    private Tab BitcoinKnots;
+	@FXML
+	private Tab BitcoinKnots;
 
-    @FXML
-    private AnchorPane walletPane11;
+	@FXML
+	private AnchorPane walletPane11;
 
-    @FXML
-    private TableView<?> walletTable11;
+	@FXML
+	private TableView<?> walletTable11;
 
-    @FXML
-    private TableColumn<?, ?> id11;
+	@FXML
+	private TableColumn<?, ?> id11;
 
-    @FXML
-    private TableColumn<?, ?> discount;
+	@FXML
+	private TableColumn<?, ?> discount;
 
-    @FXML
-    private TableColumn<?, ?> amount11;
+	@FXML
+	private TableColumn<?, ?> amount11;
 
-    @FXML
-    private TableColumn<?, ?> pending11;
+	@FXML
+	private TableColumn<?, ?> pending11;
 
-    @FXML
-    private TableColumn<?, ?> pc11;
+	@FXML
+	private TableColumn<?, ?> pc11;
 
-    @FXML
-    private TableColumn<?, ?> phone11;
+	@FXML
+	private TableColumn<?, ?> phone11;
 
-    @FXML
-    private TableColumn<?, ?> tablet11;
+	@FXML
+	private TableColumn<?, ?> tablet11;
 
-    @FXML
-    private Button editKnotsButton;
+	@FXML
+	private Button editKnotsButton;
 
-    @FXML
-    private Tab newWallet;
+	@FXML
+	private Tab newWallet;
 
-    @FXML
-    private AnchorPane newPane;
+	@FXML
+	private AnchorPane newPane;
 
-    @FXML
-    private Button space;
+	@FXML
+	private Button space;
 
-    @FXML
-    private Button knots;
+	@FXML
+	private Button knots;
 
-    @FXML
-    private Label pleaseChoose;
+	@FXML
+	private Label pleaseChoose;
 
 	public void initialize() {
-		
+
 		id1.setCellValueFactory(new PropertyValueFactory<>("walletUnique"));
 		transSize.setCellValueFactory(new PropertyValueFactory<>("transSize"));
 		amount1.setCellValueFactory(new PropertyValueFactory<>("amount"));
@@ -200,92 +201,106 @@ public class UserWalletController {
 		pc1.setCellValueFactory(new PropertyValueFactory<>("isOnPC"));
 		phone1.setCellValueFactory(new PropertyValueFactory<>("isOnPhone"));
 		tablet1.setCellValueFactory(new PropertyValueFactory<>("isOnTablet"));
-			
+
 		getSpace();
-		   
- } 
- 
- public void getSpace(){
-	   
-	   ObservableList<WalletBitcoinSpace> s= FXCollections.observableArrayList();
-	   ArrayList<WalletBitcoinSpace> space = control.WalletLogic.getInstance().getWalletsSpaceOfUser(LoginController.curretUser);
-	   s.addAll(space);
+
+		id.setCellValueFactory(new PropertyValueFactory<>("uniqueAddress"));
+		amount.setCellValueFactory(new PropertyValueFactory<>("amount"));
+		pending.setCellValueFactory(new PropertyValueFactory<>("pendingAmount"));
+		pc.setCellValueFactory(new PropertyValueFactory<>("isOnPC"));
+		phone.setCellValueFactory(new PropertyValueFactory<>("isOnPhone"));
+		tablet.setCellValueFactory(new PropertyValueFactory<>("isOnTablet"));	
+
+		ObservableList<Wallet> w= FXCollections.observableArrayList();
+		ArrayList<Wallet> basic = control.WalletLogic.getInstance().getWalletsOfUser(LoginController.curretUser);
+		w.addAll(basic);
+		walletTable.setItems(w);
+		walletTable.refresh();
+		System.out.println(w);
+
+	} 
+
+	public void getSpace(){
+
+		ObservableList<WalletBitcoinSpace> s= FXCollections.observableArrayList();
+		ArrayList<WalletBitcoinSpace> space = control.WalletLogic.getInstance().getWalletsSpaceOfUser(LoginController.curretUser);
+		s.addAll(space);
 		walletTable1.setItems(s);
 		walletTable1.refresh();
- }
- 
-    @FXML
-    void chargeMoney(ActionEvent event) {
+	}
 
-    }
+	@FXML
+	void chargeMoney(ActionEvent event) {
 
-    @FXML
-    void editKnots(ActionEvent event) {
+	}
 
-    }
+	@FXML
+	void editKnots(ActionEvent event) {
 
-    @FXML
-    void editSpace(ActionEvent event) {
+	}
 
-    }
-	
-    
-    @FXML
-    void newBitcoinKnots(ActionEvent event) {
-    	ViewLogic.newBitcoinKnotsWindow();
-    }
+	@FXML
+	void editSpace(ActionEvent event) {
 
-    @FXML
-    void newBitcoinSpace(ActionEvent event) {
-    	ViewLogic.newBitcoinSpaceWindow();
-    }
-    
-    @FXML
-    void expandWallet(ActionEvent event) {
+	}
 
-    }
 
-    @FXML
-    void logOut(MouseEvent event) {
-    	closeWindow();
-    	ViewLogic.newLoginWindow();
-    }
+	@FXML
+	void newBitcoinKnots(ActionEvent event) {
+		ViewLogic.newBitcoinKnotsWindow();
+	}
 
-    @FXML
-    void mailsScreen(MouseEvent event) {
-    	closeWindow();
-    	ViewLogic.newEmailWindow();
-    }
+	@FXML
+	void newBitcoinSpace(ActionEvent event) {
+		ViewLogic.newBitcoinSpaceWindow();
+	}
 
-    @FXML
-    void productsScreen(MouseEvent event) {
-    	closeWindow();
-    	ViewLogic.newProductsWindow();
-    }
+	@FXML
+	void expandWallet(ActionEvent event) {
 
-    @FXML
-    void searchProducts(MouseEvent event) {
-    	closeWindow();
-    	ViewLogic.newSearchPageWindow();
-    }
+	}
 
-    @FXML
-    void settingsScreen(MouseEvent event) {
-    	closeWindow();
-    	ViewLogic.newSettingsWindow();
-    }
+	@FXML
+	void logOut(MouseEvent event) {
+		closeWindow();
+		ViewLogic.newLoginWindow();
+	}
 
-    @FXML
-    void transactionsScreen(MouseEvent event) {
-    	closeWindow();
-    	ViewLogic.newTransactionsWindow();
-    }
+	@FXML
+	void mailsScreen(MouseEvent event) {
+		closeWindow();
+		ViewLogic.newEmailWindow();
+	}
 
-    @FXML
-    void walletsScreen(MouseEvent event) {
-    	closeWindow();
-    	ViewLogic.newWalletsWindow();
-    }
+	@FXML
+	void productsScreen(MouseEvent event) {
+		closeWindow();
+		ViewLogic.newProductsWindow();
+	}
+
+	@FXML
+	void searchProducts(MouseEvent event) {
+		closeWindow();
+		ViewLogic.newSearchPageWindow();
+	}
+
+	@FXML
+	void settingsScreen(MouseEvent event) {
+		closeWindow();
+		ViewLogic.newSettingsWindow();
+	}
+
+	@FXML
+	void transactionsScreen(MouseEvent event) {
+		closeWindow();
+		ViewLogic.newTransactionsWindow();
+	}
+
+	@FXML
+	void walletsScreen(MouseEvent event) {
+		closeWindow();
+		ViewLogic.newWalletsWindow();
+	}
 
 
 	protected void closeWindow() {

@@ -1,5 +1,6 @@
 package boundary;
 
+import control.Validation;
 import entity.Consts;
 import entity.User;
 import javafx.fxml.FXML;
@@ -101,6 +102,19 @@ public class RegistrationController extends AbstractController {
     void newAccount(MouseEvent event) {
     	
     	User user = control.UserLogic.getInstance().getUsers().get(0);
+    	
+//    	if (Validation.validName(usernameText.getText()))
+
+    	
+//		String uniqueAddress;
+//    	do {
+//			uniqueAddress = control.SysData.getInstance().generateRandomStrings(Consts.MINER_ADDRESS_LENGTH);
+//		}
+//		while (control.MinerLogic.getInstance().getMiners().contains(new Miner(uniqueAddress)));
+//		
+//		miner.setUniqueAddress(uniqueAddress);
+//		
+    	
     	user.setPublicAddress(control.SysData.getInstance().generateRandomStrings(Consts.USER_ADDRESS_LENGTH));
     	user.setSignature(control.SysData.getInstance().generateRandomStrings(Consts.USER_SIGNATURE_LENGTH));
     	user.setUsername(usernameText.getText());

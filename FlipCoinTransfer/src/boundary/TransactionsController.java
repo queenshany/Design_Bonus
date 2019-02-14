@@ -167,6 +167,21 @@ public class TransactionsController {
 	@FXML
 	private TableColumn<Transaction, String> signature;
 
+    @FXML
+    private TableView<Transaction> confirmTable;
+
+    @FXML
+    private TableColumn<Transaction, Integer> IDconfirm;
+
+    @FXML
+    private TableColumn<Transaction, Date> creationDateConfirm;
+
+    @FXML
+    private TableColumn<Transaction, String> creating1confirm;
+
+    @FXML
+    private TableColumn<Transaction, String> creating2confirm;
+
 	@FXML
 	private Button confirmButton;
 
@@ -203,6 +218,10 @@ public class TransactionsController {
 		ObservableList<Wallet> w=getWallets();
 		walletCombo.setItems(w);
 		walletsCombo.setItems(w);
+		
+		//Chosen Products
+		itemID.setCellValueFactory(new PropertyValueFactory<>("catalogNumber"));
+		quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 	} 
 
 
@@ -244,10 +263,6 @@ public class TransactionsController {
 
 			productsCombo.setItems(I);
 		}
-
-
-		itemID.setCellValueFactory(new PropertyValueFactory<>("catalogNumber"));
-		quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 	}
 
 
@@ -281,23 +296,26 @@ public class TransactionsController {
 
 	@FXML
 	void addToTable(ActionEvent event) {
-		int itemID = productsCombo.getSelectionModel().getSelectedItem().getCatalogNumber();
+//		int itemID = productsCombo.getSelectionModel().getSelectedItem().getCatalogNumber();
 		if (quantity.getText()!=null && productsCombo.getSelectionModel()!=null) {
 			try {
-				String convert = (quantity.getText());
+				String convert = (amountText.getText());
 				Integer x = Integer.parseInt(convert);
-				Item items = new Item(itemID);
-				items.setQuantity(x);
-				ObservableList<Item> item= FXCollections.observableArrayList();
-				item.add(items);
-				table.setItems(item);
-			}
+				Item item = productsCombo.getValue();
+//				Item items = new Item(itemID);
+				item.setQuantity(x);
+				itemID.setCellValueFactory(new PropertyValueFactory<>("catalogNumber"));
+				quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+				ObservableList<Item> items= FXCollections.observableArrayList();
+				items.add(item);
+				table.setItems(items);
+			}	
 			catch (NumberFormatException e){
 				lable.setText("Invalid Value");
 			}
 		}
-
-	}
+		}
+	
 
 
 	@FXML

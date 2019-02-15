@@ -1,5 +1,14 @@
 package boundary;
 
+import java.sql.Date;
+import java.util.ArrayList;
+
+import entity.Bonus;
+import entity.Lottery;
+import entity.Miner;
+import entity.RiddleLevel;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -8,12 +17,15 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import utils.E_Level;
 
 public class ManagementController {
 
@@ -66,22 +78,22 @@ public class ManagementController {
     private AnchorPane p2;
 
     @FXML
-    private TableView<?> lotteriesTable;
+    private TableView<Lottery> lotteriesTable;
 
     @FXML
-    private TableColumn<?, ?> lotteryNum;
+    private TableColumn<Lottery, Integer> lotteryNum;
 
     @FXML
-    private TableColumn<?, ?> lotteryDate;
+    private TableColumn<Lottery, Date> lotteryDate;
 
     @FXML
-    private TableColumn<?, ?> maxParticipants;
+    private TableColumn<Lottery, Integer> maxParticipants;
 
     @FXML
-    private TableColumn<?, ?> numOfWinners;
+    private TableColumn<Lottery, Integer> numOfWinners;
 
     @FXML
-    private TableColumn<?, ?> numOfBonuses;
+    private TableColumn<Lottery, Integer> numOfBonuses;
 
     @FXML
     private Button addL;
@@ -93,13 +105,13 @@ public class ManagementController {
     private AnchorPane p3;
 
     @FXML
-    private TableView<?> bonusesTable;
+    private TableView<Bonus> bonusesTable;
 
     @FXML
-    private TableColumn<?, ?> bonusNum;
+    private TableColumn<Bonus, Integer> bonusNum;
 
     @FXML
-    private TableColumn<?, ?> description;
+    private TableColumn<Bonus, String> description;
 
     @FXML
     private Button addB;
@@ -114,19 +126,19 @@ public class ManagementController {
     private AnchorPane p31;
 
     @FXML
-    private TableView<?> levelsTable;
+    private TableView<RiddleLevel> levelsTable;
 
     @FXML
-    private TableColumn<?, ?> levelCode;
+    private TableColumn<RiddleLevel, Integer> levelCode;
 
     @FXML
-    private TableColumn<?, ?> levelName;
+    private TableColumn<RiddleLevel, E_Level> levelName;
 
     @FXML
-    private TableColumn<?, ?> difficultyLevel;
+    private TableColumn<RiddleLevel, Integer> difficultyLevel;
 
     @FXML
-    private TableColumn<?, ?> blockSize;
+    private TableColumn<RiddleLevel, Integer> blockSize;
 
     @FXML
     private Button addB1;
@@ -135,7 +147,7 @@ public class ManagementController {
     private Button editB1;
 
     @FXML
-    private TableView<?> minersTable;
+    private TableView<Miner> minersTable;
 
     @FXML
     private AnchorPane p32;
@@ -144,20 +156,33 @@ public class ManagementController {
     private ScrollPane scrollMiners;
 
     @FXML
-    private TableColumn<?, ?> uniqueAddress;
+    private TableColumn<Miner, String> uniqueAddress;
 
     @FXML
-    private TableColumn<?, ?> MinerName;
+    private TableColumn<Miner, String> MinerName;
 
     @FXML
-    private TableColumn<?, ?> Email;
+    private TableColumn<Miner, String> Email;
 
     @FXML
-    private TableColumn<?, ?> DigitalProfit;
+    private TableColumn<Miner, Double> DigitalProfit;
 
+	public void initialize() {
+		
+		uniqueAddress.setCellValueFactory(new PropertyValueFactory<>("uniqueAddress"));
+		MinerName.setCellValueFactory(new PropertyValueFactory<>("minerName"));
+		Email.setCellValueFactory(new PropertyValueFactory<>("email"));
+		DigitalProfit.setCellValueFactory(new PropertyValueFactory<>("digitalProfit"));
+		
+		ArrayList<Miner> m = control.MinerLogic.getInstance().viewOtherMiners(LoginController.curretMiner);
+		ObservableList<Miner> miners= FXCollections.observableArrayList(m);
+		minersTable.setItems(miners);
+
+	}
+    
     @FXML
     void addBonus(ActionEvent event) {
-
+    	
     }
 
     @FXML
@@ -206,8 +231,20 @@ public class ManagementController {
     }
 
     @FXML
-    void logOut(MouseEvent event) {
-
+    void backHome(MouseEvent event) {
+    	closeWindow();
+    	ViewLogic.newAdminWindow();
     }
+	
+	@FXML
+	void logOut(MouseEvent event) {
+		closeWindow();
+		ViewLogic.newLoginWindow();
+	}
 
+
+	protected void closeWindow() {
+		((Stage) borderPane.getScene().getWindow()).close();
+	}
 }
+

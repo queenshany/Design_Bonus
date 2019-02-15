@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -69,7 +70,7 @@
    <center>
       <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
          <tabs>
-            <Tab fx:id="allUsers" text="Riddles">
+            <Tab fx:id="riddles" text="Riddles">
                <content>
                   <AnchorPane fx:id="p1" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -89,10 +90,13 @@
                <content>
                   <AnchorPane fx:id="p2" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="t2" layoutX="8.0" layoutY="8.0" prefHeight="175.0" prefWidth="494.0">
+                        <TableView fx:id="lotteriesTable" layoutX="8.0" layoutY="8.0" onMouseClicked="#chosenLottery" prefHeight="175.0" prefWidth="494.0">
                            <columns>
-                              <TableColumn prefWidth="75.0" text="C1" />
-                              <TableColumn prefWidth="75.0" text="C2" />
+                              <TableColumn fx:id="lotteryNum" prefWidth="51.666656494140625" text="Number" />
+                              <TableColumn fx:id="lotteryDate" prefWidth="80.33334350585938" text="Date" />
+                              <TableColumn fx:id="maxParticipants" prefWidth="114.0" text="Max Participants" />
+                              <TableColumn fx:id="numOfWinners" prefWidth="125.0" text="Number Of Winners" />
+                              <TableColumn fx:id="numOfBonuses" prefWidth="123.0" text="Number Of Bonuses" />
                            </columns>
                         </TableView>
                         <Button fx:id="addL" layoutX="8.0" layoutY="189.0" mnemonicParsing="false" onAction="#addLotteries" text="  Add  " />
@@ -101,14 +105,14 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="allTransactions" text="Bonuses">
+            <Tab fx:id="bonuses" text="Bonuses">
                <content>
                   <AnchorPane fx:id="p3" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="t3" layoutX="8.0" layoutY="8.0" prefHeight="178.0" prefWidth="495.0" AnchorPane.rightAnchor="6.0">
+                        <TableView fx:id="bonusesTable" layoutX="8.0" layoutY="8.0" onMouseClicked="#chosenBonus" prefHeight="178.0" prefWidth="495.0" AnchorPane.rightAnchor="6.0">
                            <columns>
-                              <TableColumn prefWidth="75.0" text="C1" />
-                              <TableColumn prefWidth="75.0" text="C2" />
+                              <TableColumn fx:id="bonusNum" prefWidth="91.66668701171875" text="Bonus Number" />
+                              <TableColumn fx:id="description" prefWidth="402.0" text="Description" />
                            </columns>
                         </TableView>
                         <Button fx:id="addB" layoutX="10.0" layoutY="189.0" mnemonicParsing="false" onAction="#addBonus" text="  Add  " />
@@ -117,14 +121,16 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="allTransactions1" text="Levels">
+            <Tab fx:id="levels" text="Levels">
                <content>
                   <AnchorPane fx:id="p31" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="t31" layoutX="8.0" layoutY="8.0" prefHeight="178.0" prefWidth="495.0" AnchorPane.rightAnchor="6.0">
+                        <TableView fx:id="levelsTable" layoutX="8.0" layoutY="8.0" onMouseClicked="#chosenLevel" prefHeight="178.0" prefWidth="495.0" AnchorPane.rightAnchor="6.0">
                            <columns>
-                              <TableColumn prefWidth="75.0" text="C1" />
-                              <TableColumn prefWidth="75.0" text="C2" />
+                              <TableColumn fx:id="levelCode" prefWidth="75.0" text="Level Code" />
+                              <TableColumn fx:id="levelName" prefWidth="89.66668701171875" text="Level Name" />
+                              <TableColumn fx:id="difficultyLevel" prefWidth="80.33331298828125" text="Difficulty" />
+                              <TableColumn fx:id="blockSize" prefWidth="83.33331298828125" text="Block Size" />
                            </columns>
                         </TableView>
                         <Button fx:id="addB1" layoutX="10.0" layoutY="189.0" mnemonicParsing="false" onAction="#addBonus" text="  Add  " />
@@ -133,18 +139,22 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="allTransactions2" text="Miners">
+            <Tab fx:id="minersTable" text="Miners">
                <content>
                   <AnchorPane fx:id="p32" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="t32" layoutX="8.0" layoutY="8.0" prefHeight="178.0" prefWidth="495.0" AnchorPane.rightAnchor="6.0">
-                           <columns>
-                              <TableColumn prefWidth="75.0" text="C1" />
-                              <TableColumn prefWidth="75.0" text="C2" />
-                           </columns>
-                        </TableView>
-                        <Button fx:id="addB2" layoutX="10.0" layoutY="189.0" mnemonicParsing="false" onAction="#addBonus" text="  Add  " />
-                        <Button fx:id="editB2" layoutX="67.0" layoutY="189.0" mnemonicParsing="false" onAction="#editBonus" text="  Edit  " />
+                        <ScrollPane fx:id="scrollMiners" layoutX="8.0" layoutY="8.0" AnchorPane.rightAnchor="6.0">
+                           <content>
+                              <TableView fx:id="minersTable" onMouseClicked="#chosenMiner" prefHeight="178.0" prefWidth="495.0">
+                                 <columns>
+                                    <TableColumn fx:id="uniqueAddress" prefWidth="111.0" text="Unique Address" />
+                                    <TableColumn fx:id="MinerName" prefWidth="119.0" text="Miner Name" />
+                                    <TableColumn fx:id="Email" prefWidth="178.33331298828125" text="Email" />
+                                    <TableColumn fx:id="DigitalProfit" minWidth="0.0" prefWidth="85.66668701171875" text="Digital Profit" />
+                                 </columns>
+                              </TableView>
+                           </content>
+                        </ScrollPane>
                      </children>
                   </AnchorPane>
                </content>

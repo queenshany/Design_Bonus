@@ -511,6 +511,63 @@ public class ViewLogic {
 				false);
 	}
 
+	
+	// ------------------------------ Expand Space ------------------------------
+	/**
+	 * Open Expand Space Window
+	 */
+	protected static void newExpandSpaceWindow() {
+		Stage stage = new Stage();
+		setStage(stage);
+
+
+		newWindow(ViewLogic.class.getResource("ExpandSpaceScreen.fxml"),
+				stage,
+				null, null,	null, null,	null, null,
+				false,
+				"Edit Bitcoin Space",
+				false);
+	}
+	
+	
+	// ------------------------------ Expand Knots ------------------------------
+	/**
+	 * Open Expand Knots Window
+	 */
+	protected static void newExpandKnotsWindow() {
+		Stage stage = new Stage();
+		setStage(stage);
+
+
+		newWindow(ViewLogic.class.getResource("ExpandKnotsScreen.fxml"),
+				stage,
+				null, null,	null, null,	null, null,
+				false,
+				"Edit Bitcoin Knots",
+				false);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 
 	

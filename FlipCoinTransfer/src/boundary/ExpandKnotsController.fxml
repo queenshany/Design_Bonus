@@ -3,17 +3,17 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="Vbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="207.0" prefWidth="326.0" style="-fx-background-color: #eaf0f9;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.SpaceController">
+<VBox fx:id="Vbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="207.0" prefWidth="326.0" style="-fx-background-color: #eaf0f9;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.ExpandKnotsController">
    <children>
-      <Label fx:id="Title" text="Please select the Bytes">
+      <Label fx:id="Title" text="Please select number smaller than 70">
          <VBox.margin>
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
          </VBox.margin>
@@ -23,8 +23,8 @@
       </Label>
       <HBox fx:id="Hbox1" alignment="CENTER" prefHeight="38.0" prefWidth="286.0" spacing="10.0">
          <children>
-            <ComboBox fx:id="comboBox" prefWidth="150.0" />
-            <Label fx:id="bytes" text="Bytes" />
+            <TextField fx:id="textField" onKeyTyped="#clearAll" prefHeight="25.0" prefWidth="62.0" />
+            <Label fx:id="precent" text="\%" />
             <Button fx:id="calculate" mnemonicParsing="false" onAction="#calcBTC" text="Calculate" />
          </children>
          <VBox.margin>
@@ -42,7 +42,7 @@
       <HBox fx:id="Hbox3" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
          <children>
             <CheckBox fx:id="check1" mnemonicParsing="false" text="Tablet" />
-            <CheckBox fx:id="check2" mnemonicParsing="false" selected="true" text="Computer" />
+            <CheckBox fx:id="check2" mnemonicParsing="false" text="Computer" />
             <CheckBox fx:id="check3" mnemonicParsing="false" text="Phone" />
          </children>
          <VBox.margin>
@@ -64,6 +64,11 @@
             <Label fx:id="theAmount" text="100" visible="false" />
             <Label fx:id="BTC" text="BTC" visible="false" />
             <Button fx:id="buyButton" disable="true" mnemonicParsing="false" onAction="#addNewWallet" text="Buy" />
+            <Button fx:id="charge" mnemonicParsing="false" onAction="#chargeMoney" text="Charge">
+               <HBox.margin>
+                  <Insets right="-73.0" />
+               </HBox.margin>
+            </Button>
          </children>
          <VBox.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

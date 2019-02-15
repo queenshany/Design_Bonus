@@ -232,7 +232,6 @@ public class UserWalletController {
 		w.addAll(basic);
 		walletTable.setItems(w);
 		walletTable.refresh();
-		System.out.println(w);
 
 	} 
 
@@ -259,10 +258,20 @@ public class UserWalletController {
 		if (currentWallet!=null)
 		ViewLogic.newChargerWindow();
 	}
+	
+
+    @FXML
+    void chosenKnots(MouseEvent event) {
+    	currentWallet = walletTable11.getSelectionModel().getSelectedItem();
+    }
+
+    @FXML
+    void chosenSpace(MouseEvent event) {
+    	currentWallet = walletTable1.getSelectionModel().getSelectedItem();
+    }
 
 	   @FXML
 	    void chosenWallet(MouseEvent event) {
-		   System.out.println("jjjjjj");
 		   currentWallet = walletTable.getSelectionModel().getSelectedItem();
 	    }
 	

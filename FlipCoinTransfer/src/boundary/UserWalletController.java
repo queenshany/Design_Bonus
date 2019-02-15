@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import entity.Item;
 import entity.Wallet;
+import entity.WalletBitcoinKnots;
 import entity.WalletBitcoinSpace;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -151,28 +152,28 @@ public class UserWalletController {
 	private AnchorPane walletPane11;
 
 	@FXML
-	private TableView<?> walletTable11;
+	private TableView<WalletBitcoinKnots> walletTable11;
 
 	@FXML
-	private TableColumn<?, ?> id11;
+	private TableColumn<WalletBitcoinKnots, String> id11;
 
 	@FXML
-	private TableColumn<?, ?> discount;
+	private TableColumn<WalletBitcoinKnots, Double> discount;
 
 	@FXML
-	private TableColumn<?, ?> amount11;
+	private TableColumn<WalletBitcoinKnots, Double> amount11;
 
 	@FXML
-	private TableColumn<?, ?> pending11;
+	private TableColumn<WalletBitcoinKnots, Double> pending11;
 
 	@FXML
-	private TableColumn<?, ?> pc11;
+	private TableColumn<WalletBitcoinKnots, Boolean> pc11;
 
 	@FXML
-	private TableColumn<?, ?> phone11;
+	private TableColumn<WalletBitcoinKnots, Boolean> phone11;
 
 	@FXML
-	private TableColumn<?, ?> tablet11;
+	private TableColumn<WalletBitcoinKnots, Boolean> tablet11;
 
 	@FXML
 	private Button editKnotsButton;
@@ -196,6 +197,7 @@ public class UserWalletController {
 
 	public void initialize() {
 
+		//Space Wallet
 		id1.setCellValueFactory(new PropertyValueFactory<>("uniqueAddress"));
 		transSize.setCellValueFactory(new PropertyValueFactory<>("transSize"));
 		amount1.setCellValueFactory(new PropertyValueFactory<>("amount"));
@@ -206,13 +208,25 @@ public class UserWalletController {
 
 		getSpace(); 
 
+		//Basic Wallet
 		id.setCellValueFactory(new PropertyValueFactory<>("uniqueAddress"));
 		amount.setCellValueFactory(new PropertyValueFactory<>("amount"));
 		pending.setCellValueFactory(new PropertyValueFactory<>("pendingAmount"));
 		pc.setCellValueFactory(new PropertyValueFactory<>("isOnPC"));
 		phone.setCellValueFactory(new PropertyValueFactory<>("isOnPhone"));
-		tablet.setCellValueFactory(new PropertyValueFactory<>("isOnTablet"));	
+		tablet.setCellValueFactory(new PropertyValueFactory<>("isOnTablet"));
+		
+		//Knots Wallet
+		id11.setCellValueFactory(new PropertyValueFactory<>("uniqueAddress"));
+		discount.setCellValueFactory(new PropertyValueFactory<>("discountPercent"));
+		amount11.setCellValueFactory(new PropertyValueFactory<>("amount"));
+		pending11.setCellValueFactory(new PropertyValueFactory<>("pendingAmount"));
+		pc11.setCellValueFactory(new PropertyValueFactory<>("isOnPC"));
+		phone11.setCellValueFactory(new PropertyValueFactory<>("isOnPhone"));
+		tablet11.setCellValueFactory(new PropertyValueFactory<>("isOnTablet"));
 
+		getKnots();
+		
 		ObservableList<Wallet> w= FXCollections.observableArrayList();
 		ArrayList<Wallet> basic = control.WalletLogic.getInstance().getWalletsOfUser(LoginController.curretUser);
 		w.addAll(basic);
@@ -229,6 +243,15 @@ public class UserWalletController {
 		s.addAll(space);
 		walletTable1.setItems(s);
 		walletTable1.refresh();
+	}
+	
+	public void getKnots(){
+
+		ObservableList<WalletBitcoinKnots> k= FXCollections.observableArrayList();
+		ArrayList<WalletBitcoinKnots> knots = control.WalletLogic.getInstance().getWalletsKnotsOfUser(LoginController.curretUser);
+		k.addAll(knots);
+		walletTable11.setItems(k);
+		walletTable11.refresh();
 	}
 
 	@FXML

@@ -84,7 +84,7 @@ public class ManageEmployeeController {
     @FXML
     private Button remove;
     
-
+    protected static User chosenUser;
 
 	public void initialize() {
 
@@ -101,12 +101,12 @@ public class ManageEmployeeController {
 		
     @FXML
     void addEmployee(ActionEvent event) {
-
+    	chosenUser.setEmployee(true);
     }
 
     @FXML
     void chosenUser(MouseEvent event) {
-
+    	chosenUser = usersTable.getSelectionModel().getSelectedItem();
     }
 
 	@FXML
@@ -123,7 +123,7 @@ public class ManageEmployeeController {
 
     @FXML
     void removeEmployee(ActionEvent event) {
-
+    	chosenUser.setEmployee(false);
     }
     
 

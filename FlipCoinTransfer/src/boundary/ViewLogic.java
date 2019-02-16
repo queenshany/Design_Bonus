@@ -547,7 +547,22 @@ public class ViewLogic {
 				false);
 	}
 	
-	
+	// ------------------------------ Manage Employee ------------------------------
+	/**
+	 * Open Manage Employees Window
+	 */
+	protected static void newManageEmployeesWindow() {
+		Stage stage = new Stage();
+		setStage(stage);
+
+
+		newWindow(ViewLogic.class.getResource("ManageEmployeeScreen.fxml"),
+				stage,
+				null, null,	null, null,	null, null,
+				false,
+				"Employees Management",
+				false);
+	}
 	
 	
 	

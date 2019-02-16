@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 public class LoginController extends AbstractController{
 
 	protected static User curretUser;
+	protected static String keyWord;
 
     @FXML
     private BorderPane borderPane;

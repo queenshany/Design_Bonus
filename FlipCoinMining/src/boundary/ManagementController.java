@@ -179,10 +179,10 @@ public class ManagementController {
 		minersTable.setItems(miners);
 
 	}
-    
+
     @FXML
     void addBonus(ActionEvent event) {
-    	
+
     }
 
     @FXML
@@ -194,6 +194,7 @@ public class ManagementController {
     void addRiddle(ActionEvent event) {
 
     }
+
 
     @FXML
     void chosenBonus(MouseEvent event) {

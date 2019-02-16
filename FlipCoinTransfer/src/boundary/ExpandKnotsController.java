@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class ExpandKnotsController {
 
@@ -83,14 +84,24 @@ public class ExpandKnotsController {
 
     }
 
-    @FXML
-    void chargeMoney(ActionEvent event) {
-
-    }
 
     @FXML
     void clearAll(KeyEvent event) {
+      	youHaveToPay.setVisible(false);
+    	theAmount.setVisible(false);
+    	BTC.setVisible(false);	
+    	buyButton.setDisable(true);
+    }
+
+
+    @FXML
+    void chargeMoney(ActionEvent event) {
+    	closeWindow();
+    	ViewLogic.newChargerWindow();
 
     }
 
+	protected void closeWindow() {
+		((Stage) Vbox.getScene().getWindow()).close();
+	}
 }

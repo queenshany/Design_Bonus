@@ -123,6 +123,8 @@ public class RegistrationController extends AbstractController {
     	user.setEmail(emailText.getText());
     	if (passwordText.getText().equals(verifyText.getText())) {
     		control.UserLogic.getInstance().insertUser(user);
+    		//Wallet for new user
+    		control.WalletLogic.getInstance().generateWalletForNewUser(user);
     	closeWindow();
     	ViewLogic.newLoginWindow();
     	}

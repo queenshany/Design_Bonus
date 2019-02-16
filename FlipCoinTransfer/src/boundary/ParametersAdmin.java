@@ -11,13 +11,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class ParametersController {
+public class ParametersAdmin {
 
     @FXML
     private BorderPane borderPane;
@@ -47,25 +46,25 @@ public class ParametersController {
     private ImageView homeIcon;
 
     @FXML
-    private AnchorPane pane;
+    private ImageView importXML;
 
     @FXML
-    private ImageView createRec;
+    private ImageView expJson;
 
     @FXML
-    private ImageView viewRec;
+    private ImageView viewDetails;
 
     @FXML
-    private ImageView transRpt;
-
-    @FXML
-    private ImageView usersRpt;
+    private ImageView employeesManag;
 
     @FXML
     private ImageView categories;
 
     @FXML
     private ImageView parameters;
+
+    @FXML
+    private HBox hbox1;
 
     @FXML
     private VBox vbox1;
@@ -170,11 +169,8 @@ public class ParametersController {
     private TextField maxDiscount;
 
     @FXML
-    private HBox h11;
-
-    @FXML
     private Button saveButton;
-
+    
 	public void initialize() {
 
 		String one = String.valueOf(control.SysData.getInstance().getLastVersionParams().getTransMinSize());
@@ -195,9 +191,23 @@ public class ParametersController {
 		transSizeFree.setText(seven);
 		maxDiscount.setText(eight);
 	}
+
+    @FXML
+    void allDetails(MouseEvent event) {
+    	closeWindow();
+    	ViewLogic.newDetailsWindow();
+    }
+
+    @FXML
+    void backHome(MouseEvent event) {
+    	closeWindow();
+    	ViewLogic.newAdminWindow();
+    }
+
+    protected void closeWindow() {
+		((Stage) borderPane.getScene().getWindow()).close();
+	}
     
-    @SuppressWarnings("null")
-	@FXML
     void editVirsion(ActionEvent event) {
     	
     	String one = transMinSize.getText();
@@ -236,18 +246,12 @@ public class ParametersController {
     }
 
     @FXML
-    void allRecommendations(MouseEvent event) {
-    	closeWindow();
-    	ViewLogic.newViewRecommendationWindow();
+    void exportJson(MouseEvent event) {
+
     }
 
     @FXML
-    void generateTransReport(MouseEvent event) {
-    	
-    }
-
-    @FXML
-    void generateUsersReport(MouseEvent event) {
+    void importXML(MouseEvent event) {
 
     }
 
@@ -260,30 +264,19 @@ public class ParametersController {
     @FXML
     void manageCategories(MouseEvent event) {
     	closeWindow();
-    	ViewLogic.newCategoriesWindow();
+    	ViewLogic.newAdminCategoriesWindow();
+    }
+
+    @FXML
+    void manageEmployees(MouseEvent event) {
+    	closeWindow();
+    	ViewLogic.newManageEmployeesWindow();
     }
 
     @FXML
     void manageParameters(MouseEvent event) {
     	closeWindow();
-    	ViewLogic.newParametersWindow();
- 
-    }
-   
-    @FXML
-    void backHome(MouseEvent event) {
-    	closeWindow();
-    	ViewLogic.newEmployeeWindow();
+    	ViewLogic.newAdminParametersWindow();
     }
 
-    @FXML
-    void newRecommendation(MouseEvent event) {
-    	closeWindow();
-    	ViewLogic.newCreateRecommendationWindow();
-    }
-
-    
-	protected void closeWindow() {
-		((Stage) borderPane.getScene().getWindow()).close();
-	}
 }

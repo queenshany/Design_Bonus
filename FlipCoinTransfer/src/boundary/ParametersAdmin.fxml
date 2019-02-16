@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="336.0" prefWidth="509.0" style="-fx-background-color: #eaf0f9;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.ParametersAdmin">
+   <top>
+      <HBox fx:id="topBorder" prefHeight="73.0" prefWidth="489.0" spacing="70.0" BorderPane.alignment="TOP_CENTER">
+         <children>
+            <ImageView fx:id="logo" fitHeight="38.0" fitWidth="251.0" pickOnBounds="true" smooth="false">
+               <image>
+                  <Image url="@../rsc/transferLogo.png" />
+               </image>
+            </ImageView>
+            <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="networkStatus" prefHeight="11.0" prefWidth="35.0" text="Normal">
+                     <HBox.margin>
+                        <Insets left="5.0" right="-20.0" top="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="9.0" />
+                     </font>
+                  </Label>
+                  <ImageView fx:id="logoutIcon" fitHeight="12.0" fitWidth="14.0" onMouseClicked="#logOut" pickOnBounds="true" smooth="false">
+                     <image>
+                        <Image url="@../rsc/logoutIcon.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="20.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+               </children>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" />
+         </BorderPane.margin>
+      </HBox>
+   </top>
+   <bottom>
+      <VBox fx:id="bottom" alignment="CENTER" prefHeight="44.0" prefWidth="509.0" spacing="5.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="line" fitHeight="6.0" fitWidth="509.0" pickOnBounds="true" smooth="false">
+               <image>
+                  <Image url="@../rsc/line.png" />
+               </image>
+               <VBox.margin>
+                  <Insets bottom="-3.0" top="5.0" />
+               </VBox.margin>
+            </ImageView>
+            <HBox fx:id="hbox" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="200.0">
+               <children>
+                  <ImageView fx:id="homeIcon" fitHeight="18.0" fitWidth="18.0" onMouseClicked="#backHome" pickOnBounds="true" smooth="false">
+                     <image>
+                        <Image url="@../rsc/homeIcon.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </ImageView>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </bottom>
+   <left>
+      <AnchorPane prefHeight="232.0" prefWidth="150.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="importXML" fitHeight="37.0" fitWidth="97.0" layoutX="-3.0" layoutY="2.0" onMouseClicked="#importXML" pickOnBounds="true" smooth="false">
+               <image>
+                  <Image url="@../rsc/importXMLPic.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="expJson" fitHeight="37.0" fitWidth="97.0" layoutX="-3.0" layoutY="42.0" onMouseClicked="#exportJson" pickOnBounds="true" smooth="false">
+               <image>
+                  <Image url="@../rsc/exportJSONPIC.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="viewDetails" fitHeight="36.0" fitWidth="97.0" layoutX="-3.0" layoutY="82.0" onMouseClicked="#allDetails" pickOnBounds="true" smooth="false">
+               <image>
+                  <Image url="@../rsc/viewDetailsPic.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="employeesManag" fitHeight="37.0" fitWidth="97.0" layoutX="-4.0" layoutY="122.0" onMouseClicked="#manageEmployees" pickOnBounds="true" smooth="false">
+               <image>
+                  <Image url="@../rsc/employeesPic.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="categories" fitHeight="40.0" fitWidth="97.0" layoutX="-4.0" layoutY="160.0" onMouseClicked="#manageCategories" pickOnBounds="true" smooth="false">
+               <image>
+                  <Image url="@../rsc/categoriesPic.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="parameters" fitHeight="40.0" fitWidth="97.0" layoutX="-3.0" layoutY="200.0" onMouseClicked="#manageParameters" pickOnBounds="true" smooth="false">
+               <image>
+                  <Image url="@../rsc/parametersPic.png" />
+               </image>
+            </ImageView>
+         </children>
+         <BorderPane.margin>
+            <Insets top="-35.0" />
+         </BorderPane.margin>
+      </AnchorPane>
+   </left>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox fx:id="hbox1" alignment="CENTER" prefHeight="209.0" prefWidth="247.0" spacing="15.0">
+               <children>
+                  <VBox fx:id="vbox1" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <HBox fx:id="hbox2" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <VBox fx:id="vbox2" alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Label fx:id="lab1" text="TransMinSize" />
+                                    <TextField fx:id="transMinSize" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox fx:id="h3" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <VBox fx:id="v3" alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Label fx:id="lab2" text="TransMaxSize" />
+                                    <TextField fx:id="transMaxSize" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox fx:id="h4" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <VBox fx:id="v4" alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Label fx:id="lab3" text="SizeForExpansion" />
+                                    <TextField fx:id="sizeForExpansion" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox fx:id="h6" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <VBox fx:id="v6" alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Label fx:id="lab4" text="PriceForExpansion" />
+                                    <TextField fx:id="priceForExpansion" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="v7" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <HBox fx:id="h7" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <VBox fx:id="v8" alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Label fx:id="lab5" text="discountPrecent" />
+                                    <TextField fx:id="discountPrecent" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox fx:id="h8" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <VBox fx:id="v9" alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Label fx:id="lab6" text="PriceForDiscount" />
+                                    <TextField fx:id="priceForDiscount" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox fx:id="h9" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <VBox fx:id="v10" alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Label fx:id="lab7" text="TransSizeFree" />
+                                    <TextField fx:id="transSizeFree" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox fx:id="h10" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <VBox fx:id="v11" alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Label fx:id="lab8" text="MaxDiscount" />
+                                    <TextField fx:id="maxDiscount" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </center>
+   <right>
+      <HBox prefHeight="209.0" prefWidth="108.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="saveButton" blendMode="MULTIPLY" mnemonicParsing="false" onAction="#editVirsion" text="Save Changes">
+               <HBox.margin>
+                  <Insets top="270.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="100.0" />
+         </BorderPane.margin>
+      </HBox>
+   </right>
+</BorderPane>

@@ -93,7 +93,7 @@ public class MainAdminScreenController {
     @FXML
     void manageParameters(MouseEvent event) {
     	closeWindow();
-    	ViewLogic.newParametersWindow();
+    	ViewLogic.newAdminParametersWindow();
     }
 
 	protected void closeWindow() {

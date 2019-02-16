@@ -250,6 +250,24 @@ public class ViewLogic {
 				"Parameters",
 				false);
 	}
+	
+	
+	// ------------------------------ Parameters (Admin) ------------------------------
+	/**
+	 * Open Parameters Window
+	 */
+	protected static void newAdminParametersWindow() {
+		Stage stage = new Stage();
+		setStage(stage);
+
+
+		newWindow(ViewLogic.class.getResource("ParametersAdmin.fxml"),
+				stage,
+				null, null,	null, null,	null, null,
+				false,
+				"Parameters",
+				false);
+	}
 
 
 

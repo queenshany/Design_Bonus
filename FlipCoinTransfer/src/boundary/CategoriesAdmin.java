@@ -18,73 +18,73 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class CategoriesController {
+public class CategoriesAdmin {
 
-	@FXML
-	private BorderPane borderPane;
+    @FXML
+    private BorderPane borderPane;
 
-	@FXML
-	private HBox topBorder;
+    @FXML
+    private HBox topBorder;
 
-	@FXML
-	private ImageView logo;
+    @FXML
+    private ImageView logo;
 
-	@FXML
-	private Label networkStatus;
+    @FXML
+    private Label networkStatus;
 
-	@FXML
-	private ImageView logoutIcon;
+    @FXML
+    private ImageView logoutIcon;
 
-	@FXML
-	private VBox bottom;
+    @FXML
+    private VBox bottom;
 
-	@FXML
-	private ImageView line;
+    @FXML
+    private ImageView line;
 
-	@FXML
-	private HBox hbox;
+    @FXML
+    private HBox hbox;
 
-	@FXML
-	private ImageView homeIcon;
+    @FXML
+    private ImageView homeIcon;
 
-	@FXML
-	private ImageView createRec;
+    @FXML
+    private ImageView importXML;
 
-	@FXML
-	private ImageView viewRec;
+    @FXML
+    private ImageView expJson;
 
-	@FXML
-	private ImageView transRpt;
+    @FXML
+    private ImageView viewDetails;
 
-	@FXML
-	private ImageView usersRpt;
+    @FXML
+    private ImageView employeesManag;
 
-	@FXML
-	private ImageView categories;
+    @FXML
+    private ImageView categories;
 
-	@FXML
-	private ImageView parameters;
+    @FXML
+    private ImageView parameters;
 
-	@FXML
-	private ComboBox<Category> categoriesCombo;
+    @FXML
+    private ComboBox<Category> categoriesCombo;
 
-	@FXML
-	private TextField editText;
+    @FXML
+    private TextField editText;
 
-	@FXML
-	private Button save;
+    @FXML
+    private Button save;
 
-	@FXML
-	private Label lable2;
+    @FXML
+    private Label lable2;
 
-	@FXML
-	private TextField newText;
+    @FXML
+    private TextField newText;
 
-	@FXML
-	private Button addButton;
+    @FXML
+    private Button addButton;
 
-	@FXML
-	private Label lable;
+    @FXML
+    private Label lable;
 
 	public void initialize() {
 		//Fill the category combobox
@@ -95,6 +95,50 @@ public class CategoriesController {
 		categoriesCombo.setItems(cate);
 
 	}
+
+    @FXML
+    void allDetails(MouseEvent event) {
+    	closeWindow();
+    	ViewLogic.newDetailsWindow();
+    }
+
+    @FXML
+    void backHome(MouseEvent event) {
+    	closeWindow();
+    	ViewLogic.newAdminWindow();
+    }
+
+    @FXML
+    void exportJson(MouseEvent event) {
+
+    }
+
+    @FXML
+    void importXML(MouseEvent event) {
+
+    }
+
+    @FXML
+    void logOut(MouseEvent event) {
+    	closeWindow();
+    	ViewLogic.newLoginWindow();
+    }
+
+    @FXML
+    void manageCategories(MouseEvent event) {
+    	
+    }
+
+    @FXML
+    void manageEmployees(MouseEvent event) {
+    	closeWindow();
+    	ViewLogic.newManageEmployeesWindow();
+    }
+
+    @FXML
+    void manageParameters(MouseEvent event) {
+
+    }
 
 	@FXML
 	void theChosen(ActionEvent event) {
@@ -126,55 +170,6 @@ public class CategoriesController {
 			lable.setVisible(true);
 			lable.setText("You delete the category");
 		}		
-	}
-
-
-	@FXML
-	void allRecommendations(MouseEvent event) {
-		closeWindow();
-		ViewLogic.newViewRecommendationWindow();
-	}
-
-	@FXML
-	void generateTransReport(MouseEvent event) {
-
-	}
-
-	@FXML
-	void generateUsersReport(MouseEvent event) {
-
-	}
-
-	@FXML
-	void logOut(MouseEvent event) {
-		closeWindow();
-		ViewLogic.newLoginWindow();
-	}
-
-	@FXML
-	void manageCategories(MouseEvent event) {
-		closeWindow();
-		ViewLogic.newCategoriesWindow();
-	}
-
-	@FXML
-	void manageParameters(MouseEvent event) {
-		closeWindow();
-		ViewLogic.newParametersWindow();
-
-	}
-
-	@FXML
-	void backhome(MouseEvent event) {
-		closeWindow();
-		ViewLogic.newEmployeeWindow();
-		
-	}
-
-	@FXML
-	void newRecommendation(MouseEvent event) {
-		closeWindow();
-		ViewLogic.newCreateRecommendationWindow();
 	}
 
 

@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="336.0" prefWidth="509.0" style="-fx-background-color: #eaf0f9;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.CategoriesController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="336.0" prefWidth="509.0" style="-fx-background-color: #eaf0f9;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.CategoriesAdmin">
    <top>
       <HBox fx:id="topBorder" prefHeight="73.0" prefWidth="489.0" spacing="70.0" BorderPane.alignment="TOP_CENTER">
          <children>
@@ -61,7 +61,7 @@
             </ImageView>
             <HBox fx:id="hbox" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="200.0">
                <children>
-                  <ImageView fx:id="homeIcon" fitHeight="18.0" fitWidth="18.0" onMouseClicked="#backhome" pickOnBounds="true" smooth="false">
+                  <ImageView fx:id="homeIcon" fitHeight="18.0" fitWidth="18.0" onMouseClicked="#backHome" pickOnBounds="true" smooth="false">
                      <image>
                         <Image url="@../rsc/homeIcon.png" />
                      </image>
@@ -77,24 +77,24 @@
    <left>
       <AnchorPane prefHeight="232.0" prefWidth="150.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fx:id="createRec" fitHeight="40.0" fitWidth="97.0" layoutX="-3.0" layoutY="1.0" onMouseClicked="#newRecommendation" pickOnBounds="true" smooth="false">
+            <ImageView fx:id="importXML" fitHeight="37.0" fitWidth="97.0" layoutX="-3.0" layoutY="2.0" onMouseClicked="#importXML" pickOnBounds="true" smooth="false">
                <image>
-                  <Image url="@../rsc/createRecPic.png" />
+                  <Image url="@../rsc/importXMLPic.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="viewRec" fitHeight="40.0" fitWidth="97.0" layoutX="-3.0" layoutY="41.0" onMouseClicked="#allRecommendations" pickOnBounds="true" smooth="false">
+            <ImageView fx:id="expJson" fitHeight="37.0" fitWidth="97.0" layoutX="-3.0" layoutY="42.0" onMouseClicked="#exportJson" pickOnBounds="true" smooth="false">
                <image>
-                  <Image url="@../rsc/viewRecPic.png" />
+                  <Image url="@../rsc/exportJSONPIC.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="transRpt" fitHeight="40.0" fitWidth="97.0" layoutX="-3.0" layoutY="81.0" onMouseClicked="#generateTransReport" pickOnBounds="true" smooth="false">
+            <ImageView fx:id="viewDetails" fitHeight="36.0" fitWidth="97.0" layoutX="-3.0" layoutY="82.0" onMouseClicked="#allDetails" pickOnBounds="true" smooth="false">
                <image>
-                  <Image url="@../rsc/transReportPic.png" />
+                  <Image url="@../rsc/viewDetailsPic.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="usersRpt" fitHeight="37.0" fitWidth="97.0" layoutX="-4.0" layoutY="120.0" onMouseClicked="#generateUsersReport" pickOnBounds="true" smooth="false">
+            <ImageView fx:id="employeesManag" fitHeight="37.0" fitWidth="97.0" layoutX="-4.0" layoutY="122.0" onMouseClicked="#manageEmployees" pickOnBounds="true" smooth="false">
                <image>
-                  <Image url="@../rsc/usersReportPic.png" />
+                  <Image url="@../rsc/employeesPic.png" />
                </image>
             </ImageView>
             <ImageView fx:id="categories" fitHeight="40.0" fitWidth="97.0" layoutX="-4.0" layoutY="160.0" onMouseClicked="#manageCategories" pickOnBounds="true" smooth="false">
@@ -113,39 +113,37 @@
          </BorderPane.margin>
       </AnchorPane>
    </left>
-   <right>
-      <VBox alignment="TOP_CENTER" prefHeight="209.0" prefWidth="149.0" BorderPane.alignment="CENTER" />
-   </right>
    <center>
-      <VBox prefHeight="209.0" prefWidth="194.0" spacing="10.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <ComboBox fx:id="categoriesCombo" onAction="#theChosen" prefHeight="25.0" prefWidth="189.0" promptText="Edit Category" />
-            <HBox prefHeight="75.0" prefWidth="200.0">
+            <VBox prefHeight="209.0" prefWidth="194.0" spacing="10.0">
                <children>
-                  <TextField fx:id="editText" />
-                  <Button fx:id="save" mnemonicParsing="false" onAction="#updateCategoty" text="Save" />
+                  <ComboBox fx:id="categoriesCombo" onAction="#theChosen" prefHeight="25.0" prefWidth="189.0" promptText="Edit Category" />
+                  <HBox prefHeight="75.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="editText" />
+                        <Button fx:id="save" mnemonicParsing="false" onAction="#updateCategoty" text="Save" />
+                     </children>
+                  </HBox>
+                  <Label fx:id="lable2" text="Add New Category">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="newText" />
+                        <Button fx:id="addButton" mnemonicParsing="false" onAction="#addCategory" text="Add" />
+                     </children>
+                  </HBox>
+                  <Label fx:id="lable" text="Label" textFill="#4b3ced" visible="false">
+                     <VBox.margin>
+                        <Insets bottom="20.0" top="-40.0" />
+                     </VBox.margin>
+                  </Label>
                </children>
-            </HBox>
-            <Label fx:id="lable2" text="Add New Category">
-               <font>
-                  <Font name="System Bold Italic" size="12.0" />
-               </font>
-            </Label>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <TextField fx:id="newText" />
-                  <Button fx:id="addButton" mnemonicParsing="false" onAction="#addCategory" text="Add" />
-               </children>
-            </HBox>
-            <Label fx:id="lable" text="Label" textFill="#4b3ced" visible="false">
-               <VBox.margin>
-                  <Insets bottom="20.0" top="-40.0" />
-               </VBox.margin>
-            </Label>
+            </VBox>
          </children>
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
-      </VBox>
+      </AnchorPane>
    </center>
 </BorderPane>

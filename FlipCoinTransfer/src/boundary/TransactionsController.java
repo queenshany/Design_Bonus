@@ -206,7 +206,9 @@ public class TransactionsController {
 		usersCombo.getItems().addAll(users);
 
 		ObservableList<User> us= FXCollections.observableArrayList(users);
-		usersCombo.setItems(us);	
+		us.remove(LoginController.curretUser);
+		usersCombo.setItems(us);
+		
 
 		//Fill the pay transaction table
 		creationDate.setCellValueFactory(new PropertyValueFactory<>("creationDate"));
@@ -226,6 +228,12 @@ public class TransactionsController {
 		//Chosen Products
 		itemID.setCellValueFactory(new PropertyValueFactory<>("catalogNumber"));
 		quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+		
+//		ArrayList<Item> i = new ArrayList<Item>();
+//		i = control.ItemLogic.getInstance().getItems();
+//		ObservableList<Item> pro = FXCollections.observableArrayList();
+//		pro.addAll(i);
+//		table.setItems(pro);
 		
 		
 		//Fill Confirm Table
@@ -348,23 +356,25 @@ public class TransactionsController {
 	void addToTable(ActionEvent event) {
 //		int itemID = productsCombo.getSelectionModel().getSelectedItem().getCatalogNumber();
 		if (quantity.getText()!=null && productsCombo.getSelectionModel()!=null) {
-			try {
-				String convert = (amountText.getText());
-				Integer x = Integer.parseInt(convert);
+//			try {
+//				String convert = (amountText.getText());
+				Integer x = Integer.parseInt(amountText.getText());
 				Item item = productsCombo.getValue();
+				System.out.println(item);
 //				Item items = new Item(itemID);
 				item.setQuantity(x);
+				System.out.println(item);
 				itemID.setCellValueFactory(new PropertyValueFactory<>("catalogNumber"));
 				quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-				ObservableList<Item> items= FXCollections.observableArrayList();
-				items.add(item);
-				table.setItems(items);
-			}	
-			catch (NumberFormatException e){
-				lable.setText("Invalid Value");
+				ObservableList<Item> i= FXCollections.observableArrayList();
+				i.addAll(item);
+				table.setItems(i);
+//			}	
+//			catch (NumberFormatException e){
+//				lable.setText("Invalid Value");
 			}
 		}
-		}
+//		}
 	
 
 

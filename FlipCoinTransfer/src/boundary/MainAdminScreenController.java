@@ -81,8 +81,8 @@ public class MainAdminScreenController {
     @FXML
     void manageCategories(MouseEvent event) {
     	closeWindow();
-    	ViewLogic.newCategoriesWindow();
-    }
+    	ViewLogic.newAdminCategoriesWindow();
+    	}
 
     @FXML
     void manageEmployees(MouseEvent event) {

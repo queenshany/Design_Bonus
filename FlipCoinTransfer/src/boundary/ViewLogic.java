@@ -304,6 +304,23 @@ public class ViewLogic {
 				"Categories",
 				false);
 	}
+	
+	// ------------------------------ Categories (Admin) ------------------------------
+	/**
+	 * Open Categories Window
+	 */
+	protected static void newAdminCategoriesWindow() {
+		Stage stage = new Stage();
+		setStage(stage);
+
+
+		newWindow(ViewLogic.class.getResource("CategoriesAdmin.fxml"),
+				stage,
+				null, null,	null, null,	null, null,
+				false,
+				"Categories",
+				false);
+	}
 
 
 

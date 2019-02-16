@@ -122,9 +122,11 @@ public class CategoriesController {
 				lable.setVisible(true);
 				lable.setText("You edit the category");
 			}
+			else {
 			control.ItemLogic.getInstance().deleteCategory(ct);
 			lable.setVisible(true);
 			lable.setText("You delete the category");
+			}
 		}		
 	}
 

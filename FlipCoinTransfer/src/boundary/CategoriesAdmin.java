@@ -126,7 +126,8 @@ public class CategoriesAdmin {
 
     @FXML
     void manageCategories(MouseEvent event) {
-    	
+    	closeWindow();
+    	ViewLogic.newAdminCategoriesWindow();
     }
 
     @FXML
@@ -166,9 +167,11 @@ public class CategoriesAdmin {
 				lable.setVisible(true);
 				lable.setText("You edit the category");
 			}
+			else {
 			control.ItemLogic.getInstance().deleteCategory(ct);
 			lable.setVisible(true);
 			lable.setText("You delete the category");
+			}
 		}		
 	}
 

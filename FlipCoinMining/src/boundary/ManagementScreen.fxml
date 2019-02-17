@@ -139,7 +139,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="minersTable" text="Miners">
+            <Tab fx:id="minersTab" text="Miners">
                <content>
                   <AnchorPane fx:id="p32" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>

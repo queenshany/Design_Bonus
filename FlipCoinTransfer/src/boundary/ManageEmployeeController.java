@@ -102,6 +102,8 @@ public class ManageEmployeeController {
     @FXML
     void addEmployee(ActionEvent event) {
     	chosenUser.setEmployee(true);
+    	control.UserLogic.getInstance().updateUser(chosenUser);
+    	usersTable.refresh();
     }
 
     @FXML
@@ -124,6 +126,8 @@ public class ManageEmployeeController {
     @FXML
     void removeEmployee(ActionEvent event) {
     	chosenUser.setEmployee(false);
+    	control.UserLogic.getInstance().updateUser(chosenUser);
+    	usersTable.refresh();
     }
     
 

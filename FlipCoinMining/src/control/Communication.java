@@ -220,12 +220,13 @@ public class Communication {
 			for (Solution sol : solutions)
 				RiddleLogic.getInstance().insertSolution(sol);
 			//System.out.println(t);
+			return true;
 		}
 		catch (IOException | JDOMException e) {
 			e.printStackTrace();
 		}
 
-		return true;
+		return false;
 	}
 
 }

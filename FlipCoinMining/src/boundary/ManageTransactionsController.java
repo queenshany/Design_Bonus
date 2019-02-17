@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 import control.BlockTransLogic;
+import control.MinerLogic;
 import entity.Block;
 import entity.Transaction;
 import javafx.collections.FXCollections;
@@ -232,6 +233,16 @@ public class ManageTransactionsController {
 
 	@FXML
 	void watchReport(MouseEvent event) {
+		if (LoginController.curretMiner == null) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Miner is Null");
+			alert.setContentText("Miner is Null");
+			alert.initModality(Modality.APPLICATION_MODAL);
+			alert.showAndWait();
+		}else {
+			JFrame reportFrame = MinerLogic.getInstance().produceMarketPredictionReport();
+			reportFrame.setVisible(true);
+		}
 
 	}
 

@@ -120,10 +120,15 @@ public class SearchPageController {
 		image.setCellValueFactory(new PropertyValueFactory<>("image"));
 		description.setCellValueFactory(new PropertyValueFactory<>("description"));
 		price.setCellValueFactory(new PropertyValueFactory<>("price"));
-//		quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-//		category.setCellValueFactory(new PropertyValueFactory<>("category"));
+		quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+		category.setCellValueFactory(new PropertyValueFactory<>("category"));
 //			
 //		getProducts();
+		
+		ArrayList<Item> search =
+				control.ItemLogic.getInstance().searchItem(null, null, null, LoginController.keyWord, null);
+					ObservableList<Item> s= FXCollections.observableArrayList(search);
+					table.setItems(s);
 		
 		//Fill Category Combo
 		ArrayList<Category> ct = new ArrayList<Category>();
@@ -177,7 +182,8 @@ public class SearchPageController {
 
     @FXML
     void searchProducts(MouseEvent event) {
-    	
+    	closeWindow();
+    	ViewLogic.newSearchPageWindow();
     }
 
     @FXML

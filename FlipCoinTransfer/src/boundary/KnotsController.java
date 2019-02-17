@@ -75,6 +75,11 @@ public class KnotsController {
     @FXML
     private Button buyButton;
 
+    public void initialize() {
+    	String discount = String.valueOf(control.SysData.getInstance().getLastVersionParams().getMaxAllowableDiscount()*100);
+    	theAmount.setText(discount);
+    }
+    
     @SuppressWarnings("null")
 	@FXML
     void addNewWallet(ActionEvent event) {
@@ -126,7 +131,7 @@ public class KnotsController {
     		try {
     	
     	String convert = (textField.getText());
-    	double x = Double.parseDouble(convert)*5.0;
+    	double x = Double.parseDouble(convert)*control.SysData.getInstance().getLastVersionParams().getPriceForDiscount();
     	convert = String.valueOf(x);
     	theAmount.setText(convert);
     	youHaveToPay.setVisible(true);

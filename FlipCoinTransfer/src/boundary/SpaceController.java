@@ -74,17 +74,24 @@ public class SpaceController {
     private Button buyButton;
 
 	public void initialize() {
+		int temp = control.SysData.getInstance().getLastVersionParams().getTransMinSize();
+		   ObservableList<Integer> ints= FXCollections.observableArrayList();
+
+		while (temp <= control.SysData.getInstance().getLastVersionParams().getTransMaxSize()) {
+			ints.add(temp);
+			temp = temp + control.SysData.getInstance().getLastVersionParams().getTransSizeForExpansion();
+		}
 		
 		//Fill the combobox
-		   ObservableList<Integer> ints= FXCollections.observableArrayList();
-		   ints.add(5);
-		   ints.add(10);
-		   ints.add(15);
-		   ints.add(20);
-		   ints.add(25);
-		   ints.add(30);
-		   ints.add(35);
-		   ints.add(40);
+//		   ObservableList<Integer> ints= FXCollections.observableArrayList();
+//		   ints.add(5);
+//		   ints.add(10);
+//		   ints.add(15);
+//		   ints.add(20);
+//		   ints.add(25);
+//		   ints.add(30);
+//		   ints.add(35);
+//		   ints.add(40);
 		comboBox.setItems(ints);
 	}
     
@@ -98,13 +105,13 @@ public class SpaceController {
 
     @FXML
     void calcBTC(ActionEvent event) {
-   int a = comboBox.getSelectionModel().getSelectedItem();
-//   a = (int) (a*control.SysData.getInstance().getLastVersionParams().getPriceForExpansion());
-   a = a*10;
+   double a = comboBox.getSelectionModel().getSelectedItem();
+   a = a*control.SysData.getInstance().getLastVersionParams().getPriceForExpansion();
    String text = String.valueOf(a);
    theAmount.setText(text);
    theAmount.setVisible(true);
    BTC.setVisible(true);
    youHaveToPay.setVisible(true);
+   buyButton.setDisable(false);
     }
 }

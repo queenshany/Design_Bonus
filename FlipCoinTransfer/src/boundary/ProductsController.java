@@ -207,17 +207,19 @@ public class ProductsController {
 
     @FXML
     void searchProducts(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newSearchPageWindow();
     }
 
     @FXML
     void settingsScreen(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newSettingsWindow();
     }
 
     @FXML
     void switch1(MouseEvent event) {
-    products.setId("productsPic.png");
+//    products.setId("productsPic.png");
     }
 
     @FXML

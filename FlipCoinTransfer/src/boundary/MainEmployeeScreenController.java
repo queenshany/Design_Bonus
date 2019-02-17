@@ -63,6 +63,10 @@ public class MainEmployeeScreenController {
 
     @FXML
     private ImageView parameters;
+    
+    public void initialize() {
+    networkStatus.setText(LoginController.netMode.toString());
+    }
 
     @FXML
     void allRecommendations(MouseEvent event) {

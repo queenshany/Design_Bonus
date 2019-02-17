@@ -437,8 +437,9 @@ public class TransactionsController {
 
 	@FXML
 	void searchProducts(MouseEvent event) {
-		closeWindow();
-		ViewLogic.newSearchPageWindow();
+		LoginController.keyWord = searchText.getText();
+    	closeWindow();
+    	ViewLogic.newSearchPageWindow();
 	}
 
 	@FXML
@@ -453,6 +454,12 @@ public class TransactionsController {
 		ViewLogic.newTransactionsWindow();
 	}
 
+    @FXML
+    void backHome(MouseEvent event) {
+    	closeWindow();
+    	ViewLogic.newUserWindow();
+    }
+	
 	@FXML
 	void walletsScreen(MouseEvent event) {
 		closeWindow();

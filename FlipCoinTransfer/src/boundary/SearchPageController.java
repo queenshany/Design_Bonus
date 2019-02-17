@@ -115,22 +115,23 @@ public class SearchPageController {
     
 	public void initialize() {
 		
-		catalogNumber.setCellValueFactory(new PropertyValueFactory<>("catalogNumber"));
-		itemName.setCellValueFactory(new PropertyValueFactory<>("itemName"));
-		image.setCellValueFactory(new PropertyValueFactory<>("image"));
-		description.setCellValueFactory(new PropertyValueFactory<>("description"));
-		price.setCellValueFactory(new PropertyValueFactory<>("price"));
-		quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-		category.setCellValueFactory(new PropertyValueFactory<>("category"));
-			
-		getProducts();
+//		catalogNumber.setCellValueFactory(new PropertyValueFactory<>("catalogNumber"));
+//		itemName.setCellValueFactory(new PropertyValueFactory<>("itemName"));
+//		image.setCellValueFactory(new PropertyValueFactory<>("image"));
+//		description.setCellValueFactory(new PropertyValueFactory<>("description"));
+//		price.setCellValueFactory(new PropertyValueFactory<>("price"));
+//		quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+//		category.setCellValueFactory(new PropertyValueFactory<>("category"));
+//			
+//		getProducts();
 		
 		//Fill Category Combo
 		ArrayList<Category> ct = new ArrayList<Category>();
 		ct=control.ItemLogic.getInstance().getCategories();
  			 categoryCombo.getItems().addAll(ct);
  			ObservableList<Category> cate= FXCollections.observableArrayList(ct);
- 	 	    categoryCombo.setItems(cate);	
+ 	 	    categoryCombo.setItems(cate);
+// 	 	    System.out.println(LoginController.keyWord);
 		   
  } 
  
@@ -179,6 +180,12 @@ public class SearchPageController {
     	
     }
 
+    @FXML
+    void backHome(MouseEvent event) {
+    	closeWindow();
+    	ViewLogic.newUserWindow();
+    }
+    
     @FXML
     void settingsScreen(MouseEvent event) {
     	closeWindow();

@@ -259,6 +259,11 @@ public class UserWalletController {
 		ViewLogic.newChargerWindow();
 	}
 	
+    @FXML
+    void backHome(MouseEvent event) {
+    	closeWindow();
+    	ViewLogic.newUserWindow();
+    }
 
     @FXML
     void chosenKnots(MouseEvent event) {
@@ -277,12 +282,12 @@ public class UserWalletController {
 	
 	@FXML
 	void editKnots(ActionEvent event) {
-
+		ViewLogic.newExpandKnotsWindow();
 	}
 
 	@FXML
 	void editSpace(ActionEvent event) {
-
+		ViewLogic.newExpandSpaceWindow();
 	}
 
 

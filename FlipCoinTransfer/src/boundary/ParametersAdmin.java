@@ -208,6 +208,7 @@ public class ParametersAdmin {
 		((Stage) borderPane.getScene().getWindow()).close();
 	}
     
+  	@FXML
     void editVirsion(ActionEvent event) {
     	
     	String one = transMinSize.getText();

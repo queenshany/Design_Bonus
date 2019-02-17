@@ -93,12 +93,14 @@ public class CategoriesController {
 		categoriesCombo.getItems().addAll(ct);
 		ObservableList<Category> cate= FXCollections.observableArrayList(ct);
 		categoriesCombo.setItems(cate);
+		editText.setEditable(false);
 
 	}
 
 	@FXML
 	void theChosen(ActionEvent event) {
 		editText.setText(categoriesCombo.getSelectionModel().getSelectedItem().getCategoryName());
+		editText.setEditable(true);
 	}
 
 	@FXML
@@ -122,12 +124,14 @@ public class CategoriesController {
 				lable.setVisible(true);
 				lable.setText("You edit the category");
 			}
-			else {
-			control.ItemLogic.getInstance().deleteCategory(ct);
-			lable.setVisible(true);
-			lable.setText("You delete the category");
-			}
-		}		
+		}
+//			}
+//			else {
+//			control.ItemLogic.getInstance().deleteCategory(ct);
+//			lable.setVisible(true);
+//			lable.setText("You delete the category");
+//			}
+//		}		
 	}
 
 

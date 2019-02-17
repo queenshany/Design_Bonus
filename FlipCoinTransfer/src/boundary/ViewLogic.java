@@ -456,6 +456,24 @@ public class ViewLogic {
 				false);
 	}
 
+	
+	// ------------------------------ Edit Recommendation ------------------------------
+		/**
+		 * Open Edit Recommendation Window
+		 */
+		protected static void newEditRecommendationWindow() {
+			Stage stage = new Stage();
+			setStage(stage);
+
+
+			newWindow(ViewLogic.class.getResource("EditRecScreen.fxml"),
+					stage,
+					null, null,	null, null,	null, null,
+					false,
+					"Edit Recommendation",
+					false);
+		}
+
 
 	// ------------------------------ Employee Or User  ------------------------------
 		/**

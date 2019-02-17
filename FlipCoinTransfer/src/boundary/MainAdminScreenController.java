@@ -56,6 +56,10 @@ public class MainAdminScreenController {
     @FXML
     private ImageView parameters;
 
+    public void initialize() {
+    networkStatus.setText(LoginController.netMode.toString());
+    }
+    
     @FXML
     void allDetails(MouseEvent event) {
     	closeWindow();

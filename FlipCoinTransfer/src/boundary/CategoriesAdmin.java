@@ -20,71 +20,75 @@ import javafx.stage.Stage;
 
 public class CategoriesAdmin {
 
-    @FXML
-    private BorderPane borderPane;
+	@FXML
+	private BorderPane borderPane;
 
-    @FXML
-    private HBox topBorder;
+	@FXML
+	private HBox topBorder;
 
-    @FXML
-    private ImageView logo;
+	@FXML
+	private ImageView logo;
 
-    @FXML
-    private Label networkStatus;
+	@FXML
+	private Label networkStatus;
 
-    @FXML
-    private ImageView logoutIcon;
+	@FXML
+	private ImageView logoutIcon;
 
-    @FXML
-    private VBox bottom;
+	@FXML
+	private VBox bottom;
 
-    @FXML
-    private ImageView line;
+	@FXML
+	private ImageView line;
 
-    @FXML
-    private HBox hbox;
+	@FXML
+	private HBox hbox;
 
-    @FXML
-    private ImageView homeIcon;
+	@FXML
+	private ImageView homeIcon;
 
-    @FXML
-    private ImageView importXML;
+	@FXML
+	private ImageView importXML;
 
-    @FXML
-    private ImageView expJson;
+	@FXML
+	private ImageView expJson;
 
-    @FXML
-    private ImageView viewDetails;
+	@FXML
+	private ImageView viewDetails;
 
-    @FXML
-    private ImageView employeesManag;
+	@FXML
+	private ImageView employeesManag;
 
-    @FXML
-    private ImageView categories;
+	@FXML
+	private ImageView categories;
 
-    @FXML
-    private ImageView parameters;
+	@FXML
+	private ImageView parameters;
 
-    @FXML
-    private ComboBox<Category> categoriesCombo;
+	@FXML
+	private ComboBox<Category> categoriesCombo;
 
-    @FXML
-    private TextField editText;
+	@FXML
+	private TextField editText;
 
-    @FXML
-    private Button save;
+	@FXML
+	private Button save;
 
-    @FXML
-    private Label lable2;
+	@FXML
+	private Label lable2;
 
-    @FXML
-    private TextField newText;
+	@FXML
+	private TextField newText;
 
-    @FXML
-    private Button addButton;
+	@FXML
+	private Button addButton;
 
-    @FXML
-    private Label lable;
+	@FXML
+	private Label lable;
+
+	@FXML
+	private Button removeButton;
+
 
 	public void initialize() {
 		//Fill the category combobox
@@ -96,54 +100,55 @@ public class CategoriesAdmin {
 
 	}
 
-    @FXML
-    void allDetails(MouseEvent event) {
-    	closeWindow();
-    	ViewLogic.newDetailsWindow();
-    }
+	@FXML
+	void allDetails(MouseEvent event) {
+		closeWindow();
+		ViewLogic.newDetailsWindow();
+	}
 
-    @FXML
-    void backHome(MouseEvent event) {
-    	closeWindow();
-    	ViewLogic.newAdminWindow();
-    }
+	@FXML
+	void backHome(MouseEvent event) {
+		closeWindow();
+		ViewLogic.newAdminWindow();
+	}
 
-    @FXML
-    void exportJson(MouseEvent event) {
+	@FXML
+	void exportJson(MouseEvent event) {
 
-    }
+	}
 
-    @FXML
-    void importXML(MouseEvent event) {
+	@FXML
+	void importXML(MouseEvent event) {
 
-    }
+	}
 
-    @FXML
-    void logOut(MouseEvent event) {
-    	closeWindow();
-    	ViewLogic.newLoginWindow();
-    }
+	@FXML
+	void logOut(MouseEvent event) {
+		closeWindow();
+		ViewLogic.newLoginWindow();
+	}
 
-    @FXML
-    void manageCategories(MouseEvent event) {
-    	closeWindow();
-    	ViewLogic.newAdminCategoriesWindow();
-    }
+	@FXML
+	void manageCategories(MouseEvent event) {
+		closeWindow();
+		ViewLogic.newAdminCategoriesWindow();
+	}
 
-    @FXML
-    void manageEmployees(MouseEvent event) {
-    	closeWindow();
-    	ViewLogic.newManageEmployeesWindow();
-    }
+	@FXML
+	void manageEmployees(MouseEvent event) {
+		closeWindow();
+		ViewLogic.newManageEmployeesWindow();
+	}
 
-    @FXML
-    void manageParameters(MouseEvent event) {
+	@FXML
+	void manageParameters(MouseEvent event) {
 
-    }
+	}
 
 	@FXML
 	void theChosen(ActionEvent event) {
 		editText.setText(categoriesCombo.getSelectionModel().getSelectedItem().getCategoryName());
+		editText.setEditable(true);
 	}
 
 	@FXML
@@ -158,6 +163,16 @@ public class CategoriesAdmin {
 
 
 	@FXML
+	void removeCat(ActionEvent event) {
+		if (categoriesCombo.getSelectionModel().getSelectedItem() != null) {
+			Category ct = categoriesCombo.getSelectionModel().getSelectedItem();
+			control.ItemLogic.getInstance().deleteCategory(ct);
+			lable.setVisible(true);
+			lable.setText("You delete the category");
+		}
+	}
+
+	@FXML
 	void updateCategoty(ActionEvent event) {
 		if (categoriesCombo.getSelectionModel().getSelectedItem() != null) {
 			Category ct = categoriesCombo.getSelectionModel().getSelectedItem();
@@ -167,11 +182,11 @@ public class CategoriesAdmin {
 				lable.setVisible(true);
 				lable.setText("You edit the category");
 			}
-			else {
-			control.ItemLogic.getInstance().deleteCategory(ct);
-			lable.setVisible(true);
-			lable.setText("You delete the category");
-			}
+			//			else {
+			//			control.ItemLogic.getInstance().deleteCategory(ct);
+			//			lable.setVisible(true);
+			//			lable.setText("You delete the category");
+			//			}
 		}		
 	}
 

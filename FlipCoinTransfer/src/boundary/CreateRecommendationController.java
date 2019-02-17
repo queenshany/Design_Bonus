@@ -145,6 +145,12 @@ public class CreateRecommendationController {
     }
 
     @FXML
+    void backHome(MouseEvent event) {
+    	closeWindow();
+    	ViewLogic.newUserWindow();
+    }
+    
+    @FXML
     void generateUsersReport(MouseEvent event) {
 
     }

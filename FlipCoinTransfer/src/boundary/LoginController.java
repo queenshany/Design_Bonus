@@ -19,11 +19,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import utils.E_NetMode;
 
 public class LoginController extends AbstractController{
 
 	protected static User curretUser;
 	protected static String keyWord;
+	protected static E_NetMode netMode;
 
     @FXML
     private BorderPane borderPane;
@@ -66,6 +68,7 @@ public class LoginController extends AbstractController{
     
     @FXML
     private Label error;
+    
 
     @FXML
     void createNewAcount(MouseEvent event) {
@@ -107,7 +110,7 @@ public class LoginController extends AbstractController{
 
 
 	public void initialize() {
-//		System.out.println("h");
+		netMode = control.SysData.getInstance().getMode();
 	}
 
 	protected void closeWindow() {

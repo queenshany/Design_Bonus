@@ -121,7 +121,7 @@
                   <ComboBox fx:id="categoriesCombo" onAction="#theChosen" prefHeight="25.0" prefWidth="189.0" promptText="Edit Category" />
                   <HBox prefHeight="75.0" prefWidth="200.0">
                      <children>
-                        <TextField fx:id="editText" />
+                        <TextField fx:id="editText" editable="false" />
                         <Button fx:id="save" mnemonicParsing="false" onAction="#updateCategoty" text="Save" />
                      </children>
                   </HBox>
@@ -143,6 +143,7 @@
                   </Label>
                </children>
             </VBox>
+            <Button fx:id="removeButton" layoutX="191.0" layoutY="36.0" mnemonicParsing="false" onAction="#removeCat" text="Remove" />
          </children>
       </AnchorPane>
    </center>

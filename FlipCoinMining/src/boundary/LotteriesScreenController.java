@@ -95,8 +95,10 @@ public class LotteriesScreenController {
     		errorMassage.setVisible(true);
     		errorMassage.setText("You can't sign to this lottery");
     	}
+    	else {
     		errorMassage.setVisible(true);
     		errorMassage.setText("You have successfully joined");
+    	}
     	}
     	else { 
     		errorMassage.setVisible(true);
@@ -107,6 +109,12 @@ public class LotteriesScreenController {
     @FXML
     void clean(ActionEvent event) {
     	errorMassage.setVisible(false);
+    }
+
+    @FXML
+    void backHome(MouseEvent event) {
+    	closeWindow();
+    	ViewLogic.newUserWindow();
     }
     
 	@FXML

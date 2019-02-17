@@ -117,7 +117,7 @@
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="31.0" prefWidth="29.0">
                      <children>
-                        <ImageView fx:id="homeIcon" fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" smooth="false">
+                        <ImageView fx:id="homeIcon" fitHeight="18.0" fitWidth="18.0" onMouseClicked="#backHome" pickOnBounds="true" smooth="false">
                            <image>
                               <Image url="@../rsc/homeIcon.png" />
                            </image>

@@ -63,6 +63,10 @@ public class MainUserScreenController extends AbstractController {
     @FXML
     private ImageView homeIcon;
 
+    public void initialize() {
+    networkStatus.setText(LoginController.netMode.toString());
+    }
+    
     @FXML
     void logOut(MouseEvent event) {
     	closeWindow();
@@ -83,6 +87,7 @@ public class MainUserScreenController extends AbstractController {
 
     @FXML
     void searchProducts(MouseEvent event) {
+    	LoginController.keyWord = searchText.getText();
     	closeWindow();
     	ViewLogic.newSearchPageWindow();
     }
@@ -104,12 +109,6 @@ public class MainUserScreenController extends AbstractController {
     	closeWindow();
     	ViewLogic.newWalletsWindow();
     }
-
-
-
-	public void initialize() {
-//		System.out.println("h");
-	}
 
 	protected void closeWindow() {
 		((Stage) borderPane.getScene().getWindow()).close();

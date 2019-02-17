@@ -38,6 +38,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import utils.E_Status;
 import utils.E_TransType;
 
 public class TransactionsController {
@@ -330,6 +331,7 @@ public class TransactionsController {
 		for(TransactionPay tp : confirm)
 		{
 			if(E_TransType.Pay.equals(tp.getType()) &&
+					tp.getStatus().equals(E_Status.Pending) &&
 					tp.getDestinationAddress().equalsIgnoreCase(LoginController.curretUser.getPublicAddress()) && 
 					tp.getDestinationSignature().equalsIgnoreCase(LoginController.curretUser.getSignature()))
 

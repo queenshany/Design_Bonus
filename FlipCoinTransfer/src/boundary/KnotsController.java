@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class KnotsController {
 
@@ -109,6 +110,10 @@ public class KnotsController {
 //				theAmount.setVisible(true);
 //    	}
 //		}
+    	
+//    	((Stage) UserWalletController.bp.getScene().getWindow()).close();
+//    	ViewLogic.newWalletsWindow();
+//    	closeWindow();
     }
 
     @FXML

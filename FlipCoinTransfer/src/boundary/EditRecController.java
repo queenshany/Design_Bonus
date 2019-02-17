@@ -62,14 +62,24 @@ public class EditRecController {
     @FXML
     void removeRec(ActionEvent event) {
     	control.RecLogic.getInstance().deleteRecommendation(RecommendationsController.currentRec);
+    	((Stage) RecommendationsController.bp.getScene().getWindow()).close();
+    	ViewLogic.newViewRecommendationWindow();
+    	closeWindow();
     }
 
     @FXML
     void saveRec(ActionEvent event) {
     	//If I set the values - it is not enough?
+    	double p = Double.parseDouble(probText.getText());
+    	RecommendationsController.currentRec.setProbability(p);
+    	double f = Double.parseDouble(feeText.getText());
+    	RecommendationsController.currentRec.setRecommendedFee(f);
     	
-//    	RecommendationsController.currentRec.setProbability(probText);
-//    	control.RecLogic.getInstance().updateRecommendation(rec);
+    	control.RecLogic.getInstance().updateRecommendation(RecommendationsController.currentRec);
+    	
+    	((Stage) RecommendationsController.bp.getScene().getWindow()).close();
+    	ViewLogic.newViewRecommendationWindow();
+    	closeWindow();
     }
 
 	protected void closeWindow() {

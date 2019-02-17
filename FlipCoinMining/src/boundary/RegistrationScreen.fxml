@@ -124,7 +124,7 @@
             <HBox fx:id="HBox4" prefHeight="100.0" prefWidth="200.0" spacing="10.0" visible="false">
                <children>
                   <Label fx:id="phone" text="Contact's Phone      " />
-                  <ComboBox fx:id="combo" blendMode="MULTIPLY" prefHeight="25.0" prefWidth="43.0" />
+                  <ComboBox fx:id="combo" blendMode="MULTIPLY" prefHeight="25.0" prefWidth="65.0" />
                   <TextField fx:id="phoneText" prefHeight="25.0" prefWidth="99.0">
                      <HBox.margin>
                         <Insets left="-10.0" />

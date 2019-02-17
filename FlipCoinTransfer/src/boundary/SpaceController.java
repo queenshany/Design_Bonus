@@ -105,13 +105,13 @@ public class SpaceController {
 
     @FXML
     void calcBTC(ActionEvent event) {
-   int a = comboBox.getSelectionModel().getSelectedItem();
-//   a = (int) (a*control.SysData.getInstance().getLastVersionParams().getPriceForExpansion());
-   a = a*10;
+   double a = comboBox.getSelectionModel().getSelectedItem();
+   a = a*control.SysData.getInstance().getLastVersionParams().getPriceForExpansion();
    String text = String.valueOf(a);
    theAmount.setText(text);
    theAmount.setVisible(true);
    BTC.setVisible(true);
    youHaveToPay.setVisible(true);
+   buyButton.setDisable(false);
     }
 }

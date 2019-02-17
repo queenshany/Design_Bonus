@@ -191,7 +191,9 @@ public final class Consts {
 			"FROM tblTransConfirm)) A\r\n" + 
 			"Where A.creationDate=(?)";
 	
-	public static final String SQL_LOAD_MONEY = "{ call loadMoneyToWalletQry(?, ?) }";
+	public static final String SQL_LOAD_MONEY = "UPDATE tblWallet SET tblWallet.amount = ((?)+tblWallet.amount), tblWallet.pendingAmount = ((?)+tblWallet.pendingAmount)\r\n" + 
+			"WHERE (((tblWallet.uniqueAddress)=(?)));\r\n" + 
+			"";
 	
 	
 	// ***************************** PATH STUFF ***************************** 

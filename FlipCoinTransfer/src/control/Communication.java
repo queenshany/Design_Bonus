@@ -164,9 +164,15 @@ public class Communication {
 						if (trP.contains(new Transaction(tc.getTransPayID()))) {
 							TransactionPay tp = trP.get(trP.indexOf(new Transaction(tc.getTransPayID())));
 							if (tp.getStatus().equals(E_Status.Executed)) {
+								
 								tp.setStatus(E_Status.Closed);
 								tc.setStatus(E_Status.Closed);
 								TransLogic.getInstance().updateImportedTransPay(tp);
+
+								WalletLogic.getInstance().calcAmount(tp.getWalletAddress(), -tp.getFee());
+								WalletLogic.getInstance().calcAmount(tc.getWalletAddress(), tc.getFee());
+								
+								
 								// sending messages about transactions being closed
 								User userPAY = UserLogic.getInstance().getUsers().get(UserLogic.getInstance().getUsers().indexOf(
 										new User(tp.getCreatingAddress(), tp.getCreatingSignature())));

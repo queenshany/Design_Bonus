@@ -58,8 +58,9 @@ public class ChargerController {
     	if (theAmount.getText()!=null && UserWalletController.currentWallet !=null) {
     	double amount = Double.parseDouble(theAmount.getText());
     	control.WalletLogic.getInstance().loadMoney(UserWalletController.currentWallet, amount);
-    	control.WalletLogic.getInstance().calcAmount(UserWalletController.currentWallet);
-    	control.WalletLogic.getInstance().calcPendingAmount(UserWalletController.currentWallet);
+    	//WalletLogic.getInstance().updateWallet(UserWalletController.currentWallet);
+    	//control.WalletLogic.getInstance().calcAmount(UserWalletController.currentWallet);
+    	//control.WalletLogic.getInstance().calcPendingAmount(UserWalletController.currentWallet);
     	
     	//refresh the table
     	((Stage) UserWalletController.bp.getScene().getWindow()).close();

@@ -172,7 +172,11 @@ public class ManagementController {
     @FXML
     private TableColumn<Miner, Double> DigitalProfit;
 
+    private static boolean isImported = true;
+    
 	public void initialize() {
+		if(!isImported)
+			addR.setDisable(true);
 		
 		uniqueAddress.setCellValueFactory(new PropertyValueFactory<>("uniqueAddress"));
 		MinerName.setCellValueFactory(new PropertyValueFactory<>("minerName"));
@@ -197,11 +201,12 @@ public class ManagementController {
     void addLotteries(ActionEvent event) {
 
     }
-
+//TODO
     @FXML
     void addRiddle(ActionEvent event) {
 		if (Communication.importRiddlesFromXML()) {
 			addR.setDisable(true);
+			isImported = false;
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Riddles Imported Successfully");
 			alert.setContentText("Riddles imported successfully to\n"

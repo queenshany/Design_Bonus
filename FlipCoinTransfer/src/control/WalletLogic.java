@@ -20,6 +20,7 @@ import utils.E_Status;
 
 /**
  * This class represents the Wallet Management in the system
+ * 
  * @author Shany Klein & Ofri Kokush
  *
  */
@@ -36,6 +37,7 @@ public class WalletLogic {
 
 	/**
 	 * Inserting a wallet to the DB
+	 * 
 	 * @param wallet
 	 */
 	public void insertWallet(Wallet wallet) {
@@ -91,6 +93,7 @@ public class WalletLogic {
 
 	/**
 	 * Inserting a wallet knots to the DB
+	 * 
 	 * @param wallet
 	 */
 	public void insertWalletBitcoinKnots(WalletBitcoinKnots wallet) {
@@ -122,6 +125,7 @@ public class WalletLogic {
 
 	/**
 	 * Inserting a wallet space to the DB
+	 * 
 	 * @param wallet
 	 */
 	public void insertWalletBitcoinSpace(WalletBitcoinSpace wallet) {
@@ -155,12 +159,10 @@ public class WalletLogic {
 
 	/**
 	 * Updates Wallet values
+	 * 
 	 * @param wallet
 	 */
 	public void updateWallet(Wallet wallet) {
-
-		calcAmount(wallet);
-		calcPendingAmount(wallet);
 
 		try {
 			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
@@ -178,15 +180,8 @@ public class WalletLogic {
 				stmt.setBoolean(i++, wallet.getIsOnPhone());
 				stmt.setBoolean(i++, wallet.getIsOnTablet());
 
-				if (wallet.getAmount() < 0)
-					stmt.setNull(i++, java.sql.Types.DOUBLE);
-				else
-					stmt.setDouble(i++, wallet.getAmount());
-
-				if (wallet.getPendingAmount() < 0)
-					stmt.setNull(i++, java.sql.Types.DOUBLE);
-				else
-					stmt.setDouble(i++, wallet.getPendingAmount());
+				stmt.setDouble(i++, wallet.getAmount());
+				stmt.setDouble(i++, wallet.getPendingAmount());
 
 				stmt.setString(i++, wallet.getUniqueAddress());
 
@@ -203,6 +198,7 @@ public class WalletLogic {
 
 	/**
 	 * Updates Wallet Bitcoin Knots values
+	 * 
 	 * @param wallet
 	 */
 	public void updateWalletBitcoinKnots(WalletBitcoinKnots wallet) {
@@ -233,6 +229,7 @@ public class WalletLogic {
 
 	/**
 	 * Updates Wallet Bitcoin Space values
+	 * 
 	 * @param wallet
 	 */
 	public void updateWalletBitcoinSpace(WalletBitcoinSpace wallet) {
@@ -265,6 +262,7 @@ public class WalletLogic {
 
 	/**
 	 * Loading Wallets from the DB to the system
+	 * 
 	 * @return ALL of the Wallets from the DB
 	 */
 	public ArrayList<Wallet> getWallets() {
@@ -274,36 +272,30 @@ public class WalletLogic {
 			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
 			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
 					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_SEL_WALLETS);
-					ResultSet rs = stmt.executeQuery())
-			{
+					ResultSet rs = stmt.executeQuery()) {
 				while (rs.next()) {
 					int i = 1;
-					results.add(new Wallet(rs.getString(i++),
-							rs.getDouble(i++),
-							rs.getBoolean(i++),
-							rs.getBoolean(i++),
-							rs.getBoolean(i++),
-							rs.getDouble(i++),
-							rs.getDouble(i++),
-							rs.getString(i++),
+					results.add(new Wallet(rs.getString(i++), rs.getDouble(i++), rs.getBoolean(i++), rs.getBoolean(i++),
+							rs.getBoolean(i++), rs.getDouble(i++), rs.getDouble(i++), rs.getString(i++),
 							rs.getString(i++)/*
-							,E_WalletType.valueOf(rs.getString(i++))*/
+							 * ,E_WalletType.valueOf(rs.getString(i++))
+							 */
 							));
 				}
 			}
-		}
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		//System.out.println(results);
+		// System.out.println(results);
 		return results;
 	}
 
 	/**
 	 * Loading Wallets from the DB to the system
+	 * 
 	 * @return ALL of the Wallets from the DB
 	 */
 	public ArrayList<WalletBitcoinKnots> getWalletsKnots() {
@@ -313,38 +305,31 @@ public class WalletLogic {
 			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
 			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
 					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_SEL_WALLET_KNOTS);
-					ResultSet rs = stmt.executeQuery())
-			{
+					ResultSet rs = stmt.executeQuery()) {
 				while (rs.next()) {
 					int i = 1;
-					results.add(new WalletBitcoinKnots(rs.getString(i++),
-							rs.getDouble(i++),
-							rs.getBoolean(i++),
-							rs.getBoolean(i++),
-							rs.getBoolean(i++),
-							rs.getDouble(i++),
-							rs.getDouble(i++),
-							rs.getString(i++),
-							rs.getString(i++),
+					results.add(new WalletBitcoinKnots(rs.getString(i++), rs.getDouble(i++), rs.getBoolean(i++),
+							rs.getBoolean(i++), rs.getBoolean(i++), rs.getDouble(i++), rs.getDouble(i++),
+							rs.getString(i++), rs.getString(i++),
 							rs.getDouble(i++)/*
-							,E_WalletType.valueOf(rs.getString(i++))*/
+							 * ,E_WalletType.valueOf(rs.getString(i++))
+							 */
 							));
 				}
 			}
-		}
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		//System.out.println(results);
+		// System.out.println(results);
 		return results;
 	}
 
-
 	/**
 	 * Loading Wallets Space from the DB to the system
+	 * 
 	 * @return ALL of the Wallets from the DB
 	 */
 	public ArrayList<WalletBitcoinSpace> getWalletsSpace() {
@@ -354,173 +339,224 @@ public class WalletLogic {
 			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
 			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);
 					PreparedStatement stmt = conn.prepareStatement(Consts.SQL_SEL_WALLET_SPACE);
-					ResultSet rs = stmt.executeQuery())
-			{
+					ResultSet rs = stmt.executeQuery()) {
 				while (rs.next()) {
 					int i = 1;
-					results.add(new WalletBitcoinSpace(rs.getString(i++),
-							rs.getDouble(i++),
-							rs.getBoolean(i++),
-							rs.getBoolean(i++),
-							rs.getBoolean(i++),
-							rs.getDouble(i++),
-							rs.getDouble(i++),
-							rs.getString(i++),
-							rs.getString(i++),
+					results.add(new WalletBitcoinSpace(rs.getString(i++), rs.getDouble(i++), rs.getBoolean(i++),
+							rs.getBoolean(i++), rs.getBoolean(i++), rs.getDouble(i++), rs.getDouble(i++),
+							rs.getString(i++), rs.getString(i++),
 							rs.getInt(i++)/*
-							,E_WalletType.valueOf(rs.getString(i++))*/
+							 * ,E_WalletType.valueOf(rs.getString(i++))
+							 */
 							));
 				}
 			}
-		}
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		//System.out.println(results);
+		// System.out.println(results);
 		return results;
 	}
 
-
 	// ***************************** GENERAL METHODS *****************************
-	/**
-	 * calc pending wallet amount
+
+	/** calc pending wallet amount
+	 * 
 	 * @param wallet
 	 * @return the amount left
 	 */
-	public void calcPendingAmount(Wallet wallet) {
+	public boolean calcPendingAmount(String walletID, double val) {
 
-		Double pending = new Double(wallet.getAmount());
-		User user = new User(wallet.getUserAddress(), wallet.getUserSignature());
-		for (User u : UserLogic.getInstance().getUsers())
-			if (u != null && u.equals(user)) {
-				user = u;
-				break;
-			}
+		if (val <= 0 || walletID == null || walletID == "")
+			return false;
 
-		for (TransactionPay tp : TransLogic.getInstance().getAllPayTrans()) {
-			if (tp.getWalletAddress().equals(wallet.getUniqueAddress())){
-				if (tp.getStatus().equals(E_Status.Pending) || tp.getStatus().equals(E_Status.Waiting)
-						|| tp.getStatus().equals(E_Status.Executed)) {
-
-					if (tp.getCreatingAddress().equalsIgnoreCase(user.getPublicAddress())
-							&& tp.getCreatingSignature().equalsIgnoreCase(user.getSignature()))
-						pending -= (tp.getPayValue() + tp.getFee());
-
-					if (tp.getDestinationAddress().equalsIgnoreCase(user.getPublicAddress())
-							&& tp.getDestinationSignature().equalsIgnoreCase(user.getSignature()))
-						pending += tp.getPayValue();
-				}
-			}
+		// wallet is bitcoin knots
+		if (getWalletsKnots().contains(new Wallet(walletID))) {
+			WalletBitcoinKnots w = getWalletsKnots().get(getWalletsKnots().indexOf(new Wallet(walletID)));
+			w.setPendingAmount(w.getPendingAmount() + val*(1 + w.getDiscountPercent()));
+			updateWallet(w);
 		}
 
-		for (TransactionConfirm tc : TransLogic.getInstance().getAllConfirmTrans()) {
-			if (tc.getWalletAddress().equals(wallet.getUniqueAddress())){
-				if (tc.getStatus().equals(E_Status.Pending) || tc.getStatus().equals(E_Status.Waiting)
-						|| tc.getStatus().equals(E_Status.Executed)) {
+		// wallet is bitcoin space
+		else if (getWalletsSpace().contains(new Wallet(walletID))){
+			WalletBitcoinSpace w = getWalletsSpace().get(getWalletsSpace().indexOf(new Wallet(walletID)));
+			w.setPendingAmount(w.getPendingAmount() + val);
+			updateWallet(w);
 
-					if (tc.getCreatingAddress().equalsIgnoreCase(user.getPublicAddress())
-							&& tc.getCreatingSignature().equalsIgnoreCase(user.getSignature()))
-						pending -= tc.getFee();
-				}
-			}
 		}
 
-		wallet.setPendingAmount(pending);
+		// regular wallet
+		else {
+			Wallet w = getWallets().get(getWallets().indexOf(new Wallet(walletID)));
+			w.setPendingAmount(w.getPendingAmount() + val);
+			updateWallet(w);
+		}
+		return true;
 	}
+
+	/** calc wallet amount
+	 * 
+	 * @param wallet
+	 * @return the amount left
+	 */
+	public boolean calcAmount(String walletID, double val) {
+
+		if (val <= 0 || walletID == null || walletID == "")
+			return false;
+
+		// wallet is bitcoin knots
+		if (getWalletsKnots().contains(new Wallet(walletID))) {
+			WalletBitcoinKnots w = getWalletsKnots().get(getWalletsKnots().indexOf(new Wallet(walletID)));
+			w.setAmount(w.getAmount() + val*(1 + w.getDiscountPercent()));
+			updateWallet(w);
+		}
+
+		// wallet is bitcoin space
+		else if (getWalletsSpace().contains(new Wallet(walletID))){
+			WalletBitcoinSpace w = getWalletsSpace().get(getWalletsSpace().indexOf(new Wallet(walletID)));
+			w.setAmount(w.getAmount() + val);
+			updateWallet(w);
+
+		}
+
+		// regular wallet
+		else {
+			Wallet w = getWallets().get(getWallets().indexOf(new Wallet(walletID)));
+			w.setAmount(w.getAmount() + val);
+			updateWallet(w);
+		}
+		return true;
+	}
+
+	/*	*//**
+	 * calc pending wallet amount
+	 * 
+	 * @param wallet
+	 * @return the amount left
+	 *//*
+	 * private void calcPendingAmount(Wallet wallet) {
+	 * 
+	 * Double pending = new Double(wallet.getAmount()); User user = new
+	 * User(wallet.getUserAddress(), wallet.getUserSignature()); for (User u :
+	 * UserLogic.getInstance().getUsers()) if (u != null && u.equals(user)) { user =
+	 * u; break; }
+	 * 
+	 * for (TransactionPay tp : TransLogic.getInstance().getAllPayTrans()) { if
+	 * (tp.getWalletAddress().equals(wallet.getUniqueAddress())) { if
+	 * (tp.getStatus().equals(E_Status.Pending) ||
+	 * tp.getStatus().equals(E_Status.Waiting) ||
+	 * tp.getStatus().equals(E_Status.Executed)) {
+	 * 
+	 * if (tp.getCreatingAddress().equalsIgnoreCase(user.getPublicAddress()) &&
+	 * tp.getCreatingSignature().equalsIgnoreCase(user.getSignature())) pending -=
+	 * (tp.getPayValue() + tp.getFee());
+	 * 
+	 * if (tp.getDestinationAddress().equalsIgnoreCase(user.getPublicAddress()) &&
+	 * tp.getDestinationSignature().equalsIgnoreCase(user.getSignature())) pending
+	 * += tp.getPayValue(); } } }
+	 * 
+	 * for (TransactionConfirm tc : TransLogic.getInstance().getAllConfirmTrans()) {
+	 * if (tc.getWalletAddress().equals(wallet.getUniqueAddress())) { if
+	 * (tc.getStatus().equals(E_Status.Pending) ||
+	 * tc.getStatus().equals(E_Status.Waiting) ||
+	 * tc.getStatus().equals(E_Status.Executed)) {
+	 * 
+	 * if (tc.getCreatingAddress().equalsIgnoreCase(user.getPublicAddress()) &&
+	 * tc.getCreatingSignature().equalsIgnoreCase(user.getSignature())) pending -=
+	 * tc.getFee(); } } }
+	 * 
+	 * wallet.setPendingAmount(pending); }
+	 */
 
 	/**
 	 * calc pending wallet amount
+	 * 
 	 * @param wallet
 	 * @return the amount in wallet
+	 *//*
+	 * private void calcAmount(Wallet wallet) {
+	 * 
+	 * Double amt = new Double(wallet.getAmount()); User user = new
+	 * User(wallet.getUserAddress(), wallet.getUserSignature()); for (User u :
+	 * UserLogic.getInstance().getUsers()) if (u != null && u.equals(user)) { user =
+	 * u; break; }
+	 * 
+	 * for (TransactionPay tp : TransLogic.getInstance().getAllPayTrans()) { if
+	 * (tp.getWalletAddress().equals(wallet.getUniqueAddress())){ if
+	 * (tp.getStatus().equals(E_Status.Closed)) {
+	 * 
+	 * if (tp.getCreatingAddress().equalsIgnoreCase(user.getPublicAddress()) &&
+	 * tp.getCreatingSignature().equalsIgnoreCase(user.getSignature())) amt -=
+	 * (tp.getPayValue() + tp.getFee());
+	 * 
+	 * if (tp.getDestinationAddress().equalsIgnoreCase(user.getPublicAddress()) &&
+	 * tp.getDestinationSignature().equalsIgnoreCase(user.getSignature())) amt +=
+	 * tp.getPayValue(); } } }
+	 * 
+	 * for (TransactionConfirm tc : TransLogic.getInstance().getAllConfirmTrans()) {
+	 * if (tc.getWalletAddress().equals(wallet.getUniqueAddress())){ if
+	 * (tc.getStatus().equals(E_Status.Closed)) { if
+	 * (tc.getCreatingAddress().equalsIgnoreCase(user.getPublicAddress()) &&
+	 * tc.getCreatingSignature().equalsIgnoreCase(user.getSignature())) amt -=
+	 * tc.getFee(); } } }
+	 * 
+	 * wallet.setAmount(amt); }
 	 */
-	public void calcAmount(Wallet wallet) {
-
-		Double amt = new Double(wallet.getAmount());
-		User user = new User(wallet.getUserAddress(), wallet.getUserSignature());
-		for (User u : UserLogic.getInstance().getUsers())
-			if (u != null && u.equals(user)) {
-				user = u;
-				break;
-			}
-
-		for (TransactionPay tp : TransLogic.getInstance().getAllPayTrans()) {
-			if (tp.getWalletAddress().equals(wallet.getUniqueAddress())){
-				if (tp.getStatus().equals(E_Status.Closed)) {
-
-					if (tp.getCreatingAddress().equalsIgnoreCase(user.getPublicAddress())
-							&& tp.getCreatingSignature().equalsIgnoreCase(user.getSignature()))
-						amt -= (tp.getPayValue() + tp.getFee());
-
-					if (tp.getDestinationAddress().equalsIgnoreCase(user.getPublicAddress())
-							&& tp.getDestinationSignature().equalsIgnoreCase(user.getSignature()))
-						amt += tp.getPayValue();
-				}
-			}
-		}
-
-		for (TransactionConfirm tc : TransLogic.getInstance().getAllConfirmTrans()) {
-			if (tc.getWalletAddress().equals(wallet.getUniqueAddress())){
-				if (tc.getStatus().equals(E_Status.Closed)) {
-					if (tc.getCreatingAddress().equalsIgnoreCase(user.getPublicAddress())
-							&& tc.getCreatingSignature().equalsIgnoreCase(user.getSignature()))
-						amt -= tc.getFee();
-				}
-			}
-		}
-
-		wallet.setAmount(amt);
-	}
 
 	/**
 	 * getting all wallets of user
+	 * 
 	 * @param user
 	 * @return array list of user's wallet
 	 */
-	public ArrayList<Wallet> getWalletsOfUser(User user){
+	public ArrayList<Wallet> getWalletsOfUser(User user) {
 		ArrayList<Wallet> wallets = new ArrayList<>();
 		for (Wallet w : getWallets())
 			if (w != null && w.getUserAddress().equalsIgnoreCase(user.getPublicAddress())
 			&& w.getUserSignature().equalsIgnoreCase(user.getSignature())) {
-				wallets.add(w);	
+				wallets.add(w);
 			}
 		return wallets;
 	}
 
 	/**
 	 * getting bitcoin knots wallets of user
+	 * 
 	 * @param user
 	 * @return array list of user's wallet
 	 */
-	public ArrayList<WalletBitcoinKnots> getWalletsKnotsOfUser(User user){
+	public ArrayList<WalletBitcoinKnots> getWalletsKnotsOfUser(User user) {
 		ArrayList<WalletBitcoinKnots> wallets = new ArrayList<>();
 		for (WalletBitcoinKnots w : getWalletsKnots())
 			if (w != null && w.getUserAddress().equalsIgnoreCase(user.getPublicAddress())
 			&& w.getUserSignature().equalsIgnoreCase(user.getSignature())) {
-				wallets.add(w);	
+				wallets.add(w);
 			}
 		return wallets;
 	}
 
 	/**
 	 * getting bitcoin space wallets of user
+	 * 
 	 * @param user
 	 * @return array list of user's wallet
 	 */
-	public ArrayList<WalletBitcoinSpace> getWalletsSpaceOfUser(User user){
+	public ArrayList<WalletBitcoinSpace> getWalletsSpaceOfUser(User user) {
 		ArrayList<WalletBitcoinSpace> wallets = new ArrayList<>();
 		for (WalletBitcoinSpace w : getWalletsSpace())
 			if (w != null && w.getUserAddress().equalsIgnoreCase(user.getPublicAddress())
 			&& w.getUserSignature().equalsIgnoreCase(user.getSignature())) {
-				wallets.add(w);	
+				wallets.add(w);
 			}
 		return wallets;
 	}
 
 	/**
 	 * This method loads money to wallet
+	 * 
 	 * @param wallet
 	 * @param amount
 	 */
@@ -531,6 +567,7 @@ public class WalletLogic {
 					CallableStatement stmt = conn.prepareCall(Consts.SQL_LOAD_MONEY)) {
 
 				int i = 1;
+				stmt.setDouble(i++, amount);
 				stmt.setDouble(i++, amount);
 				stmt.setString(i++, wallet.getUniqueAddress());
 
@@ -544,24 +581,27 @@ public class WalletLogic {
 
 		System.out.println("UPDATE WALLET ");
 	}
+
 	/**
 	 * generating a new wallet for user
+	 * 
 	 * @param user
 	 */
-	public void generateWalletForNewUser(User user){
+	public void generateWalletForNewUser(User user) {
 		String walletAddress;
 		do {
 			walletAddress = SysData.getInstance().generateRandomStrings(Consts.WALLET_ADDRESS_LENGTH);
 			System.out.println(walletAddress);
-		}
-		while (getWallets().contains(new Wallet(walletAddress)));
+		} while (getWallets().contains(new Wallet(walletAddress)));
 
-		Wallet wallet = new Wallet(walletAddress, 0, true, false, false, 0, 0, user.getPublicAddress(), user.getSignature());
+		Wallet wallet = new Wallet(walletAddress, 0, true, false, false, 0, 0, user.getPublicAddress(),
+				user.getSignature());
 		insertWallet(wallet);
-		
+
 		// sending a message
 		String title = "You Received a New Wallet!";
-		String desc = "You received a new wallet (ID: " + wallet.getUniqueAddress() + "). You can view and edit it in Wallets Management in your profile.";
+		String desc = "You received a new wallet (ID: " + wallet.getUniqueAddress()
+		+ "). You can view and edit it in Wallets Management in your profile.";
 		UserLogic.getInstance().sendMessage(title, desc, user);
 	}
 }

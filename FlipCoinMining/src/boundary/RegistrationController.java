@@ -14,6 +14,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import utils.E_Phone;
 
 public class RegistrationController {
 
@@ -102,7 +103,7 @@ public class RegistrationController {
 	private Label phone;
 
 	@FXML
-	private ComboBox<?> combo;
+	private ComboBox<E_Phone> combo;
 
 	@FXML
 	private TextField phoneText;
@@ -125,12 +126,18 @@ public class RegistrationController {
 	@FXML
 	private Label registerLable;
 
+	protected static int flag = 0;
+	
 	 public void initialize() {
-
+		 setPhoneCombo();
 	 }
 	 
-	protected static int flag = 0;
-
+	 private void setPhoneCombo() {
+			combo.getItems().setAll(E_Phone.values());
+			combo.getSelectionModel().select(0);
+			System.out.println(combo.getSelectionModel().getSelectedItem());
+		}
+	 
 	@FXML
 	void newAccount(MouseEvent event) {
 			if (!passwordText.getText().equals(verifyText.getText())) {
@@ -172,7 +179,7 @@ public class RegistrationController {
 				comp.setContactEmail(emailText.getText());
 				comp.setContactFirstName(usernameText1.getText());
 				comp.setContactLastName(usernameText11.getText());
-				comp.setContactPhone(phoneText.getText());
+				comp.setContactPhone(combo.getSelectionModel().getSelectedItem() + "-" + phoneText.getText());
 				
 				control.MinerLogic.getInstance().insertMinerCompany(comp);
 				closeWindow();

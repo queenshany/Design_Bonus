@@ -1,5 +1,7 @@
 package boundary;
 
+import org.apache.xmlgraphics.image.loader.impl.PreloaderEPS.EPSBinaryFileHeader;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -12,6 +14,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import utils.E_Phone;
 
 public class SettingsController extends AbstractController {
 
@@ -73,9 +76,6 @@ public class SettingsController extends AbstractController {
     private Label phone;
 
     @FXML
-    private ComboBox<?> combo;
-
-    @FXML
     private TextField phoneText;
 
     @FXML
@@ -96,15 +96,23 @@ public class SettingsController extends AbstractController {
     @FXML
     private Button saveButton;
     
+    @FXML
+    private ComboBox<E_Phone> combo;
+    
     public void initialize() {
+    	
+    	String[] phoneParts = LoginController.curretUser.getPhone().split("-");
+    	setPhoneCombo(phoneParts[0]);
+    	phoneText.setText(phoneParts[1]);
     	emailText.setText(LoginController.curretUser.getEmail());
-    	phoneText.setText(LoginController.curretUser.getPhone());
+    	//phoneText.setText(LoginController.curretUser.getPhone());
     }
     
     @FXML
     void updateField(ActionEvent event) {
     	LoginController.curretUser.setEmail(emailText.getText());
-    	LoginController.curretUser.setPhone(phoneText.getText());
+    	//LoginController.curretUser.setPhone(phoneText.getText());
+    	LoginController.curretUser.setPhone(combo.getSelectionModel().getSelectedItem() + "-" + phoneText.getText());
     	control.UserLogic.getInstance().updateUser(LoginController.curretUser);
     }
 
@@ -160,5 +168,11 @@ public class SettingsController extends AbstractController {
 
 	protected void closeWindow() {
 		((Stage) borderPane.getScene().getWindow()).close();
+	}
+	
+	private void setPhoneCombo(String s) {
+		combo.getItems().setAll(E_Phone.values());
+		combo.getSelectionModel().select(E_Phone.getPhone(s));
+		System.out.println(combo.getSelectionModel().getSelectedItem());
 	}
 }

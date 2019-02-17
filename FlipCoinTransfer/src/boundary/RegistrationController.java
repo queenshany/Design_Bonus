@@ -4,6 +4,7 @@ import control.Validation;
 import entity.Consts;
 import entity.User;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -13,6 +14,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import utils.E_Phone;
 
 public class RegistrationController extends AbstractController {
 
@@ -93,6 +95,9 @@ public class RegistrationController extends AbstractController {
 
     @FXML
     private Label registerLable;
+    
+    @FXML
+	private ComboBox<E_Phone> combo;
 
 	protected void closeWindow() {
 		((Stage) borderPane.getScene().getWindow()).close();
@@ -123,7 +128,7 @@ public class RegistrationController extends AbstractController {
 //    	user.setSignature(control.SysData.getInstance().generateRandomStrings(Consts.USER_SIGNATURE_LENGTH));
     	user.setUsername(usernameText.getText());
     	user.setPassword(passwordText.getText());
-    	user.setPhone(phoneText.getText());
+    	user.setPhone(combo.getSelectionModel().getSelectedItem() + "-" + phoneText.getText());
     	user.setEmail(emailText.getText());
     	if (passwordText.getText().equals(verifyText.getText())) {
     		control.UserLogic.getInstance().insertUser(user);
@@ -136,6 +141,13 @@ public class RegistrationController extends AbstractController {
 
 	public void initialize() {
 //		System.out.println("h");
+		setPhoneCombo();
 	}
 
+	private void setPhoneCombo() {
+		combo.getItems().setAll(E_Phone.values());
+		combo.getSelectionModel().select(0);
+		System.out.println(combo.getSelectionModel().getSelectedItem());
+	}
+	
 }

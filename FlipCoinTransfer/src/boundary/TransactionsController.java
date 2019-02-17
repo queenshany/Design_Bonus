@@ -199,6 +199,7 @@ public class TransactionsController {
 	protected User user;
 
 	protected static TransactionPay tranConfirm;
+	protected static Item chosenItem;
 	
 	private ArrayList<Item> chosenItems = new ArrayList();
 	
@@ -279,7 +280,12 @@ public class TransactionsController {
 
     @FXML
     void deleteProduct(ActionEvent event) {
-
+    	chosenItem=table.getSelectionModel().getSelectedItem();
+    	if (chosenItem!=null) {
+    		ObservableList<Item> items = table.getItems();
+    		items.remove(chosenItem);
+    		table.setItems(items);
+    	}
     }
 
 	
@@ -288,6 +294,7 @@ public class TransactionsController {
 	@FXML
 	void productsOfUser(ActionEvent event) {
 
+//		usersCombo.setDisable(true);
 		ObservableList<Item> I= FXCollections.observableArrayList();
 		ArrayList<Item> Items = control.ItemLogic.getInstance().getItems();
 		if (usersCombo.getSelectionModel()!=null) {
@@ -374,25 +381,23 @@ public class TransactionsController {
 	@FXML
 	void addToTable(ActionEvent event) {
 //		int itemID = productsCombo.getSelectionModel().getSelectedItem().getCatalogNumber();
-		if ((quantity.getText()!=null || quantity.getText() =="" ) && productsCombo.getSelectionModel()!=null) {
-//			try {
-//				String convert = (amountText.getText());
-				Integer x = Integer.parseInt(amountText.getText());
-				Item item = productsCombo.getValue();
+//		if ((quantity.getText()!=null || quantity.getText() =="" ) && productsCombo.getSelectionModel()!=null) {
+////			try {
+////				String convert = (amountText.getText());
+//				Integer x = Integer.parseInt(amountText.getText());
+//				Item item = productsCombo.getValue();
 				//System.out.println(item);
 //				Item items = new Item(itemID);
-				item.setQuantity(x);
+//				item.setQuantity(x);
 //				System.out.println(item);
 //				itemID.setCellValueFactory(new PropertyValueFactory<>("catalogNumber"));
 //				quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-				ObservableList<Item> i = FXCollections.observableArrayList();
-				chosenItems.add(item);
+//				ObservableList<Item> i = FXCollections.observableArrayList();
+//				chosenItems.add(item);
 				
-				i.setAll(chosenItems);
-				//System.out.println("chosen items: " + chosenItems);
+//				i.setAll(chosenItems);
 				
-				//System.out.println("IIIIIIIIII: " + i);
-				table.setItems(i);
+				table.setItems(getProductsTable());
 				//i.setAll(item);
 				//table.getItems().setAll(i);
 				table.refresh();
@@ -401,10 +406,23 @@ public class TransactionsController {
 //			catch (NumberFormatException e){
 //				lable.setText("Invalid Value");
 			}
-		}
+//		}
 //		}
 	
-
+	ObservableList<Item> getProductsTable(){
+		if ((quantity.getText()!=null || quantity.getText() =="" ) && productsCombo.getSelectionModel()!=null) {
+				Integer x = Integer.parseInt(amountText.getText());
+				Item item = productsCombo.getValue();
+				item.setQuantity(x);
+				ObservableList<Item> i = FXCollections.observableArrayList();
+				chosenItems.add(item);
+				i.setAll(chosenItems);
+				productsCombo.setValue(null);
+				amountText.setText("");
+				return i;
+		}
+				return null;
+	}
 
 	@FXML
 	void switch1(MouseEvent event) {

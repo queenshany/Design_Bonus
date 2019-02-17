@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import entity.Category;
 import entity.Item;
+import entity.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,6 +22,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import net.sf.jasperreports.web.servlets.Controller;
 
 public class SearchPageController {
 
@@ -131,14 +133,23 @@ public class SearchPageController {
 					table.setItems(s);
 		
 		//Fill Category Combo
-		ArrayList<Category> ct = new ArrayList<Category>();
-		ct=control.ItemLogic.getInstance().getCategories();
- 			 categoryCombo.getItems().addAll(ct);
- 			ObservableList<Category> cate= FXCollections.observableArrayList(ct);
- 	 	    categoryCombo.setItems(cate);
+					comboCat();
+//		ArrayList<Category> ct = new ArrayList<Category>();
+//		ct=control.ItemLogic.getInstance().getCategories();
+// 			 categoryCombo.getItems().addAll(ct);
+// 			ObservableList<Category> cate= FXCollections.observableArrayList(ct);
+// 	 	    categoryCombo.setItems(cate);
 // 	 	    System.out.println(LoginController.keyWord);
 		   
  } 
+	
+public void comboCat() {
+	ArrayList<Category> ct = new ArrayList<Category>();
+	ct=control.ItemLogic.getInstance().getCategories();
+			 categoryCombo.getItems().addAll(ct);
+			ObservableList<Category> cate= FXCollections.observableArrayList(ct);
+	 	    categoryCombo.setItems(cate);
+}
  
  public void getProducts(){
 	
@@ -177,7 +188,43 @@ public class SearchPageController {
 
     @FXML
     void searchProduct(ActionEvent event) {
+    	Double minPrice = null;
+    	Double maxPrice = null;
+    	Category cat = null;
+    	String str = null;
+    	User seller = null;
     	
+    	if (from.getText()!=null && !from.getText().equals("")) {
+    		try { 
+    	minPrice=Double.parseDouble(from.getText());
+    		}
+     catch (NumberFormatException e) {
+		from.setText("Invalid Value");
+     }
+    	}
+    	if (until.getText()!=null && !until.getText().equals("")) {
+    		try { 
+    	maxPrice=Double.parseDouble(until.getText());
+    		}
+        catch (NumberFormatException e) {
+    		until.setText("Invalid Value");
+         }
+    	}
+    	if (categoryCombo.getSelectionModel().getSelectedItem() != null)
+    	cat=categoryCombo.getSelectionModel().getSelectedItem();
+    	if (keywords.getText()!=null && !keywords.getText().equals(""))
+    	str=keywords.getText();
+   
+    	ArrayList<Item> search =
+    	control.ItemLogic.getInstance().searchItem(minPrice, maxPrice, cat, str, seller);
+		ObservableList<Item> s= FXCollections.observableArrayList(search);
+		table.setItems(s);
+		
+		keywords.setText("");
+		from.setText("");
+		until.setText("");
+//		categoryCombo.setPromptText(null);
+		categoryCombo.setValue(null);
     }
 
     @FXML

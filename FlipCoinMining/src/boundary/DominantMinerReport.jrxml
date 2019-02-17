@@ -79,7 +79,7 @@ ORDER BY count(b.blockAddress)/sum(b.size) DESC;
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[minerName]]></text>
+				<text><![CDATA[Name]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="111" y="0" width="111" height="30" uuid="b67d6879-2546-4ac3-9d4c-8bd6c9862ae5">
@@ -88,7 +88,7 @@ ORDER BY count(b.blockAddress)/sum(b.size) DESC;
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[total_blocks]]></text>
+				<text><![CDATA[Total Blocks]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="222" y="0" width="111" height="30" uuid="552e4ce7-0ac1-4c01-b79d-2b7684350dda">
@@ -97,7 +97,7 @@ ORDER BY count(b.blockAddress)/sum(b.size) DESC;
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[total_size]]></text>
+				<text><![CDATA[Total Block Size]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="333" y="0" width="111" height="30" uuid="644e5293-0b8a-4050-b0a5-264d5815cdb8">
@@ -106,7 +106,7 @@ ORDER BY count(b.blockAddress)/sum(b.size) DESC;
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[RIDDLES_NOT_SOLVED_FIRST]]></text>
+				<text><![CDATA[Riddles Not Solved First]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="444" y="0" width="111" height="30" uuid="1444a166-d47c-426d-b31c-8ba2e5880f99">
@@ -115,7 +115,7 @@ ORDER BY count(b.blockAddress)/sum(b.size) DESC;
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[RATIO]]></text>
+				<text><![CDATA[Ratio]]></text>
 			</staticText>
 		</band>
 	</columnHeader>

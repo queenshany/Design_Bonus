@@ -175,7 +175,8 @@ public class CategoriesAdmin {
 
 	@FXML
 	void manageParameters(MouseEvent event) {
-
+		closeWindow();
+		ViewLogic.newAdminParametersWindow();
 	}
 
 	@FXML

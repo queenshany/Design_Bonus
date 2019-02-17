@@ -177,7 +177,8 @@ public class SearchPageController {
 
     @FXML
     void searchProducts(MouseEvent event) {
-    	
+    	closeWindow();
+    	ViewLogic.newSearchPageWindow();
     }
 
     @FXML

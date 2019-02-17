@@ -29,6 +29,8 @@ import utils.E_WalletType;
 
 public class UserWalletController {
 
+	protected static BorderPane bp;
+	
 	@FXML
 	private BorderPane borderPane;
 
@@ -197,6 +199,7 @@ public class UserWalletController {
 	protected static Wallet currentWallet;
 
 	public void initialize() {
+		bp = borderPane;
 
 		//Space Wallet
 		id1.setCellValueFactory(new PropertyValueFactory<>("uniqueAddress"));
@@ -228,13 +231,24 @@ public class UserWalletController {
 
 		getKnots();
 		
+//		ObservableList<Wallet> w= FXCollections.observableArrayList();
+//		ArrayList<Wallet> basic = control.WalletLogic.getInstance().getWalletsOfUser(LoginController.curretUser);
+//		w.addAll(basic);
+//		walletTable.setItems(w);
+//		walletTable.refresh();
+		
+		getWallet();
+
+	} 
+	
+	
+	public void getWallet(){
 		ObservableList<Wallet> w= FXCollections.observableArrayList();
 		ArrayList<Wallet> basic = control.WalletLogic.getInstance().getWalletsOfUser(LoginController.curretUser);
 		w.addAll(basic);
 		walletTable.setItems(w);
 		walletTable.refresh();
-
-	} 
+	}
 
 	public void getSpace(){
 

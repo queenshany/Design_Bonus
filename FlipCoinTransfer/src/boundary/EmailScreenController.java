@@ -19,6 +19,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class EmailScreenController {
 
@@ -119,13 +120,14 @@ public class EmailScreenController {
     
     @FXML
     void hide1(MouseEvent event) {
-    	arrow1.setVisible(true);
-    	products.setVisible(false);
+//    	arrow1.setVisible(true);
+//    	products.setVisible(false);
     }
     
     @FXML
     void logOut(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newLoginWindow();
     }
 
     @FXML
@@ -135,25 +137,27 @@ public class EmailScreenController {
 
     @FXML
     void productsScreen(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newProductsWindow();
     }
 
     @FXML
     void searchProducts(MouseEvent event) {
     	LoginController.keyWord = searchText.getText();
-//    	closeWindow();
+    	closeWindow();
     	ViewLogic.newSearchPageWindow();
     }
 
     @FXML
     void settingsScreen(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newSettingsWindow();
     }
 
     @FXML
     void show1(MouseEvent event) {
-    	arrow1.setVisible(false);
-    	products.setVisible(true);
+//    	arrow1.setVisible(false);
+//    	products.setVisible(true);
     }
 
     @FXML
@@ -168,12 +172,18 @@ public class EmailScreenController {
 
     @FXML
     void transactionsScreen(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newTransactionsWindow();
     }
 
     @FXML
     void walletsScreen(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newWalletsWindow();
     }
 
+	protected void closeWindow() {
+		((Stage) borderPane.getScene().getWindow()).close();
+	}
+    
 }

@@ -1,8 +1,13 @@
 package boundary;
 
+import java.io.IOException;
+
 import control.WalletLogic;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -49,12 +54,15 @@ public class ChargerController {
     private Button chargeButton;
 
     @FXML
-    void charge(ActionEvent event) {
+    void charge(ActionEvent event) throws IOException {
     	if (theAmount.getText()!=null && UserWalletController.currentWallet !=null) {
     	double amount = Double.parseDouble(theAmount.getText());
     	control.WalletLogic.getInstance().loadMoney(UserWalletController.currentWallet, amount);
     	control.WalletLogic.getInstance().calcAmount(UserWalletController.currentWallet);
     	control.WalletLogic.getInstance().calcPendingAmount(UserWalletController.currentWallet);
+    	
+    	((Stage) UserWalletController.bp.getScene().getWindow()).close();
+    	ViewLogic.newWalletsWindow();
     	closeWindow();
     	}
     }

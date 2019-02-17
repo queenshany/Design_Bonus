@@ -115,11 +115,11 @@ public class SearchPageController {
     
 	public void initialize() {
 		
-//		catalogNumber.setCellValueFactory(new PropertyValueFactory<>("catalogNumber"));
-//		itemName.setCellValueFactory(new PropertyValueFactory<>("itemName"));
-//		image.setCellValueFactory(new PropertyValueFactory<>("image"));
-//		description.setCellValueFactory(new PropertyValueFactory<>("description"));
-//		price.setCellValueFactory(new PropertyValueFactory<>("price"));
+		catalogNumber.setCellValueFactory(new PropertyValueFactory<>("catalogNumber"));
+		itemName.setCellValueFactory(new PropertyValueFactory<>("itemName"));
+		image.setCellValueFactory(new PropertyValueFactory<>("image"));
+		description.setCellValueFactory(new PropertyValueFactory<>("description"));
+		price.setCellValueFactory(new PropertyValueFactory<>("price"));
 //		quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 //		category.setCellValueFactory(new PropertyValueFactory<>("category"));
 //			

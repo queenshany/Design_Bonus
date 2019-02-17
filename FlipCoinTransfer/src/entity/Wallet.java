@@ -55,7 +55,7 @@ public class Wallet {
 		this.price = price;
 	}
 
-	public boolean isOnPC() {
+	public boolean getIsOnPC() {
 		return isOnPC;
 	}
 
@@ -63,7 +63,7 @@ public class Wallet {
 		this.isOnPC = isOnPC;
 	}
 
-	public boolean isOnPhone() {
+	public boolean getIsOnPhone() {
 		return isOnPhone;
 	}
 
@@ -71,7 +71,7 @@ public class Wallet {
 		this.isOnPhone = isOnPhone;
 	}
 
-	public boolean isOnTablet() {
+	public boolean getIsOnTablet() {
 		return isOnTablet;
 	}
 

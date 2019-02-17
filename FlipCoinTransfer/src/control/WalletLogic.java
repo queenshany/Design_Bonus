@@ -53,9 +53,9 @@ public class WalletLogic {
 				else
 					stmt.setDouble(i++, wallet.getPrice());
 
-				stmt.setBoolean(i++, wallet.isOnPC());
-				stmt.setBoolean(i++, wallet.isOnPhone());
-				stmt.setBoolean(i++, wallet.isOnTablet());
+				stmt.setBoolean(i++, wallet.getIsOnPC());
+				stmt.setBoolean(i++, wallet.getIsOnPhone());
+				stmt.setBoolean(i++, wallet.getIsOnTablet());
 
 				if (wallet.getAmount() < 0)
 					stmt.setNull(i++, java.sql.Types.DOUBLE);
@@ -174,9 +174,9 @@ public class WalletLogic {
 				else
 					stmt.setDouble(i++, wallet.getPrice());
 
-				stmt.setBoolean(i++, wallet.isOnPC());
-				stmt.setBoolean(i++, wallet.isOnPhone());
-				stmt.setBoolean(i++, wallet.isOnTablet());
+				stmt.setBoolean(i++, wallet.getIsOnPC());
+				stmt.setBoolean(i++, wallet.getIsOnPhone());
+				stmt.setBoolean(i++, wallet.getIsOnTablet());
 
 				if (wallet.getAmount() < 0)
 					stmt.setNull(i++, java.sql.Types.DOUBLE);

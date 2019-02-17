@@ -13,6 +13,7 @@ import entity.Item;
 import entity.ItemInTransaction;
 import entity.Transaction;
 import entity.TransactionConfirm;
+import entity.TransactionPay;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -152,37 +153,37 @@ public class TransactionsController {
 	private ScrollPane scroll;
 
 	@FXML
-	private TableView<Transaction> waitingTable;
+	private TableView<TransactionPay> waitingTable;
 
 	@FXML
-	private TableColumn<Transaction, Date> creationDate;
+	private TableColumn<TransactionPay, Date> creationDate;
 
 	@FXML
-	private TableColumn<Transaction, Date> executionDate;
+	private TableColumn<TransactionPay, Date> executionDate;
 
 	@FXML
-	private TableColumn<Transaction, String> status;
+	private TableColumn<TransactionPay, String> status;
 
 	@FXML
-	private TableColumn<Transaction, String> adress;
+	private TableColumn<TransactionPay, String> adress;
 
 	@FXML
-	private TableColumn<Transaction, String> signature;
+	private TableColumn<TransactionPay, String> signature;
 
     @FXML
-    private TableView<Transaction> confirmTable;
+    private TableView<TransactionPay> confirmTable;
 
     @FXML
-    private TableColumn<Transaction, Integer> IDconfirm;
+    private TableColumn<TransactionPay, Integer> IDconfirm;
 
     @FXML
-    private TableColumn<Transaction, Date> creationDateConfirm;
+    private TableColumn<TransactionPay, Date> creationDateConfirm;
 
     @FXML
-    private TableColumn<Transaction, String> creating1confirm;
+    private TableColumn<TransactionPay, String> creating1confirm;
 
     @FXML
-    private TableColumn<Transaction, String> creating2confirm;
+    private TableColumn<TransactionPay, String> creating2confirm;
 
 	@FXML
 	private Button confirmButton;
@@ -195,7 +196,7 @@ public class TransactionsController {
 
 	protected User user;
 
-	protected static Transaction tranConfirm;
+	protected static TransactionPay tranConfirm;
 	
 	public void initialize() {
 
@@ -291,9 +292,9 @@ public class TransactionsController {
 
 	public void getPayTransactions(){
 
-		ObservableList<Transaction> t= FXCollections.observableArrayList();
-		ArrayList<Transaction> pay = control.TransLogic.getInstance().getAllTrans();
-		for(Transaction tp : pay)
+		ObservableList<TransactionPay> t= FXCollections.observableArrayList();
+		ArrayList<TransactionPay> pay = control.TransLogic.getInstance().getAllPayTrans();
+		for(TransactionPay tp : pay)
 		{
 			if(E_TransType.Pay.equals(tp.getType()) &&
 					tp.getCreatingAddress().equalsIgnoreCase(LoginController.curretUser.getPublicAddress()) && 
@@ -310,9 +311,9 @@ public class TransactionsController {
 
 	public void getConfrimTransactions(){
 
-		ObservableList<Transaction> t= FXCollections.observableArrayList();
-		ArrayList<Transaction> confirm = control.TransLogic.getInstance().getAllTrans();
-		for(Transaction tp : confirm)
+		ObservableList<TransactionPay> t= FXCollections.observableArrayList();
+		ArrayList<TransactionPay> confirm = control.TransLogic.getInstance().getAllPayTrans();
+		for(TransactionPay tp : confirm)
 		{
 			if(E_TransType.Pay.equals(tp.getType()) &&
 					tp.getDestinationAddress().equalsIgnoreCase(LoginController.curretUser.getPublicAddress()) && 
@@ -336,14 +337,15 @@ public class TransactionsController {
 		double fee = Double.parseDouble(feeText.getText());
 		if (feeText.getText()!=null && Validation.isPositiveDouble(fee)
 				&&walletsCombo.getSelectionModel() != null) {
-			TransactionConfirm tc = (TransactionConfirm) tranConfirm;
-			tc.setDestinationAddress(tc.getCreatingAddress());
-			tc.setDestinationSignature(tc.getCreatingSignature());
-			tc.setCreatingAddress(LoginController.curretUser.getPublicAddress());
-			tc.setCreatingSignature(LoginController.curretUser.getSignature());
-			tc.setWalletAddress(walletsCombo.getSelectionModel().getSelectedItem().getUniqueAddress());
-			control.TransLogic.getInstance().insertTransConfirm(tc);
-			
+			TransactionPay tc = tranConfirm;
+			TransactionConfirm confirm = control.TransLogic.getInstance().getAllConfirmTrans().get(0);
+			confirm.setDestinationAddress(tc.getCreatingAddress());
+			confirm.setDestinationSignature(tc.getCreatingSignature());
+			confirm.setCreatingAddress(LoginController.curretUser.getPublicAddress());
+			confirm.setCreatingSignature(LoginController.curretUser.getSignature());
+			confirm.setWalletAddress(walletsCombo.getSelectionModel().getSelectedItem().getUniqueAddress());
+			confirm.setTransPayID(tc.getTransID());
+//			control.TransLogic.getInstance().insertTransConfirm(tc);
 		}
 	}
 
@@ -363,11 +365,11 @@ public class TransactionsController {
 				System.out.println(item);
 //				Item items = new Item(itemID);
 				item.setQuantity(x);
-				System.out.println(item);
-				itemID.setCellValueFactory(new PropertyValueFactory<>("catalogNumber"));
-				quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+//				System.out.println(item);
+//				itemID.setCellValueFactory(new PropertyValueFactory<>("catalogNumber"));
+//				quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 				ObservableList<Item> i= FXCollections.observableArrayList();
-				i.addAll(item);
+				i.setAll(item);
 				table.setItems(i);
 //			}	
 //			catch (NumberFormatException e){

@@ -98,6 +98,7 @@ public class LoginController extends AbstractController{
   		 if(us.getUsername().equalsIgnoreCase(username.getText()) &&
   				 us.getPassword().equalsIgnoreCase(password.getText()) 
   				 &&us.getIsEmployee()) {
+			   curretUser = us;
   			 ViewLogic.newEmployeeOrUserWindow();
   			 closeWindow();
   		 }

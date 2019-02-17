@@ -3,6 +3,10 @@ package boundary;
 import java.sql.Date;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+
+import control.TransLogic;
+import control.UserLogic;
 import entity.Item;
 import entity.Recommendation;
 import javafx.collections.FXCollections;
@@ -122,7 +126,17 @@ public class RecommendationsController {
 
     @FXML
     void generateTransReport(MouseEvent event) {
-    	
+		//ViewLogic.newViewRecommendationWindow();
+//		if (LoginController.curretUser == null) {
+//			Alert alert = new Alert(AlertType.ERROR);
+//			alert.setTitle("User is null");
+//			alert.setContentText("Please select user");
+//			alert.initModality(Modality.APPLICATION_MODAL);
+//			alert.showAndWait();
+//		}else {
+			JFrame reportFrame = TransLogic.getInstance().produceTransStatusReport();
+			reportFrame.setVisible(true);
+//		}
     }
 
     @FXML
@@ -132,7 +146,17 @@ public class RecommendationsController {
     
     @FXML
     void generateUsersReport(MouseEvent event) {
-
+		//ViewLogic.newViewRecommendationWindow();
+//		if (LoginController.curretUser == null) {
+//			Alert alert = new Alert(AlertType.ERROR);
+//			alert.setTitle("User is null");
+//			alert.setContentText("Please select user");
+//			alert.initModality(Modality.APPLICATION_MODAL);
+//			alert.showAndWait();
+//		}else {
+			JFrame reportFrame = UserLogic.getInstance().produceUsersReport();
+			reportFrame.setVisible(true);
+//		}
     }
 
     @FXML

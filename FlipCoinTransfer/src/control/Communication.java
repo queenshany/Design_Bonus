@@ -145,7 +145,6 @@ public class Communication {
 
 			ArrayList<TransactionPay> trP = TransLogic.getInstance().getAllPayTrans();
 			ArrayList<TransactionConfirm> trC = TransLogic.getInstance().getAllConfirmTrans();
-
 			for (Transaction t : trans) {
 
 				if (t.getType().equals(E_TransType.Pay)) {

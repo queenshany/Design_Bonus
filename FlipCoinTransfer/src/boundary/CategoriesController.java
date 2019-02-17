@@ -2,6 +2,10 @@ package boundary;
 
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+
+import control.TransLogic;
+import control.UserLogic;
 import entity.Category;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -141,15 +145,35 @@ public class CategoriesController {
 		ViewLogic.newViewRecommendationWindow();
 	}
 
-	@FXML
-	void generateTransReport(MouseEvent event) {
+    @FXML
+    void generateTransReport(MouseEvent event) {
+		//ViewLogic.newViewRecommendationWindow();
+//		if (LoginController.curretUser == null) {
+//			Alert alert = new Alert(AlertType.ERROR);
+//			alert.setTitle("User is null");
+//			alert.setContentText("Please select user");
+//			alert.initModality(Modality.APPLICATION_MODAL);
+//			alert.showAndWait();
+//		}else {
+			JFrame reportFrame = TransLogic.getInstance().produceTransStatusReport();
+			reportFrame.setVisible(true);
+//		}
+    }
 
-	}
-
-	@FXML
-	void generateUsersReport(MouseEvent event) {
-
-	}
+    @FXML
+    void generateUsersReport(MouseEvent event) {
+		//ViewLogic.newViewRecommendationWindow();
+//		if (LoginController.curretUser == null) {
+//			Alert alert = new Alert(AlertType.ERROR);
+//			alert.setTitle("User is null");
+//			alert.setContentText("Please select user");
+//			alert.initModality(Modality.APPLICATION_MODAL);
+//			alert.showAndWait();
+//		}else {
+			JFrame reportFrame = UserLogic.getInstance().produceUsersReport();
+			reportFrame.setVisible(true);
+//		}
+    }
 
 	@FXML
 	void logOut(MouseEvent event) {

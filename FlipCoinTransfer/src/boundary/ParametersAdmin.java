@@ -3,17 +3,22 @@ package boundary;
 import java.sql.Date;
 import java.time.LocalDate;
 
+import control.Communication;
+import entity.Consts;
 import entity.SystemParams;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class ParametersAdmin {
@@ -248,11 +253,40 @@ public class ParametersAdmin {
 
     @FXML
     void exportJson(MouseEvent event) {
-
+		if (Communication.exportTransactionsToJSON()) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Transactions Exported Successfully");
+			alert.setContentText("Transactions exported successfully to\n"
+					+ Consts.JSON_EXPORT_FILE_PATH);
+			alert.initModality(Modality.APPLICATION_MODAL);
+			alert.showAndWait();
+		}
+		else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error Exporting Transactions");
+			alert.setContentText("Error Exporting Transactions to JSON");
+			alert.initModality(Modality.APPLICATION_MODAL);
+			alert.showAndWait();
+		}
     }
 
     @FXML
     void importXML(MouseEvent event) {
+		if (Communication.importTransactionsFromXML()) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Transactions Imported Successfully");
+			alert.setContentText("Transactions Imported successfully from\n"
+					+ Consts.XML_IMPORT_FILE_PATH);
+			alert.initModality(Modality.APPLICATION_MODAL);
+			alert.showAndWait();
+		}
+		else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error Importing Transactions");
+			alert.setContentText("Error Importing Transactions to JSON");
+			alert.initModality(Modality.APPLICATION_MODAL);
+			alert.showAndWait();
+		}
 
     }
 

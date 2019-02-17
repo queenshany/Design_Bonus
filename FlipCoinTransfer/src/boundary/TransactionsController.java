@@ -206,7 +206,8 @@ public class TransactionsController {
 	//ObservableList<Item> i = FXCollections.observableArrayList();
 	
 	public void initialize() {
-		
+		btc.setVisible(false);
+		price.setText("0");
 		unButton.setVisible(false);
 		
 		//Fill the User Combo Box
@@ -285,9 +286,18 @@ public class TransactionsController {
     		ObservableList<Item> items = table.getItems();
     		items.remove(chosenItem);
     		table.setItems(items);
+    		calcAmount();
     	}
     }
 
+    void calcAmount() {
+    	double price = 0;
+		ObservableList<Item> items = table.getItems();
+		for (Item i : items) {
+			price = price + (i.getPrice()*i.getQuantity());
+		}
+		this.price.setText(String.valueOf(price) + "BTC");
+    }
 	
 	//Fill the product combo according to the chosen user
 
@@ -401,6 +411,7 @@ public class TransactionsController {
 				//i.setAll(item);
 				//table.getItems().setAll(i);
 				table.refresh();
+				calcAmount();
 				//table.setItems(i);
 //			}	
 //			catch (NumberFormatException e){

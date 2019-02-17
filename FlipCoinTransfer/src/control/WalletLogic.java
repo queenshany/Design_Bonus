@@ -370,20 +370,27 @@ public class WalletLogic {
 	 */
 	public boolean calcPendingAmount(String walletID, double val) {
 
-		if (val <= 0 || walletID == null || walletID == "")
-			return false;
-
 		// wallet is bitcoin knots
 		if (getWalletsKnots().contains(new Wallet(walletID))) {
 			WalletBitcoinKnots w = getWalletsKnots().get(getWalletsKnots().indexOf(new Wallet(walletID)));
-			w.setPendingAmount(w.getPendingAmount() + val*(1 + w.getDiscountPercent()));
+			val = w.getPendingAmount() + val*(1 + w.getDiscountPercent());
+			
+			if (val < 0)
+				return false;
+			
+			w.setPendingAmount(val);
 			updateWallet(w);
 		}
 
 		// wallet is bitcoin space
 		else if (getWalletsSpace().contains(new Wallet(walletID))){
 			WalletBitcoinSpace w = getWalletsSpace().get(getWalletsSpace().indexOf(new Wallet(walletID)));
-			w.setPendingAmount(w.getPendingAmount() + val);
+			val += w.getPendingAmount();
+		
+			if (val < 0)
+				return false;
+			
+			w.setPendingAmount(val);
 			updateWallet(w);
 
 		}
@@ -391,9 +398,16 @@ public class WalletLogic {
 		// regular wallet
 		else {
 			Wallet w = getWallets().get(getWallets().indexOf(new Wallet(walletID)));
-			w.setPendingAmount(w.getPendingAmount() + val);
+
+			val += w.getPendingAmount();
+			
+			if (val < 0)
+				return false;
+			
+			w.setPendingAmount(val);
 			updateWallet(w);
 		}
+		
 		return true;
 	}
 
@@ -404,20 +418,27 @@ public class WalletLogic {
 	 */
 	public boolean calcAmount(String walletID, double val) {
 
-		if (val <= 0 || walletID == null || walletID == "")
-			return false;
-
 		// wallet is bitcoin knots
 		if (getWalletsKnots().contains(new Wallet(walletID))) {
 			WalletBitcoinKnots w = getWalletsKnots().get(getWalletsKnots().indexOf(new Wallet(walletID)));
-			w.setAmount(w.getAmount() + val*(1 + w.getDiscountPercent()));
+			val = w.getAmount() + val*(1 + w.getDiscountPercent());
+			
+			if (val < 0)
+				return false;
+			
+			w.setAmount(val);
 			updateWallet(w);
 		}
 
 		// wallet is bitcoin space
 		else if (getWalletsSpace().contains(new Wallet(walletID))){
 			WalletBitcoinSpace w = getWalletsSpace().get(getWalletsSpace().indexOf(new Wallet(walletID)));
-			w.setAmount(w.getAmount() + val);
+			val += w.getAmount();
+		
+			if (val < 0)
+				return false;
+			
+			w.setAmount(val);
 			updateWallet(w);
 
 		}
@@ -425,9 +446,16 @@ public class WalletLogic {
 		// regular wallet
 		else {
 			Wallet w = getWallets().get(getWallets().indexOf(new Wallet(walletID)));
-			w.setAmount(w.getAmount() + val);
+
+			val += w.getAmount();
+			
+			if (val < 0)
+				return false;
+			
+			w.setAmount(val);
 			updateWallet(w);
 		}
+		
 		return true;
 	}
 

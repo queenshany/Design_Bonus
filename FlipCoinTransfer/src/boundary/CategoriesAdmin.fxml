@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="336.0" prefWidth="509.0" style="-fx-background-color: #eaf0f9;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.CreateRecommendationController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="336.0" prefWidth="509.0" style="-fx-background-color: #eaf0f9;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.CategoriesAdmin">
    <top>
       <HBox fx:id="topBorder" prefHeight="73.0" prefWidth="489.0" spacing="70.0" BorderPane.alignment="TOP_CENTER">
          <children>
@@ -75,26 +75,26 @@
       </VBox>
    </bottom>
    <left>
-      <AnchorPane prefHeight="244.0" prefWidth="115.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="232.0" prefWidth="150.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fx:id="createRec" fitHeight="40.0" fitWidth="97.0" layoutX="-3.0" layoutY="1.0" onMouseClicked="#newRecommendation" pickOnBounds="true" smooth="false">
+            <ImageView fx:id="importXML" fitHeight="37.0" fitWidth="97.0" layoutX="-3.0" layoutY="2.0" onMouseClicked="#importXML" pickOnBounds="true" smooth="false">
                <image>
-                  <Image url="@../rsc/createRecPic.png" />
+                  <Image url="@../rsc/importXMLPic.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="viewRec" fitHeight="40.0" fitWidth="97.0" layoutX="-3.0" layoutY="41.0" onMouseClicked="#allRecommendations" pickOnBounds="true" smooth="false">
+            <ImageView fx:id="expJson" fitHeight="37.0" fitWidth="97.0" layoutX="-3.0" layoutY="42.0" onMouseClicked="#exportJson" pickOnBounds="true" smooth="false">
                <image>
-                  <Image url="@../rsc/viewRecPic.png" />
+                  <Image url="@../rsc/exportJSONPIC.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="transRpt" fitHeight="40.0" fitWidth="97.0" layoutX="-3.0" layoutY="81.0" onMouseClicked="#generateTransReport" pickOnBounds="true" smooth="false">
+            <ImageView fx:id="viewDetails" fitHeight="36.0" fitWidth="97.0" layoutX="-3.0" layoutY="82.0" onMouseClicked="#allDetails" pickOnBounds="true" smooth="false">
                <image>
-                  <Image url="@../rsc/transReportPic.png" />
+                  <Image url="@../rsc/viewDetailsPic.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="usersRpt" fitHeight="37.0" fitWidth="97.0" layoutX="-4.0" layoutY="120.0" onMouseClicked="#generateUsersReport" pickOnBounds="true" smooth="false">
+            <ImageView fx:id="employeesManag" fitHeight="37.0" fitWidth="97.0" layoutX="-4.0" layoutY="122.0" onMouseClicked="#manageEmployees" pickOnBounds="true" smooth="false">
                <image>
-                  <Image url="@../rsc/usersReportPic.png" />
+                  <Image url="@../rsc/employeesPic.png" />
                </image>
             </ImageView>
             <ImageView fx:id="categories" fitHeight="40.0" fitWidth="97.0" layoutX="-4.0" layoutY="160.0" onMouseClicked="#manageCategories" pickOnBounds="true" smooth="false">
@@ -116,29 +116,35 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane layoutX="4.0" layoutY="3.0" prefHeight="200.0" prefWidth="175.0" style="-fx-background-color: #7eacf7;">
+            <VBox prefHeight="209.0" prefWidth="194.0" spacing="10.0">
                <children>
-                  <Label fx:id="commisionLable" layoutX="9.0" layoutY="27.0" text="Commision" textFill="#2a21d0" />
-                  <Label fx:id="probabilityLable" layoutX="10.0" layoutY="85.0" text="Probability" textFill="#2a21d0" />
-                  <TextField fx:id="commision" blendMode="MULTIPLY" layoutX="7.0" layoutY="47.0" />
-                  <TextField fx:id="probability" blendMode="MULTIPLY" layoutX="8.0" layoutY="105.0" />
-                  <Button fx:id="newButton" layoutX="62.0" layoutY="151.0" mnemonicParsing="false" onAction="#newMethod" text="NEW" />
-                  <Button fx:id="saveButton" layoutX="62.0" layoutY="151.0" mnemonicParsing="false" onAction="#saveMethod" text="SAVE" />
+                  <ComboBox fx:id="categoriesCombo" onAction="#theChosen" prefHeight="25.0" prefWidth="189.0" promptText="Edit Category" />
+                  <HBox prefHeight="75.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="editText" editable="false" />
+                        <Button fx:id="save" mnemonicParsing="false" onAction="#updateCategoty" text="Save" />
+                     </children>
+                  </HBox>
+                  <Label fx:id="lable2" text="Add New Category">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="newText" />
+                        <Button fx:id="addButton" mnemonicParsing="false" onAction="#addCategory" text="Add" />
+                     </children>
+                  </HBox>
+                  <Label fx:id="lable" text="Label" textFill="#4b3ced" visible="false">
+                     <VBox.margin>
+                        <Insets bottom="20.0" top="-40.0" />
+                     </VBox.margin>
+                  </Label>
                </children>
-            </AnchorPane>
-            <AnchorPane layoutX="187.0" layoutY="3.0" prefHeight="200.0" prefWidth="175.0" style="-fx-background-color: #7eacf7;">
-               <children>
-                  <Label fx:id="usernameLable" layoutX="15.0" layoutY="29.0" text="Username" textFill="#2a21d0" />
-                  <Label fx:id="levelOfCommitment" layoutX="11.0" layoutY="85.0" text="Level Of Commitment" textFill="#2a21d0" />
-                  <ComboBox fx:id="usernameCombo" blendMode="MULTIPLY" layoutX="13.0" layoutY="48.0" prefWidth="150.0" />
-                  <ComboBox fx:id="levelCombo" blendMode="MULTIPLY" layoutX="10.0" layoutY="103.0" prefWidth="150.0" />
-                  <Button fx:id="sendButton" disable="true" layoutX="59.0" layoutY="153.0" mnemonicParsing="false" onAction="#sendMethod" text="SEND" />
-               </children>
-            </AnchorPane>
+            </VBox>
+            <Button fx:id="removeButton" layoutX="191.0" layoutY="36.0" mnemonicParsing="false" onAction="#removeCat" text="Remove" />
          </children>
       </AnchorPane>
    </center>
-   <right>
-      <AnchorPane prefHeight="209.0" prefWidth="23.0" BorderPane.alignment="CENTER" />
-   </right>
 </BorderPane>

@@ -166,6 +166,12 @@ public class RiddlesScreenController {
 		
     }
 	
+    @FXML
+    void backHome(MouseEvent event) {
+    	closeWindow();
+    	ViewLogic.newUserWindow();
+    }
+	
 	@FXML
 	void logOut(MouseEvent event) {
 		closeWindow();

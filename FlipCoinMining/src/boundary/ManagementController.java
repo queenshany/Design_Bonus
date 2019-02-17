@@ -1,17 +1,31 @@
 package boundary;
 
+import java.sql.Date;
+import java.util.ArrayList;
+
+import entity.Bonus;
+import entity.Lottery;
+import entity.Miner;
+import entity.RiddleLevel;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import utils.E_Level;
 
 public class ManagementController {
 
@@ -43,7 +57,7 @@ public class ManagementController {
     private TabPane tabPane;
 
     @FXML
-    private Tab allUsers;
+    private Tab riddles;
 
     @FXML
     private AnchorPane p1;
@@ -64,25 +78,107 @@ public class ManagementController {
     private AnchorPane p2;
 
     @FXML
-    private TableView<?> t2;
+    private TableView<Lottery> lotteriesTable;
+
+    @FXML
+    private TableColumn<Lottery, Integer> lotteryNum;
+
+    @FXML
+    private TableColumn<Lottery, Date> lotteryDate;
+
+    @FXML
+    private TableColumn<Lottery, Integer> maxParticipants;
+
+    @FXML
+    private TableColumn<Lottery, Integer> numOfWinners;
+
+    @FXML
+    private TableColumn<Lottery, Integer> numOfBonuses;
 
     @FXML
     private Button addL;
 
     @FXML
-    private Tab allTransactions;
+    private Tab bonuses;
 
     @FXML
     private AnchorPane p3;
 
     @FXML
-    private TableView<?> t3;
+    private TableView<Bonus> bonusesTable;
+
+    @FXML
+    private TableColumn<Bonus, Integer> bonusNum;
+
+    @FXML
+    private TableColumn<Bonus, String> description;
 
     @FXML
     private Button addB;
 
     @FXML
     private Button editB;
+
+    @FXML
+    private Tab levels;
+
+    @FXML
+    private AnchorPane p31;
+
+    @FXML
+    private TableView<RiddleLevel> levelsTable;
+
+    @FXML
+    private TableColumn<RiddleLevel, Integer> levelCode;
+
+    @FXML
+    private TableColumn<RiddleLevel, E_Level> levelName;
+
+    @FXML
+    private TableColumn<RiddleLevel, Integer> difficultyLevel;
+
+    @FXML
+    private TableColumn<RiddleLevel, Integer> blockSize;
+
+    @FXML
+    private Button addB1;
+
+    @FXML
+    private Button editB1;
+
+    @FXML
+    private TableView<Miner> minersTable;
+
+    @FXML
+    private AnchorPane p32;
+
+    @FXML
+    private ScrollPane scrollMiners;
+
+    @FXML
+    private TableColumn<Miner, String> uniqueAddress;
+
+    @FXML
+    private TableColumn<Miner, String> MinerName;
+
+    @FXML
+    private TableColumn<Miner, String> Email;
+
+    @FXML
+    private TableColumn<Miner, Double> DigitalProfit;
+
+	public void initialize() {
+		
+		uniqueAddress.setCellValueFactory(new PropertyValueFactory<>("uniqueAddress"));
+		MinerName.setCellValueFactory(new PropertyValueFactory<>("minerName"));
+		Email.setCellValueFactory(new PropertyValueFactory<>("email"));
+		DigitalProfit.setCellValueFactory(new PropertyValueFactory<>("digitalProfit"));
+		
+		ArrayList<Miner> m = control.MinerLogic.getInstance().viewOtherMiners(LoginController.curretMiner);
+		ObservableList<Miner> miners= FXCollections.observableArrayList(m);
+		minersTable.setItems(miners);
+
+	}
 
     @FXML
     void addBonus(ActionEvent event) {
@@ -96,6 +192,27 @@ public class ManagementController {
 
     @FXML
     void addRiddle(ActionEvent event) {
+
+    }
+
+
+    @FXML
+    void chosenBonus(MouseEvent event) {
+
+    }
+
+    @FXML
+    void chosenLevel(MouseEvent event) {
+
+    }
+
+    @FXML
+    void chosenLottery(MouseEvent event) {
+
+    }
+
+    @FXML
+    void chosenMiner(MouseEvent event) {
 
     }
 
@@ -115,8 +232,20 @@ public class ManagementController {
     }
 
     @FXML
-    void logOut(MouseEvent event) {
-
+    void backHome(MouseEvent event) {
+    	closeWindow();
+    	ViewLogic.newAdminWindow();
     }
+	
+	@FXML
+	void logOut(MouseEvent event) {
+		closeWindow();
+		ViewLogic.newLoginWindow();
+	}
 
+
+	protected void closeWindow() {
+		((Stage) borderPane.getScene().getWindow()).close();
+	}
 }
+

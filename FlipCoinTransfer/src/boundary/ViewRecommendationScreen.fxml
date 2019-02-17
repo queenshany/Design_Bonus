@@ -62,7 +62,7 @@
             </ImageView>
             <HBox fx:id="hbox" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="200.0">
                <children>
-                  <ImageView fx:id="homeIcon" fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" smooth="false">
+                  <ImageView fx:id="homeIcon" fitHeight="18.0" fitWidth="18.0" onMouseClicked="#backHome" pickOnBounds="true" smooth="false">
                      <image>
                         <Image url="@../rsc/homeIcon.png" />
                      </image>
@@ -119,7 +119,7 @@
          <children>
             <ScrollPane layoutX="-3.0" layoutY="-33.0">
                <content>
-                  <TableView fx:id="table" prefHeight="204.0" prefWidth="345.0">
+                  <TableView fx:id="table" onMouseClicked="#chosenRec" prefHeight="204.0" prefWidth="345.0">
                     <columns>
                       <TableColumn fx:id="recNum" prefWidth="82.33331298828125" text="recNumber" />
                       <TableColumn fx:id="creaDate" prefWidth="83.6666259765625" text="creation Date" />

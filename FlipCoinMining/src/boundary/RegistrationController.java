@@ -89,6 +89,9 @@ public class RegistrationController {
 	@FXML
 	private TextField usernameText1;
 
+    @FXML
+    private TextField usernameText11;
+    
 	@FXML
 	private Label usernameLable1;
 
@@ -168,12 +171,16 @@ public class RegistrationController {
 				
 				comp.setContactEmail(emailText.getText());
 				comp.setContactFirstName(usernameText1.getText());
-				comp.setContactLastName(usernameText1.getText());
+				comp.setContactLastName(usernameText11.getText());
 				comp.setContactPhone(phoneText.getText());
 				
 				control.MinerLogic.getInstance().insertMinerCompany(comp);
+				closeWindow();
+				ViewLogic.newLoginWindow();
 				}
 
+			closeWindow();
+			ViewLogic.newLoginWindow();
 		}
 	}
 

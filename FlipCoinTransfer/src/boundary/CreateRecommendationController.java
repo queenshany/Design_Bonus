@@ -145,6 +145,12 @@ public class CreateRecommendationController {
     }
 
     @FXML
+    void backHome(MouseEvent event) {
+    	closeWindow();
+    	ViewLogic.newUserWindow();
+    }
+    
+    @FXML
     void generateUsersReport(MouseEvent event) {
 
     }
@@ -179,7 +185,14 @@ public class CreateRecommendationController {
 
     @FXML
     void newMethod(ActionEvent event) {
-
+    	commision.setDisable(false);
+    	probability.setDisable(false);
+    	commision.setText(null);
+    	probability.setText(null);
+    	newButton.setVisible(false);
+    	saveButton.setVisible(true);
+    	usernameCombo.setDisable(true);
+    	levelCombo.setDisable(true);
     }
 
     //There is a problem with the probability value
@@ -236,6 +249,7 @@ public class CreateRecommendationController {
 	alert.setContentText("Recommendation send to " + usernameCombo.getValue().getUsername());
 
 	alert.showAndWait(); 
+	newButton.setDisable(false);
 	}
 	
 	if (commision.getText() == null  || probability.getText() ==null || !newButton.isVisible()){

@@ -56,6 +56,10 @@ public class MainAdminScreenController {
     @FXML
     private ImageView parameters;
 
+    public void initialize() {
+    networkStatus.setText(LoginController.netMode.toString());
+    }
+    
     @FXML
     void allDetails(MouseEvent event) {
     	closeWindow();
@@ -74,22 +78,26 @@ public class MainAdminScreenController {
 
     @FXML
     void logOut(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newLoginWindow();
     }
 
     @FXML
     void manageCategories(MouseEvent event) {
-
-    }
+    	closeWindow();
+    	ViewLogic.newAdminCategoriesWindow();
+    	}
 
     @FXML
     void manageEmployees(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newManageEmployeesWindow();
     }
 
     @FXML
     void manageParameters(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newAdminParametersWindow();
     }
 
 	protected void closeWindow() {

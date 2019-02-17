@@ -98,6 +98,12 @@ public class MinersTableController {
 		ViewLogic.newLoginWindow();
 	}
 
+    @FXML
+    void backHome(MouseEvent event) {
+    	closeWindow();
+    	ViewLogic.newUserWindow();
+    }
+    
 	@FXML
 	void lotteriesScreen(MouseEvent event) {
 		closeWindow();

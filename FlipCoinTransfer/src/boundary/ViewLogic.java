@@ -250,6 +250,24 @@ public class ViewLogic {
 				"Parameters",
 				false);
 	}
+	
+	
+	// ------------------------------ Parameters (Admin) ------------------------------
+	/**
+	 * Open Parameters Window
+	 */
+	protected static void newAdminParametersWindow() {
+		Stage stage = new Stage();
+		setStage(stage);
+
+
+		newWindow(ViewLogic.class.getResource("ParametersAdmin.fxml"),
+				stage,
+				null, null,	null, null,	null, null,
+				false,
+				"Parameters",
+				false);
+	}
 
 
 
@@ -298,6 +316,23 @@ public class ViewLogic {
 
 
 		newWindow(ViewLogic.class.getResource("CategoriesScreen.fxml"),
+				stage,
+				null, null,	null, null,	null, null,
+				false,
+				"Categories",
+				false);
+	}
+	
+	// ------------------------------ Categories (Admin) ------------------------------
+	/**
+	 * Open Categories Window
+	 */
+	protected static void newAdminCategoriesWindow() {
+		Stage stage = new Stage();
+		setStage(stage);
+
+
+		newWindow(ViewLogic.class.getResource("CategoriesAdmin.fxml"),
 				stage,
 				null, null,	null, null,	null, null,
 				false,
@@ -421,6 +456,24 @@ public class ViewLogic {
 				false);
 	}
 
+	
+	// ------------------------------ Edit Recommendation ------------------------------
+		/**
+		 * Open Edit Recommendation Window
+		 */
+		protected static void newEditRecommendationWindow() {
+			Stage stage = new Stage();
+			setStage(stage);
+
+
+			newWindow(ViewLogic.class.getResource("EditRecScreen.fxml"),
+					stage,
+					null, null,	null, null,	null, null,
+					false,
+					"Edit Recommendation",
+					false);
+		}
+
 
 	// ------------------------------ Employee Or User  ------------------------------
 		/**
@@ -511,6 +564,78 @@ public class ViewLogic {
 				false);
 	}
 
+	
+	// ------------------------------ Expand Space ------------------------------
+	/**
+	 * Open Expand Space Window
+	 */
+	protected static void newExpandSpaceWindow() {
+		Stage stage = new Stage();
+		setStage(stage);
+
+
+		newWindow(ViewLogic.class.getResource("ExpandSpaceScreen.fxml"),
+				stage,
+				null, null,	null, null,	null, null,
+				false,
+				"Edit Bitcoin Space",
+				false);
+	}
+	
+	
+	// ------------------------------ Expand Knots ------------------------------
+	/**
+	 * Open Expand Knots Window
+	 */
+	protected static void newExpandKnotsWindow() {
+		Stage stage = new Stage();
+		setStage(stage);
+
+
+		newWindow(ViewLogic.class.getResource("ExpandKnotsScreen.fxml"),
+				stage,
+				null, null,	null, null,	null, null,
+				false,
+				"Edit Bitcoin Knots",
+				false);
+	}
+	
+	// ------------------------------ Manage Employee ------------------------------
+	/**
+	 * Open Manage Employees Window
+	 */
+	protected static void newManageEmployeesWindow() {
+		Stage stage = new Stage();
+		setStage(stage);
+
+
+		newWindow(ViewLogic.class.getResource("ManageEmployeeScreen.fxml"),
+				stage,
+				null, null,	null, null,	null, null,
+				false,
+				"Employees Management",
+				false);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 
 	

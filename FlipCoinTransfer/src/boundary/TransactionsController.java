@@ -6,11 +6,13 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 import control.RecLogic;
+import control.Validation;
 import entity.User;
 import entity.Wallet;
 import entity.Item;
 import entity.ItemInTransaction;
 import entity.Transaction;
+import entity.TransactionConfirm;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -193,6 +195,8 @@ public class TransactionsController {
 
 	protected User user;
 
+	protected static Transaction tranConfirm;
+	
 	public void initialize() {
 
 		//Fill the User Combo Box
@@ -202,7 +206,9 @@ public class TransactionsController {
 		usersCombo.getItems().addAll(users);
 
 		ObservableList<User> us= FXCollections.observableArrayList(users);
-		usersCombo.setItems(us);	
+		us.remove(LoginController.curretUser);
+		usersCombo.setItems(us);
+		
 
 		//Fill the pay transaction table
 		creationDate.setCellValueFactory(new PropertyValueFactory<>("creationDate"));
@@ -222,6 +228,22 @@ public class TransactionsController {
 		//Chosen Products
 		itemID.setCellValueFactory(new PropertyValueFactory<>("catalogNumber"));
 		quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+		
+//		ArrayList<Item> i = new ArrayList<Item>();
+//		i = control.ItemLogic.getInstance().getItems();
+//		ObservableList<Item> pro = FXCollections.observableArrayList();
+//		pro.addAll(i);
+//		table.setItems(pro);
+		
+		
+		//Fill Confirm Table
+		IDconfirm.setCellValueFactory(new PropertyValueFactory<>("transID"));
+		creationDateConfirm.setCellValueFactory(new PropertyValueFactory<>("creationDate"));
+		creating1confirm.setCellValueFactory(new PropertyValueFactory<>("creatingAddress"));
+		creating2confirm.setCellValueFactory(new PropertyValueFactory<>("creatingSignature"));
+		
+		//Fill the confirm transactions of the current user
+				getConfrimTransactions();
 	} 
 
 
@@ -265,6 +287,7 @@ public class TransactionsController {
 		}
 	}
 
+	
 
 	public void getPayTransactions(){
 
@@ -283,10 +306,45 @@ public class TransactionsController {
 		waitingTable.refresh();
 	}
 
+	
 
+	public void getConfrimTransactions(){
+
+		ObservableList<Transaction> t= FXCollections.observableArrayList();
+		ArrayList<Transaction> confirm = control.TransLogic.getInstance().getAllTrans();
+		for(Transaction tp : confirm)
+		{
+			if(E_TransType.Pay.equals(tp.getType()) &&
+					tp.getDestinationAddress().equalsIgnoreCase(LoginController.curretUser.getPublicAddress()) && 
+					tp.getDestinationSignature().equalsIgnoreCase(LoginController.curretUser.getSignature()))
+
+				t.add(tp);
+		}
+
+		confirmTable.setItems(t);	   
+		confirmTable.refresh();
+	}
+
+	
+    @FXML
+    void chosenConfrimTrans(MouseEvent event) {
+    	tranConfirm = confirmTable.getSelectionModel().getSelectedItem();
+    }
+	
 	@FXML
 	void NewConfirmTransaction(ActionEvent event) {
-
+		double fee = Double.parseDouble(feeText.getText());
+		if (feeText.getText()!=null && Validation.isPositiveDouble(fee)
+				&&walletsCombo.getSelectionModel() != null) {
+			TransactionConfirm tc = (TransactionConfirm) tranConfirm;
+			tc.setDestinationAddress(tc.getCreatingAddress());
+			tc.setDestinationSignature(tc.getCreatingSignature());
+			tc.setCreatingAddress(LoginController.curretUser.getPublicAddress());
+			tc.setCreatingSignature(LoginController.curretUser.getSignature());
+			tc.setWalletAddress(walletsCombo.getSelectionModel().getSelectedItem().getUniqueAddress());
+			control.TransLogic.getInstance().insertTransConfirm(tc);
+			
+		}
 	}
 
 	@FXML
@@ -298,23 +356,25 @@ public class TransactionsController {
 	void addToTable(ActionEvent event) {
 //		int itemID = productsCombo.getSelectionModel().getSelectedItem().getCatalogNumber();
 		if (quantity.getText()!=null && productsCombo.getSelectionModel()!=null) {
-			try {
-				String convert = (amountText.getText());
-				Integer x = Integer.parseInt(convert);
+//			try {
+//				String convert = (amountText.getText());
+				Integer x = Integer.parseInt(amountText.getText());
 				Item item = productsCombo.getValue();
+				System.out.println(item);
 //				Item items = new Item(itemID);
 				item.setQuantity(x);
+				System.out.println(item);
 				itemID.setCellValueFactory(new PropertyValueFactory<>("catalogNumber"));
 				quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-				ObservableList<Item> items= FXCollections.observableArrayList();
-				items.add(item);
-				table.setItems(items);
-			}	
-			catch (NumberFormatException e){
-				lable.setText("Invalid Value");
+				ObservableList<Item> i= FXCollections.observableArrayList();
+				i.addAll(item);
+				table.setItems(i);
+//			}	
+//			catch (NumberFormatException e){
+//				lable.setText("Invalid Value");
 			}
 		}
-		}
+//		}
 	
 
 
@@ -377,8 +437,9 @@ public class TransactionsController {
 
 	@FXML
 	void searchProducts(MouseEvent event) {
-		closeWindow();
-		ViewLogic.newSearchPageWindow();
+		LoginController.keyWord = searchText.getText();
+    	closeWindow();
+    	ViewLogic.newSearchPageWindow();
 	}
 
 	@FXML
@@ -393,6 +454,12 @@ public class TransactionsController {
 		ViewLogic.newTransactionsWindow();
 	}
 
+    @FXML
+    void backHome(MouseEvent event) {
+    	closeWindow();
+    	ViewLogic.newUserWindow();
+    }
+	
 	@FXML
 	void walletsScreen(MouseEvent event) {
 		closeWindow();

@@ -96,11 +96,23 @@ public class SettingsController extends AbstractController {
     @FXML
     private Button saveButton;
     
+    public void initialize() {
+    	emailText.setText(LoginController.curretUser.getEmail());
+    	phoneText.setText(LoginController.curretUser.getPhone());
+    }
+    
     @FXML
     void updateField(ActionEvent event) {
-
+    	LoginController.curretUser.setEmail(emailText.getText());
+    	LoginController.curretUser.setPhone(phoneText.getText());
+    	control.UserLogic.getInstance().updateUser(LoginController.curretUser);
     }
 
+    @FXML
+    void backHome(MouseEvent event) {
+    	closeWindow();
+    	ViewLogic.newUserWindow();
+    }
 
     @FXML
     void logOut(MouseEvent event) {
@@ -122,6 +134,7 @@ public class SettingsController extends AbstractController {
 
     @FXML
     void searchProducts(MouseEvent event) {
+    	LoginController.keyWord = searchText.getText();
     	closeWindow();
     	ViewLogic.newSearchPageWindow();
     }
@@ -144,11 +157,6 @@ public class SettingsController extends AbstractController {
     	ViewLogic.newWalletsWindow();
     }
 
-
-
-	public void initialize() {
-//		System.out.println("h");
-	}
 
 	protected void closeWindow() {
 		((Stage) borderPane.getScene().getWindow()).close();

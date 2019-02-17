@@ -138,6 +138,13 @@ public class ManageTransactionsController {
 
 	} 
 
+
+    @FXML
+    void backHome(MouseEvent event) {
+    	closeWindow();
+    	ViewLogic.newUserWindow();
+    }
+	
 	public void getBlocks(){
 
 		ObservableList<Block> b= FXCollections.observableArrayList();

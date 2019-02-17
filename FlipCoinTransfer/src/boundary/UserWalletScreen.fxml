@@ -117,7 +117,7 @@
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="31.0" prefWidth="29.0">
                      <children>
-                        <ImageView fx:id="homeIcon" fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" smooth="false">
+                        <ImageView fx:id="homeIcon" fitHeight="18.0" fitWidth="18.0" onMouseClicked="#backHome" pickOnBounds="true" smooth="false">
                            <image>
                               <Image url="@../rsc/homeIcon.png" />
                            </image>
@@ -160,7 +160,7 @@
                      <children>
                         <ScrollPane>
                            <content>
-                              <TableView fx:id="walletTable1" prefHeight="142.0" prefWidth="390.0">
+                              <TableView fx:id="walletTable1" onMouseClicked="#chosenSpace" prefHeight="142.0" prefWidth="390.0">
                                  <columns>
                                     <TableColumn fx:id="id1" prefWidth="58.3333740234375" text="ID" />
                                     <TableColumn fx:id="transSize" prefWidth="65.0" text="Trans Size" />
@@ -184,7 +184,7 @@
                      <children>
                         <ScrollPane>
                            <content>
-                              <TableView fx:id="walletTable11" prefHeight="142.0" prefWidth="390.0">
+                              <TableView fx:id="walletTable11" onMouseClicked="#chosenKnots" prefHeight="142.0" prefWidth="390.0">
                                  <columns>
                                     <TableColumn fx:id="id11" prefWidth="58.3333740234375" text="ID" />
                                     <TableColumn fx:id="discount" prefWidth="58.3333740234375" text="Discount" />

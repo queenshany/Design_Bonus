@@ -184,7 +184,9 @@ public class ProductsController {
 
     @FXML
     void productsScreen(MouseEvent event) {
-
+    	LoginController.keyWord = searchText.getText();
+    	closeWindow();
+    	ViewLogic.newSearchPageWindow();
     }
 
     @FXML

@@ -23,6 +23,8 @@ import javafx.stage.Stage;
 
 public class RecommendationsController {
 
+	protected static Recommendation currentRec;
+	
     @FXML
     private BorderPane borderPane;
 
@@ -95,8 +97,6 @@ public class RecommendationsController {
 	fee.setCellValueFactory(new PropertyValueFactory<>("recommendedFee"));
 	
 	setTable();
-
-	System.out.println(LoginController.curretUser);
 	}
 	
 	public void setTable() {
@@ -125,6 +125,11 @@ public class RecommendationsController {
     	
     }
 
+    @FXML
+    void chosenRec(MouseEvent event) {
+    	currentRec = table.getSelectionModel().getSelectedItem();
+    }
+    
     @FXML
     void generateUsersReport(MouseEvent event) {
 
@@ -157,7 +162,13 @@ public class RecommendationsController {
 
     @FXML
     void editRec(ActionEvent event) {
-
+    	ViewLogic.newEditRecommendationWindow();
+    }
+    
+    @FXML
+    void backHome(MouseEvent event) {
+    	closeWindow();
+    	ViewLogic.newUserWindow();
     }
     
 	protected void closeWindow() {

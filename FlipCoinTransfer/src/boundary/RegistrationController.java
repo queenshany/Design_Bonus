@@ -106,23 +106,29 @@ public class RegistrationController extends AbstractController {
 //    	if (Validation.validName(usernameText.getText()))
 
     	
-//		String uniqueAddress;
-//    	do {
-//			uniqueAddress = control.SysData.getInstance().generateRandomStrings(Consts.MINER_ADDRESS_LENGTH);
-//		}
-//		while (control.MinerLogic.getInstance().getMiners().contains(new Miner(uniqueAddress)));
-//		
-//		miner.setUniqueAddress(uniqueAddress);
-//		
+		String publicAddress;
+		String sig;
+		
+    	do {
+    		publicAddress = control.SysData.getInstance().generateRandomStrings(Consts.USER_ADDRESS_LENGTH);
+    		sig = control.SysData.getInstance().generateRandomStrings(Consts.USER_SIGNATURE_LENGTH);
+		}
+		while (control.UserLogic.getInstance().getUsers().contains(new User(publicAddress, sig)));
+//		miner.setUniqueAddress(uniqueAddress);		
     	
-    	user.setPublicAddress(control.SysData.getInstance().generateRandomStrings(Consts.USER_ADDRESS_LENGTH));
-    	user.setSignature(control.SysData.getInstance().generateRandomStrings(Consts.USER_SIGNATURE_LENGTH));
+    	user.setPublicAddress(publicAddress);
+    	user.setSignature(sig);
+    	
+//    	user.setPublicAddress(control.SysData.getInstance().generateRandomStrings(Consts.USER_ADDRESS_LENGTH));
+//    	user.setSignature(control.SysData.getInstance().generateRandomStrings(Consts.USER_SIGNATURE_LENGTH));
     	user.setUsername(usernameText.getText());
     	user.setPassword(passwordText.getText());
     	user.setPhone(phoneText.getText());
     	user.setEmail(emailText.getText());
     	if (passwordText.getText().equals(verifyText.getText())) {
     		control.UserLogic.getInstance().insertUser(user);
+    		//Wallet for new user
+    		control.WalletLogic.getInstance().generateWalletForNewUser(user);
     	closeWindow();
     	ViewLogic.newLoginWindow();
     	}

@@ -140,7 +140,9 @@ public class EmailScreenController {
 
     @FXML
     void searchProducts(MouseEvent event) {
-
+    	LoginController.keyWord = searchText.getText();
+//    	closeWindow();
+    	ViewLogic.newSearchPageWindow();
     }
 
     @FXML

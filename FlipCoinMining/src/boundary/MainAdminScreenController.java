@@ -59,7 +59,8 @@ public class MainAdminScreenController {
 
     @FXML
     void generateReport(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newDominantUserWindow();
     }
    
 

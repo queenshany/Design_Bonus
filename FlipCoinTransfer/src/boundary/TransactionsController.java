@@ -385,6 +385,9 @@ public class TransactionsController {
 
 	@FXML
 	void NewPayTransaction(ActionEvent event) {
+		
+		
+		networkStatus.setText(control.SysData.getInstance().getMode().toString());
 
 	}
 

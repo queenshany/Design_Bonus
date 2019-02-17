@@ -111,6 +111,7 @@ public class DominantMinerController {
 			Date dateEnd = Date.valueOf(edDate);
 			JFrame reportFrame = MinerLogic.getInstance().produceDominantMinerReport(dateStart, dateEnd);
 			reportFrame.setVisible(true);
+			//HIIIIIIIIIIIIII
 		}
 	}
 

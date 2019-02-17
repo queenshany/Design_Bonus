@@ -6,33 +6,28 @@
 	<parameter name="startDate" class="java.sql.Date" isForPrompting="false"/>
 	<parameter name="endDate" class="java.sql.Date" isForPrompting="false"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT B.creationDate, M.uniqueAddress, M.minerName, COUNT(*) AS blockAmount, SUM(B.size) AS totalBlockSize, COUNT(*)/ SUM(B.size)  AS relation
-FROM ((tblMiner AS M INNER JOIN tblBlock AS B ON B.minerAddress=M.uniqueAddress) LEFT JOIN keySolvedRiddle AS SR ON M.uniqueAddress=SR.uniqueAddress) LEFT JOIN tblRiddle AS R ON R.riddleNum=SR.riddleNum
-GROUP BY B.creationDate, M.uniqueAddress, M.minerName
-HAVING B.creationDate Between $P{startDate} And $P{endDate} 
-ORDER BY COUNT(*)/SUM(B.size);
+		<![CDATA[SELECT a.minerName, count(b.blockAddress) AS total_blocks, sum(b.size) AS total_size, (select count(riddleNum) from keySolvedRiddle as d where d.uniqueAddress = a.uniqueAddress and exists (select solvedTime from keySolvedRiddle e where e.solvedTime < d.solvedTime and e.riddleNum = d.riddleNum)) AS riddles_not_solved_first, round(count(b.blockAddress)/sum(b.size), 4) AS ratio
+FROM TblMiner AS a INNER JOIN TblBlock AS b ON a.uniqueAddress = b.minerAddress
+WHERE (((b.creationDate) Between  $P{startDate}  And  $P{endDate} ))
+GROUP BY a.minerName, a.uniqueAddress
+ORDER BY count(b.blockAddress)/sum(b.size) DESC;
 ]]>
 	</queryString>
-	<field name="CREATIONDATE" class="java.sql.Timestamp">
-		<property name="com.jaspersoft.studio.field.label" value="CREATIONDATE"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="SYSTEM_SUBQUERY"/>
+	<field name="minerName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="minerName"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tblMiner"/>
 	</field>
-	<field name="UNIQUEADDRESS" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="UNIQUEADDRESS"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="SYSTEM_SUBQUERY"/>
+	<field name="total_blocks" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="total_blocks"/>
 	</field>
-	<field name="MINERNAME" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="MINERNAME"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="SYSTEM_SUBQUERY"/>
+	<field name="total_size" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="total_size"/>
 	</field>
-	<field name="blockAmount" class="java.lang.Long">
-		<property name="com.jaspersoft.studio.field.label" value="blockAmount"/>
+	<field name="RIDDLES_NOT_SOLVED_FIRST" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="RIDDLES_NOT_SOLVED_FIRST"/>
 	</field>
-	<field name="totalBlockSize" class="java.lang.Long">
-		<property name="com.jaspersoft.studio.field.label" value="totalBlockSize"/>
-	</field>
-	<field name="relation" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="relation"/>
+	<field name="RATIO" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="RATIO"/>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -78,104 +73,88 @@ ORDER BY COUNT(*)/SUM(B.size);
 	<columnHeader>
 		<band height="37" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="95" height="30" uuid="43ca21e7-940c-4a49-9a76-1a2e61b6766c">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="edb25a59-65ec-4aae-ae4c-ddb0f741d0f7"/>
+				<reportElement x="0" y="0" width="111" height="30" uuid="787588b3-c686-4ede-a975-7f58a2e2262c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f1491482-d498-478f-b75e-c318cc261635"/>
 				</reportElement>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Creation Date]]></text>
+				<text><![CDATA[minerName]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="95" y="0" width="92" height="30" uuid="269f6b4a-f111-47e4-b15d-30165ce637bb">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="17d7277b-7694-4292-afec-40eb9b58a2c4"/>
+				<reportElement x="111" y="0" width="111" height="30" uuid="b67d6879-2546-4ac3-9d4c-8bd6c9862ae5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="419a5f45-b202-40b2-b1c4-beed9827abbb"/>
 				</reportElement>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Unique Address]]></text>
+				<text><![CDATA[total_blocks]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="187" y="0" width="92" height="30" uuid="c3adcd68-3131-42d1-a0dd-4c269ed19fb4">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8386995b-70c9-4c3e-8061-690d3863d4da"/>
+				<reportElement x="222" y="0" width="111" height="30" uuid="552e4ce7-0ac1-4c01-b79d-2b7684350dda">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0b64d739-fb65-42a9-a626-4926b8a42d0b"/>
 				</reportElement>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Miner Name]]></text>
+				<text><![CDATA[total_size]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="279" y="0" width="92" height="30" uuid="2b65ed2e-c4d2-421d-9d27-548a94b2c6d0">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="41383cfa-4de0-4bc8-b70b-8fb0eb4a9f39"/>
+				<reportElement x="333" y="0" width="111" height="30" uuid="644e5293-0b8a-4050-b0a5-264d5815cdb8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c30774e9-530f-4935-90ff-d3b2eb1ef118"/>
 				</reportElement>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Block Amount]]></text>
+				<text><![CDATA[RIDDLES_NOT_SOLVED_FIRST]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="371" y="0" width="92" height="30" uuid="a07267f9-d297-4bf3-9854-4fd9cec0f29c">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="75d38dc7-69a9-468f-8cba-cd241fed8986"/>
+				<reportElement x="444" y="0" width="111" height="30" uuid="1444a166-d47c-426d-b31c-8ba2e5880f99">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4130b47b-6984-4726-8797-31c12460313f"/>
 				</reportElement>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Total Block Size]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="463" y="0" width="92" height="30" uuid="9097345b-4cfd-4156-98e5-fc56ad48fd96">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d1281c24-c92a-4d2c-94c2-7e4e85f0d7ad"/>
-				</reportElement>
-				<textElement textAlignment="Center">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Block Amount / Total Block Size]]></text>
+				<text><![CDATA[RATIO]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="32" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="95" height="30" uuid="f5ca34fe-e8d3-4626-877d-5fcbec3d59b4">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="edb25a59-65ec-4aae-ae4c-ddb0f741d0f7"/>
+				<reportElement x="0" y="0" width="111" height="30" uuid="e5a17c9e-1843-4198-9af2-c1e5ffcee8fc">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f1491482-d498-478f-b75e-c318cc261635"/>
 				</reportElement>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{CREATIONDATE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{minerName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="95" y="0" width="92" height="30" uuid="0737028d-e5fb-45d9-9c63-229cc743cf42">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="17d7277b-7694-4292-afec-40eb9b58a2c4"/>
+				<reportElement x="111" y="0" width="111" height="30" uuid="5ba094a8-ec80-4a60-b22e-3c77fb4302f5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="419a5f45-b202-40b2-b1c4-beed9827abbb"/>
 				</reportElement>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{UNIQUEADDRESS}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{total_blocks}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="187" y="0" width="92" height="30" uuid="71592660-b078-4a00-b965-31ad6e04fb5b">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8386995b-70c9-4c3e-8061-690d3863d4da"/>
+				<reportElement x="222" y="0" width="111" height="30" uuid="ce7cf34b-0720-43a6-afd7-36835d5d8f00">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0b64d739-fb65-42a9-a626-4926b8a42d0b"/>
 				</reportElement>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{MINERNAME}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{total_size}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="279" y="0" width="92" height="30" uuid="7323ba7a-45d4-46e6-b117-83f0e7fc5932">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="41383cfa-4de0-4bc8-b70b-8fb0eb4a9f39"/>
+				<reportElement x="333" y="0" width="111" height="30" uuid="fe014338-4c0a-402e-925d-18adf28f29b9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c30774e9-530f-4935-90ff-d3b2eb1ef118"/>
 				</reportElement>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{blockAmount}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{RIDDLES_NOT_SOLVED_FIRST}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="371" y="0" width="92" height="30" uuid="8060d424-f2df-4e99-9653-7bc40419060c">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="75d38dc7-69a9-468f-8cba-cd241fed8986"/>
+				<reportElement x="444" y="0" width="111" height="30" uuid="d2a32067-5fa8-4373-9ce3-93462c060291">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4130b47b-6984-4726-8797-31c12460313f"/>
 				</reportElement>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{totalBlockSize}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="463" y="0" width="92" height="30" uuid="3f0f6d29-cfc8-470f-81b1-b78cad5b8af6">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d1281c24-c92a-4d2c-94c2-7e4e85f0d7ad"/>
-				</reportElement>
-				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{relation}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{RATIO}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

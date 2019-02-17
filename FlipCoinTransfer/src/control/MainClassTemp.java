@@ -96,9 +96,9 @@ public class MainClassTemp{
 	//	System.out.println(wl.getWalletsSpace());
 	//	Communication.exportTransactionsToJSON();
 		//wl.generateWalletForNewUser(new User("A1A1A1", "A11"));
-		User u =ul.getUsers().get(ul.getUsers().indexOf(new User("A1A1A1", "A11")));
-		System.out.println(u);
-		System.out.println(wl.getWalletsOfUser(u));
+//		User u =ul.getUsers().get(ul.getUsers().indexOf(new User("A1A1A1", "A11")));
+//		System.out.println(u);
+//		System.out.println(wl.getWalletsOfUser(u));
 	}
 
 }

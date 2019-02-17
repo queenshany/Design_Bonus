@@ -156,7 +156,7 @@
    <center>
       <HBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="inbox" blendMode="MULTIPLY" prefHeight="193.0" prefWidth="75.0">
+            <TableView fx:id="inbox" blendMode="MULTIPLY" onMouseClicked="#showDetails" prefHeight="193.0" prefWidth="75.0">
               <columns>
                 <TableColumn fx:id="inboxC" prefWidth="75.0" text="Inbox" />
               </columns>

@@ -125,6 +125,11 @@ public class SearchPageController {
 //			
 //		getProducts();
 		
+		ArrayList<Item> search =
+				control.ItemLogic.getInstance().searchItem(null, null, null, LoginController.keyWord, null);
+					ObservableList<Item> s= FXCollections.observableArrayList(search);
+					table.setItems(s);
+		
 		//Fill Category Combo
 		ArrayList<Category> ct = new ArrayList<Category>();
 		ct=control.ItemLogic.getInstance().getCategories();

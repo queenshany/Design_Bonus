@@ -1,5 +1,7 @@
 package boundary;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import entity.Message;
@@ -99,6 +101,9 @@ public class EmailScreenController {
 
     public void initialize() {
 
+    	textArea.setEditable(false);
+    	dateArea.setEditable(false);
+    	
 //		//Table
 		inboxC.setCellValueFactory(new PropertyValueFactory<>("title"));
 //		
@@ -130,6 +135,14 @@ public class EmailScreenController {
     	ViewLogic.newLoginWindow();
     }
 
+    @FXML
+    void showDetails(MouseEvent event) {
+    	textArea.setText(inbox.getSelectionModel().getSelectedItem().getDescription());
+    	String pattern = "MM/dd/yyyy HH:mm:ss";
+    	DateFormat df = new SimpleDateFormat(pattern);
+    	dateArea.setText(df.format(inbox.getSelectionModel().getSelectedItem().getMessageDate()));
+    }
+    
     @FXML
     void mailsScreen(MouseEvent event) {
 

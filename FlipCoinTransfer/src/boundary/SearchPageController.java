@@ -120,8 +120,8 @@ public class SearchPageController {
 		image.setCellValueFactory(new PropertyValueFactory<>("image"));
 		description.setCellValueFactory(new PropertyValueFactory<>("description"));
 		price.setCellValueFactory(new PropertyValueFactory<>("price"));
-//		quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-//		category.setCellValueFactory(new PropertyValueFactory<>("category"));
+		quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+		category.setCellValueFactory(new PropertyValueFactory<>("category"));
 //			
 //		getProducts();
 		

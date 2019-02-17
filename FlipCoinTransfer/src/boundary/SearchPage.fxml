@@ -150,7 +150,7 @@
                               <TableColumn fx:id="description" prefWidth="75.0" text="Description" />
                               <TableColumn fx:id="price" prefWidth="75.0" text="Price" />
                               <TableColumn fx:id="quantity" prefWidth="75.0" text="Quantity" />
-                              <TableColumn fx:id="category1" prefWidth="75.0" text="Category" />
+                              <TableColumn fx:id="category" prefWidth="75.0" text="Category" />
                            </columns>
                         </TableView>
                      </content>

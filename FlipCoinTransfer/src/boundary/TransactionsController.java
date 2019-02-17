@@ -199,7 +199,9 @@ public class TransactionsController {
 	protected static TransactionPay tranConfirm;
 	
 	public void initialize() {
-
+		
+		unButton.setVisible(false);
+		
 		//Fill the User Combo Box
 		ArrayList<User> users = new ArrayList<User>();
 		users= control.UserLogic.getInstance().getUsers();
@@ -266,8 +268,12 @@ public class TransactionsController {
 		//	 	    walletsCombo.setItems(w);
 	}
 
+    @FXML
+    void deleteProduct(ActionEvent event) {
 
+    }
 
+	
 	//Fill the product combo according to the chosen user
 
 	@FXML
@@ -339,13 +345,14 @@ public class TransactionsController {
 				&&walletsCombo.getSelectionModel() != null) {
 			TransactionPay tc = tranConfirm;
 			TransactionConfirm confirm = control.TransLogic.getInstance().getAllConfirmTrans().get(0);
+			confirm.setTransID(control.TransLogic.getInstance().getTransID());
 			confirm.setDestinationAddress(tc.getCreatingAddress());
 			confirm.setDestinationSignature(tc.getCreatingSignature());
 			confirm.setCreatingAddress(LoginController.curretUser.getPublicAddress());
 			confirm.setCreatingSignature(LoginController.curretUser.getSignature());
 			confirm.setWalletAddress(walletsCombo.getSelectionModel().getSelectedItem().getUniqueAddress());
 			confirm.setTransPayID(tc.getTransID());
-//			control.TransLogic.getInstance().insertTransConfirm(tc);
+			control.TransLogic.getInstance().insertTransConfirm(confirm);
 		}
 	}
 

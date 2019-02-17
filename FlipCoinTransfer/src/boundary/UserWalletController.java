@@ -25,6 +25,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import utils.E_WalletType;
 
 public class UserWalletController {
 
@@ -257,6 +258,7 @@ public class UserWalletController {
 	void chargeMoney(ActionEvent event) {
 		if (currentWallet!=null)
 		ViewLogic.newChargerWindow();
+		//else - Add Massage
 	}
 	
     @FXML
@@ -282,12 +284,16 @@ public class UserWalletController {
 	
 	@FXML
 	void editKnots(ActionEvent event) {
+		if (currentWallet.getType().equals(E_WalletType.BitcoinKnots))
 		ViewLogic.newExpandKnotsWindow();
+		//else - Massage
 	}
 
 	@FXML
 	void editSpace(ActionEvent event) {
+		if (currentWallet.getType().equals(E_WalletType.BitcoinSpace))
 		ViewLogic.newExpandSpaceWindow();
+		//else - Massage
 	}
 
 

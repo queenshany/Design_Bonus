@@ -22,7 +22,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class RecommendationsController {
-
+	
+	protected static BorderPane bp;
 	protected static Recommendation currentRec;
 	
     @FXML
@@ -91,6 +92,8 @@ public class RecommendationsController {
     
 	public void initialize() {
 
+	bp = borderPane;	
+		
     recNum.setCellValueFactory(new PropertyValueFactory<>("recNum"));
 	creaDate.setCellValueFactory(new PropertyValueFactory<>("creationDate"));
 	prob.setCellValueFactory(new PropertyValueFactory<>("probability"));

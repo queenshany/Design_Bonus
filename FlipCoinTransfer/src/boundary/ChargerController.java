@@ -61,6 +61,7 @@ public class ChargerController {
     	control.WalletLogic.getInstance().calcAmount(UserWalletController.currentWallet);
     	control.WalletLogic.getInstance().calcPendingAmount(UserWalletController.currentWallet);
     	
+    	//refresh the table
     	((Stage) UserWalletController.bp.getScene().getWindow()).close();
     	ViewLogic.newWalletsWindow();
     	closeWindow();

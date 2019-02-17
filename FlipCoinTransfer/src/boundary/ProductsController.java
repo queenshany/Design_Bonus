@@ -25,6 +25,8 @@ import javafx.stage.Stage;
 
 public class ProductsController {
 
+	protected static BorderPane bp;
+	
     @FXML
     private BorderPane borderPane;
 
@@ -118,6 +120,8 @@ public class ProductsController {
     protected static Item currentProduct;
     
 	public void initialize() {
+		
+		bp = borderPane;
 		
 		catalogNumber.setCellValueFactory(new PropertyValueFactory<>("catalogNumber"));
 		itemName.setCellValueFactory(new PropertyValueFactory<>("itemName"));

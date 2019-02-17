@@ -82,6 +82,10 @@ public class AddNewProductController {
     	control.ItemLogic.getInstance().insertItem(item);
     
     	((Stage) pane.getScene().getWindow()).setTitle("You can add more products");
+    	
+    	((Stage) ProductsController.bp.getScene().getWindow()).close();
+    	ViewLogic.newProductsWindow();
+    	closeWindow();
     }
 
 	public void initialize() {

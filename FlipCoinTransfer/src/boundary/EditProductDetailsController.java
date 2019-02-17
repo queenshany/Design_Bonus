@@ -65,7 +65,7 @@ public class EditProductDetailsController extends AbstractController{
 
     @FXML
     private Button saveButton;
-
+    
 //	Category c = control.ItemLogic.getInstance().getCategories().get(ProductsController
 //			.currentProduct.getCategory());
 	    
@@ -103,6 +103,10 @@ public class EditProductDetailsController extends AbstractController{
     	item.setItemName(itemName.getText());
     	
     	control.ItemLogic.getInstance().updateItem(item);
+    	
+    	((Stage) ProductsController.bp.getScene().getWindow()).close();
+    	ViewLogic.newProductsWindow();
+    	closeWindow();
     }
 
 	public void initialize() {

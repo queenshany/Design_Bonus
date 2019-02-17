@@ -91,6 +91,9 @@ public class SpaceController {
     @FXML
     void addNewWallet(ActionEvent event) {
 
+//    	((Stage) UserWalletController.bp.getScene().getWindow()).close();
+//    	ViewLogic.newWalletsWindow();
+//    	closeWindow();
     }
 
     @FXML

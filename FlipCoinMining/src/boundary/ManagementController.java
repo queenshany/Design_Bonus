@@ -205,7 +205,7 @@ public class ManagementController {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Riddles Imported Successfully");
 			alert.setContentText("Riddles imported successfully to\n"
-					+ Consts.XML_EXPORT_FILE_PATH);
+					+ Consts.XML_RIDDLES_FILE_PATH);
 			alert.initModality(Modality.APPLICATION_MODAL);
 			alert.showAndWait();
 		}

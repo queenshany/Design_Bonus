@@ -89,7 +89,7 @@ public class MainAdminScreenController {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Transactions Imported Successfully");
 			alert.setContentText("Transactions imported successfully to\n"
-					+ Consts.XML_EXPORT_FILE_PATH);
+					+ Consts.JSON_IMPORT_FILE_PATH);
 			alert.initModality(Modality.APPLICATION_MODAL);
 			alert.showAndWait();
 		}

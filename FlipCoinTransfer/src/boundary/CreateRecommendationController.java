@@ -6,8 +6,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javax.swing.JFrame;
+
 import com.sun.corba.se.spi.servicecontext.UEInfoServiceContext;
 
+import control.TransLogic;
+import control.UserLogic;
 import entity.Recommendation;
 import entity.RecommendedFor;
 import entity.User;
@@ -141,7 +145,17 @@ public class CreateRecommendationController {
 
     @FXML
     void generateTransReport(MouseEvent event) {
-    	
+		//ViewLogic.newViewRecommendationWindow();
+//		if (LoginController.curretUser == null) {
+//			Alert alert = new Alert(AlertType.ERROR);
+//			alert.setTitle("User is null");
+//			alert.setContentText("Please select user");
+//			alert.initModality(Modality.APPLICATION_MODAL);
+//			alert.showAndWait();
+//		}else {
+			JFrame reportFrame = TransLogic.getInstance().produceTransStatusReport();
+			reportFrame.setVisible(true);
+//		}
     }
 
     @FXML
@@ -152,7 +166,17 @@ public class CreateRecommendationController {
     
     @FXML
     void generateUsersReport(MouseEvent event) {
-
+		//ViewLogic.newViewRecommendationWindow();
+//		if (LoginController.curretUser == null) {
+//			Alert alert = new Alert(AlertType.ERROR);
+//			alert.setTitle("User is null");
+//			alert.setContentText("Please select user");
+//			alert.initModality(Modality.APPLICATION_MODAL);
+//			alert.showAndWait();
+//		}else {
+			JFrame reportFrame = UserLogic.getInstance().produceUsersReport();
+			reportFrame.setVisible(true);
+//		}
     }
 
     @FXML

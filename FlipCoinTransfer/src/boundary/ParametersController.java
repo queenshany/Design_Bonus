@@ -3,6 +3,10 @@ package boundary;
 import java.sql.Date;
 import java.time.LocalDate;
 
+import javax.swing.JFrame;
+
+import control.TransLogic;
+import control.UserLogic;
 import entity.SystemParams;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -243,12 +247,32 @@ public class ParametersController {
 
     @FXML
     void generateTransReport(MouseEvent event) {
-    	
+		//ViewLogic.newViewRecommendationWindow();
+//		if (LoginController.curretUser == null) {
+//			Alert alert = new Alert(AlertType.ERROR);
+//			alert.setTitle("User is null");
+//			alert.setContentText("Please select user");
+//			alert.initModality(Modality.APPLICATION_MODAL);
+//			alert.showAndWait();
+//		}else {
+			JFrame reportFrame = TransLogic.getInstance().produceTransStatusReport();
+			reportFrame.setVisible(true);
+//		}
     }
 
     @FXML
     void generateUsersReport(MouseEvent event) {
-
+		//ViewLogic.newViewRecommendationWindow();
+//		if (LoginController.curretUser == null) {
+//			Alert alert = new Alert(AlertType.ERROR);
+//			alert.setTitle("User is null");
+//			alert.setContentText("Please select user");
+//			alert.initModality(Modality.APPLICATION_MODAL);
+//			alert.showAndWait();
+//		}else {
+			JFrame reportFrame = UserLogic.getInstance().produceUsersReport();
+			reportFrame.setVisible(true);
+//		}
     }
 
     @FXML

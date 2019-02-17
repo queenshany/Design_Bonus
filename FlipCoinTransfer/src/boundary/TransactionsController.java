@@ -114,6 +114,7 @@ public class TransactionsController {
 	@FXML
 	private Button addButton;
 
+	@FXML
 	private TableView<Item> table;
 
 	@FXML
@@ -198,6 +199,10 @@ public class TransactionsController {
 
 	protected static TransactionPay tranConfirm;
 	
+	private ArrayList<Item> chosenItems = new ArrayList();
+	
+	//ObservableList<Item> i = FXCollections.observableArrayList();
+	
 	public void initialize() {
 		
 		unButton.setVisible(false);
@@ -219,7 +224,10 @@ public class TransactionsController {
 		status.setCellValueFactory(new PropertyValueFactory<>("status"));
 		adress.setCellValueFactory(new PropertyValueFactory<>("destinationAdress"));
 		signature.setCellValueFactory(new PropertyValueFactory<>("destinationSignature"));
-
+		
+		//i.setAll(chosenItems);
+		
+	//	table.setItems(i);
 		//Fill the Pay transactions of the current user
 		getPayTransactions();
 
@@ -364,20 +372,29 @@ public class TransactionsController {
 	@FXML
 	void addToTable(ActionEvent event) {
 //		int itemID = productsCombo.getSelectionModel().getSelectedItem().getCatalogNumber();
-		if (quantity.getText()!=null && productsCombo.getSelectionModel()!=null) {
+		if ((quantity.getText()!=null || quantity.getText() =="" ) && productsCombo.getSelectionModel()!=null) {
 //			try {
 //				String convert = (amountText.getText());
 				Integer x = Integer.parseInt(amountText.getText());
 				Item item = productsCombo.getValue();
-				System.out.println(item);
+				//System.out.println(item);
 //				Item items = new Item(itemID);
 				item.setQuantity(x);
 //				System.out.println(item);
 //				itemID.setCellValueFactory(new PropertyValueFactory<>("catalogNumber"));
 //				quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-				ObservableList<Item> i= FXCollections.observableArrayList();
-				i.setAll(item);
+				ObservableList<Item> i = FXCollections.observableArrayList();
+				chosenItems.add(item);
+				
+				i.setAll(chosenItems);
+				//System.out.println("chosen items: " + chosenItems);
+				
+				//System.out.println("IIIIIIIIII: " + i);
 				table.setItems(i);
+				//i.setAll(item);
+				//table.getItems().setAll(i);
+				table.refresh();
+				//table.setItems(i);
 //			}	
 //			catch (NumberFormatException e){
 //				lable.setText("Invalid Value");

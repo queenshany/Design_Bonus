@@ -3,7 +3,9 @@ package boundary;
 import java.sql.Date;
 import java.util.ArrayList;
 
+import control.Communication;
 import entity.Bonus;
+import entity.Consts;
 import entity.Lottery;
 import entity.Miner;
 import entity.RiddleLevel;
@@ -11,12 +13,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -24,6 +28,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import utils.E_Level;
 
@@ -177,6 +182,9 @@ public class ManagementController {
 		ArrayList<Miner> m = control.MinerLogic.getInstance().viewOtherMiners(LoginController.curretMiner);
 		ObservableList<Miner> miners= FXCollections.observableArrayList(m);
 		minersTable.setItems(miners);
+		
+//		if (addR.isDisable())
+//			addR.setDisable(true);
 
 	}
 
@@ -192,7 +200,22 @@ public class ManagementController {
 
     @FXML
     void addRiddle(ActionEvent event) {
-
+		if (Communication.importRiddlesFromXML()) {
+			addR.setDisable(true);
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Riddles Imported Successfully");
+			alert.setContentText("Riddles imported successfully to\n"
+					+ Consts.XML_EXPORT_FILE_PATH);
+			alert.initModality(Modality.APPLICATION_MODAL);
+			alert.showAndWait();
+		}
+		else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error Importing Riddles");
+			alert.setContentText("Error Importing Riddles from XML");
+			alert.initModality(Modality.APPLICATION_MODAL);
+			alert.showAndWait();
+		}
     }
 
 

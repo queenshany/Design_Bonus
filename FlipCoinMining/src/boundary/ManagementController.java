@@ -187,9 +187,6 @@ public class ManagementController {
 		ObservableList<Miner> miners= FXCollections.observableArrayList(m);
 		minersTable.setItems(miners);
 		
-//		if (addR.isDisable())
-//			addR.setDisable(true);
-
 	}
 
     @FXML
@@ -201,7 +198,6 @@ public class ManagementController {
     void addLotteries(ActionEvent event) {
 
     }
-//TODO
     @FXML
     void addRiddle(ActionEvent event) {
 		if (Communication.importRiddlesFromXML()) {

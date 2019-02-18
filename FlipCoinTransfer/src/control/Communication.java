@@ -169,8 +169,8 @@ public class Communication {
 								tc.setStatus(E_Status.Closed);
 								TransLogic.getInstance().updateImportedTransPay(tp);
 
-								WalletLogic.getInstance().calcAmount(tp.getWalletAddress(), -tp.getFee());
-								WalletLogic.getInstance().calcAmount(tc.getWalletAddress(), tc.getFee());
+								WalletLogic.getInstance().calcAmount(tp.getWalletAddress(), -tp.getFee()-tp.getPayValue());
+								WalletLogic.getInstance().calcAmount(tc.getWalletAddress(), tc.getFee()+tp.getPayValue());
 								
 								
 								// sending messages about transactions being closed

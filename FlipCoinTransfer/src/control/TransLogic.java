@@ -208,6 +208,11 @@ public class TransLogic {
 					stmt.setNull(i++, java.sql.Types.DATE);
 				else
 					stmt.setDate(i++, trans.getShippmentDate());	
+				
+				if (trans.getTransPayID() < 0)
+					stmt.setNull(i++, java.sql.Types.INTEGER);
+				else
+					stmt.setInt(i++, trans.getTransPayID());
 
 				stmt.executeUpdate();
 

@@ -7,9 +7,13 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 import control.RecLogic;
+import control.SysData;
+import control.TransLogic;
 import control.Validation;
+import control.WalletLogic;
 import entity.User;
 import entity.Wallet;
+import entity.WalletBitcoinSpace;
 import entity.Item;
 import entity.ItemInTransaction;
 import entity.Transaction;
@@ -22,6 +26,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
@@ -123,6 +128,12 @@ public class TransactionsController {
 	private TableColumn<Item, Integer> itemID;
 
 	@FXML
+	private TableColumn<Item, String> sellerAD;
+
+	@FXML
+	private TableColumn<Item, String> sellerSig;
+
+	@FXML
 	private TableColumn<Item, Integer> quantity;
 
 	@FXML
@@ -148,6 +159,9 @@ public class TransactionsController {
 
 	@FXML
 	private TextField feeText;
+	
+	@FXML
+	private TextField feeText1;
 
 	@FXML
 	private ComboBox<Wallet> walletCombo;
@@ -180,6 +194,9 @@ public class TransactionsController {
 	private TableColumn<TransactionPay, Integer> IDconfirm;
 
 	@FXML
+	private TableColumn<TransactionPay, Integer> sizeConfirm;
+
+	@FXML
 	private TableColumn<TransactionPay, Date> creationDateConfirm;
 
 	@FXML
@@ -196,16 +213,20 @@ public class TransactionsController {
 
 	@FXML
 	private ComboBox<Wallet> walletsCombo;
-	
-    @FXML
-    private Label alertConfrim;
-    
-    @FXML
-    private Label moneyAlert;
+
+	@FXML
+	private Label alertConfrim;
+
+	@FXML
+	private Label moneyAlert;
+
+	@FXML
+	private DatePicker shippingDate;
 
 	protected User user;
 
 	protected static TransactionPay tranConfirm;
+
 	protected static Item chosenItem;
 
 	private ArrayList<Item> chosenItems = new ArrayList();
@@ -215,7 +236,7 @@ public class TransactionsController {
 	public void initialize() {
 		btc.setVisible(false);
 		price.setText("0");
-		unButton.setVisible(false);
+		//unButton.setVisible(false);
 
 		//Fill the User Combo Box
 		ArrayList<User> users = new ArrayList<User>();
@@ -249,6 +270,8 @@ public class TransactionsController {
 		//Chosen Products
 		itemID.setCellValueFactory(new PropertyValueFactory<>("catalogNumber"));
 		quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+		sellerAD.setCellValueFactory(new PropertyValueFactory<>("sellerAddress"));
+		sellerSig.setCellValueFactory(new PropertyValueFactory<>("sellerSignature"));
 
 		//		ArrayList<Item> i = new ArrayList<Item>();
 		//		i = control.ItemLogic.getInstance().getItems();
@@ -259,6 +282,7 @@ public class TransactionsController {
 
 		//Fill Confirm Table
 		IDconfirm.setCellValueFactory(new PropertyValueFactory<>("transID"));
+		sizeConfirm.setCellValueFactory(new PropertyValueFactory<>("size"));
 		creationDateConfirm.setCellValueFactory(new PropertyValueFactory<>("creationDate"));
 		creating1confirm.setCellValueFactory(new PropertyValueFactory<>("creatingAddress"));
 		creating2confirm.setCellValueFactory(new PropertyValueFactory<>("creatingSignature"));
@@ -271,39 +295,51 @@ public class TransactionsController {
 	//Fill the wallet comboBox
 	@FXML
 	public ObservableList<Wallet> getWallets() {
-		ArrayList<Wallet> wallets = new ArrayList<Wallet>();
-		wallets= control.WalletLogic.getInstance().getWallets();
-		ObservableList<Wallet> w = FXCollections.observableArrayList();
 
-		for(Wallet wt : wallets)
-		{
-			if(wt.getUserAddress().equalsIgnoreCase(LoginController.curretUser.getPublicAddress())
-					&& wt.getUserSignature().equalsIgnoreCase
-					(LoginController.curretUser.getSignature()))
-				w.add(wt);
-		}			
+		ObservableList<Wallet> w = FXCollections.observableArrayList();
+		w.setAll(WalletLogic.getInstance().getWalletsOfUser(LoginController.curretUser));
 		return w;
+		//ArrayList<Wallet> wallets = new ArrayList<Wallet>();
+		//wallets= control.WalletLogic.getInstance().getWallets();
+		//		for(Wallet wt : wallets)
+		//		{
+		//			if(wt.getUserAddress().equalsIgnoreCase(LoginController.curretUser.getPublicAddress())
+		//					&& wt.getUserSignature().equalsIgnoreCase
+		//					(LoginController.curretUser.getSignature()))
+		//				w.add(wt);
+		//		}			
+
 		//	 	    walletsCombo.setItems(w);
 	}
 
+	private void setProductsTable(){
+		ObservableList<Item> it = FXCollections.observableArrayList(chosenItems);
+		table.setItems(it);
+		table.refresh();
+
+	}
 	@FXML
 	void deleteProduct(ActionEvent event) {
-		chosenItem=table.getSelectionModel().getSelectedItem();
-		if (chosenItem!=null) {
-			ObservableList<Item> items = table.getItems();
-			items.remove(chosenItem);
-			table.setItems(items);
-			calcAmount();
+		chosenItem = table.getSelectionModel().getSelectedItem();
+		if (chosenItem != null) {
+			chosenItems.remove(chosenItem);
+			setProductsTable();
+			price.setText(String.valueOf(calcTotalProdPrice()) + "BTC");
+		}else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setContentText("Please Select a Product to remove");
+			alert.initModality(Modality.APPLICATION_MODAL);
+			alert.showAndWait();
 		}
 	}
-
-	void calcAmount() {
+	private double calcTotalProdPrice() {
 		double price = 0;
-		ObservableList<Item> items = table.getItems();
-		for (Item i : items) {
-			price = price + (i.getPrice()*i.getQuantity());
+		for (Item i : chosenItems) {
+			price += (i.getPrice()*i.getQuantity());
 		}
-		this.price.setText(String.valueOf(price) + "BTC");
+		return price;
+		//this.price.setText(String.valueOf(price) + "BTC");
 	}
 
 	//Fill the product combo according to the chosen user
@@ -328,20 +364,13 @@ public class TransactionsController {
 	}
 
 
-
 	public void getPayTransactions(){
 
 		ObservableList<TransactionPay> t= FXCollections.observableArrayList();
-		ArrayList<TransactionPay> pay = control.TransLogic.getInstance().getAllPayTrans();
+		ArrayList<TransactionPay> pay = control.TransLogic.getInstance().getPayTransOfUserCreated(LoginController.curretUser);
 		for(TransactionPay tp : pay)
-		{
-			if(E_TransType.Pay.equals(tp.getType()) &&
-					tp.getCreatingAddress().equalsIgnoreCase(LoginController.curretUser.getPublicAddress()) && 
-					tp.getCreatingSignature().equalsIgnoreCase(LoginController.curretUser.getSignature()))
-
+			if (tp.getStatus().equals(E_Status.Pending) || tp.getStatus().equals(E_Status.Waiting))
 				t.add(tp);
-		}
-
 		waitingTable.setItems(t);	   
 		waitingTable.refresh();
 	}
@@ -351,127 +380,297 @@ public class TransactionsController {
 	public void getConfrimTransactions(){
 
 		ObservableList<TransactionPay> t= FXCollections.observableArrayList();
-		ArrayList<TransactionPay> confirm = control.TransLogic.getInstance().getAllPayTrans();
-		for(TransactionPay tp : confirm)
-		{
-			if(E_TransType.Pay.equals(tp.getType()) &&
-					tp.getStatus().equals(E_Status.Pending) &&
-					tp.getDestinationAddress().equalsIgnoreCase(LoginController.curretUser.getPublicAddress()) && 
-					tp.getDestinationSignature().equalsIgnoreCase(LoginController.curretUser.getSignature()))
+		ArrayList<TransactionPay> confirm = TransLogic.getInstance().getPayTransOfUserDestination(LoginController.curretUser);
 
+		for(TransactionPay tp : confirm)
+			if (tp.getStatus().equals(E_Status.Pending))
 				t.add(tp);
-		}
 
 		confirmTable.setItems(t);	   
 		confirmTable.refresh();
 	}
 
-
 	@FXML
-	void chosenConfrimTrans(MouseEvent event) {
-		tranConfirm = confirmTable.getSelectionModel().getSelectedItem();
+	private boolean chosenConfrimTrans() {
+		if (confirmTable.getSelectionModel().getSelectedItem() != null) {
+			tranConfirm = confirmTable.getSelectionModel().getSelectedItem();
+			return true;
+		}
+		return false;
 	}
 
 	@FXML
 	void NewConfirmTransaction(ActionEvent event) {
-		double fee = Double.parseDouble(feeText.getText());
-		if (tranConfirm!=null)
-		if (feeText.getText()!=null && Validation.isPositiveDouble(fee)
-				&&walletsCombo.getSelectionModel() != null) {
-			TransactionPay tc = tranConfirm;
-			TransactionConfirm confirm = control.TransLogic.getInstance().getAllConfirmTrans().get(0);
-			confirm.setTransID(control.TransLogic.getInstance().getTransID());
-			confirm.setDestinationAddress(tc.getCreatingAddress());
-			confirm.setDestinationSignature(tc.getCreatingSignature());
-			confirm.setCreatingAddress(LoginController.curretUser.getPublicAddress());
-			confirm.setCreatingSignature(LoginController.curretUser.getSignature());
-			confirm.setWalletAddress(walletsCombo.getSelectionModel().getSelectedItem().getUniqueAddress());
-			confirm.setTransPayID(tc.getTransID());
-			control.TransLogic.getInstance().insertTransConfirm(confirm);
-		}
-		else 
+		double fee = 0 ;
+		if (chosenConfrimTrans()) {
+			if (walletsCombo.getSelectionModel().getSelectedItem() != null && WalletLogic.getInstance().getWalletsSpaceOfUser(LoginController.curretUser).contains(walletsCombo.getSelectionModel().getSelectedItem())) {
+				WalletBitcoinSpace w = WalletLogic.getInstance().getWalletsSpaceOfUser(LoginController.curretUser).
+						get(WalletLogic.getInstance().getWalletsSpaceOfUser(LoginController.curretUser).
+								indexOf(walletsCombo.getSelectionModel().getSelectedItem()));
+				if (w.getTransSize() < tranConfirm.getSize()) {
+					alertConfrim.setVisible(true);
+					alertConfrim.setText("Trans Size is too big. Choose a different wallet.");
+				}
+			}
+			else if (walletsCombo.getSelectionModel() != null && SysData.getInstance().getLastVersionParams().getTransSizeFree() > tranConfirm.getSize()) {
+				alertConfrim.setVisible(false);
+				if (walletsCombo.getSelectionModel().getSelectedItem() != null) {
+					alertConfrim.setVisible(false);
+
+					if (shippingDate.getValue() != null) {
+						alertConfrim.setVisible(false);
+						if (shippingDate.getValue().isAfter(LocalDate.now())) {
+							alertConfrim.setVisible(false);
+							try {
+								alertConfrim.setVisible(false);
+								fee = Double.parseDouble(feeText.getText());
+								if (fee > 0) {
+									alertConfrim.setVisible(false);
+									if (WalletLogic.getInstance().calcPendingAmount(walletsCombo.getSelectionModel().getSelectedItem().getUniqueAddress(), tranConfirm.getPayValue()-fee)) {
+										alertConfrim.setVisible(false);
+										TransactionConfirm tc = new TransactionConfirm(
+												TransLogic.getInstance().getTransID(), 
+												null,
+												tranConfirm.getSize(),
+												Date.valueOf(LocalDate.now()),
+												null,
+												fee,
+												E_Status.Pending,
+												LoginController.curretUser.getPublicAddress(),
+												LoginController.curretUser.getSignature(),
+												tranConfirm.getCreatingAddress(),
+												tranConfirm.getCreatingSignature(),
+												walletsCombo.getSelectionModel().getSelectedItem().getUniqueAddress(),
+												true,
+												Date.valueOf(shippingDate.getValue()),
+												tranConfirm.getTransID());
+										control.TransLogic.getInstance().insertTransConfirm(tc);
+
+										getConfrimTransactions();
+										getPayTransactions();
+										Alert alert = new Alert(AlertType.CONFIRMATION);
+										alert.setTitle("Transaction Created Successfully");
+										alert.setContentText(tc + " was created successfully");
+										alert.initModality(Modality.APPLICATION_MODAL);
+										alert.showAndWait();
+
+									}else {
+										alertConfrim.setVisible(true);
+										alertConfrim.setText("There's not enough money in the wallet");
+									}
+								}
+								else {
+									alertConfrim.setVisible(true);
+									alertConfrim.setText("Fee must be a Positive number.");
+								}
+							}catch(NumberFormatException e) {
+								alertConfrim.setVisible(true);
+								alertConfrim.setText("Fee must be a number.");
+							}
+						}else {
+							alertConfrim.setVisible(true);
+							alertConfrim.setText("Shipping date must be after today.");
+						}
+					}else {
+						alertConfrim.setVisible(true);
+						alertConfrim.setText("Please enter a shipping date");
+					}
+				}
+				else {
+					alertConfrim.setVisible(true);
+					alertConfrim.setText("Please choose a wallet");
+				}
+			}else {
+				alertConfrim.setVisible(true);
+				alertConfrim.setText("Trans Size is too big. Choose a different wallet.");
+			}
+		}else {
 			alertConfrim.setVisible(true);
-			alertConfrim.setText("Please choose a transaction and a wallet");
+			alertConfrim.setText("Please choose a transaction to confirm");
+		}
+	}
+
+	private int calcPaySize() {
+		int sizeA = 0;
+		for(Item i : chosenItems) {
+			sizeA += i.getQuantity();
+		}
+
+		if (sizeA/chosenItems.size() == 0)
+			return 1;
+
+		return sizeA/chosenItems.size();
 	}
 
 	@FXML
 	void NewPayTransaction(ActionEvent event) {
+		double fee = 0;
+		double productsPrice = calcTotalProdPrice();
+		if (!chosenItems.isEmpty()) {
+			if (!feeText1.getText().isEmpty()) {
+				try {
+					fee = Double.parseDouble(feeText1.getText());
+					if (fee <= 0) {
+						throw new NumberFormatException();
+					}
+					else {
+						if (walletCombo.getSelectionModel().getSelectedItem() != null) {
+							if (WalletLogic.getInstance().calcPendingAmount(walletCombo.getSelectionModel().getSelectedItem().getUniqueAddress(), -(productsPrice+fee))) {
 
-		//		int transID = control.TransLogic.getInstance().getTransID();
-		//		String description = null;
-		//		int size = 6;
-		////		Date creationDate = Date(LocalDate.now());
-		////		Date executionDate = Date(LocalDate.now());
-		////		try {
-		//		double fee = Double.parseDouble(feeText.getText());
-		////		}
-		////		catch(NumberFormatException e){
-		////			feeText.setText("Invalid Value");
-		////		}
-		//		E_Status status = E_Status.Pending;
-		//		String creatingAddress = LoginController.curretUser.getPublicAddress();
-		//		String creatingSignature = LoginController.curretUser.getSignature();
-		////		if (walletCombo.getSelectionModel().getSelectedItem() != null) {
-		//		String walletAddress = walletCombo.getSelectionModel().getSelectedItem().getUniqueAddress();
-		////		}
-		//		E_TransType type = E_TransType.Pay;
-		//		double payValue = Double.parseDouble(amountText.getText()) + Double.parseDouble(feeText.getText());
-		//		String destinationAddress = usersCombo.getSelectionModel().getSelectedItem().getPublicAddress();
-		//		String destinationSignature = usersCombo.getSelectionModel().getSelectedItem().getSignature();
-		//			
-		//		TransactionPay tp = new TransactionPay(transID, description, size, creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress, payValue)
-		//		
-		//				control.TransLogic.getInstance().insertTransPay(tp);
+								TransactionPay tp = new TransactionPay(TransLogic.getInstance().getTransID(),
+										null,
+										calcPaySize(), 
+										Date.valueOf(LocalDate.now()),
+										null,
+										fee, 
+										E_Status.Pending,
+										LoginController.curretUser.getPublicAddress(),
+										LoginController.curretUser.getSignature(),
+										chosenItems.get(0).getSellerAddress(),
+										chosenItems.get(0).getSellerSignature(),
+										walletCombo.getSelectionModel().getSelectedItem().getUniqueAddress(),
+										productsPrice);
+
+								control.TransLogic.getInstance().insertTransPay(tp);
+								
+								for (Item it : chosenItems) {
+									control.ItemLogic.getInstance().insertItemIntoTrans(new ItemInTransaction(it.getCatalogNumber(), tp.getTransID(), it.getQuantity()));
+								}
+								
+								Alert alert = new Alert(AlertType.CONFIRMATION);
+								alert.setTitle("Transaction Created Successfully");
+								alert.setContentText(tp + " was created successfully");
+								alert.initModality(Modality.APPLICATION_MODAL);
+								alert.showAndWait();
+
+
+							}else {
+								Alert alert = new Alert(AlertType.ERROR);
+								alert.setTitle("Money Error");
+								alert.setContentText("You don't have enough money. Please load money");
+								alert.initModality(Modality.APPLICATION_MODAL);
+								alert.showAndWait();
+							}
+						}else {
+							Alert alert = new Alert(AlertType.ERROR);
+							alert.setTitle("Wallet Error");
+							alert.setContentText("Please select a wallet to pay");
+							alert.initModality(Modality.APPLICATION_MODAL);
+							alert.showAndWait();
+						}
+					}
+				}catch(NumberFormatException e) {
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Fee Error");
+					alert.setContentText("Fee must be a Positive number");
+					alert.initModality(Modality.APPLICATION_MODAL);
+					alert.showAndWait();
+				}
+			}else {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Fee Error");
+				alert.setContentText("Please enter a fee to pay");
+				alert.initModality(Modality.APPLICATION_MODAL);
+				alert.showAndWait();
+			}
+		}else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Items Error");
+			alert.setContentText("Please choose items to buy");
+			alert.initModality(Modality.APPLICATION_MODAL);
+			alert.showAndWait();
+		}
 
 		networkStatus.setText(control.SysData.getInstance().getMode().toString());
-		
+
 	}
 
 	@FXML
 	void addToTable(ActionEvent event) {
-		//		int itemID = productsCombo.getSelectionModel().getSelectedItem().getCatalogNumber();
-		//		if ((quantity.getText()!=null || quantity.getText() =="" ) && productsCombo.getSelectionModel()!=null) {
-		////			try {
-		////				String convert = (amountText.getText());
-		//				Integer x = Integer.parseInt(amountText.getText());
-		//				Item item = productsCombo.getValue();
-		//System.out.println(item);
-		//				Item items = new Item(itemID);
-		//				item.setQuantity(x);
-		//				System.out.println(item);
-		//				itemID.setCellValueFactory(new PropertyValueFactory<>("catalogNumber"));
-		//				quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-		//				ObservableList<Item> i = FXCollections.observableArrayList();
-		//				chosenItems.add(item);
+		int q = 0;
+		if (usersCombo.getSelectionModel().getSelectedItem() != null) {
+			if (productsCombo.getSelectionModel().getSelectedItem() != null) {
+				if (!amountText.getText().isEmpty()) {
+					try {
+						q = Integer.parseInt(amountText.getText());
+						if (q <= 0) {
+							throw new NumberFormatException();
+						}
+						else if (q <= productsCombo.getSelectionModel().getSelectedItem().getQuantity()) {
 
-		//				i.setAll(chosenItems);
+							Item it = new Item(productsCombo.getSelectionModel().getSelectedItem().getCatalogNumber(),
+									productsCombo.getSelectionModel().getSelectedItem().getItemName(),
+									productsCombo.getSelectionModel().getSelectedItem().getImage(),
+									productsCombo.getSelectionModel().getSelectedItem().getDescription(),
+									productsCombo.getSelectionModel().getSelectedItem().getPrice(),
+									q,
+									productsCombo.getSelectionModel().getSelectedItem().getCatalogNumber(),
+									productsCombo.getSelectionModel().getSelectedItem().getSellerAddress(),
+									productsCombo.getSelectionModel().getSelectedItem().getSellerSignature());
 
-		table.setItems(getProductsTable());
-		//i.setAll(item);
-		//table.getItems().setAll(i);
-		table.refresh();
-		calcAmount();
-		//table.setItems(i);
-		//			}	
-		//			catch (NumberFormatException e){
-		//				lable.setText("Invalid Value");
-	}
-	//		}
-	//		}
+							boolean isSameSeller = true;
 
-	ObservableList<Item> getProductsTable(){
-		if ((quantity.getText()!=null || quantity.getText() =="" ) && productsCombo.getSelectionModel()!=null) {
-			Integer x = Integer.parseInt(amountText.getText());
-			Item item = productsCombo.getValue();
-			item.setQuantity(x);
-			ObservableList<Item> i = FXCollections.observableArrayList();
-			chosenItems.add(item);
-			i.setAll(chosenItems);
-			productsCombo.setValue(null);
-			amountText.setText("");
-			return i;
+							System.out.println(it);
+							if (!chosenItems.isEmpty()) {
+								for (int i=0 ; i < chosenItems.size() ; i++) {
+									if (!it.getSellerAddress().equalsIgnoreCase(chosenItems.get(i).getSellerAddress())
+											&& !it.getSellerSignature().equalsIgnoreCase(chosenItems.get(i).getSellerSignature())) {
+										isSameSeller = false;
+									}
+								}
+							}
+							if (isSameSeller) {
+								if (chosenItems.contains(it)) {
+									chosenItems.get(chosenItems.indexOf(it)).setQuantity(q);
+								}else {
+									chosenItems.add(it);
+								}
+								setProductsTable();
+								price.setText(String.valueOf(calcTotalProdPrice()) + "BTC");
+							}
+							else {
+								Alert alert = new Alert(AlertType.ERROR);
+								alert.setTitle("Seller Error");
+								alert.setContentText("Items must be by the same seller");
+								alert.initModality(Modality.APPLICATION_MODAL);
+								alert.showAndWait();
+							}
+						}else {
+							Alert alert = new Alert(AlertType.ERROR);
+							alert.setTitle("Quantity Error");
+							alert.setContentText("Quantity must be smaller or equal to Product quantity");
+							alert.initModality(Modality.APPLICATION_MODAL);
+							alert.showAndWait();
+						}
+					}catch(NumberFormatException e) {
+						Alert alert = new Alert(AlertType.ERROR);
+						alert.setTitle("Quantity Error");
+						alert.setContentText("Quantity must be a Positive number");
+						alert.initModality(Modality.APPLICATION_MODAL);
+						alert.showAndWait();
+					}	
+				}else {
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Quantity Error");
+					alert.setContentText("Please enter a quantity");
+					alert.initModality(Modality.APPLICATION_MODAL);
+					alert.showAndWait();
+				}
+			}
+			else {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Product Error");
+				alert.setContentText("Please select a product");
+				alert.initModality(Modality.APPLICATION_MODAL);
+				alert.showAndWait();
+			}
+		}else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Seller Error");
+			alert.setContentText("Please select a seller");
+			alert.initModality(Modality.APPLICATION_MODAL);
+			alert.showAndWait();
 		}
-		return null;
 	}
 
 	@FXML

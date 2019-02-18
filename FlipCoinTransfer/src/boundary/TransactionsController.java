@@ -1,6 +1,7 @@
 package boundary;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -386,8 +387,34 @@ public class TransactionsController {
 	@FXML
 	void NewPayTransaction(ActionEvent event) {
 		
-		
+//		int transID = control.TransLogic.getInstance().getTransID();
+//		String description = null;
+//		int size = 6;
+////		Date creationDate = Date(LocalDate.now());
+////		Date executionDate = Date(LocalDate.now());
+////		try {
+//		double fee = Double.parseDouble(feeText.getText());
+////		}
+////		catch(NumberFormatException e){
+////			feeText.setText("Invalid Value");
+////		}
+//		E_Status status = E_Status.Pending;
+//		String creatingAddress = LoginController.curretUser.getPublicAddress();
+//		String creatingSignature = LoginController.curretUser.getSignature();
+////		if (walletCombo.getSelectionModel().getSelectedItem() != null) {
+//		String walletAddress = walletCombo.getSelectionModel().getSelectedItem().getUniqueAddress();
+////		}
+//		E_TransType type = E_TransType.Pay;
+//		double payValue = Double.parseDouble(amountText.getText()) + Double.parseDouble(feeText.getText());
+//		String destinationAddress = usersCombo.getSelectionModel().getSelectedItem().getPublicAddress();
+//		String destinationSignature = usersCombo.getSelectionModel().getSelectedItem().getSignature();
+//			
+//		TransactionPay tp = new TransactionPay(transID, description, size, creationDate, executionDate, fee, status, creatingAddress, creatingSignature, destinationAddress, destinationSignature, walletAddress, payValue)
+//		
+//				control.TransLogic.getInstance().insertTransPay(tp);
+				
 		networkStatus.setText(control.SysData.getInstance().getMode().toString());
+		
 
 	}
 

@@ -25,179 +25,180 @@ import javafx.stage.Stage;
 
 public class EmailScreenController {
 
-    @FXML
-    private BorderPane borderPane;
+	@FXML
+	private BorderPane borderPane;
 
-    @FXML
-    private HBox topBorder;
+	@FXML
+	private HBox topBorder;
 
-    @FXML
-    private ImageView logo;
+	@FXML
+	private ImageView logo;
 
-    @FXML
-    private ImageView searchIcon;
+	@FXML
+	private ImageView searchIcon;
 
-    @FXML
-    private TextField searchText;
+	@FXML
+	private TextField searchText;
 
-    @FXML
-    private ImageView mailIcon;
+	@FXML
+	private ImageView mailIcon;
 
-    @FXML
-    private ImageView settingsIcon;
+	@FXML
+	private ImageView settingsIcon;
 
-    @FXML
-    private ImageView logoutIcon;
+	@FXML
+	private ImageView logoutIcon;
 
-    @FXML
-    private VBox bottom;
+	@FXML
+	private VBox bottom;
 
-    @FXML
-    private ImageView line;
+	@FXML
+	private ImageView line;
 
-    @FXML
-    private HBox hbox;
+	@FXML
+	private HBox hbox;
 
-    @FXML
-    private Label networkStatus;
+	@FXML
+	private Label networkStatus;
 
-    @FXML
-    private ImageView homeIcon;
+	@FXML
+	private ImageView homeIcon;
 
-    @FXML
-    private VBox menu;
+	@FXML
+	private VBox menu;
 
-    @FXML
-    private ImageView products;
+	@FXML
+	private ImageView products;
 
-    @FXML
-    private ImageView transactions;
+	@FXML
+	private ImageView transactions;
 
-    @FXML
-    private ImageView wallets;
+	@FXML
+	private ImageView wallets;
 
-    @FXML
-    private ImageView arrow1;
+	@FXML
+	private ImageView arrow1;
 
-    @FXML
-    private ImageView arrow2;
+	@FXML
+	private ImageView arrow2;
 
-    @FXML
-    private ImageView arrow3;
+	@FXML
+	private ImageView arrow3;
 
-    @FXML
-    private TableView<Message> inbox;
+	@FXML
+	private TableView<Message> inbox;
 
-    @FXML
-    private TableColumn<Message, String> inboxC;
-    
-    @FXML
-    private TextField dateArea;
+	@FXML
+	private TableColumn<Message, String> inboxC;
 
-    @FXML
-    private TextArea textArea;
-    
-    
+	@FXML
+	private TextField dateArea;
 
-    public void initialize() {
+	@FXML
+	private TextArea textArea;
 
-    	textArea.setEditable(false);
-    	dateArea.setEditable(false);
-    	
-//		//Table
+
+
+	public void initialize() {
+
+		textArea.setEditable(false);
+		dateArea.setEditable(false);
+
+		//		//Table
 		inboxC.setCellValueFactory(new PropertyValueFactory<>("title"));
-//		
-//		//Fill Table
-//		//Table
-//		inboxC.setCellValueFactory(new PropertyValueFactory<>("title"));
-//		
-//		//Fill Table
+		//		
+		//		//Fill Table
+		//		//Table
+		//		inboxC.setCellValueFactory(new PropertyValueFactory<>("title"));
+		//		
+		//		//Fill Table
 		//Table
-//		inboxC.setCellValueFactory(new PropertyValueFactory<>("title"));
-		
+		//		inboxC.setCellValueFactory(new PropertyValueFactory<>("title"));
+
 		//Fill Table
 
-		ArrayList<Message> m = control.UserLogic.getInstance().getMessages(); 	
+		ArrayList<Message> m = control.UserLogic.getInstance().getMessagesOfUser(LoginController.curretUser);
 		ObservableList<Message> ms= FXCollections.observableArrayList(m);
 		inbox.setItems(ms);
-	
-    }
-    
-    @FXML
-    void hide1(MouseEvent event) {
-//    	arrow1.setVisible(true);
-//    	products.setVisible(false);
-    }
-    
-    @FXML
-    void logOut(MouseEvent event) {
-    	closeWindow();
-    	ViewLogic.newLoginWindow();
-    }
 
-    @FXML
-    void showDetails(MouseEvent event) {
-    	Message m = inbox.getSelectionModel().getSelectedItem();
-    	textArea.setText(m.getDescription());
-    	String pattern = "MM/dd/yyyy HH:mm:ss";
-    	DateFormat df = new SimpleDateFormat(pattern);
-    	dateArea.setText(df.format(inbox.getSelectionModel().getSelectedItem().getMessageDate()));
-    }
-    
-    @FXML
-    void mailsScreen(MouseEvent event) {
+	}
 
-    }
+	@FXML
+	void hide1(MouseEvent event) {
+		//    	arrow1.setVisible(true);
+		//    	products.setVisible(false);
+	}
 
-    @FXML
-    void productsScreen(MouseEvent event) {
-    	closeWindow();
-    	ViewLogic.newProductsWindow();
-    }
+	@FXML
+	void logOut(MouseEvent event) {
+		closeWindow();
+		ViewLogic.newLoginWindow();
+	}
 
-    @FXML
-    void searchProducts(MouseEvent event) {
-    	LoginController.keyWord = searchText.getText();
-    	closeWindow();
-    	ViewLogic.newSearchPageWindow();
-    }
+	@FXML
+	void showDetails(MouseEvent event) {
+		Message m = inbox.getSelectionModel().getSelectedItem();
+		textArea.setText(m.getDescription());
+		String pattern = "MM/dd/yyyy HH:mm:ss";
+		DateFormat df = new SimpleDateFormat(pattern);
+		dateArea.setText(df.format(inbox.getSelectionModel().getSelectedItem().getMessageDate()));
+	}
 
-    @FXML
-    void settingsScreen(MouseEvent event) {
-    	closeWindow();
-    	ViewLogic.newSettingsWindow();
-    }
+	@FXML
+	void mailsScreen(MouseEvent event) {
+		//TODO
+	}
 
-    @FXML
-    void show1(MouseEvent event) {
-//    	arrow1.setVisible(false);
-//    	products.setVisible(true);
-    }
+	@FXML
+	void productsScreen(MouseEvent event) {
+		closeWindow();
+		ViewLogic.newProductsWindow();
+	}
 
-    @FXML
-    void show2(DragEvent event) {
+	@FXML
+	void searchProducts(MouseEvent event) {
+		LoginController.keyWord = searchText.getText();
+		closeWindow();
+		ViewLogic.newSearchPageWindow();
+	}
 
-    }
+	@FXML
+	void settingsScreen(MouseEvent event) {
+		closeWindow();
+		ViewLogic.newSettingsWindow();
+	}
 
-    @FXML
-    void show3(DragEvent event) {
+	@FXML
+	void show1(MouseEvent event) {
+		//    	arrow1.setVisible(false);
+		//    	products.setVisible(true);
+		//TODO
+	}
 
-    }
+	@FXML
+	void show2(DragEvent event) {
+		//TODO
+	}
 
-    @FXML
-    void transactionsScreen(MouseEvent event) {
-    	closeWindow();
-    	ViewLogic.newTransactionsWindow();
-    }
+	@FXML
+	void show3(DragEvent event) {
+		//TODO
+	}
 
-    @FXML
-    void walletsScreen(MouseEvent event) {
-    	closeWindow();
-    	ViewLogic.newWalletsWindow();
-    }
+	@FXML
+	void transactionsScreen(MouseEvent event) {
+		closeWindow();
+		ViewLogic.newTransactionsWindow();
+	}
+
+	@FXML
+	void walletsScreen(MouseEvent event) {
+		closeWindow();
+		ViewLogic.newWalletsWindow();
+	}
 
 	protected void closeWindow() {
 		((Stage) borderPane.getScene().getWindow()).close();
 	}
-    
+
 }

@@ -205,17 +205,62 @@ public class ManagementController {
 		if(!isImported)
 			addR.setDisable(true);
 
+		//Miners Table
 		uniqueAddress.setCellValueFactory(new PropertyValueFactory<>("uniqueAddress"));
 		MinerName.setCellValueFactory(new PropertyValueFactory<>("minerName"));
 		Email.setCellValueFactory(new PropertyValueFactory<>("email"));
 		DigitalProfit.setCellValueFactory(new PropertyValueFactory<>("digitalProfit"));
 
-		ArrayList<Miner> m = control.MinerLogic.getInstance().viewOtherMiners(LoginController.curretMiner);
+		ArrayList<Miner> m = control.MinerLogic.getInstance().getMiners();
 		ObservableList<Miner> miners= FXCollections.observableArrayList(m);
 		minersTable.setItems(miners);
+		
+		//Bonuses Table
+		bonusNum.setCellValueFactory(new PropertyValueFactory<>("bonusNum"));
+		description.setCellValueFactory(new PropertyValueFactory<>("description"));
+		
+		ArrayList<Bonus> b = control.LotteryLogic.getInstance().getBonuses();
+		ObservableList<Bonus> bonus= FXCollections.observableArrayList(b);
+		bonusesTable.setItems(bonus);
+		
+		//Riddles Table
+		riddleNum.setCellValueFactory(new PropertyValueFactory<>("riddleNum"));
+		publishedDate.setCellValueFactory(new PropertyValueFactory<>("publishedDate"));
+		publishedTime.setCellValueFactory(new PropertyValueFactory<>("publishedTime"));
+		descriptionRiddle.setCellValueFactory(new PropertyValueFactory<>("description"));
+		solutionDate.setCellValueFactory(new PropertyValueFactory<>("solutionDate"));
+		solutionTime.setCellValueFactory(new PropertyValueFactory<>("solutionTime"));
+		statusRiddle.setCellValueFactory(new PropertyValueFactory<>("status"));
+		riddleLevel.setCellValueFactory(new PropertyValueFactory<>("riddleLevel"));
+		
+		ArrayList<Riddle> r = control.RiddleLogic.getInstance().getRiddles();
+		ObservableList<Riddle> riddle= FXCollections.observableArrayList(r);
+		riddleTable.setItems(riddle);
+		
+		
+		//Levels Table
+		levelCode.setCellValueFactory(new PropertyValueFactory<>("levelCode"));
+		levelName.setCellValueFactory(new PropertyValueFactory<>("levelName"));
+		difficultyLevel.setCellValueFactory(new PropertyValueFactory<>("difficultyLevel"));
+		blockSize.setCellValueFactory(new PropertyValueFactory<>("blockSize"));
+		
+		ArrayList<RiddleLevel> rl = control.RiddleLogic.getInstance().getRiddleLevels();
+		ObservableList<RiddleLevel> level = FXCollections.observableArrayList(rl);
+		levelsTable.setItems(level);
+		
+		//Lotteries Table
+		lotteryNum.setCellValueFactory(new PropertyValueFactory<>("lotteryNum"));
+		lotteryDate.setCellValueFactory(new PropertyValueFactory<>("lotteryDate"));
+		maxParticipants.setCellValueFactory(new PropertyValueFactory<>("maxParticipants"));
+		numOfWinners.setCellValueFactory(new PropertyValueFactory<>("numOfWinners"));
+		numOfBonuses.setCellValueFactory(new PropertyValueFactory<>("numOfBonuses"));
 
+		ArrayList<Lottery> l = control.LotteryLogic.getInstance().getLotteries();
+		ObservableList<Lottery> lott = FXCollections.observableArrayList(l);
+		lotteriesTable.setItems(lott);
 	}
 
+	
 	@FXML
 	void addBonus(ActionEvent event) {
 		//TODO
@@ -254,6 +299,11 @@ public class ManagementController {
 
 	@FXML
 	void chosenLevel(MouseEvent event) {
+		//TODO
+	}
+	
+	@FXML
+	void chosenRiddle(MouseEvent event) {
 		//TODO
 	}
 

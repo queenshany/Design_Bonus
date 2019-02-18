@@ -387,7 +387,17 @@ public class TransactionsController {
 			confirm.setCreatingSignature(LoginController.curretUser.getSignature());
 			confirm.setWalletAddress(walletsCombo.getSelectionModel().getSelectedItem().getUniqueAddress());
 			confirm.setTransPayID(tc.getTransID());
+			confirm.setFee(fee);
+			
+			if (control.WalletLogic.getInstance()
+					.calcAmount(walletsCombo.getSelectionModel().getSelectedItem().getUniqueAddress(), -fee))
+				if (control.WalletLogic.getInstance()
+						.calcPendingAmount(walletsCombo.getSelectionModel().getSelectedItem().getUniqueAddress(), -fee))
 			control.TransLogic.getInstance().insertTransConfirm(confirm);
+			
+				else {
+					errorMassage.setVisible(true);
+				}
 		}
 		else 
 			alertConfrim.setVisible(true);

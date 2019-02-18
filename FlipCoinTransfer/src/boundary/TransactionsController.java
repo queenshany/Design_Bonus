@@ -421,12 +421,7 @@ public class TransactionsController {
 		//				control.TransLogic.getInstance().insertTransPay(tp);
 
 		networkStatus.setText(control.SysData.getInstance().getMode().toString());
-<<<<<<< HEAD
 		
-=======
-
-
->>>>>>> 3f3ac9a51a628ebc39e69aa98bf13c7871e04db1
 	}
 
 	@FXML

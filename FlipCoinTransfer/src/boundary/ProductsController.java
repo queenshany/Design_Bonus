@@ -208,17 +208,17 @@ public class ProductsController {
 	@FXML
 	void switch1(MouseEvent event) {
 		//    products.setId("productsPic.png");
-		//TODO
+		//no need
 	}
 
 	@FXML
 	void switch2(MouseEvent event) {
-		//TODO
+		//no need
 	}
 
 	@FXML
 	void switch3(MouseEvent event) {
-		//TODO
+		//no need
 	}
 
 	@FXML

@@ -146,7 +146,8 @@ public class EmailScreenController {
 
 	@FXML
 	void mailsScreen(MouseEvent event) {
-		//TODO
+		closeWindow();
+		ViewLogic.newEmailWindow();
 	}
 
 	@FXML
@@ -172,17 +173,17 @@ public class EmailScreenController {
 	void show1(MouseEvent event) {
 		//    	arrow1.setVisible(false);
 		//    	products.setVisible(true);
-		//TODO
+		//no need
 	}
 
 	@FXML
 	void show2(DragEvent event) {
-		//TODO
+		//no need
 	}
 
 	@FXML
 	void show3(DragEvent event) {
-		//TODO
+		//no need
 	}
 
 	@FXML

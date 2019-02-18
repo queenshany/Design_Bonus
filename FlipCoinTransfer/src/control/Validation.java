@@ -1,5 +1,8 @@
 package control;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import entity.Consts;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -68,5 +71,20 @@ public class Validation {
 			if (num > 0.0)
 				return true;
 			return false;
+		}
+		
+		/**
+		 * This method checks if a URL is valid
+		 * @param num
+		 * @return true if valid, false otherwise
+		 */
+		public static boolean isValidURL(String urlStr) {
+		    try {
+		      URL url = new URL(urlStr);
+		      return true;
+		    }
+		    catch (MalformedURLException e) {
+		        return false;
+		    }
 		}
 }

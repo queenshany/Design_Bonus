@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="207.0" prefWidth="332.0" style="-fx-background-color: #cadbf7;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.EditProductDetailsController">
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="234.0" prefWidth="332.0" style="-fx-background-color: #cadbf7;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.EditProductDetailsController">
    <children>
       <Label fx:id="l" layoutX="28.0" layoutY="42.0" text="Item Name" textFill="#345ae2">
          <font>
@@ -104,5 +104,6 @@
             <DropShadow />
          </effect>
       </Button>
+      <Label fx:id="alertLabel" layoutX="154.0" layoutY="212.0" textFill="RED" />
    </children>
 </AnchorPane>

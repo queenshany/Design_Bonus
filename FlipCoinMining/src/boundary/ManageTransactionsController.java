@@ -136,16 +136,17 @@ public class ManageTransactionsController {
 		ObservableList<Transaction> t= FXCollections.observableArrayList(trans);
 		transTable.setItems(t);
 
+		sizeLable.setText("0");
 
 	} 
 
 
-    @FXML
-    void backHome(MouseEvent event) {
-    	closeWindow();
-    	ViewLogic.newUserWindow();
-    }
-	
+	@FXML
+	void backHome(MouseEvent event) {
+		closeWindow();
+		ViewLogic.newUserWindow();
+	}
+
 	public void getBlocks(){
 
 		ObservableList<Block> b= FXCollections.observableArrayList();
@@ -210,7 +211,7 @@ public class ManageTransactionsController {
 
 	@FXML
 	void mailsScreen(MouseEvent event) {
-
+		//TODO
 	}
 
 	@FXML

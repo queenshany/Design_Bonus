@@ -51,12 +51,12 @@ public class AddRiddlesController {
 
     @FXML
     void nextRiddle(ActionEvent event) {
-
+    	//TODO
     }
 
     @FXML
     void saveRiddle(ActionEvent event) {
-
+    	//TODO
     }
 
 }

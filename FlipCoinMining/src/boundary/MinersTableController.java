@@ -25,91 +25,91 @@ import javafx.stage.Stage;
 
 public class MinersTableController {
 
-    @FXML
-    private BorderPane borderPane;
+	@FXML
+	private BorderPane borderPane;
 
-    @FXML
-    private VBox menu;
+	@FXML
+	private VBox menu;
 
-    @FXML
-    private ImageView lotteries;
+	@FXML
+	private ImageView lotteries;
 
-    @FXML
-    private ImageView riddles;
+	@FXML
+	private ImageView riddles;
 
-    @FXML
-    private ImageView blocks;
+	@FXML
+	private ImageView blocks;
 
-    @FXML
-    private ImageView miners;
+	@FXML
+	private ImageView miners;
 
-    @FXML
-    private ImageView report;
+	@FXML
+	private ImageView report;
 
-    @FXML
-    private HBox topBorder;
+	@FXML
+	private HBox topBorder;
 
-    @FXML
-    private ImageView logo;
+	@FXML
+	private ImageView logo;
 
-    @FXML
-    private ImageView mailIcon;
+	@FXML
+	private ImageView mailIcon;
 
-    @FXML
-    private ImageView logoutIcon;
+	@FXML
+	private ImageView logoutIcon;
 
-    @FXML
-    private VBox bottom;
+	@FXML
+	private VBox bottom;
 
-    @FXML
-    private ImageView line;
+	@FXML
+	private ImageView line;
 
-    @FXML
-    private HBox hbox;
+	@FXML
+	private HBox hbox;
 
-    @FXML
-    private ImageView homeIcon;
+	@FXML
+	private ImageView homeIcon;
 
-    @FXML
-    private TableView<Miner> minersTable;
+	@FXML
+	private TableView<Miner> minersTable;
 
-    @FXML
-    private TableColumn<Miner, String> Uniqe;
+	@FXML
+	private TableColumn<Miner, String> Uniqe;
 
-    @FXML
-    private TableColumn<Miner, String> name;
+	@FXML
+	private TableColumn<Miner, String> name;
 
-    @FXML
-    private TableColumn<Miner, String> mail;
+	@FXML
+	private TableColumn<Miner, String> mail;
 
-    @FXML
-    private TableColumn<Miner, Double> digprof;
-    
+	@FXML
+	private TableColumn<Miner, Double> digprof;
+
 
 	public void initialize() {
-		
+
 		Uniqe.setCellValueFactory(new PropertyValueFactory<>("uniqueAddress"));
 		name.setCellValueFactory(new PropertyValueFactory<>("minerName"));
 		mail.setCellValueFactory(new PropertyValueFactory<>("email"));
 		digprof.setCellValueFactory(new PropertyValueFactory<>("digitalProfit"));
-		
+
 		ArrayList<Miner> m = control.MinerLogic.getInstance().viewOtherMiners(LoginController.curretMiner);
 		ObservableList<Miner> miners= FXCollections.observableArrayList(m);
 		minersTable.setItems(miners);
 	}
-	
+
 	@FXML
 	void logOut(MouseEvent event) {
 		closeWindow();
 		ViewLogic.newLoginWindow();
 	}
 
-    @FXML
-    void backHome(MouseEvent event) {
-    	closeWindow();
-    	ViewLogic.newUserWindow();
-    }
-    
+	@FXML
+	void backHome(MouseEvent event) {
+		closeWindow();
+		ViewLogic.newUserWindow();
+	}
+
 	@FXML
 	void lotteriesScreen(MouseEvent event) {
 		closeWindow();
@@ -118,7 +118,7 @@ public class MinersTableController {
 
 	@FXML
 	void mailsScreen(MouseEvent event) {
-
+		//TODO
 	}
 
 	@FXML

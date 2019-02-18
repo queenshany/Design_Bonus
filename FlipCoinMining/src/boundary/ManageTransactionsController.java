@@ -132,14 +132,21 @@ public class ManageTransactionsController {
 		size.setCellValueFactory(new PropertyValueFactory<>("size"));
 		fee.setCellValueFactory(new PropertyValueFactory<>("fee"));
 
-		ArrayList<Transaction> trans = control.BlockTransLogic.getInstance().getTransWithoutBlock();
-		ObservableList<Transaction> t= FXCollections.observableArrayList(trans);
-		transTable.setItems(t);
+		setTransTable();
 
-		sizeLable.setText("0");
+		if (currentBlock == null)
+			sizeLable.setText("0");
+		else
+			sizeLable.setText(control.BlockTransLogic.getInstance().calcBlockSizeLeft(currentBlock).toString());
 
 	} 
 
+	private void setTransTable(){
+		ArrayList<Transaction> trans = control.BlockTransLogic.getInstance().getTransWithoutBlock();
+		ObservableList<Transaction> t= FXCollections.observableArrayList(trans);
+		transTable.setItems(t);
+		transTable.refresh();
+	}
 
 	@FXML
 	void backHome(MouseEvent event) {
@@ -161,24 +168,37 @@ public class ManageTransactionsController {
 
 	@FXML
 	void updateSizeLable(MouseEvent event) {
-		String s = String.valueOf(table.getSelectionModel().getSelectedItem().getSize());
-		sizeLable.setText(s);
-		currentBlock = table.getSelectionModel().getSelectedItem();
+		if (table.getSelectionModel().getSelectedItem() != null) {
+			currentBlock = table.getSelectionModel().getSelectedItem();
+			sizeLable.setText(control.BlockTransLogic.getInstance().calcBlockSizeLeft(currentBlock).toString());
+			
+		}
 	}
 
 	@FXML
 	void addTransToBlock(ActionEvent event) {
 		errorMassage.setVisible(false);
 		Transaction t = transTable.getSelectionModel().getSelectedItem();
-		if (t.getSize() > control.BlockTransLogic.getInstance().calcBlockSizeLeft(currentBlock)) {
-			errorMassage.setText("Please choose smaller transaction");
+		if (currentBlock != null) {
+			if (t != null) {
+				if (t.getSize() > control.BlockTransLogic.getInstance().calcBlockSizeLeft(currentBlock)) {
+					errorMassage.setText("Please choose smaller transaction");
+					errorMassage.setVisible(true);
+				}
+				else {
+					control.BlockTransLogic.getInstance().attachTransToBlock(t, currentBlock);
+					int currentSize = control.BlockTransLogic.getInstance().calcBlockSizeLeft(currentBlock);
+					String s = String.valueOf(currentSize);
+					sizeLable.setText(s);
+					setTransTable();
+				}
+			}else {
+				errorMassage.setVisible(true);
+				errorMassage.setText("Please choose a block");
+			}
+		}else {
 			errorMassage.setVisible(true);
-		}
-		else {
-			control.BlockTransLogic.getInstance().attachTransToBlock(t, currentBlock);
-			int currentSize = control.BlockTransLogic.getInstance().calcBlockSizeLeft(currentBlock);
-			String s = String.valueOf(currentSize);
-			sizeLable.setText(s);
+			errorMassage.setText("Please choose a transaction to add");
 		}
 	}
 

@@ -254,10 +254,8 @@ public class ManagementController {
 		statusRiddle.setCellValueFactory(new PropertyValueFactory<>("status"));
 		riddleLevel.setCellValueFactory(new PropertyValueFactory<>("riddleLevel"));
 		
-		ArrayList<Riddle> r = control.RiddleLogic.getInstance().getRiddles();
-		ObservableList<Riddle> riddle= FXCollections.observableArrayList(r);
-		riddleTable.setItems(riddle);
-		
+
+		setRiddleTable();
 		
 		//Levels Table
 		levelCode.setCellValueFactory(new PropertyValueFactory<>("levelCode"));
@@ -281,7 +279,12 @@ public class ManagementController {
 		lotteriesTable.setItems(lott);
 	}
 
-	
+	private void setRiddleTable(){
+		ArrayList<Riddle> r = control.RiddleLogic.getInstance().getRiddles();
+		ObservableList<Riddle> riddle= FXCollections.observableArrayList(r);
+		riddleTable.setItems(riddle);
+		riddleTable.refresh();
+	}
 	@FXML
 	void addBonus(ActionEvent event) {
 		//TODO
@@ -296,12 +299,14 @@ public class ManagementController {
 		if (Communication.importRiddlesFromXML()) {
 			addR.setDisable(true);
 			isImported = false;
+			setRiddleTable();
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Riddles Imported Successfully");
 			alert.setContentText("Riddles imported successfully to\n"
 					+ Consts.XML_RIDDLES_FILE_PATH);
 			alert.initModality(Modality.APPLICATION_MODAL);
 			alert.showAndWait();
+			
 		}
 		else {
 			Alert alert = new Alert(AlertType.ERROR);

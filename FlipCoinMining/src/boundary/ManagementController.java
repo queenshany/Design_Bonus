@@ -17,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -103,6 +104,9 @@ public class ManagementController {
 	@FXML
 	private Button editR;
 
+	@FXML
+    private Label errorRiddle;
+	
 	@FXML
 	private Tab lotteries;
 
@@ -199,6 +203,12 @@ public class ManagementController {
 	@FXML
 	private TableColumn<Miner, Double> DigitalProfit;
 
+	protected static Riddle chosenRiddle;
+	protected static Bonus chosenBonus;
+	protected static RiddleLevel chosenLevel;
+	protected static Lottery chosenLottery;
+
+	
 	private static boolean isImported = true;
 
 	public void initialize() {
@@ -294,27 +304,29 @@ public class ManagementController {
 
 	@FXML
 	void chosenBonus(MouseEvent event) {
-		//TODO
+		chosenBonus = bonusesTable.getSelectionModel().getSelectedItem();
 	}
 
 	@FXML
 	void chosenLevel(MouseEvent event) {
-		//TODO
+		chosenLevel = levelsTable.getSelectionModel().getSelectedItem();
 	}
 	
 	@FXML
 	void chosenRiddle(MouseEvent event) {
-		//TODO
+		errorRiddle.setVisible(false);
+		chosenRiddle = riddleTable.getSelectionModel().getSelectedItem();
 	}
 
 	@FXML
 	void chosenLottery(MouseEvent event) {
-		//TODO
+		chosenLottery = lotteriesTable.getSelectionModel().getSelectedItem();
 	}
 
 	@FXML
 	void chosenMiner(MouseEvent event) {
 		//TODO
+		//no need
 	}
 
 	@FXML
@@ -329,7 +341,19 @@ public class ManagementController {
 
 	@FXML
 	void editRiddle(ActionEvent event) {
-		//TODO
+		if (chosenRiddle == null) {
+			errorRiddle.setText("Please choose a riddle");
+			errorRiddle.setVisible(true);
+		}
+		else {
+			if (chosenRiddle.getStatus().equals(E_Status.Solved)) {
+				errorRiddle.setText("You can't edit a solved riddle");
+				errorRiddle.setVisible(true);
+			}
+			else {
+				ViewLogic.newEditRiddlesWindow();
+			}
+		}
 	}
 
 	@FXML

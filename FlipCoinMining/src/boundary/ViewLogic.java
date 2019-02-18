@@ -194,6 +194,23 @@ public class ViewLogic {
 				"Add Riddles",
 				false);
 	}
+	
+	// ------------------------------ Edit Riddles ------------------------------
+		/**
+		 * Open Edit Riddles Window
+		 */
+		protected static void newEditRiddlesWindow() {
+			Stage stage = new Stage();
+//			setStage(stage);
+
+
+			newWindow(ViewLogic.class.getResource("EditRiddleScreen.fxml"),
+					stage,
+					null, null,	null, null,	null, null,
+					false,
+					"Edit Riddles",
+					false);
+		}
 
 
 	// ------------------------------ Dominant Miner Report ------------------------------

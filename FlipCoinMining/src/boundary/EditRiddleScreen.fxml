@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTimePicker?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" prefHeight="249.0" prefWidth="289.0" style="-fx-background-color: #cadbf7;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.EditRiddleController">
+   <children>
+      <Label fx:id="riddleNumber" layoutX="14.0" layoutY="26.0" text="Riddle Number">
+         <font>
+            <Font name="System Bold Italic" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="time" layoutX="15.0" layoutY="121.0" text="Solution Time" />
+      <Label fx:id="date" layoutX="16.0" layoutY="79.0" text="Solution Date" />
+      <Label fx:id="level" layoutX="20.0" layoutY="164.0" text="Riddle Level" />
+      <ComboBox fx:id="levelsCombo" blendMode="MULTIPLY" layoutX="95.0" layoutY="159.0" prefHeight="25.0" prefWidth="164.0">
+         <effect>
+            <InnerShadow color="#3a5cd6" />
+         </effect>
+      </ComboBox>
+      <JFXDatePicker fx:id="datePicker" defaultColor="#3a5cd6" layoutX="96.0" layoutY="71.0" />
+      <JFXTimePicker fx:id="timePicker" defaultColor="#3a5cd6" layoutX="99.0" layoutY="111.0" />
+      <Button fx:id="saveButton" blendMode="MULTIPLY" layoutX="121.0" layoutY="210.0" mnemonicParsing="false" onAction="#updateRiddle" text=" Save " />
+   </children>
+</AnchorPane>

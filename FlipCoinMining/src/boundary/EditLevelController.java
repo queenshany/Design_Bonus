@@ -1,8 +1,6 @@
 package boundary;
 
-import java.sql.Date;
 
-import entity.Lottery;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -72,6 +70,11 @@ public class EditLevelController {
 
     @FXML
     void updateLevel(ActionEvent event) {
+    	if (Integer.parseInt(diffText.getText()) <= 0 &&
+    			Integer.parseInt(blockSizeText.getText()) <= 0) {
+    		errorM.setText("Please enter positive values");
+    		errorM.setVisible(true);
+    	}
        	if (Integer.parseInt(diffText.getText()) >0 &&
     			Integer.parseInt(blockSizeText.getText()) > 0){
 			try {

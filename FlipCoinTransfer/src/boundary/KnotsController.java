@@ -80,12 +80,29 @@ public class KnotsController {
     	theAmount.setText(discount);
     }
     
-    @SuppressWarnings("null")
 	@FXML
     void addNewWallet(ActionEvent event) {
-//    	WalletBitcoinKnots wallet = null;
-//    	String s = control.SysData.getInstance().generateRandomStrings(4);
-//		System.out.println(s);    	
+
+		String uniqueAddress = control.SysData.getInstance().generateRandomStrings(4);
+    	boolean isOnPC = check2.isSelected();
+    	boolean isOnPhone = check3.isSelected();
+    	boolean isOnTablet = check1.isSelected();
+    	double amount = 0;
+    	double pendingAmount = 0;
+    	String userAddress = LoginController.curretUser.getPublicAddress();
+    	String userSignature = LoginController.curretUser.getSignature();
+    	double price = Double.parseDouble(theAmount.getText());
+    	double discountPercent = Double.parseDouble(textField.getText())/100.0;
+    	   
+    	WalletBitcoinKnots knots = new WalletBitcoinKnots(uniqueAddress, price, isOnPC, isOnPhone, isOnTablet, amount, pendingAmount, userAddress, userSignature, discountPercent);
+    	control.WalletLogic.getInstance().insertWallet(knots);
+    	control.WalletLogic.getInstance().insertWalletBitcoinKnots(knots);
+    	
+    	((Stage) UserWalletController.bp.getScene().getWindow()).close();
+    	ViewLogic.newWalletsWindow();
+    	closeWindow();
+    	
+    	
 ////    	wallet.setUniqueAddress(control.SysData.getInstance().generateRandomStrings(4));
 ////    	if(wallet.getUniqueAddress()==null || wallet.getUniqueAddress()=="")
 //		if (textField.getText()!=null || !textField.getText().equals("")) {
@@ -127,12 +144,17 @@ public class KnotsController {
     		youHaveToPay.setText("Please enter number");
     		youHaveToPay.setVisible(true);
     	}
+    	if (!(check1.isSelected()) && !(check2.isSelected()) && !(check3.isSelected())) {
+			youHaveToPay.setText("Please choose platforms");
+			youHaveToPay.setVisible(true);
+		}
     	else {
     		try {
     	
     	String convert = (textField.getText());
     	double x = Double.parseDouble(convert)*control.SysData.getInstance().getLastVersionParams().getPriceForDiscount();
     	convert = String.valueOf(x);
+    	youHaveToPay.setText("You have to pay");
     	theAmount.setText(convert);
     	youHaveToPay.setVisible(true);
     	theAmount.setVisible(true);
@@ -155,4 +177,7 @@ public class KnotsController {
     	buyButton.setDisable(true);
     }
 
+	protected void closeWindow() {
+		((Stage) Vbox.getScene().getWindow()).close();
+	}
 }

@@ -14,9 +14,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="336.0" prefWidth="509.0" style="-fx-background-color: #eaf0f9;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.RecommendationsController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="336.0" prefWidth="509.0" style="-fx-background-color: #eaf0f9;" stylesheets="@Design.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.RecommendationsController">
    <top>
-      <HBox fx:id="topBorder" prefHeight="76.0" prefWidth="489.0" spacing="70.0" BorderPane.alignment="TOP_CENTER">
+      <HBox fx:id="topBorder" prefHeight="76.0" prefWidth="489.0" spacing="70.0" stylesheets="@Design.css" BorderPane.alignment="TOP_CENTER">
          <children>
             <ImageView fx:id="logo" fitHeight="38.0" fitWidth="251.0" pickOnBounds="true" smooth="false">
                <image>
@@ -134,6 +134,6 @@
       </AnchorPane>
    </center>
    <right>
-      <VBox prefHeight="206.0" prefWidth="33.0" BorderPane.alignment="CENTER" />
+      <VBox prefHeight="206.0" prefWidth="33.0" stylesheets="@Design.css" BorderPane.alignment="CENTER" />
    </right>
 </BorderPane>

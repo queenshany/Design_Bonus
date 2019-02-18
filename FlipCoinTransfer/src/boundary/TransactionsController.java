@@ -159,7 +159,7 @@ public class TransactionsController {
 
 	@FXML
 	private TextField feeText;
-	
+
 	@FXML
 	private TextField feeText1;
 
@@ -229,7 +229,7 @@ public class TransactionsController {
 
 	protected static Item chosenItem;
 
-	private ArrayList<Item> chosenItems = new ArrayList();
+	private ArrayList<Item> chosenItems = new ArrayList<>();
 
 	//ObservableList<Item> i = FXCollections.observableArrayList();
 
@@ -532,11 +532,11 @@ public class TransactionsController {
 										productsPrice);
 
 								control.TransLogic.getInstance().insertTransPay(tp);
-								
+
 								for (Item it : chosenItems) {
 									control.ItemLogic.getInstance().insertItemIntoTrans(new ItemInTransaction(it.getCatalogNumber(), tp.getTransID(), it.getQuantity()));
 								}
-								
+
 								Alert alert = new Alert(AlertType.CONFIRMATION);
 								alert.setTitle("Transaction Created Successfully");
 								alert.setContentText(tp + " was created successfully");

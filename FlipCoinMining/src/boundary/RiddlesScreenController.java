@@ -131,6 +131,8 @@ public class RiddlesScreenController {
 
 	public void initialize() {
 
+		solutionText.setEditable(false);
+		
 		id.setCellValueFactory(new PropertyValueFactory<>("riddleNum"));
 		level.setCellValueFactory(new PropertyValueFactory<>("riddleLevel"));
 
@@ -160,6 +162,7 @@ public class RiddlesScreenController {
 			timeP.setValue(tm);
 			textField.setText(rid.getDescription());
 			currentRiddle = rid;
+			solutionText.setEditable(true);
 		}
 		else {
 			errorMassage.setText("Please select a riddle");

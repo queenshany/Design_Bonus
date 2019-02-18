@@ -196,6 +196,9 @@ public class UserWalletController {
 	@FXML
 	private Label pleaseChoose;
 	
+	   @FXML
+	    private Label errorLabel;
+	
 	protected static Wallet currentWallet;
 
 	public void initialize() {
@@ -272,7 +275,9 @@ public class UserWalletController {
 	void chargeMoney(ActionEvent event) {
 		if (currentWallet!=null)
 		ViewLogic.newChargerWindow();
-		//else - Add Massage
+		else {
+			errorLabel.setVisible(true);
+		}
 	}
 	
     @FXML
@@ -293,6 +298,7 @@ public class UserWalletController {
 
 	   @FXML
 	    void chosenWallet(MouseEvent event) {
+		   errorLabel.setVisible(false);
 		   currentWallet = walletTable.getSelectionModel().getSelectedItem();
 	    }
 	

@@ -101,21 +101,24 @@
             <HBox fx:id="HBox11" prefHeight="100.0" prefWidth="200.0" spacing="10.0" visible="false">
                <children>
                   <Label fx:id="username1" prefHeight="20.0" prefWidth="145.0" text="Contact's Name       " />
-                  <TextField fx:id="usernameText1" prefHeight="25.0" prefWidth="128.0" promptText="First Name">
+                  <TextField fx:id="usernameText1" prefHeight="25.0" prefWidth="90.0" promptText="First Name">
                      <HBox.margin>
                         <Insets left="-45.0" right="-10.0" />
                      </HBox.margin>
                   </TextField>
-                  <Label fx:id="usernameLable1" text="Username already exists" visible="false">
+                  <TextField fx:id="usernameText11" prefHeight="25.0" prefWidth="87.0" promptText="Last Name">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </TextField>
+                  <Label fx:id="usernameLable1" prefHeight="17.0" prefWidth="96.0" text="Alert" visible="false">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
-                  </Label>
-                  <TextField fx:id="usernameText11" prefHeight="25.0" prefWidth="117.0" promptText="Last Name">
                      <HBox.margin>
-                        <Insets left="-120.0" />
+                        <Insets />
                      </HBox.margin>
-                  </TextField>
+                  </Label>
                </children>
                <VBox.margin>
                   <Insets />

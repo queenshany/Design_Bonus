@@ -216,11 +216,11 @@ public class RegistrationController {
 										}
 									}else {
 										usernameLable1.setVisible(true);
-										usernameLable1.setText("Last name is invalid.");
+										usernameLable1.setText("Last is invalid.");
 									}
 								}else {
 									usernameLable1.setVisible(true);
-									usernameLable1.setText("Last name is invalid.");
+									usernameLable1.setText("First is invalid.");
 								}
 							}
 							else {

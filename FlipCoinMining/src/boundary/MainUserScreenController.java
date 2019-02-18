@@ -119,7 +119,8 @@ public class MainUserScreenController {
 
 	@FXML
 	void settingsScreen(MouseEvent event) {
-		//TODO
+		closeWindow();
+		ViewLogic.newSettingsWindow();
 	}
 
 	protected void closeWindow() {

@@ -8,7 +8,7 @@
 
 <AnchorPane fx:id="pane" prefHeight="249.0" prefWidth="289.0" style="-fx-background-color: #cadbf7;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.EditBonusController">
    <children>
-      <Label fx:id="lotteryNumber" layoutX="14.0" layoutY="26.0" text="Bonus Number">
+      <Label fx:id="bonusNumber" layoutX="14.0" layoutY="26.0" text="Bonus Number">
          <font>
             <Font name="System Bold Italic" size="16.0" />
          </font>

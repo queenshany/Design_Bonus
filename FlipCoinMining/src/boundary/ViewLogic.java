@@ -247,6 +247,24 @@ public class ViewLogic {
 					false);
 		}
 
+		
+		// ------------------------------ Edit Level ------------------------------
+		/**
+		 * Open Edit Level Window
+		 */
+		protected static void newEditLevelWindow() {
+			Stage stage = new Stage();
+//			setStage(stage);
+
+
+			newWindow(ViewLogic.class.getResource("EditLevelScreen.fxml"),
+					stage,
+					null, null,	null, null,	null, null,
+					false,
+					"Edit Level",
+					false);
+		}
+		
 
 	// ------------------------------ Dominant Miner Report ------------------------------
 	/**

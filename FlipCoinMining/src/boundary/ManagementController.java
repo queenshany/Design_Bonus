@@ -354,6 +354,17 @@ public class ManagementController {
 		}
 	}
 
+	   @FXML
+	    void editLevel(ActionEvent event) {
+			if (chosenLevel == null) {
+				errorLevel.setText("Please choose a level");
+				errorLevel.setVisible(true);
+			}
+			else {
+				ViewLogic.newEditLevelWindow();
+			}
+	    }
+	
 	@FXML
 	void editLotteries(ActionEvent event) {
 		if (chosenLottery == null) {

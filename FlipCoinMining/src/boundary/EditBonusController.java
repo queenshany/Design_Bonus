@@ -18,7 +18,7 @@ public class EditBonusController {
     private AnchorPane pane;
 
     @FXML
-    private Label lotteryNumber;
+    private Label bonusNumber;
 
     @FXML
     private Button saveButton;
@@ -39,6 +39,7 @@ public class EditBonusController {
     private Label errorLable;
 
     public void initialize() {
+    	bonusNumber.setText("Bonus Number " + ManagementController.chosenBonus.getBonusNum());
     	desc.setText(ManagementController.chosenBonus.getDescription());
     }
     

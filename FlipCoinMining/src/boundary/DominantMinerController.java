@@ -136,7 +136,7 @@ public class DominantMinerController {
 
 	@FXML
 	void generateReport(MouseEvent event) {
-
+//TODO
 	}
 
 	@FXML
@@ -160,17 +160,17 @@ public class DominantMinerController {
 
 	@FXML
 	void logOut(MouseEvent event) {
-
+//TODO
 	}
 
 	@FXML
 	void mailsScreen(MouseEvent event) {
-
+		//TODO
 	}
 
 	@FXML
 	void manageScreen(MouseEvent event) {
-
+		//TODO
 	}
 
 }

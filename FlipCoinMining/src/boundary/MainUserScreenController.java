@@ -46,9 +46,9 @@ public class MainUserScreenController {
 	@FXML
 	private ImageView logo;
 
-    @FXML
-    private ImageView settings;
-    
+	@FXML
+	private ImageView settings;
+
 	@FXML
 	private ImageView mailIcon;
 
@@ -81,7 +81,7 @@ public class MainUserScreenController {
 
 	@FXML
 	void mailsScreen(MouseEvent event) {
-
+		//TODO
 	}
 
 	@FXML
@@ -116,10 +116,10 @@ public class MainUserScreenController {
 		}
 	}
 
-    @FXML
-    void settingsScreen(MouseEvent event) {
-
-    }
+	@FXML
+	void settingsScreen(MouseEvent event) {
+		//TODO
+	}
 
 	protected void closeWindow() {
 		((Stage) borderPane.getScene().getWindow()).close();

@@ -24,105 +24,105 @@ import javafx.stage.Stage;
 
 public class LotteriesScreenController {
 
-    @FXML
-    private BorderPane borderPane;
+	@FXML
+	private BorderPane borderPane;
 
-    @FXML
-    private VBox menu;
+	@FXML
+	private VBox menu;
 
-    @FXML
-    private ImageView lotteries;
+	@FXML
+	private ImageView lotteries;
 
-    @FXML
-    private ImageView riddles;
+	@FXML
+	private ImageView riddles;
 
-    @FXML
-    private ImageView blocks;
+	@FXML
+	private ImageView blocks;
 
-    @FXML
-    private ImageView miners;
+	@FXML
+	private ImageView miners;
 
-    @FXML
-    private ImageView report;
+	@FXML
+	private ImageView report;
 
-    @FXML
-    private HBox topBorder;
+	@FXML
+	private HBox topBorder;
 
-    @FXML
-    private ImageView logo;
+	@FXML
+	private ImageView logo;
 
-    @FXML
-    private ImageView mailIcon;
+	@FXML
+	private ImageView mailIcon;
 
-    @FXML
-    private ImageView logoutIcon;
+	@FXML
+	private ImageView logoutIcon;
 
-    @FXML
-    private VBox bottom;
+	@FXML
+	private VBox bottom;
 
-    @FXML
-    private ImageView line;
+	@FXML
+	private ImageView line;
 
-    @FXML
-    private HBox hbox;
+	@FXML
+	private HBox hbox;
 
-    @FXML
-    private ImageView homeIcon;
+	@FXML
+	private ImageView homeIcon;
 
-    @FXML
-    private ComboBox<Lottery> lorretycombo;
+	@FXML
+	private ComboBox<Lottery> lorretycombo;
 
-    @FXML
-    private ImageView enterButton;
+	@FXML
+	private ImageView enterButton;
 
-    @FXML
-    private Label lable;
+	@FXML
+	private Label lable;
 
-    @FXML
-    private Label errorMassage;
+	@FXML
+	private Label errorMassage;
 
-    
-    public void initialize() {
-    	
+
+	public void initialize() {
+
 		ArrayList<Lottery> l = new ArrayList<Lottery>();
 		l = control.LotteryLogic.getInstance().getLotteries();
-    	 
- 			 lorretycombo.getItems().addAll(l);
- 		   
- 			ObservableList<Lottery> lot= FXCollections.observableArrayList(l);
- 	 	    lorretycombo.setItems(lot);	
- 	 	    
-    }
-    
-    @FXML
-    void addUserToLottery(MouseEvent event) {
-    	if (lorretycombo.getValue()!=null) {
-    	if (!(control.LotteryLogic.getInstance().joinLottery(LoginController.curretMiner, lorretycombo.getValue()))){
-    		errorMassage.setVisible(true);
-    		errorMassage.setText("You can't sign to this lottery");
-    	}
-    	else {
-    		errorMassage.setVisible(true);
-    		errorMassage.setText("You have successfully joined");
-    	}
-    	}
-    	else { 
-    		errorMassage.setVisible(true);
-    		errorMassage.setText("Please choose a lottery first");
-    	}
-    }
 
-    @FXML
-    void clean(ActionEvent event) {
-    	errorMassage.setVisible(false);
-    }
+		lorretycombo.getItems().addAll(l);
 
-    @FXML
-    void backHome(MouseEvent event) {
-    	closeWindow();
-    	ViewLogic.newUserWindow();
-    }
-    
+		ObservableList<Lottery> lot= FXCollections.observableArrayList(l);
+		lorretycombo.setItems(lot);	
+
+	}
+
+	@FXML
+	void addUserToLottery(MouseEvent event) {
+		if (lorretycombo.getValue () !=null) {
+			if (!(control.LotteryLogic.getInstance().joinLottery(LoginController.curretMiner, lorretycombo.getValue()))){
+				errorMassage.setVisible(true);
+				errorMassage.setText("You can't sign to this lottery");
+			}
+			else {
+				errorMassage.setVisible(true);
+				errorMassage.setText("You have successfully joined");
+			}
+		}
+		else { 
+			errorMassage.setVisible(true);
+			errorMassage.setText("Please choose a lottery first");
+		}
+	}
+
+	@FXML
+	void clean(ActionEvent event) {
+		errorMassage.setVisible(false);
+	}
+
+	@FXML
+	void backHome(MouseEvent event) {
+		closeWindow();
+		ViewLogic.newUserWindow();
+	}
+
 	@FXML
 	void logOut(MouseEvent event) {
 		closeWindow();
@@ -137,7 +137,7 @@ public class LotteriesScreenController {
 
 	@FXML
 	void mailsScreen(MouseEvent event) {
-
+		//TODO
 	}
 
 	@FXML

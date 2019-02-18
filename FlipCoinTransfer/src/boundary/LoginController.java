@@ -27,86 +27,86 @@ public class LoginController extends AbstractController{
 	protected static String keyWord;
 	protected static E_NetMode netMode;
 
-    @FXML
-    private BorderPane borderPane;
+	@FXML
+	private BorderPane borderPane;
 
-    @FXML
-    private VBox top;
+	@FXML
+	private VBox top;
 
-    @FXML
-    private ImageView logo;
+	@FXML
+	private ImageView logo;
 
-    @FXML
-    private ImageView loginLogo;
+	@FXML
+	private ImageView loginLogo;
 
-    @FXML
-    private VBox center;
+	@FXML
+	private VBox center;
 
-    @FXML
-    private Text donthave;
+	@FXML
+	private Text donthave;
 
-    @FXML
-    private Text createAcount;
+	@FXML
+	private Text createAcount;
 
-    @FXML
-    private TextField username;
+	@FXML
+	private TextField username;
 
-    @FXML
-    private PasswordField password;
+	@FXML
+	private PasswordField password;
 
-    @FXML
-    private Button logButton;
+	@FXML
+	private Button logButton;
 
-    @FXML
-    private VBox bottom;
+	@FXML
+	private VBox bottom;
 
-    @FXML
-    private ImageView line;
+	@FXML
+	private ImageView line;
 
-    @FXML
-    private Text errorMassege;
-    
-    @FXML
-    private Label error;
-    
+	@FXML
+	private Text errorMassege;
 
-    @FXML
-    void createNewAcount(MouseEvent event) {
-    	closeWindow();
+	@FXML
+	private Label error;
+
+
+	@FXML
+	void createNewAcount(MouseEvent event) {
+		closeWindow();
 		ViewLogic.newRegistrationWindow();
-    }
+	}
 
-    @FXML
-    void login(ActionEvent event) {
-    	error.setVisible(false);
-    	
-    	if(username.getText().equals("Admin") && password.getText().equals("Admin")){
-    		closeWindow();
-    		ViewLogic.newAdminWindow();
-    }
-    	else {
-    	 ArrayList<User> user = control.UserLogic.getInstance().getUsers();
-  	   for(User us : user)
-  	   {
-  		   if(us.getUsername().equalsIgnoreCase(username.getText()) &&
-  				 us.getPassword().equalsIgnoreCase(password.getText()) 
-  				 &&!us.getIsEmployee()) {
-  			   curretUser = us;
-  				closeWindow();
-  	    		ViewLogic.newUserWindow();		   
-  	   }
-  		 if(us.getUsername().equalsIgnoreCase(username.getText()) &&
-  				 us.getPassword().equalsIgnoreCase(password.getText()) 
-  				 &&us.getIsEmployee()) {
-			   curretUser = us;
-  			 ViewLogic.newEmployeeOrUserWindow();
-  			 closeWindow();
-  		 }
- 
-  		   }
-    	}
-			   error.setVisible(true);
-    }
+	@FXML
+	void login(ActionEvent event) {
+		error.setVisible(false);
+
+		if(username.getText().equals("Admin") && password.getText().equals("Admin")){
+			closeWindow();
+			ViewLogic.newAdminWindow();
+		}
+		else {
+			ArrayList<User> user = control.UserLogic.getInstance().getUsers();
+			for(User us : user)
+			{
+				if(us.getUsername().equalsIgnoreCase(username.getText()) &&
+						us.getPassword().equalsIgnoreCase(password.getText()) 
+						&&!us.getIsEmployee()) {
+					curretUser = us;
+					closeWindow();
+					ViewLogic.newUserWindow();		   
+				}
+				if(us.getUsername().equalsIgnoreCase(username.getText()) &&
+						us.getPassword().equalsIgnoreCase(password.getText()) 
+						&&us.getIsEmployee()) {
+					curretUser = us;
+					ViewLogic.newEmployeeOrUserWindow();
+					closeWindow();
+				}
+
+			}
+		}
+		error.setVisible(true);
+	}
 
 
 

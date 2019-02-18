@@ -150,6 +150,7 @@
                           </columns>
                         </TableView>
                         <Button fx:id="chargeButton" layoutX="292.0" layoutY="145.0" mnemonicParsing="false" onAction="#chargeMoney" prefHeight="17.0" prefWidth="71.0" text="Charge" />
+                        <Label fx:id="errorLabel" layoutX="7.0" layoutY="149.0" text="Please choose a wallet" textFill="#ef3333" visible="false" />
                      </children>
                   </AnchorPane>
             </content>
@@ -173,7 +174,6 @@
                               </TableView>
                            </content>
                         </ScrollPane>
-                        <Button fx:id="editSpaceButton" layoutX="281.0" layoutY="145.0" mnemonicParsing="false" onAction="#editSpace" prefHeight="25.0" prefWidth="82.0" text="Edit Wallet" />
                      </children>
                   </AnchorPane>
                </content>
@@ -197,7 +197,6 @@
                               </TableView>
                            </content>
                         </ScrollPane>
-                        <Button fx:id="editKnotsButton" layoutX="283.0" layoutY="145.0" mnemonicParsing="false" onAction="#editKnots" prefHeight="25.0" prefWidth="80.0" text="Edit Wallet" />
                      </children>
                   </AnchorPane>
                </content>

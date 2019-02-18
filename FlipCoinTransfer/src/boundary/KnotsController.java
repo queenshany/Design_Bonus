@@ -144,12 +144,17 @@ public class KnotsController {
     		youHaveToPay.setText("Please enter number");
     		youHaveToPay.setVisible(true);
     	}
+    	if (!(check1.isSelected()) && !(check2.isSelected()) && !(check3.isSelected())) {
+			youHaveToPay.setText("Please choose platforms");
+			youHaveToPay.setVisible(true);
+		}
     	else {
     		try {
     	
     	String convert = (textField.getText());
     	double x = Double.parseDouble(convert)*control.SysData.getInstance().getLastVersionParams().getPriceForDiscount();
     	convert = String.valueOf(x);
+    	youHaveToPay.setText("You have to pay");
     	theAmount.setText(convert);
     	youHaveToPay.setVisible(true);
     	theAmount.setVisible(true);

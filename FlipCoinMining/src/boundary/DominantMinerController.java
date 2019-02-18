@@ -5,7 +5,9 @@ import java.time.LocalDate;
 
 import javax.swing.JFrame;
 
+import control.Communication;
 import control.MinerLogic;
+import entity.Consts;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
@@ -83,9 +85,6 @@ public class DominantMinerController {
 	private Label generateLable;
 
 	@FXML
-	private TableView<?> table;
-
-	@FXML
 	private ImageView V;
 
 	@FXML
@@ -118,7 +117,21 @@ public class DominantMinerController {
 
 	@FXML
 	void exportXML(MouseEvent event) {
-
+		if (Communication.exportToXML()) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Transactions Exported Successfully");
+			alert.setContentText("Transactions exported successfully to\n"
+					+ Consts.XML_EXPORT_FILE_PATH);
+			alert.initModality(Modality.APPLICATION_MODAL);
+			alert.showAndWait();
+		}
+		else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error Exporting Transactions");
+			alert.setContentText("Error Exporting Transactions to XML");
+			alert.initModality(Modality.APPLICATION_MODAL);
+			alert.showAndWait();
+		}
 	}
 
 	@FXML
@@ -128,7 +141,21 @@ public class DominantMinerController {
 
 	@FXML
 	void importJSON(MouseEvent event) {
-
+		if (Communication.importFromJSON()) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Transactions Imported Successfully");
+			alert.setContentText("Transactions imported successfully to\n"
+					+ Consts.JSON_IMPORT_FILE_PATH);
+			alert.initModality(Modality.APPLICATION_MODAL);
+			alert.showAndWait();
+		}
+		else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error Importing Transactions");
+			alert.setContentText("Error Importing Transactions from JSON");
+			alert.initModality(Modality.APPLICATION_MODAL);
+			alert.showAndWait();
+		}
 	}
 
 	@FXML

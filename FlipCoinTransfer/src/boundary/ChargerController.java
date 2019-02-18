@@ -17,56 +17,74 @@ import javafx.stage.Stage;
 
 public class ChargerController {
 
-    @FXML
-    private AnchorPane pane;
+	@FXML
+	private AnchorPane pane;
 
-    @FXML
-    private ImageView i1;
+	@FXML
+	private ImageView i1;
 
-    @FXML
-    private ImageView i3;
+	@FXML
+	private ImageView i3;
 
-    @FXML
-    private ImageView i2;
+	@FXML
+	private ImageView i2;
 
-    @FXML
-    private ImageView i4;
+	@FXML
+	private ImageView i4;
 
-    @FXML
-    private ImageView i5;
+	@FXML
+	private ImageView i5;
 
-    @FXML
-    private ImageView i6;
+	@FXML
+	private ImageView i6;
 
-    @FXML
-    private ImageView logo;
+	@FXML
+	private ImageView logo;
 
-    @FXML
-    private Label l1;
+	@FXML
+	private Label l1;
 
-    @FXML
-    private Label l2;
+	@FXML
+	private Label l2;
 
-    @FXML
-    private TextField theAmount;
+	@FXML
+	private Label alertLabel;
 
-    @FXML
-    private Button chargeButton;
+	@FXML
+	private TextField theAmount;
 
-    @FXML
-    void charge(ActionEvent event) throws IOException {
-    	if (theAmount.getText()!=null && UserWalletController.currentWallet !=null) {
-    	double amount = Double.parseDouble(theAmount.getText());
-    	control.WalletLogic.getInstance().loadMoney(UserWalletController.currentWallet, amount);
-    	control.WalletLogic.getInstance().calcAmount(UserWalletController.currentWallet);
-    	control.WalletLogic.getInstance().calcPendingAmount(UserWalletController.currentWallet);
-    	
-    	//refresh the table
-    	((Stage) UserWalletController.bp.getScene().getWindow()).close();
-    	ViewLogic.newWalletsWindow();
-    	closeWindow();
-    	}
-    }
+	@FXML
+	private Button chargeButton;
+
+	@FXML
+	void charge(ActionEvent event) throws IOException {
+		double amount = 0.0;
+
+		if (theAmount.getText() != null) {
+			if (UserWalletController.currentWallet != null) {
+				try {
+					amount = Double.parseDouble(theAmount.getText());
+
+					if (amount <= 0) {
+						alertLabel.setText("Amount must be positive");
+					}
+					else {
+						control.WalletLogic.getInstance().loadMoney(UserWalletController.currentWallet, amount);
+						//refresh the table
+						((Stage) UserWalletController.bp.getScene().getWindow()).close();
+						ViewLogic.newWalletsWindow();
+						closeWindow();
+					}
+				}catch (NumberFormatException e) {
+					alertLabel.setText("Please enter a number");
+				}
+			}else {
+				alertLabel.setText("Please enter a number");
+			}
+		}else {
+			alertLabel.setText("A wallet wasn't selected...");
+		}
+	}
 
 	protected void closeWindow() {
 		((Stage) pane.getScene().getWindow()).close();

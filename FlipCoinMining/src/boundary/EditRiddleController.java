@@ -25,71 +25,74 @@ import javafx.stage.Stage;
 
 public class EditRiddleController {
 
-    @FXML
-    private AnchorPane pane;
+	@FXML
+	private AnchorPane pane;
 
-    @FXML
-    private Label riddleNumber;
+	@FXML
+	private Label riddleNumber;
 
-    @FXML
-    private Label time;
+	@FXML
+	private Label time;
 
-    @FXML
-    private Label date;
+	@FXML
+	private Label date;
 
-    @FXML
-    private Label level;
+	@FXML
+	private Label level;
 
-    @FXML
-    private ComboBox<RiddleLevel> levelsCombo;
+	@FXML
+	private ComboBox<RiddleLevel> levelsCombo;
 
-    @FXML
-    private JFXDatePicker datePicker;
+	@FXML
+	private JFXDatePicker datePicker;
 
-    @FXML
-    private JFXTimePicker timePicker;
+	@FXML
+	private JFXTimePicker timePicker;
 
-    @FXML
-    private Button saveButton;
+	@FXML
+	private Button saveButton;
 
 	public void initialize() {
-		
-	datePicker.setEditable(false);
-	timePicker.setEditable(false);
-	
-	riddleNumber.setText("Riddle Number " + String.valueOf(ManagementController.chosenRiddle.getRiddleNum()));
-	
-	LocalDate ld = ManagementController.chosenRiddle.getSolutionDate().toLocalDate();
-	datePicker.setValue(ld);
-	LocalTime tm = ManagementController.chosenRiddle.getSolutionTime().toLocalTime();
-	timePicker.setValue(tm);
-	
-	//fill combobox
-	ArrayList<RiddleLevel> rd = new ArrayList<RiddleLevel>();
-	rd = control.RiddleLogic.getInstance().getRiddleLevels();
-	 
-			 levelsCombo.getItems().addAll(rd);
-		   
-			ObservableList<RiddleLevel> levels= FXCollections.observableArrayList(rd);
-	 	    levelsCombo.setItems(levels);
-	 	    
-	//set the value
-	levelsCombo.setValue(control.RiddleLogic.getInstance().getRiddleLevels().get(ManagementController.chosenRiddle.getRiddleLevel()-1)); 	    
-	 	    
+
+		datePicker.setEditable(false);
+		timePicker.setEditable(false);
+
+		riddleNumber.setText("Riddle Number " + String.valueOf(ManagementController.chosenRiddle.getRiddleNum()));
+
+		if (ManagementController.chosenRiddle.getSolutionDate() != null) {
+			LocalDate ld = ManagementController.chosenRiddle.getSolutionDate().toLocalDate();
+			datePicker.setValue(ld);
+		}
+		if (ManagementController.chosenRiddle.getSolutionTime() != null) {
+			LocalTime tm = ManagementController.chosenRiddle.getSolutionTime().toLocalTime();
+			timePicker.setValue(tm);
+		}
+		//fill combobox
+		ArrayList<RiddleLevel> rd = new ArrayList<RiddleLevel>();
+		rd = control.RiddleLogic.getInstance().getRiddleLevels();
+
+		levelsCombo.getItems().addAll(rd);
+
+		ObservableList<RiddleLevel> levels= FXCollections.observableArrayList(rd);
+		levelsCombo.setItems(levels);
+
+		//set the value
+		levelsCombo.setValue(control.RiddleLogic.getInstance().getRiddleLevels().get(ManagementController.chosenRiddle.getRiddleLevel()-1)); 	    
+
 	}
-	
-    @FXML
-    void updateRiddle(ActionEvent event) {
-    	ManagementController.chosenRiddle.setSolutionDate(
-    			Date.valueOf(datePicker.getValue()));
-    	ManagementController.chosenRiddle.setSolutionTime(
-    			Time.valueOf(timePicker.getValue()));
-    	ManagementController.chosenRiddle.setRiddleLevel(levelsCombo.getValue().getLevelCode());
-    	control.RiddleLogic.getInstance().updateRiddle(ManagementController.chosenRiddle);
-    	((Stage) ManagementController.bp.getScene().getWindow()).close();
-    	ViewLogic.newManagementWindow();
-    	closeWindow();
-    }
+
+	@FXML
+	void updateRiddle(ActionEvent event) {
+		ManagementController.chosenRiddle.setSolutionDate(
+				Date.valueOf(datePicker.getValue()));
+		ManagementController.chosenRiddle.setSolutionTime(
+				Time.valueOf(timePicker.getValue()));
+		ManagementController.chosenRiddle.setRiddleLevel(levelsCombo.getValue().getLevelCode());
+		control.RiddleLogic.getInstance().updateRiddle(ManagementController.chosenRiddle);
+		((Stage) ManagementController.bp.getScene().getWindow()).close();
+		ViewLogic.newManagementWindow();
+		closeWindow();
+	}
 
 	protected void closeWindow() {
 		((Stage) pane.getScene().getWindow()).close();

@@ -145,9 +145,8 @@
                   </TableView>
                </content>
             </ScrollPane>
-            <Button fx:id="removeButton" layoutX="-1.0" layoutY="164.0" mnemonicParsing="false" onAction="#removeProduct" text="Remove" />
-            <Button fx:id="addButton" layoutX="68.0" layoutY="164.0" mnemonicParsing="false" onAction="#addProduct" text="  Add  " />
-            <Button fx:id="editButton" layoutX="131.0" layoutY="165.0" mnemonicParsing="false" onAction="#editProduct" text="  Edit  " />
+            <Button fx:id="addButton" layoutX="14.0" layoutY="166.0" mnemonicParsing="false" onAction="#addProduct" text="  Add  " />
+            <Button fx:id="editButton" layoutX="77.0" layoutY="167.0" mnemonicParsing="false" onAction="#editProduct" text="  Edit  " />
             <Label fx:id="errorM" layoutX="214.0" layoutY="170.0" text="Please Choose a Product" textFill="#e93e24" visible="false">
                <font>
                   <Font name="System Bold" size="12.0" />

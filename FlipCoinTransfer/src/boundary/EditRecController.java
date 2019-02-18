@@ -52,10 +52,12 @@ public class EditRecController {
 	public void initialize() {
 		String pattern = "MM/dd/yyyy HH:mm:ss";
 		DateFormat df = new SimpleDateFormat(pattern);
-		recNumText.setText(String.valueOf(RecommendationsController.currentRec.getRecNum()));
-		dateText.setText(df.format(RecommendationsController.currentRec.getCreationDate()));
-		probText.setText(String.valueOf(RecommendationsController.currentRec.getProbability()));
-		feeText.setText(String.valueOf(RecommendationsController.currentRec.getRecommendedFee()));
+		if (RecommendationsController.currentRec != null) {
+			recNumText.setText(String.valueOf(RecommendationsController.currentRec.getRecNum()));
+			dateText.setText(df.format(RecommendationsController.currentRec.getCreationDate()));
+			probText.setText(String.valueOf(RecommendationsController.currentRec.getProbability()));
+			feeText.setText(String.valueOf(RecommendationsController.currentRec.getRecommendedFee()));
+		}
 	}
 
 

@@ -69,7 +69,7 @@ public class EmailController {
 //		//Table
 		inboxC.setCellValueFactory(new PropertyValueFactory<>("title"));
 
-		ArrayList<Message> m = control.MinerLogic.getInstance().getMessages();	
+		ArrayList<Message> m = control.MinerLogic.getInstance().getMessagesOfMiner(LoginController.curretMiner);	
 		ObservableList<Message> ms= FXCollections.observableArrayList(m);
 		inbox.setItems(ms);
 	

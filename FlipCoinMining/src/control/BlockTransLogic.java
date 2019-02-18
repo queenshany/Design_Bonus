@@ -19,6 +19,7 @@ import java.sql.Date;
 
 import entity.Block;
 import entity.Consts;
+import entity.Message;
 import entity.Miner;
 import entity.Riddle;
 import entity.RiddleLevel;
@@ -435,6 +436,15 @@ public class BlockTransLogic {
 		Block b = new Block(blockAddress, Date.valueOf(LocalDate.now()), Time.valueOf(LocalTime.now()),
 				rl.getBlockSize(), previousBlock.getBlockAddress(), miner.getUniqueAddress());
 		insertBlock(b);
+		
+		Message message = new Message(
+				MinerLogic.getInstance().getMessageID(),
+				miner.getUniqueAddress(),
+				"You received a new Block!",
+				"You received a new Block (ID: " + b.getBlockAddress() + ", Size: " + b.getSize() + "). You can view your new block in Block Management.",
+				Date.valueOf(LocalDate.now()),
+				Time.valueOf(LocalTime.now()));
+		MinerLogic.getInstance().insertMessage(message);
 	}
 
 	

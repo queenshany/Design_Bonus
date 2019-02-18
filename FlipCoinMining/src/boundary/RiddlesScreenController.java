@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
+import com.sun.org.apache.xalan.internal.xsltc.compiler.util.ErrorMessages;
 
 import control.MinerLogic;
 import entity.Miner;
@@ -138,7 +139,6 @@ public class RiddlesScreenController {
 	} 
 
 	public void getUnsolvedRiddles(){
-
 		ObservableList<Riddle> r= FXCollections.observableArrayList();
 		ArrayList<Riddle> rid = control.RiddleLogic.getInstance().getRiddles();
 		for(Riddle rr : rid)
@@ -152,32 +152,82 @@ public class RiddlesScreenController {
 
 	@FXML
 	void showRiddle(MouseEvent event) {
-		Riddle rid = table.getSelectionModel().getSelectedItem();
-		LocalDate ld = rid.getSolutionDate().toLocalDate();
-		dateP.setValue(ld);
-		LocalTime tm = rid.getSolutionTime().toLocalTime();
-		timeP.setValue(tm);
-		textField.setText(rid.getDescription());
-		currentRiddle = rid;
+		if (table.getSelectionModel().getSelectedItem() != null) {
+			Riddle rid = table.getSelectionModel().getSelectedItem();
+			LocalDate ld = rid.getSolutionDate().toLocalDate();
+			dateP.setValue(ld);
+			LocalTime tm = rid.getSolutionTime().toLocalTime();
+			timeP.setValue(tm);
+			textField.setText(rid.getDescription());
+			currentRiddle = rid;
+		}
+		else {
+			errorMassage.setText("Please select a riddle");
+			errorMassage.setVisible(true);
+		}
 	}
 
 	@FXML
-    void solutionRiddle(ActionEvent event) {
-		double sol = Double.parseDouble(solutionText.getText());
-		control.RiddleLogic.getInstance().getSolutions();
-//		control.RiddleLogic.getInstance().insertSolvedRiddle(sr);
-//		control.RiddleLogic.getInstance().isSolvedCorrectly(solutions, riddle, miner);
-//		control.RiddleLogic.getInstance().isFirstSolved(riddle, miner);
-//		control.BlockTransLogic.getInstance().generateBlockForMiner(miner, riddle);
-		
-    }
-	
-    @FXML
-    void backHome(MouseEvent event) {
-    	closeWindow();
-    	ViewLogic.newUserWindow();
-    }
-	
+	void solutionRiddle(ActionEvent event) {
+		double sol = 0.0;
+
+		if (currentRiddle != null) {
+			errorMassage.setVisible(false);
+			if (!solutionText.getText().isEmpty()) {
+				errorMassage.setVisible(false);
+				try {
+					sol = Double.parseDouble(solutionText.getText());
+
+					if (control.RiddleLogic.getInstance().isSolvedCorrectly(sol, currentRiddle, LoginController.curretMiner)) {
+						sendButton.setDisable(true);
+						
+						if (control.RiddleLogic.getInstance().isFirstSolved(currentRiddle, LoginController.curretMiner)) {
+							Alert alert = new Alert(AlertType.CONFIRMATION);
+							alert.setTitle("Congrats!");
+							alert.setContentText("You have solved the riddle Correctly. \n"
+									+ "You solved it first, and you received a new block! \n" 
+									+ "You can view it under Block Management");
+							alert.initModality(Modality.APPLICATION_MODAL);
+							alert.showAndWait();
+						}
+						else {
+							Alert alert = new Alert(AlertType.CONFIRMATION);
+							alert.setTitle("Congrats!");
+							alert.setContentText("You have solved the riddle Correctly. \n"
+									+ "You didn't solve it first, but you were still right... :)");
+							alert.initModality(Modality.APPLICATION_MODAL);
+							alert.showAndWait();
+						}
+					}
+					else {
+						Alert alert = new Alert(AlertType.ERROR);
+						alert.setTitle("You have not solved the riddle");
+						alert.setContentText("You have not solved the riddle Correctly. \n"
+								+ "But you can try again... :)");
+						alert.initModality(Modality.APPLICATION_MODAL);
+						alert.showAndWait();
+					}
+				}
+				catch(NumberFormatException e) {
+					errorMassage.setText("Solution must be a number");
+					errorMassage.setVisible(true);
+				}
+			}else {
+				errorMassage.setText("Please write a solution.");
+				errorMassage.setVisible(true);
+			}
+		}else {
+			errorMassage.setVisible(true);
+			errorMassage.setText("Please choose a riddle to solve.");
+		}
+	}
+
+	@FXML
+	void backHome(MouseEvent event) {
+		closeWindow();
+		ViewLogic.newUserWindow();
+	}
+
 	@FXML
 	void logOut(MouseEvent event) {
 		closeWindow();
@@ -192,7 +242,7 @@ public class RiddlesScreenController {
 
 	@FXML
 	void mailsScreen(MouseEvent event) {
-
+		//TODO
 	}
 
 	@FXML

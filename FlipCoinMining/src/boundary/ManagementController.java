@@ -1,6 +1,7 @@
 package boundary;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
 
 import control.Communication;
@@ -8,6 +9,7 @@ import entity.Bonus;
 import entity.Consts;
 import entity.Lottery;
 import entity.Miner;
+import entity.Riddle;
 import entity.RiddleLevel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,6 +33,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import utils.E_Level;
+import utils.E_Status;
 
 public class ManagementController {
 
@@ -68,7 +71,31 @@ public class ManagementController {
 	private AnchorPane p1;
 
 	@FXML
-	private TableView<?> t1;
+	private TableView<Riddle> riddleTable;
+
+	@FXML
+	private TableColumn<Riddle, Integer> riddleNum;
+
+	@FXML
+	private TableColumn<Riddle, Date> publishedDate;
+
+	@FXML
+	private TableColumn<Riddle, Time> publishedTime;
+
+	@FXML
+	private TableColumn<Riddle, String> descriptionRiddle;
+
+	@FXML
+	private TableColumn<Riddle, Date> solutionDate;
+
+	@FXML
+	private TableColumn<Riddle, Time> solutionTime;
+
+	@FXML
+	private TableColumn<Riddle, E_Status> statusRiddle;
+
+	@FXML
+	private TableColumn<Riddle, Integer> riddleLevel;
 
 	@FXML
 	private Button addR;

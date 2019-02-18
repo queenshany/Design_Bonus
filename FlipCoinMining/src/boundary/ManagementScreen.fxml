@@ -74,12 +74,22 @@
                <content>
                   <AnchorPane fx:id="p1" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="t1" layoutX="7.0" layoutY="8.0" prefHeight="173.0" prefWidth="496.0">
-                           <columns>
-                              <TableColumn prefWidth="75.0" text="C1" />
-                              <TableColumn prefWidth="75.0" text="C2" />
-                           </columns>
-                        </TableView>
+                        <ScrollPane layoutX="7.0" layoutY="8.0">
+                           <content>
+                              <TableView fx:id="riddleTable" onMouseClicked="#chosenRiddle" prefHeight="173.0" prefWidth="496.0">
+                                 <columns>
+                                    <TableColumn fx:id="riddleNum" prefWidth="57.66668701171875" text="Number" />
+                                    <TableColumn fx:id="publishedDate" prefWidth="92.33331298828125" text="Published Date" />
+                                    <TableColumn fx:id="publishedTime" prefWidth="93.0" text="Published Time" />
+                                    <TableColumn fx:id="descriptionRiddle" prefWidth="71.0" text="Description" />
+                                    <TableColumn fx:id="solutionDate" prefWidth="85.0" text="Solution Date" />
+                                    <TableColumn fx:id="solutionTime" prefWidth="85.3333740234375" text="Solution Time" />
+                                    <TableColumn fx:id="statusRiddle" prefWidth="63.3333740234375" text="Status" />
+                                    <TableColumn fx:id="riddleLevel" prefWidth="53.6666259765625" text="Riddle Level" />
+                                 </columns>
+                              </TableView>
+                           </content>
+                        </ScrollPane>
                         <Button fx:id="addR" layoutX="7.0" layoutY="189.0" mnemonicParsing="false" onAction="#addRiddle" text="  Add  " />
                         <Button fx:id="editR" layoutX="64.0" layoutY="189.0" mnemonicParsing="false" onAction="#editRiddle" text="  Edit  " />
                      </children>

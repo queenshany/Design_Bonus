@@ -32,6 +32,9 @@ public class MainAdminScreenController {
     private ImageView logoutIcon;
 
     @FXML
+    private ImageView mailsAdmin;
+    
+    @FXML
     private VBox bottom;
 
     @FXML
@@ -133,6 +136,11 @@ public class MainAdminScreenController {
     	ViewLogic.newAdminParametersWindow();
     }
 
+    @FXML
+    void mailsAdmin(MouseEvent event) {
+    	ViewLogic.newApproveRecWindow();
+    }
+    
 	protected void closeWindow() {
 		((Stage) borderPane.getScene().getWindow()).close();
 	}

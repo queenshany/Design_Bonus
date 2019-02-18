@@ -232,6 +232,23 @@ public class ViewLogic {
 				"Settings",
 				false);
 	}
+	
+	// ------------------------------ Approve Recommendations ------------------------------
+	/**
+	 * Open Approve Window
+	 */
+	protected static void newApproveRecWindow() {
+		Stage stage = new Stage();
+		setStage(stage);
+
+
+		newWindow(ViewLogic.class.getResource("ApproveRecScreen.fxml"),
+				stage,
+				null, null,	null, null,	null, null,
+				false,
+				"Recommendations",
+				false);
+	}
 
 
 	// ------------------------------ Parameters ------------------------------

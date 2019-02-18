@@ -95,7 +95,9 @@ public class EditLotteryController {
 
     @FXML
     void updateLottery(ActionEvent event) {
-    	
+    	if (Integer.parseInt(maxPasText.getText()) >0 &&
+    			Integer.parseInt(winnersText.getText()) > 0 &&
+    			Integer.parseInt(bonusesText.getText()) > 0){
 			try {
 				int max = Integer.parseInt(maxPasText.getText());
 				try{
@@ -133,10 +135,11 @@ public class EditLotteryController {
 				maxlable.setText("Invalid Value");
 				maxlable.setVisible(true);
 			}
-       	
+    	}
     }
 
 	protected void closeWindow() {
 		((Stage) pane.getScene().getWindow()).close();
 	}
+
 }

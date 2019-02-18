@@ -184,7 +184,13 @@ public class ManagementController {
 
 	@FXML
 	private Button editB1;
+	
+    @FXML
+    private Label errorBonus;
 
+    @FXML
+    private Label errorLevel;
+    
 	@FXML
 	private TableView<Miner> minersTable;
 
@@ -309,11 +315,13 @@ public class ManagementController {
 
 	@FXML
 	void chosenBonus(MouseEvent event) {
+		errorBonus.setVisible(false);
 		chosenBonus = bonusesTable.getSelectionModel().getSelectedItem();
 	}
 
 	@FXML
 	void chosenLevel(MouseEvent event) {
+		errorLevel.setVisible(false);
 		chosenLevel = levelsTable.getSelectionModel().getSelectedItem();
 	}
 	
@@ -337,7 +345,13 @@ public class ManagementController {
 
 	@FXML
 	void editBonus(ActionEvent event) {
-		//TODO
+		if (chosenBonus == null) {
+			errorBonus.setText("Please choose a bonus");
+			errorBonus.setVisible(true);
+		}
+		else {
+			ViewLogic.newEditBonusWindow();
+		}
 	}
 
 	@FXML

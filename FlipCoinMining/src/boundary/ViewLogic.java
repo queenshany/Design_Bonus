@@ -229,6 +229,23 @@ public class ViewLogic {
 					"Edit Lottery",
 					false);
 		}
+		
+		// ------------------------------ Edit Bonus ------------------------------
+		/**
+		 * Open Edit Bonus Window
+		 */
+		protected static void newEditBonusWindow() {
+			Stage stage = new Stage();
+//			setStage(stage);
+
+
+			newWindow(ViewLogic.class.getResource("EditBonusScreen.fxml"),
+					stage,
+					null, null,	null, null,	null, null,
+					false,
+					"Edit Bonus",
+					false);
+		}
 
 
 	// ------------------------------ Dominant Miner Report ------------------------------

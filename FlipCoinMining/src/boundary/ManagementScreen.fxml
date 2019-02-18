@@ -130,6 +130,7 @@
                         </TableView>
                         <Button fx:id="addB" layoutX="10.0" layoutY="189.0" mnemonicParsing="false" onAction="#addBonus" text="  Add  " />
                         <Button fx:id="editB" layoutX="67.0" layoutY="189.0" mnemonicParsing="false" onAction="#editBonus" text="  Edit  " />
+                        <Label fx:id="errorBonus" layoutX="126.0" layoutY="193.0" text="Label" textFill="#eb3a3a" visible="false" />
                      </children>
                   </AnchorPane>
                </content>
@@ -148,6 +149,7 @@
                         </TableView>
                         <Button fx:id="addB1" layoutX="10.0" layoutY="189.0" mnemonicParsing="false" onAction="#addBonus" text="  Add  " />
                         <Button fx:id="editB1" layoutX="67.0" layoutY="189.0" mnemonicParsing="false" onAction="#editBonus" text="  Edit  " />
+                        <Label fx:id="errorLevel" layoutX="125.0" layoutY="193.0" text="Label" textFill="#e02c2c" visible="false" />
                      </children>
                   </AnchorPane>
                </content>

@@ -177,7 +177,24 @@ public class ViewLogic {
 				false);
 	}
 
+	// ------------------------------ Settings ------------------------------
+	/**
+	 * Open Settings Window
+	 */
+	protected static void newSettingsWindow() {
+		Stage stage = new Stage();
+//		setStage(stage);
 
+
+		newWindow(ViewLogic.class.getResource("SettingsScreen.fxml"),
+				stage,
+				null, null,	null, null,	null, null,
+				false,
+				"Settings",
+				false);
+	}
+
+	
 	// ------------------------------ Add Riddles ------------------------------
 	/**
 	 * Open Add Riddles Window

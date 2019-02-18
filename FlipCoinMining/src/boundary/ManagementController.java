@@ -133,6 +133,9 @@ public class ManagementController {
 
 	@FXML
 	private Button addL;
+	
+    @FXML
+    private Label errorLottery;
 
 	@FXML
 	private Tab bonuses;
@@ -322,6 +325,7 @@ public class ManagementController {
 
 	@FXML
 	void chosenLottery(MouseEvent event) {
+		errorLottery.setVisible(false);
 		chosenLottery = lotteriesTable.getSelectionModel().getSelectedItem();
 	}
 
@@ -338,7 +342,13 @@ public class ManagementController {
 
 	@FXML
 	void editLotteries(ActionEvent event) {
-		//TODO
+		if (chosenLottery == null) {
+			errorLottery.setText("Please choose a lottery");
+			errorLottery.setVisible(true);
+		}
+		else {
+			ViewLogic.newEditLotteriesWindow();
+		}
 	}
 
 	@FXML

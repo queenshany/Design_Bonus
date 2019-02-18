@@ -113,6 +113,7 @@
                         </TableView>
                         <Button fx:id="addL" layoutX="8.0" layoutY="189.0" mnemonicParsing="false" onAction="#addLotteries" text="  Add  " />
                         <Button layoutX="65.0" layoutY="189.0" mnemonicParsing="false" onAction="#editLotteries" text="  Edit  " />
+                        <Label fx:id="errorLottery" layoutX="125.0" layoutY="193.0" text="You can't edit a solved riddle" textFill="#eb2828" visible="false" />
                      </children>
                   </AnchorPane>
                </content>

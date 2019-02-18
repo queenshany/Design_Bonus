@@ -211,6 +211,24 @@ public class ViewLogic {
 					"Edit Riddles",
 					false);
 		}
+		
+		
+		// ------------------------------ Edit Lottery ------------------------------
+		/**
+		 * Open Edit Lottery Window
+		 */
+		protected static void newEditLotteriesWindow() {
+			Stage stage = new Stage();
+//			setStage(stage);
+
+
+			newWindow(ViewLogic.class.getResource("EditLotteryScreen.fxml"),
+					stage,
+					null, null,	null, null,	null, null,
+					false,
+					"Edit Lottery",
+					false);
+		}
 
 
 	// ------------------------------ Dominant Miner Report ------------------------------

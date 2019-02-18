@@ -123,7 +123,7 @@ public class KnotsController {
 
     @FXML
     void calcBTC(ActionEvent event) {
-    	if (textField.getText()==null || textField.getText().equals("")) {
+    	if (textField.getText().isEmpty() || textField.getText().equals("")) {
     		youHaveToPay.setText("Please enter number");
     		youHaveToPay.setVisible(true);
     	}

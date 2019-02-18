@@ -91,14 +91,18 @@ public class CategoriesController {
 	private Label lable;
 
 	public void initialize() {
+		setCombo();
+		editText.setEditable(false);
+
+	}
+
+	private void setCombo() {
 		//Fill the category combobox
 		ArrayList<Category> ct = new ArrayList<Category>();
 		ct=control.ItemLogic.getInstance().getCategories();
-		categoriesCombo.getItems().addAll(ct);
+		categoriesCombo.getItems().setAll(ct);
 		ObservableList<Category> cate= FXCollections.observableArrayList(ct);
 		categoriesCombo.setItems(cate);
-		editText.setEditable(false);
-
 	}
 
 	@FXML
@@ -109,33 +113,64 @@ public class CategoriesController {
 
 	@FXML
 	void addCategory(ActionEvent event) {
-		Category c = control.ItemLogic.getInstance().getCategories().get(0);
-		c.setSerialNumber(control.ItemLogic.getInstance().getCategoryID());
-		c.setCategoryName(newText.getText());
-		control.ItemLogic.getInstance().insertCategory(c);
-		lable.setVisible(true);
-		lable.setText("You added new category");
+//		Category c = control.ItemLogic.getInstance().getCategories().get(0);
+//		c.setSerialNumber(control.ItemLogic.getInstance().getCategoryID());
+//		c.setCategoryName(newText.getText());
+//		control.ItemLogic.getInstance().insertCategory(c);
+//		lable.setVisible(true);
+//		lable.setText("You added new category");
+		if (!newText.getText().isEmpty() || !newText.getText().equals("")) {
+			Category c = new Category (control.ItemLogic.getInstance().getCategoryID(),
+					newText.getText());
+			control.ItemLogic.getInstance().insertCategory(c);
+			lable.setVisible(true);
+			lable.setText("A new category has been added");
+			setCombo();
+		}
+		else {
+			lable.setVisible(true);
+			lable.setText("Invalid Category name");
+		}
 	}
 
 
 	@FXML
 	void updateCategoty(ActionEvent event) {
+//		if (categoriesCombo.getSelectionModel().getSelectedItem() != null) {
+//			Category ct = categoriesCombo.getSelectionModel().getSelectedItem();
+//			if (editText.getText()!=null || !editText.getText().equals("")) {
+//				ct.setCategoryName(editText.getText());
+//				control.ItemLogic.getInstance().updateCategory(ct);
+//				lable.setVisible(true);
+//				lable.setText("You edit the category");
+//			}
+//		}
+		//			}
+		//			else {
+		//			control.ItemLogic.getInstance().deleteCategory(ct);
+		//			lable.setVisible(true);
+		//			lable.setText("You delete the category");
+		//			}
+		//		}	
+		
 		if (categoriesCombo.getSelectionModel().getSelectedItem() != null) {
 			Category ct = categoriesCombo.getSelectionModel().getSelectedItem();
-			if (editText.getText()!=null || !editText.getText().equals("")) {
+			if (!editText.getText().isEmpty() || !editText.getText().equals("")) {
 				ct.setCategoryName(editText.getText());
 				control.ItemLogic.getInstance().updateCategory(ct);
 				lable.setVisible(true);
-				lable.setText("You edit the category");
+				lable.setText("Category has been edited");
+				setCombo();
+
 			}
-		}
-//			}
-//			else {
-//			control.ItemLogic.getInstance().deleteCategory(ct);
-//			lable.setVisible(true);
-//			lable.setText("You delete the category");
-//			}
-//		}		
+			else {
+				lable.setVisible(true);
+				lable.setText("Invalid Category name");
+			}
+		}else {
+			lable.setVisible(true);
+			lable.setText("Please choose a category to edit");
+		}		
 	}
 
 
@@ -145,35 +180,35 @@ public class CategoriesController {
 		ViewLogic.newViewRecommendationWindow();
 	}
 
-    @FXML
-    void generateTransReport(MouseEvent event) {
+	@FXML
+	void generateTransReport(MouseEvent event) {
 		//ViewLogic.newViewRecommendationWindow();
-//		if (LoginController.curretUser == null) {
-//			Alert alert = new Alert(AlertType.ERROR);
-//			alert.setTitle("User is null");
-//			alert.setContentText("Please select user");
-//			alert.initModality(Modality.APPLICATION_MODAL);
-//			alert.showAndWait();
-//		}else {
-			JFrame reportFrame = TransLogic.getInstance().produceTransStatusReport();
-			reportFrame.setVisible(true);
-//		}
-    }
+		//		if (LoginController.curretUser == null) {
+		//			Alert alert = new Alert(AlertType.ERROR);
+		//			alert.setTitle("User is null");
+		//			alert.setContentText("Please select user");
+		//			alert.initModality(Modality.APPLICATION_MODAL);
+		//			alert.showAndWait();
+		//		}else {
+		JFrame reportFrame = TransLogic.getInstance().produceTransStatusReport();
+		reportFrame.setVisible(true);
+		//		}
+	}
 
-    @FXML
-    void generateUsersReport(MouseEvent event) {
+	@FXML
+	void generateUsersReport(MouseEvent event) {
 		//ViewLogic.newViewRecommendationWindow();
-//		if (LoginController.curretUser == null) {
-//			Alert alert = new Alert(AlertType.ERROR);
-//			alert.setTitle("User is null");
-//			alert.setContentText("Please select user");
-//			alert.initModality(Modality.APPLICATION_MODAL);
-//			alert.showAndWait();
-//		}else {
-			JFrame reportFrame = UserLogic.getInstance().produceUsersReport();
-			reportFrame.setVisible(true);
-//		}
-    }
+		//		if (LoginController.curretUser == null) {
+		//			Alert alert = new Alert(AlertType.ERROR);
+		//			alert.setTitle("User is null");
+		//			alert.setContentText("Please select user");
+		//			alert.initModality(Modality.APPLICATION_MODAL);
+		//			alert.showAndWait();
+		//		}else {
+		JFrame reportFrame = UserLogic.getInstance().produceUsersReport();
+		reportFrame.setVisible(true);
+		//		}
+	}
 
 	@FXML
 	void logOut(MouseEvent event) {
@@ -198,7 +233,7 @@ public class CategoriesController {
 	void backhome(MouseEvent event) {
 		closeWindow();
 		ViewLogic.newEmployeeWindow();
-		
+
 	}
 
 	@FXML

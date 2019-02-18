@@ -51,6 +51,10 @@ public class EditRiddleController {
 
     @FXML
     private Button saveButton;
+    
+    @FXML
+    private Label errorLable;
+
 
 	public void initialize() {
 		
@@ -58,11 +62,13 @@ public class EditRiddleController {
 	timePicker.setEditable(false);
 	
 	riddleNumber.setText("Riddle Number " + String.valueOf(ManagementController.chosenRiddle.getRiddleNum()));
-	
+	if (ManagementController.chosenRiddle.getSolutionDate()!=null && 
+			ManagementController.chosenRiddle.getSolutionTime()!=null) {
 	LocalDate ld = ManagementController.chosenRiddle.getSolutionDate().toLocalDate();
 	datePicker.setValue(ld);
 	LocalTime tm = ManagementController.chosenRiddle.getSolutionTime().toLocalTime();
 	timePicker.setValue(tm);
+	}
 	
 	//fill combobox
 	ArrayList<RiddleLevel> rd = new ArrayList<RiddleLevel>();
@@ -73,6 +79,7 @@ public class EditRiddleController {
 			ObservableList<RiddleLevel> levels= FXCollections.observableArrayList(rd);
 	 	    levelsCombo.setItems(levels);
 	 	    
+	 	    if (ManagementController.chosenRiddle.getRiddleLevel() > 0)
 	//set the value
 	levelsCombo.setValue(control.RiddleLogic.getInstance().getRiddleLevels().get(ManagementController.chosenRiddle.getRiddleLevel()-1)); 	    
 	 	    
@@ -80,6 +87,19 @@ public class EditRiddleController {
 	
     @FXML
     void updateRiddle(ActionEvent event) {
+    	if (datePicker.getValue() == null) {
+    		errorLable.setText("Please select date");
+    		errorLable.setVisible(true);
+    	}
+    	if (timePicker.getValue() == null) {
+    		errorLable.setText("Please select time");
+    		errorLable.setVisible(true);
+    	}
+    	if (levelsCombo.getValue() == null) {
+    		errorLable.setText("Please select level");
+    		errorLable.setVisible(true);
+    	}
+    	else {
     	ManagementController.chosenRiddle.setSolutionDate(
     			Date.valueOf(datePicker.getValue()));
     	ManagementController.chosenRiddle.setSolutionTime(
@@ -89,6 +109,7 @@ public class EditRiddleController {
     	((Stage) ManagementController.bp.getScene().getWindow()).close();
     	ViewLogic.newManagementWindow();
     	closeWindow();
+    	}
     }
 
 	protected void closeWindow() {

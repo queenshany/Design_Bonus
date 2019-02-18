@@ -199,6 +199,9 @@ public class TransactionsController {
 	
     @FXML
     private Label alertConfrim;
+    
+    @FXML
+    private Label moneyAlert;
 
 	protected User user;
 

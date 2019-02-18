@@ -137,7 +137,8 @@ public class EmailScreenController {
 
     @FXML
     void showDetails(MouseEvent event) {
-    	textArea.setText(inbox.getSelectionModel().getSelectedItem().getDescription());
+    	Message m = inbox.getSelectionModel().getSelectedItem();
+    	textArea.setText(m.getDescription());
     	String pattern = "MM/dd/yyyy HH:mm:ss";
     	DateFormat df = new SimpleDateFormat(pattern);
     	dateArea.setText(df.format(inbox.getSelectionModel().getSelectedItem().getMessageDate()));

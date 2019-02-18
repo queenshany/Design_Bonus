@@ -231,6 +231,22 @@ public class ViewLogic {
 				false);
 	}
 
+	// ------------------------------ Mail Screen ------------------------------
+	/**
+	 * Open Email Window
+	 */
+	protected static void newEmailWindow() {
+		Stage stage = new Stage();
+//		setStage(stage);
+
+
+		newWindow(ViewLogic.class.getResource("EmailScreen.fxml"),
+				stage,
+				null, null,	null, null,	null, null,
+				false,
+				"Emails",
+				false);
+	}
 
 
 	// ------------------------------ Lotteries ------------------------------

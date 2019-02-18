@@ -196,6 +196,9 @@ public class TransactionsController {
 
 	@FXML
 	private ComboBox<Wallet> walletsCombo;
+	
+    @FXML
+    private Label alertConfrim;
 
 	protected User user;
 
@@ -369,6 +372,7 @@ public class TransactionsController {
 	@FXML
 	void NewConfirmTransaction(ActionEvent event) {
 		double fee = Double.parseDouble(feeText.getText());
+		if (tranConfirm!=null)
 		if (feeText.getText()!=null && Validation.isPositiveDouble(fee)
 				&&walletsCombo.getSelectionModel() != null) {
 			TransactionPay tc = tranConfirm;
@@ -382,6 +386,9 @@ public class TransactionsController {
 			confirm.setTransPayID(tc.getTransID());
 			control.TransLogic.getInstance().insertTransConfirm(confirm);
 		}
+		else 
+			alertConfrim.setVisible(true);
+			alertConfrim.setText("Please choose a transaction and a wallet");
 	}
 
 	@FXML
@@ -414,8 +421,12 @@ public class TransactionsController {
 		//				control.TransLogic.getInstance().insertTransPay(tp);
 
 		networkStatus.setText(control.SysData.getInstance().getMode().toString());
+<<<<<<< HEAD
+		
+=======
 
 
+>>>>>>> 3f3ac9a51a628ebc39e69aa98bf13c7871e04db1
 	}
 
 	@FXML

@@ -118,7 +118,7 @@
          <children>
             <AnchorPane layoutX="4.0" layoutY="3.0" prefHeight="200.0" prefWidth="175.0" style="-fx-background-color: #7eacf7;">
                <children>
-                  <Label fx:id="commisionLable" layoutX="9.0" layoutY="27.0" text="Commision" textFill="#2a21d0" />
+                  <Label fx:id="commisionLable" layoutX="9.0" layoutY="27.0" text="Commision Fee" textFill="#2a21d0" />
                   <Label fx:id="probabilityLable" layoutX="10.0" layoutY="85.0" text="Probability" textFill="#2a21d0" />
                   <TextField fx:id="commision" blendMode="MULTIPLY" layoutX="7.0" layoutY="47.0" />
                   <TextField fx:id="probability" blendMode="MULTIPLY" editable="false" layoutX="8.0" layoutY="105.0" />

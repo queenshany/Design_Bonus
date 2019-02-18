@@ -83,7 +83,8 @@ public class EmailController {
 
     @FXML
     void mailsScreen(MouseEvent event) {
-
+    	closeWindow();
+    	ViewLogic.newEmailWindow();
     }
 
     @FXML

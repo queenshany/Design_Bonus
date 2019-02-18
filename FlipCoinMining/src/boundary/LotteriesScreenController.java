@@ -137,7 +137,8 @@ public class LotteriesScreenController {
 
 	@FXML
 	void mailsScreen(MouseEvent event) {
-		//TODO
+		closeWindow();
+		ViewLogic.newEmailWindow();
 	}
 
 	@FXML

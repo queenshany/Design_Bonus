@@ -109,11 +109,6 @@ public class MainAdminScreenController {
 	}
 
 	@FXML
-	void mailsScreen(MouseEvent event) {
-		//TODO
-	}
-
-	@FXML
 	void manageScreen(MouseEvent event) {
 		closeWindow();
 		ViewLogic.newManagementWindow();

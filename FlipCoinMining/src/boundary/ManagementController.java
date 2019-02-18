@@ -345,7 +345,6 @@ public class ManagementController {
 
 	@FXML
 	void chosenMiner(MouseEvent event) {
-		//TODO
 		//no need
 	}
 

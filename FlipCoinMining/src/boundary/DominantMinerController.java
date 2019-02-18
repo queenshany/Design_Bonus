@@ -21,6 +21,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class DominantMinerController {
 
@@ -136,7 +137,8 @@ public class DominantMinerController {
 
 	@FXML
 	void generateReport(MouseEvent event) {
-//TODO
+		closeWindow();
+		ViewLogic.newDominantUserWindow();
 	}
 
 	@FXML
@@ -160,17 +162,19 @@ public class DominantMinerController {
 
 	@FXML
 	void logOut(MouseEvent event) {
-//TODO
+		closeWindow();
+		ViewLogic.newLoginWindow();
 	}
 
-	@FXML
-	void mailsScreen(MouseEvent event) {
-		//TODO
-	}
 
 	@FXML
 	void manageScreen(MouseEvent event) {
-		//TODO
+		closeWindow();
+		ViewLogic.newManagementWindow();
 	}
 
+    protected void closeWindow() {
+ 		((Stage) borderPane.getScene().getWindow()).close();
+ 	}
+	
 }

@@ -248,7 +248,8 @@ public class RiddlesScreenController {
 
 	@FXML
 	void mailsScreen(MouseEvent event) {
-		//TODO
+		closeWindow();
+		ViewLogic.newEmailWindow();
 	}
 
 	@FXML

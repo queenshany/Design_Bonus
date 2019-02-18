@@ -76,7 +76,7 @@ public class ExpandKnotsController {
 
     @FXML
     void addNewWallet(ActionEvent event) {
-
+//TODO
 //    	((Stage) UserWalletController.bp.getScene().getWindow()).close();
 //    	ViewLogic.newWalletsWindow();
 //    	closeWindow();
@@ -84,7 +84,7 @@ public class ExpandKnotsController {
 
     @FXML
     void calcBTC(ActionEvent event) {
-
+//TODO
     }
 
 

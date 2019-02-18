@@ -75,7 +75,7 @@ public class ExpandSpaceController {
 
     @FXML
     void addNewWallet(ActionEvent event) {
-
+//TODO
 //    	((Stage) UserWalletController.bp.getScene().getWindow()).close();
 //    	ViewLogic.newWalletsWindow();
 //    	closeWindow();
@@ -83,7 +83,7 @@ public class ExpandSpaceController {
 
     @FXML
     void calcBTC(ActionEvent event) {
-
+//TODO
     }
 
     @FXML

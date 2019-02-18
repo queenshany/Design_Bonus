@@ -143,7 +143,7 @@ public class RiddlesScreenController {
 		ArrayList<Riddle> rid = control.RiddleLogic.getInstance().getRiddles();
 		for(Riddle rr : rid)
 		{
-			if(rr.getStatus().equals(E_Status.Unsolved))
+			if(rr.getStatus().equals(E_Status.Unsolved) && rr.getSolutionDate() != null && rr.getSolutionTime() != null)
 				r.add(rr);
 		}
 		table.setItems(r);
@@ -179,8 +179,12 @@ public class RiddlesScreenController {
 					sol = Double.parseDouble(solutionText.getText());
 
 					if (control.RiddleLogic.getInstance().isSolvedCorrectly(sol, currentRiddle, LoginController.curretMiner)) {
-						sendButton.setDisable(true);
-						
+						//sendButton.setDisable(true);
+						getUnsolvedRiddles();
+						dateP.setValue(null);
+						timeP.setValue(null);
+						textField.clear();
+						solutionText.clear();
 						if (control.RiddleLogic.getInstance().isFirstSolved(currentRiddle, LoginController.curretMiner)) {
 							Alert alert = new Alert(AlertType.CONFIRMATION);
 							alert.setTitle("Congrats!");
@@ -189,6 +193,7 @@ public class RiddlesScreenController {
 									+ "You can view it under Block Management");
 							alert.initModality(Modality.APPLICATION_MODAL);
 							alert.showAndWait();
+							currentRiddle = null;
 						}
 						else {
 							Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -197,6 +202,7 @@ public class RiddlesScreenController {
 									+ "You didn't solve it first, but you were still right... :)");
 							alert.initModality(Modality.APPLICATION_MODAL);
 							alert.showAndWait();
+							currentRiddle = null;
 						}
 					}
 					else {

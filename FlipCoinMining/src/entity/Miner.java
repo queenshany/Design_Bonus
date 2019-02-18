@@ -80,8 +80,8 @@ public class Miner {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
+//		if (getClass() != obj.getClass())
+//			return false;
 		Miner other = (Miner) obj;
 		if (uniqueAddress == null) {
 			if (other.uniqueAddress != null)

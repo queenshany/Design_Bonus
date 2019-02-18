@@ -224,7 +224,7 @@ public class MinerLogic {
 	 * Updates Miner Company values
 	 * @param mc
 	 */
-	public void updateMiner(MinerCompany mc) {
+	public void updateMinerCompany(MinerCompany mc) {
 		try {
 			Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
 			try (Connection conn = DriverManager.getConnection(Consts.CONN_STR);

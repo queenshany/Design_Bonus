@@ -97,7 +97,13 @@ public class SettingsController {
     	phoneText.setDisable(false);
     	comboPhone.setDisable(false);
     	contactMailText.setDisable(false);
-        	
+        contactMailText.setText
+        (control.MinerLogic.getInstance().getMinerCompanyDetails(LoginController.curretMiner).getContactEmail());
+        lastText.setText
+        (control.MinerLogic.getInstance().getMinerCompanyDetails(LoginController.curretMiner).getContactLastName());
+        firstText.setText
+        (control.MinerLogic.getInstance().getMinerCompanyDetails(LoginController.curretMiner).getContactFirstName());
+    	
     	}
     	
     }

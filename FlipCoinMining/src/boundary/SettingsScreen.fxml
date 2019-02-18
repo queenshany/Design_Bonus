@@ -81,11 +81,11 @@
             <Button fx:id="updateButton" layoutX="223.0" layoutY="193.0" mnemonicParsing="false" onAction="#updateMiner" text="Update" />
             <TextField fx:id="nameText" layoutX="46.0" layoutY="32.0" />
             <TextField fx:id="firstText" disable="true" layoutX="49.0" layoutY="94.0" />
-            <TextField fx:id="phoneText" disable="true" layoutX="98.0" layoutY="158.0" prefHeight="25.0" prefWidth="98.0" />
+            <TextField fx:id="phoneText" disable="true" layoutX="114.0" layoutY="158.0" prefHeight="25.0" prefWidth="84.0" />
             <TextField fx:id="emailText" layoutX="304.0" layoutY="38.0" />
             <TextField fx:id="lastText" disable="true" layoutX="302.0" layoutY="102.0" />
             <TextField fx:id="contactMailText" disable="true" layoutX="302.0" layoutY="157.0" />
-            <ComboBox fx:id="comboPhone" disable="true" layoutX="49.0" layoutY="158.0" prefHeight="25.0" prefWidth="45.0" />
+            <ComboBox fx:id="comboPhone" disable="true" layoutX="49.0" layoutY="158.0" prefHeight="25.0" prefWidth="65.0" />
             <Label fx:id="errorMinerName" layoutX="46.0" layoutY="55.0" text="Label" textFill="#ef1d1d" visible="false" />
             <Label fx:id="errorContactFirst" layoutX="48.0" layoutY="119.0" text="Label" textFill="#ef1d1d" visible="false" />
             <Label fx:id="errorPhone" layoutX="48.0" layoutY="185.0" text="Label" textFill="#ef1d1d" visible="false" />

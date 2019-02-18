@@ -121,7 +121,7 @@
                   <Label fx:id="commisionLable" layoutX="9.0" layoutY="27.0" text="Commision" textFill="#2a21d0" />
                   <Label fx:id="probabilityLable" layoutX="10.0" layoutY="85.0" text="Probability" textFill="#2a21d0" />
                   <TextField fx:id="commision" blendMode="MULTIPLY" layoutX="7.0" layoutY="47.0" />
-                  <TextField fx:id="probability" blendMode="MULTIPLY" layoutX="8.0" layoutY="105.0" />
+                  <TextField fx:id="probability" blendMode="MULTIPLY" editable="false" layoutX="8.0" layoutY="105.0" />
                   <Button fx:id="newButton" layoutX="62.0" layoutY="151.0" mnemonicParsing="false" onAction="#newMethod" text="NEW" />
                   <Button fx:id="saveButton" layoutX="62.0" layoutY="151.0" mnemonicParsing="false" onAction="#saveMethod" text="SAVE" />
                </children>

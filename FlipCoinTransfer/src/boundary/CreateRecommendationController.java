@@ -121,12 +121,12 @@ public class CreateRecommendationController {
 		ArrayList<User> NameUser = new ArrayList<User>();
 		NameUser= control.UserLogic.getInstance().getUsers();
     	 
- 			 usernameCombo.getItems().addAll(NameUser);
+ 			 usernameCombo.getItems().setAll(NameUser);
  		   
  			ObservableList<User> us= FXCollections.observableArrayList(NameUser);
  	 	    usernameCombo.setItems(us);	
  	 	    
- 	 	    levelCombo.getItems().addAll(E_Level.values());
+ 	 	    levelCombo.getItems().setAll(E_Level.values());
 		   
 			ObservableList<E_Level> lev= FXCollections.observableArrayList(E_Level.values());
 	 	    levelCombo.setItems(lev);	

@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane fx:id="pane" prefHeight="207.0" prefWidth="302.0" style="-fx-background-color: #eaf0f9;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="boundary.EditRecController">
+<AnchorPane fx:id="pane" prefHeight="207.0" prefWidth="302.0" style="-fx-background-color: #eaf0f9;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.EditRecController">
    <children>
       <Label fx:id="l1" layoutX="10.0" layoutY="52.0" text="Recommendation Number" />
       <Label fx:id="l11" layoutX="53.0" layoutY="111.0" text="Probability" />
@@ -21,17 +20,13 @@
       </Label>
       <TextField fx:id="recNumText" editable="false" layoutX="26.0" layoutY="69.0" prefHeight="25.0" prefWidth="110.0" />
       <TextField fx:id="dateText" editable="false" layoutX="168.0" layoutY="69.0" prefHeight="25.0" prefWidth="110.0" />
-      <TextField fx:id="probText" layoutX="27.0" layoutY="130.0" prefHeight="25.0" prefWidth="110.0" />
+      <TextField fx:id="probText" editable="false" layoutX="27.0" layoutY="130.0" prefHeight="25.0" prefWidth="110.0" />
       <TextField fx:id="feeText" layoutX="170.0" layoutY="130.0" prefHeight="25.0" prefWidth="110.0" />
-      <Button fx:id="saveButton" layoutX="54.0" layoutY="168.0" mnemonicParsing="false" onAction="#saveRec" text="   Save   ">
+      <Button fx:id="saveButton" layoutX="216.0" layoutY="168.0" mnemonicParsing="false" onAction="#saveRec" text="   Save   ">
          <effect>
             <InnerShadow color="#3c8ee5" />
          </effect>
       </Button>
-      <Button fx:id="removeButton" layoutX="194.0" layoutY="169.0" mnemonicParsing="false" onAction="#removeRec" text="Remove">
-         <effect>
-            <InnerShadow color="#3c8ee5" />
-         </effect>
-      </Button>
+      <Label fx:id="alertLabel" layoutX="27.0" layoutY="172.0" textFill="RED" />
    </children>
 </AnchorPane>

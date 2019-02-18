@@ -13,74 +13,72 @@ import javafx.stage.Stage;
 
 public class EditRecController {
 
-    @FXML
-    private AnchorPane pane;
+	@FXML
+	private AnchorPane pane;
 
-    @FXML
-    private Label l1;
+	@FXML
+	private Label l1;
 
-    @FXML
-    private Label l11;
+	@FXML
+	private Label l11;
 
-    @FXML
-    private Label l12;
+	@FXML
+	private Label l12;
 
-    @FXML
-    private Label l13;
+	@FXML
+	private Label l13;
 
-    @FXML
-    private Label title;
+	@FXML
+	private Label title;
 
-    @FXML
-    private TextField recNumText;
+	@FXML
+	private TextField recNumText;
 
-    @FXML
-    private TextField dateText;
+	@FXML
+	private TextField dateText;
 
-    @FXML
-    private TextField probText;
+	@FXML
+	private TextField probText;
 
-    @FXML
-    private TextField feeText;
+	@FXML
+	private TextField feeText;
 
-    @FXML
-    private Button saveButton;
+	@FXML
+	private Button saveButton;
 
-    @FXML
-    private Button removeButton;
-    
-    public void initialize() {
-    	String pattern = "MM/dd/yyyy HH:mm:ss";
-    	DateFormat df = new SimpleDateFormat(pattern);
-    	recNumText.setText(String.valueOf(RecommendationsController.currentRec.getRecNum()));
-    	dateText.setText(df.format(RecommendationsController.currentRec.getCreationDate()));
-    	probText.setText(String.valueOf(RecommendationsController.currentRec.getProbability()));
-    	feeText.setText(String.valueOf(RecommendationsController.currentRec.getRecommendedFee()));
-    }
-    
+	@FXML
+	private Label alertLabel;
 
-    @FXML
-    void removeRec(ActionEvent event) {
-    	control.RecLogic.getInstance().deleteRecommendation(RecommendationsController.currentRec);
-    	((Stage) RecommendationsController.bp.getScene().getWindow()).close();
-    	ViewLogic.newViewRecommendationWindow();
-    	closeWindow();
-    }
+	public void initialize() {
+		String pattern = "MM/dd/yyyy HH:mm:ss";
+		DateFormat df = new SimpleDateFormat(pattern);
+		recNumText.setText(String.valueOf(RecommendationsController.currentRec.getRecNum()));
+		dateText.setText(df.format(RecommendationsController.currentRec.getCreationDate()));
+		probText.setText(String.valueOf(RecommendationsController.currentRec.getProbability()));
+		feeText.setText(String.valueOf(RecommendationsController.currentRec.getRecommendedFee()));
+	}
 
-    @FXML
-    void saveRec(ActionEvent event) {
-    	//If I set the values - it is not enough?
-    	double p = Double.parseDouble(probText.getText());
-    	RecommendationsController.currentRec.setProbability(p);
-    	double f = Double.parseDouble(feeText.getText());
-    	RecommendationsController.currentRec.setRecommendedFee(f);
-    	
-    	control.RecLogic.getInstance().updateRecommendation(RecommendationsController.currentRec);
-    	
-    	((Stage) RecommendationsController.bp.getScene().getWindow()).close();
-    	ViewLogic.newViewRecommendationWindow();
-    	closeWindow();
-    }
+
+	@FXML
+	void saveRec(ActionEvent event) {
+		double f = 0.0;
+		try {
+			f = Double.parseDouble(feeText.getText());
+			if ( f <= 0) {
+				alertLabel.setText("Fee must be a positive number.");
+			}
+			else {
+				RecommendationsController.currentRec.setRecommendedFee(f);
+				control.RecLogic.getInstance().updateRecommendation(RecommendationsController.currentRec);
+				((Stage) RecommendationsController.bp.getScene().getWindow()).close();
+				ViewLogic.newViewRecommendationWindow();
+				closeWindow();
+			}
+		}catch (NumberFormatException e) {
+			alertLabel.setText("Fee must be a number.");
+		}
+
+	}
 
 	protected void closeWindow() {
 		((Stage) pane.getScene().getWindow()).close();

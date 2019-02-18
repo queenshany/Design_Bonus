@@ -95,15 +95,30 @@ public class EditLotteryController {
 
     @FXML
     void updateLottery(ActionEvent event) {
-    	if (Integer.parseInt(maxPasText.getText()) >0 &&
-    			Integer.parseInt(winnersText.getText()) > 0 &&
-    			Integer.parseInt(bonusesText.getText()) > 0){
+//    	if (Integer.parseInt(maxPasText.getText()) >0 &&
+//    			Integer.parseInt(winnersText.getText()) > 0 &&
+//    			Integer.parseInt(bonusesText.getText()) > 0){
 			try {
 				int max = Integer.parseInt(maxPasText.getText());
+				if (max <= 0) {
+					maxlable.setText("invalid input");
+					maxlable.setVisible(true);
+				}
+				else {
 				try{
 					int win = Integer.parseInt(winnersText.getText());
+					if (win <= 0) {
+						winlable.setText("invalid input");
+						winlable.setVisible(true);
+					}
+					else {
 					try {
 						int bon = Integer.parseInt(bonusesText.getText());
+						if (bon <= 0) {
+							bonlable.setText("invalid input");
+							bonlable.setVisible(true);
+						}
+						else {
 
 					Lottery lot = new Lottery(ManagementController.chosenLottery.getLotteryNum(),
 							Date.valueOf(datePicker.getValue()),
@@ -122,21 +137,23 @@ public class EditLotteryController {
 					((Stage) ManagementController.bp.getScene().getWindow()).close();
 			    	ViewLogic.newManagementWindow();
 			    	closeWindow();
-
+						}
 				}catch(NumberFormatException e) {
 					bonlable.setText("Invalid Value");
 					bonlable.setVisible(true);
 				}
+					}
 			}catch( NumberFormatException e) {
 				winlable.setText("Invalid Value");
 				winlable.setVisible(true);
 			}
+				}
 			}catch( NumberFormatException e) {
 				maxlable.setText("Invalid Value");
 				maxlable.setVisible(true);
 			}
-    	}
-    }
+			}
+//    }
 
 	protected void closeWindow() {
 		((Stage) pane.getScene().getWindow()).close();

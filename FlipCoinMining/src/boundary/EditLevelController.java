@@ -65,22 +65,32 @@ public class EditLevelController {
     
     @FXML
     void resetLable(ActionEvent event) {
-    	errorM.setVisible(false);
+    	errorLable.setVisible(false);
     }
 
     @FXML
     void updateLevel(ActionEvent event) {
-    	if (Integer.parseInt(diffText.getText()) <= 0 &&
-    			Integer.parseInt(blockSizeText.getText()) <= 0) {
-    		errorM.setText("Please enter positive values");
-    		errorM.setVisible(true);
-    	}
-       	if (Integer.parseInt(diffText.getText()) >0 &&
-    			Integer.parseInt(blockSizeText.getText()) > 0){
+//    	if (Integer.parseInt(diffText.getText()) <= 0 &&
+//    			Integer.parseInt(blockSizeText.getText()) <= 0) {
+//    		errorLable.setText("Please enter positive values");
+//    		errorLable.setVisible(true);
+//    	}
+//       	if (Integer.parseInt(diffText.getText()) >0 &&
+//    			Integer.parseInt(blockSizeText.getText()) > 0){
 			try {
 				int diff = Integer.parseInt(diffText.getText());
+				if (diff <= 0) {
+					errorLable.setText("Please enter positive values");
+					errorLable.setVisible(true);
+				}
+				else {
 				try{
 					int block = Integer.parseInt(blockSizeText.getText());
+					if (block <= 0) {
+						errorLable.setText("Please enter positive values");
+						errorLable.setVisible(true);
+					}
+					else {
 
 					ManagementController.chosenLevel.setBlockSize(block);
 					ManagementController.chosenLevel.setDifficultyLevel(diff);
@@ -96,15 +106,20 @@ public class EditLevelController {
 					((Stage) ManagementController.bp.getScene().getWindow()).close();
 			    	ViewLogic.newManagementWindow();
 			    	closeWindow();
-
+					}
+				
+				
 				}catch(NumberFormatException e) {
-					errorM.setVisible(true);
+					errorLable.setText("Please enter positive values");
+					errorLable.setVisible(true);
+				}
 				}
 			}catch( NumberFormatException e) {
-				errorM.setVisible(true);
+				errorLable.setText("Please enter positive values");
+				errorLable.setVisible(true);
 			}
     	}
-    }
+//    }
     
 	protected void closeWindow() {
 		((Stage) pane.getScene().getWindow()).close();

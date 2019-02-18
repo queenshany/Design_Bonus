@@ -203,6 +203,7 @@
                               <Button fx:id="unButton" layoutX="333.0" layoutY="168.0" mnemonicParsing="false" onAction="#unconfirmed" text="Unconfirmed" />
                               <Label fx:id="errorMassage" layoutX="153.0" layoutY="144.0" text="Please enter valid value" textFill="#eb2525" visible="false" />
                               <ComboBox fx:id="walletsCombo" layoutY="168.0" prefHeight="25.0" prefWidth="85.0" promptText="Wallet" />
+                              <Label fx:id="alertConfrim" layoutX="187.0" layoutY="173.0" text="Please choose a transaction" textFill="#f24949" visible="false" />
                            </children>
                         </AnchorPane>
                   </content>

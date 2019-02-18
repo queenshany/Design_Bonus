@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Transactions>
-  <Transaction ID="2" Size="15" Type="Pay" Fee="5.0" Status="Executed" ExecutaionDate="2019-02-12" />
-  <Transaction ID="5" Size="15" Type="Confirm" Fee="5.0" Status="Executed" ExecutaionDate="2019-02-12" />
+  <Transaction ID="2" Size="15" Type="Pay" Fee="5.0" Status="Executed" ExecutaionDate="2019-02-18" />
+  <Transaction ID="3" Size="5" Type="Pay" Fee="15.0" Status="Executed" ExecutaionDate="2019-02-18" />
+  <Transaction ID="5" Size="15" Type="Confirm" Fee="5.0" Status="Executed" ExecutaionDate="2019-02-18" />
+  <Transaction ID="6" Size="5" Type="Confirm" Fee="15.0" Status="Executed" ExecutaionDate="2019-02-18" />
 </Transactions>

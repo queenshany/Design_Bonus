@@ -279,7 +279,7 @@ public class ManagementController {
 		lotteriesTable.setItems(lott);
 	}
 
-	private void setRiddleTable(){
+	protected void setRiddleTable(){
 		ArrayList<Riddle> r = control.RiddleLogic.getInstance().getRiddles();
 		ObservableList<Riddle> riddle= FXCollections.observableArrayList(r);
 		riddleTable.setItems(riddle);

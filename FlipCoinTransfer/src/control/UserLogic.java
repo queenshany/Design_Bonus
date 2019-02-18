@@ -325,6 +325,18 @@ public class UserLogic {
 			&& m.getUserSignature().equalsIgnoreCase(user.getSignature())) {
 				messages.add(m);	
 			}
+		messages.sort(new Comparator<Message>() {
+
+			@Override
+			public int compare(Message m1, Message m2) {
+				if (m1.getMessageDate().after(m2.getMessageDate()))
+					return -1;
+				else if (m1.getMessageDate().before(m2.getMessageDate()))
+					return 1;
+				else
+					return m2.getMessageTime().compareTo(m1.getMessageTime());
+			}
+		});
 		return messages;		
 	}
 	

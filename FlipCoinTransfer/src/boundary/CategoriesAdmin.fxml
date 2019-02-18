@@ -143,7 +143,6 @@
                   </Label>
                </children>
             </VBox>
-            <Button fx:id="removeButton" layoutX="191.0" layoutY="36.0" mnemonicParsing="false" onAction="#removeCat" text="Remove" />
          </children>
       </AnchorPane>
    </center>

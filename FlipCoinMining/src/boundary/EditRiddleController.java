@@ -49,6 +49,7 @@ public class EditRiddleController {
 	@FXML
 	private JFXTimePicker timePicker;
 
+<<<<<<< HEAD
 	@FXML
 	private Button saveButton;
 
@@ -93,6 +94,70 @@ public class EditRiddleController {
 		ViewLogic.newManagementWindow();
 		closeWindow();
 	}
+=======
+    @FXML
+    private Button saveButton;
+    
+    @FXML
+    private Label errorLable;
+
+
+	public void initialize() {
+		
+	datePicker.setEditable(false);
+	timePicker.setEditable(false);
+	
+	riddleNumber.setText("Riddle Number " + String.valueOf(ManagementController.chosenRiddle.getRiddleNum()));
+	if (ManagementController.chosenRiddle.getSolutionDate()!=null && 
+			ManagementController.chosenRiddle.getSolutionTime()!=null) {
+	LocalDate ld = ManagementController.chosenRiddle.getSolutionDate().toLocalDate();
+	datePicker.setValue(ld);
+	LocalTime tm = ManagementController.chosenRiddle.getSolutionTime().toLocalTime();
+	timePicker.setValue(tm);
+	}
+	
+	//fill combobox
+	ArrayList<RiddleLevel> rd = new ArrayList<RiddleLevel>();
+	rd = control.RiddleLogic.getInstance().getRiddleLevels();
+	 
+			 levelsCombo.getItems().addAll(rd);
+		   
+			ObservableList<RiddleLevel> levels= FXCollections.observableArrayList(rd);
+	 	    levelsCombo.setItems(levels);
+	 	    
+	 	    if (ManagementController.chosenRiddle.getRiddleLevel() > 0)
+	//set the value
+	levelsCombo.setValue(control.RiddleLogic.getInstance().getRiddleLevels().get(ManagementController.chosenRiddle.getRiddleLevel()-1)); 	    
+	 	    
+	}
+	
+    @FXML
+    void updateRiddle(ActionEvent event) {
+    	if (datePicker.getValue() == null) {
+    		errorLable.setText("Please select date");
+    		errorLable.setVisible(true);
+    	}
+    	if (timePicker.getValue() == null) {
+    		errorLable.setText("Please select time");
+    		errorLable.setVisible(true);
+    	}
+    	if (levelsCombo.getValue() == null) {
+    		errorLable.setText("Please select level");
+    		errorLable.setVisible(true);
+    	}
+    	else {
+    	ManagementController.chosenRiddle.setSolutionDate(
+    			Date.valueOf(datePicker.getValue()));
+    	ManagementController.chosenRiddle.setSolutionTime(
+    			Time.valueOf(timePicker.getValue()));
+    	ManagementController.chosenRiddle.setRiddleLevel(levelsCombo.getValue().getLevelCode());
+    	control.RiddleLogic.getInstance().updateRiddle(ManagementController.chosenRiddle);
+    	((Stage) ManagementController.bp.getScene().getWindow()).close();
+    	ViewLogic.newManagementWindow();
+    	closeWindow();
+    	}
+    }
+>>>>>>> 073f3426a5e3ad032bfff9d0e2a0c51c6867aa5a
 
 	protected void closeWindow() {
 		((Stage) pane.getScene().getWindow()).close();

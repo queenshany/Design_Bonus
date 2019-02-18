@@ -27,5 +27,6 @@
       <JFXDatePicker fx:id="datePicker" defaultColor="#3a5cd6" layoutX="96.0" layoutY="71.0" />
       <JFXTimePicker fx:id="timePicker" defaultColor="#3a5cd6" layoutX="99.0" layoutY="111.0" />
       <Button fx:id="saveButton" blendMode="MULTIPLY" layoutX="121.0" layoutY="210.0" mnemonicParsing="false" onAction="#updateRiddle" text=" Save " />
+      <Label fx:id="errorLable" layoutX="84.0" layoutY="188.0" text="Please select" textFill="#d23232" visible="false" />
    </children>
 </AnchorPane>

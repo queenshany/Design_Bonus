@@ -292,8 +292,9 @@ public class ManagementController {
 
 	@FXML
 	void addLotteries(ActionEvent event) {
-		//TODO
+		ViewLogic.newAddLotteryWindow();
 	}
+	
 	@FXML
 	void addRiddle(ActionEvent event) {
 		if (Communication.importRiddlesFromXML()) {

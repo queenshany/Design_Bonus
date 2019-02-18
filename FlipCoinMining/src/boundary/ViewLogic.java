@@ -265,7 +265,40 @@ public class ViewLogic {
 					false);
 		}
 		
+		// ------------------------------ Add Bonus ------------------------------
+		/**
+		 * Open Add Bonus Window
+		 */
+		protected static void newAddBonusWindow() {
+			Stage stage = new Stage();
+//			setStage(stage);
 
+
+			newWindow(ViewLogic.class.getResource("AddBonusScreen.fxml"),
+					stage,
+					null, null,	null, null,	null, null,
+					false,
+					"Add Bonus",
+					false);
+		}
+
+		// ------------------------------ Add Lottery ------------------------------
+		/**
+		 * Open Add Lottery Window
+		 */
+		protected static void newAddLotteryWindow() {
+			Stage stage = new Stage();
+//			setStage(stage);
+
+
+			newWindow(ViewLogic.class.getResource("AddLottery.fxml"),
+					stage,
+					null, null,	null, null,	null, null,
+					false,
+					"Add Lottery",
+					false);
+		}
+		
 	// ------------------------------ Dominant Miner Report ------------------------------
 	/**
 	 * Open Dominant Miner Report Window

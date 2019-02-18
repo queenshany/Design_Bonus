@@ -207,7 +207,7 @@ public class ManagementController {
 	protected static Bonus chosenBonus;
 	protected static RiddleLevel chosenLevel;
 	protected static Lottery chosenLottery;
-
+	protected static BorderPane bp;
 	
 	private static boolean isImported = true;
 
@@ -215,6 +215,8 @@ public class ManagementController {
 		if(!isImported)
 			addR.setDisable(true);
 
+		bp=borderPane;
+		
 		//Miners Table
 		uniqueAddress.setCellValueFactory(new PropertyValueFactory<>("uniqueAddress"));
 		MinerName.setCellValueFactory(new PropertyValueFactory<>("minerName"));

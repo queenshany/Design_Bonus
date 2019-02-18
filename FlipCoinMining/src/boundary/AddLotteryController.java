@@ -127,7 +127,7 @@ public class AddLotteryController {
 									control.LotteryLogic.getInstance().insertLottery(lot);
 
 									Alert alert = new Alert(AlertType.CONFIRMATION);
-									alert.setTitle("Item Added Successfully!");
+									alert.setTitle("Lottery Added Successfully!");
 									alert.setContentText(lot + " was added successfully!");
 									alert.initModality(Modality.APPLICATION_MODAL);
 									alert.showAndWait();

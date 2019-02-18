@@ -287,7 +287,7 @@ public class ManagementController {
 	}
 	@FXML
 	void addBonus(ActionEvent event) {
-		//TODO
+		ViewLogic.newAddBonusWindow();
 	}
 
 	@FXML

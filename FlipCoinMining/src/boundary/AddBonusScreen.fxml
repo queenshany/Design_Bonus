@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
-	<!-- TODO Add Nodes -->
+<AnchorPane fx:id="pane" prefHeight="249.0" prefWidth="289.0" style="-fx-background-color: #cadbf7;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.AddBonusController">
+   <children>
+      <Label fx:id="title" layoutX="14.0" layoutY="26.0" text="Add Bonus">
+         <font>
+            <Font name="System Bold Italic" size="16.0" />
+         </font>
+      </Label>
+      <Button fx:id="saveButton" blendMode="MULTIPLY" layoutX="121.0" layoutY="210.0" mnemonicParsing="false" onAction="#updateBonus" text=" Save " />
+      <TextArea fx:id="desc" blendMode="SRC_ATOP" layoutX="45.0" layoutY="62.0" onKeyPressed="#resetLable" prefHeight="122.0" prefWidth="200.0" />
+      <Label fx:id="errorLable" layoutX="85.0" layoutY="188.0" text="Please enter description" textFill="#e93232" visible="false" />
+   </children>
 </AnchorPane>
-

@@ -1,29 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TransactionPairReport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="70c125f5-d57e-4cbf-97f0-129ee43f4f13">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Users Report" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="70c125f5-d57e-4cbf-97f0-129ee43f4f13">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UCA"/>
-	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="194"/>
-	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="800"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UCATransfer"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="114"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="881"/>
 	<parameter name="date" class="java.sql.Date" isForPrompting="false"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT tblUser.publicAddress,
-tblUser.signature,
-tblUser.username,
-COUNT(T.transID) AS transAmount,
-AVG(T.fee) AS averageFee,
-(Select count(*) From tblTransPay Where tblTransPay.status="Executed" OR tblTransPay.status="Closed" AND tblUser.publicAddress=tblTransPay.creatingAddress AND tblUser.signature=tblTransPay.creatingSignature)+(Select count(*) From tblTransConfirm Where tblTransConfirm.status="Executed" OR tblTransConfirm.status="Closed" AND tblUser.publicAddress=tblTransConfirm.creatingAddress AND tblUser.signature=tblTransConfirm.creatingSignature)*100/COUNT(T.transID) AS executedPercent
+		<![CDATA[SELECT tblUser.publicAddress, tblUser.signature, tblUser.username, COUNT(T.transID) AS transAmount, AVG(T.fee) AS averageFee, 
+IIF(ISNULL((Select 
+	count(tblTransPay.transID) From 
+	tblTransPay	
+	 Where tblTransPay.status="Executed" or tblTransPay.status="Closed" AND 	 tblUser.publicAddress=tblTransPay.creatingAddress 	  AND  tblUser.signature=tblTransPay.creatingSignature
+)+(Select count(tblTransConfirm.transID) 
+	From tblTransConfirm
+	 Where tblTransConfirm.status="Executed" OR tblTransConfirm.status="Closed" AND
+	  tblUser.publicAddress=tblTransConfirm.creatingAddress AND 
+	  tblUser.signature=tblTransConfirm.creatingSignature)*100/COUNT(T.transID)), 
+	0,
+	(Select count(*) From tblTransPay Where tblTransPay.status="Executed" or tblTransPay.status="Closed" AND tblUser.publicAddress=tblTransPay.creatingAddress AND tblUser.signature=tblTransPay.creatingSignature)+(Select count(*) From tblTransConfirm Where tblTransConfirm.status="Executed" OR tblTransConfirm.status="Closed" AND tblUser.publicAddress=tblTransConfirm.creatingAddress AND tblUser.signature=tblTransConfirm.creatingSignature)
+*100)/COUNT(T.transID)
+ AS executedPercent
 FROM tblUser, 
 (Select  transID, creationDate, fee, status, creatingAddress, creatingSignature
 from (SELECT transID, creationDate, fee, status, creatingAddress, creatingSignature
-FROM tblTransPay
+FROM tblTransPay)
 
 UNION ALL SELECT transID, creationDate, fee, status, creatingAddress, creatingSignature
 FROM tblTransConfirm
-ORDER BY creationDate))  AS T
-WHERE T.creationDate=  $P{date}  AND tblUser.publicAddress=T.creatingAddress AND tblUser.signature=T.creatingSignature
+ORDER BY creationDate)  AS T
+WHERE T.creationDate= $P{date}  AND tblUser.publicAddress=T.creatingAddress AND tblUser.signature=T.creatingSignature
 GROUP BY tblUser.publicAddress, tblUser.signature, T.creationDate, tblUser.username
-ORDER BY executedPercent DESC]]>
+ORDER BY AVG(fee)
+]]>
 	</queryString>
 	<field name="publicAddress" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="publicAddress"/>
@@ -43,7 +52,7 @@ ORDER BY executedPercent DESC]]>
 	<field name="averageFee" class="java.lang.Double">
 		<property name="com.jaspersoft.studio.field.label" value="averageFee"/>
 	</field>
-	<field name="EXECUTEDPERCENT" class="java.math.BigDecimal">
+	<field name="EXECUTEDPERCENT" class="java.lang.Double">
 		<property name="com.jaspersoft.studio.field.label" value="EXECUTEDPERCENT"/>
 	</field>
 	<background>

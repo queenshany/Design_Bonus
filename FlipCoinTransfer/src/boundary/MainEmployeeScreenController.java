@@ -1,10 +1,14 @@
 package boundary;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 import javax.swing.JFrame;
 
 import control.RecLogic;
 import control.TransLogic;
 import control.UserLogic;
+import entity.Transaction;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -91,8 +95,11 @@ public class MainEmployeeScreenController {
 
     @FXML
     void generateUsersReport(MouseEvent event) {
-		//ViewLogic.newViewRecommendationWindow();
-//		if (LoginController.curretUser == null) {
+    	int counter = 0;
+//for (Transaction t : TransLogic.getInstance().getAllTrans() ) {
+//	if (t.getCreationDate().equals(Date.valueOf(LocalDate.)))
+//}
+//if (TransLogic.getInstance().getAllTrans() == null) {
 //			Alert alert = new Alert(AlertType.ERROR);
 //			alert.setTitle("User is null");
 //			alert.setContentText("Please select user");

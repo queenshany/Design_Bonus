@@ -10,8 +10,7 @@
 FROM TblMiner AS a INNER JOIN TblBlock AS b ON a.uniqueAddress = b.minerAddress
 WHERE (((b.creationDate) Between  $P{startDate}  And  $P{endDate} ))
 GROUP BY a.minerName, a.uniqueAddress
-ORDER BY count(b.blockAddress)/sum(b.size) DESC;
-]]>
+ORDER BY count(b.blockAddress)/sum(b.size) DESC;]]>
 	</queryString>
 	<field name="minerName" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="minerName"/>

@@ -211,12 +211,14 @@ public class CreateRecommendationController {
 	void newMethod(ActionEvent event) {
 		commision.setDisable(false);
 		probability.setDisable(false);
-		commision.setText(null);
-		probability.setText(null);
+		commision.setText("");
 		newButton.setVisible(false);
 		saveButton.setVisible(true);
 		usernameCombo.setDisable(true);
 		levelCombo.setDisable(true);
+		Date date= Date.valueOf(LocalDate.now());	
+		probability.setText(String.valueOf(control.RecLogic.getInstance().calcProbability(date)));
+		sendButton.setDisable(true);
 	}
 
 	@FXML

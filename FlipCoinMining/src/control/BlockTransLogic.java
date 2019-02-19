@@ -465,7 +465,7 @@ public class BlockTransLogic {
 						getClass().getResourceAsStream("/boundary/TransactionPairReport.jasper"),
 						params, conn);
 
-				JFrame frame = new JFrame("Transaction Status Report");
+				JFrame frame = new JFrame("Transaction Pairs Report");
 				frame.getContentPane().add(new JRViewer(print));
 				frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 				frame.pack();

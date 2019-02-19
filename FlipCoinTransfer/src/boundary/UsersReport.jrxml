@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TransactionPairReport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="70c125f5-d57e-4cbf-97f0-129ee43f4f13">
-	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.tables">
+		<![CDATA[YHRibFVzZXJgICwxNSwxNSxmNTczZWI5Yi1hYzNhLTQ5MzQtOTk2NC1kMzMzMDY2OGRmZDY7YHRi
+bFRyYW5zUGF5YCAsMjE0LDY2LDU2NTUxMWRmLTBlZTktNDFmOS04ZGUwLWE5ZDBlNzEwNmQ1Njs=
+]]>
+	</property>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UCA"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="194"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="800"/>
@@ -12,7 +16,16 @@ tblUser.signature,
 tblUser.username,
 COUNT(T.transID) AS transAmount,
 AVG(T.fee) AS averageFee,
-(Select count(*) From tblTransPay Where tblTransPay.status="Executed" OR tblTransPay.status="Closed" AND tblUser.publicAddress=tblTransPay.creatingAddress AND tblUser.signature=tblTransPay.creatingSignature)+(Select count(*) From tblTransConfirm Where tblTransConfirm.status="Executed" OR tblTransConfirm.status="Closed" AND tblUser.publicAddress=tblTransConfirm.creatingAddress AND tblUser.signature=tblTransConfirm.creatingSignature)*100/COUNT(T.transID) AS executedPercent
+IIF(ISNULL((select count(*)
+	 From tblTransPay
+	Where tblTransPay.status="Executed" OR tblTransPay.status="Closed" AND tblUser.publicAddress=tblTransPay.creatingAddress AND tblUser.signature=tblTransPay.creatingSignature) + 
+	
+	(Select count(*)
+	From tblTransConfirm 
+	Where tblTransConfirm.status="Executed" OR tblTransConfirm.status="Closed" AND tblUser.publicAddress=tblTransConfirm.creatingAddress AND tblUser.signature=tblTransConfirm.creatingSignature
+))*100/COUNT(T.transID),
+0,
+(Select count(*) From tblTransPay Where tblTransPay.status="Executed" OR tblTransPay.status="Closed" AND tblUser.publicAddress=tblTransPay.creatingAddress AND tblUser.signature=tblTransPay.creatingSignature)+(Select count(*) From tblTransConfirm Where tblTransConfirm.status="Executed" OR tblTransConfirm.status="Closed" AND tblUser.publicAddress=tblTransConfirm.creatingAddress AND tblUser.signature=tblTransConfirm.creatingSignature)*100/COUNT(T.transID)) AS executedPercent
 FROM tblUser, 
 (Select  transID, creationDate, fee, status, creatingAddress, creatingSignature
 from (SELECT transID, creationDate, fee, status, creatingAddress, creatingSignature
